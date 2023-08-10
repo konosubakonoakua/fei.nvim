@@ -21,7 +21,7 @@ return {
       {
         "<leader>uN",
         function()
-          require('telescope').extensions.notify.notify()
+          require("telescope").extensions.notify.notify()
         end,
         desc = "Dispaly all Notification histories",
       },

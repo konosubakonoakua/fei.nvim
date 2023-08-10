@@ -1,6 +1,8 @@
 -- wanna challenge? enable it!
 -- not used by default
-if true then return {} end
+if true then
+  return {}
+end
 
 return {
   --[[

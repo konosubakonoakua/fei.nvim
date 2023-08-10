@@ -22,7 +22,7 @@ local function keymap(mode, lhs, rhs, opts)
 end
 
 local function cmd(command)
-   return table.concat({ '<Cmd>', command, '<CR>' })
+  return table.concat({ "<Cmd>", command, "<CR>" })
 end
 
 -- #endregion local functions
@@ -49,26 +49,26 @@ keymap({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = t
 -- #region windows remappings
 
 -- TODO: find new plugins for resizing
-keymap('n', '<C-w>z', cmd 'WindowsMaximize',             { desc = "WindowsMaximize" })
-keymap('n', '<C-w>_', cmd 'WindowsMaximizeVertically',   { desc = "WindowsMaximize VER" })
-keymap('n', '<C-w>|', cmd 'WindowsMaximizeHorizontally', { desc = "WindowsMaximize HOR" })
-keymap('n', '<C-w>=', cmd 'WindowsEqualize',             { desc = "WindowsEqualize" })
-keymap("n", "<leader>wa", cmd 'WindowsToggleAutowidth',  { desc = "New windows", remap = true })
+keymap("n", "<C-w>z", cmd("WindowsMaximize"), { desc = "WindowsMaximize" })
+keymap("n", "<C-w>_", cmd("WindowsMaximizeVertically"), { desc = "WindowsMaximize VER" })
+keymap("n", "<C-w>|", cmd("WindowsMaximizeHorizontally"), { desc = "WindowsMaximize HOR" })
+keymap("n", "<C-w>=", cmd("WindowsEqualize"), { desc = "WindowsEqualize" })
+keymap("n", "<leader>wa", cmd("WindowsToggleAutowidth"), { desc = "New windows", remap = true })
 
-keymap("n", "<leader>wn", "<C-W>n",        { desc = "New windows", remap = true })
-keymap("n", "<leader>wd", "<C-W>c",        { desc = "Delete window", remap = true })
-keymap("n", "<leader>wo", "<C-W>o",        { desc = "Delete all other windows", remap = true })
-keymap("n", "<leader>ww", "<C-W>p",        { desc = "Goto other window", remap = true })
-keymap("n", "<leader>wr", "<C-W>r",        { desc = "Rotate window (hor)", remap = true })
-keymap("n", "<leader>wR", "<C-W>R",        { desc = "Rotate window (ver)", remap = true })
-keymap("n", "<leader>wz", "<C-W>=",        { desc = "Restore window size", remap = true })
-keymap("n", "<leader>wv", "<C-W>|",        { desc = "Maximum window (ver)", remap = true })
-keymap("n", "<leader>wf", "<C-W>|",        { desc = "Maximum window (hor)", remap = true })
-keymap("n", "<leader>wF", "<C-W>|<C-W>_",  { desc = "Delete window (hor & ver)", remap = true })
-keymap("n", "<leader>wj", "<C-W>s<C-W>k",  { desc = "Split window above", remap = true })
-keymap("n", "<leader>wk", "<C-W>s",        { desc = "Split window below", remap = true })
-keymap("n", "<leader>wh", "<C-W>v<C-W>h",  { desc = "Split window left", remap = true })
-keymap("n", "<leader>wl", "<C-W>v",        { desc = "Split window right", remap = true })
+keymap("n", "<leader>wn", "<C-W>n", { desc = "New windows", remap = true })
+keymap("n", "<leader>wd", "<C-W>c", { desc = "Delete window", remap = true })
+keymap("n", "<leader>wo", "<C-W>o", { desc = "Delete all other windows", remap = true })
+keymap("n", "<leader>ww", "<C-W>p", { desc = "Goto other window", remap = true })
+keymap("n", "<leader>wr", "<C-W>r", { desc = "Rotate window (hor)", remap = true })
+keymap("n", "<leader>wR", "<C-W>R", { desc = "Rotate window (ver)", remap = true })
+keymap("n", "<leader>wz", "<C-W>=", { desc = "Restore window size", remap = true })
+keymap("n", "<leader>wv", "<C-W>|", { desc = "Maximum window (ver)", remap = true })
+keymap("n", "<leader>wf", "<C-W>|", { desc = "Maximum window (hor)", remap = true })
+keymap("n", "<leader>wF", "<C-W>|<C-W>_", { desc = "Delete window (hor & ver)", remap = true })
+keymap("n", "<leader>wj", "<C-W>s<C-W>k", { desc = "Split window above", remap = true })
+keymap("n", "<leader>wk", "<C-W>s", { desc = "Split window below", remap = true })
+keymap("n", "<leader>wh", "<C-W>v<C-W>h", { desc = "Split window left", remap = true })
+keymap("n", "<leader>wl", "<C-W>v", { desc = "Split window right", remap = true })
 
 -- #endregion windows remappings
 
@@ -95,9 +95,8 @@ end
 
 -- system monitor
 if vim.fn.executable("btop") == 1 then
-  vim.keymap.set( "n", "<leader>;b", function()
-    require("lazyvim.util")
-      .float_term({ "btop" }, { esc_esc = false, ctrl_hjkl = false })
+  vim.keymap.set("n", "<leader>;b", function()
+    require("lazyvim.util").float_term({ "btop" }, { esc_esc = false, ctrl_hjkl = false })
   end, { desc = "btop" })
 end
 
@@ -110,10 +109,11 @@ keymap("n", "<leader>;;", function()
     local starter = require("mini.starter") -- TODO: need test mini.starter
     pcall(starter.refresh)
   end
-end, { desc = "dashboard", silent = true})
+end, { desc = "dashboard", silent = true })
 
 keymap("n", "<leader>;l", "<cmd>Lazy<cr>", { desc = "Lazy" })
-keymap("n", "<leader>;L", Util.changelog, {desc = "LazyVim Changelog"})
+keymap("n", "<leader>;L", Util.changelog, { desc = "LazyVim Changelog" })
+keymap("n", "<leader>;m", "<cmd>Mason<cr>", { desc = "Mason" })
+keymap("n", "<leader>;I", "<cmd>LspInfo<cr>", { desc = "LspInfo" })
 
 --#endregion
-

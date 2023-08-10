@@ -1,4 +1,6 @@
-if not vim.g.vscode then return {} end
+if not vim.g.vscode then
+  return {}
+end
 
 -- Add any additional plugins in vscode, you can set vscode=true on a plugin spec.
 local enabled = {

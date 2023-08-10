@@ -10,6 +10,5 @@ return {
     opts = {
       colorscheme = "oxocarbon",
     },
-  }
+  },
 }
-

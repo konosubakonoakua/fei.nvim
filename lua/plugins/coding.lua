@@ -45,7 +45,7 @@ return {
   {
     -- TODO: add lspkind maybe
     "hrsh7th/nvim-cmp",
-    dependencies = { "hrsh7th/cmp-emoji", },
+    dependencies = { "hrsh7th/cmp-emoji" },
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
       local has_words_before = function()
@@ -97,7 +97,7 @@ return {
         --   select = true,
         -- }),
       })
-      opts.formatting.fields = { "kind", "abbr", "menu"}
+      opts.formatting.fields = { "kind", "abbr", "menu" }
       opts.formatting.format = function(_, item)
         -- FIXME: How to get types on the left, and offset the menu
         --
@@ -107,12 +107,12 @@ return {
         -- kind.menu = "    (" .. (strings[2] or "") .. ")"
         local icons = require("lazyvim.config").icons.kinds
         -- item.kind = string.format('%s %s', icons[item.kind], item.kind)
-        item.kind = string.format(' %s', icons[item.kind])
+        item.kind = string.format(" %s", icons[item.kind])
         return item
       end
       -- TODO: completion ghost text ON or OFF
       opts.experimental.ghost_text = {
-        hl_group = 'CmpGhostText',
+        hl_group = "CmpGhostText",
       }
     end,
   },

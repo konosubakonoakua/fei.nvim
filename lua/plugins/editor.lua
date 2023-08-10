@@ -17,7 +17,7 @@ return {
           ["<space>"] = "none",
         },
       },
-    }
+    },
   },
 
   -- here only using whichkey for reminding
@@ -83,20 +83,20 @@ return {
             end,
             ["<C-p>"] = function(...)
               return require("telescope.actions.layout").toggle_preview(...)
-            end
+            end,
           },
           n = {
             ["<C-p>"] = function(...)
               return require("telescope.actions.layout").toggle_preview(...)
-            end
-          }
+            end,
+          },
         },
       },
     },
     config = function(_, opts)
       local telescope = require("telescope")
       telescope.setup(opts)
-    end
+    end,
   },
 
   -- add telescope-fzf-native
@@ -139,8 +139,8 @@ return {
     "anuvyklack/windows.nvim",
     dependencies = "anuvyklack/middleclass",
     config = function()
-        require('windows').setup()
-    end
+      require("windows").setup()
+    end,
   },
 
   -- todo-comments
@@ -153,7 +153,7 @@ return {
       -- keywords recognized as todo comments
       -- found icons on https://www.nerdfonts.com/cheat-sheet
       keywords = {
-        FIX  = { icon = " ", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
+        FIX = { icon = " ", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
         TODO = { icon = " ", color = "info" },
         HACK = { icon = " ", color = "warning" },
         WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
@@ -191,12 +191,12 @@ return {
         -- hint    = { "DiagnosticHint", "#10B981" },
         -- default = { "Identifier", "#7C3AED" },
         -- test    = { "Identifier", "#FF00FF" }
-        error   = { "#DC2626" },
+        error = { "#DC2626" },
         warning = { "#FBBF24" },
-        info    = { "#2563EB" },
-        hint    = { "#10B981" },
+        info = { "#2563EB" },
+        hint = { "#10B981" },
         default = { "#7C3AED" },
-        test    = { "#FF00FF" }
+        test = { "#FF00FF" },
       },
       search = {
         command = "rg",
@@ -212,7 +212,6 @@ return {
         pattern = [[\b(KEYWORDS):]], -- ripgrep regex
         -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
       },
-    }
+    },
   },
 }
-
