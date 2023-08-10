@@ -111,9 +111,9 @@ return {
         return item
       end
       -- TODO: completion ghost text ON or OFF
-      opts.experimental.ghost_text = {
-        hl_group = "CmpGhostText",
-      }
+      -- opts.experimental.ghost_text = {
+      --   hl_group = "CmpGhostText",
+      -- }
     end,
   },
   -- better increase/descrease
