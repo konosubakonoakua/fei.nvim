@@ -44,7 +44,6 @@ return {
   },
   {
     -- TODO: add lspkind maybe
-    -- FIXME: wrong completion background with oxocarbon, shouldnt be ugly
     "hrsh7th/nvim-cmp",
     dependencies = { "hrsh7th/cmp-emoji", },
     ---@param opts cmp.ConfigSchema
@@ -100,8 +99,7 @@ return {
       })
       opts.formatting.fields = { "kind", "abbr", "menu"}
       opts.formatting.format = function(_, item)
-        -- FIXME:
-        -- How to get types on the left, and offset the menu
+        -- FIXME: How to get types on the left, and offset the menu
         --
         -- local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
         -- local strings = vim.split(kind.kind, "%s", { trimempty = true })

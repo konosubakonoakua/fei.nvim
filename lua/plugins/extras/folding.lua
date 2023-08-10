@@ -52,9 +52,6 @@ local setVimFoldOptions = function()
 end
 
 local function selectProviderWithChainByDefault(bufnr, filetype, buftype)
-
-    ---@param bufnr number
-    ---@return Promise
     local function customizeSelector(bufnr)
         local function handleFallbackException(err, providerName)
             if type(err) == 'string' and err:match('UfoFallbackException') then
@@ -182,8 +179,7 @@ return {
     },
   },
 
-  -- TODO:
-  -- need to set colors
+  -- TODO: need to set statuscol colors
   -- https://github.com/luukvbaal/statuscol.nvim/issues/74
   {
     "luukvbaal/statuscol.nvim", config = function()

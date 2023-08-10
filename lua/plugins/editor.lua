@@ -20,7 +20,7 @@ return {
     }
   },
 
-  -- INFO: here only using whichkey for reminding
+  -- here only using whichkey for reminding
   -- using 'keymap.lua' or other files to register actual keys
   {
     "folke/which-key.nvim",
