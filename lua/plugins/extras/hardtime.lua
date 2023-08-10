@@ -40,12 +40,9 @@ return {
       },
     },
     event = "VeryLazy",
+    -- stylua: ignore
     keys = {
-      {
-        "<leader>ht",
-        "<cmd>Hardtime toggle<CR>",
-        desc = "Toggle Hardtime",
-      },
+      { "<leader>ht", "<cmd>Hardtime toggle<CR>", desc = "Toggle Hardtime", },
     },
   },
 }

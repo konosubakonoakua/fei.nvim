@@ -4,47 +4,16 @@
 
 -- TODO: format tabwidth
 
+-- stylua: ignore start
 local keyremappings = {
-  {
-    "zR",
-    function()
-      require("ufo").openAllFolds()
-    end,
-    desc = "Open all folds",
-  },
-  {
-    "zM",
-    function()
-      require("ufo").closeAllFolds()
-    end,
-    desc = "Close all folds",
-  },
-  {
-    "zr",
-    function()
-      require("ufo").openFoldsExceptKinds()
-    end,
-    desc = "Open folds expect kinds",
-  },
-  {
-    "zm",
-    function()
-      require("ufo").closeFoldsWith()
-    end,
-    desc = "Close folds with",
-  },
-  {
-    "zp",
-    function()
-      require("ufo").peekFoldedLinesUnderCursor()
-    end,
-    desc = "Peek folded lines under cursor",
-  },
+  { "zR", function() require("ufo").openAllFolds() end, desc = "Open all folds", },
+  { "zM", function() require("ufo").closeAllFolds() end, desc = "Close all folds", },
+  { "zr", function() require("ufo").openFoldsExceptKinds() end, desc = "Open folds expect kinds", },
+  { "zm", function() require("ufo").closeFoldsWith() end, desc = "Close folds with", },
+  { "zp", function() require("ufo").peekFoldedLinesUnderCursor() end, desc = "Peek folded lines under cursor", },
   -- TODO: maybe add hover
   -- FIXME: fold hover not working
-  {
-    "K",
-    function()
+  { "K", function()
       local winid = require("ufo").peekFoldedLinesUnderCursor()
       if not winid then
         vim.lsp.buf.hover()
@@ -52,6 +21,8 @@ local keyremappings = {
     end,
   },
 }
+-- stylua: ignore end
+
 -- TODO: decide folding source for filetypes
 local ftMap = {
   vim = { "indent" },

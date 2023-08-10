@@ -4,6 +4,8 @@
   -- zen-mode (not good)
 ]]
 
+local Util = require("lazyvim.util")
+
 return {
   -- PERF: when using / to search, will aborting early if matched with flash
 
@@ -59,38 +61,25 @@ return {
     "nvim-telescope/telescope.nvim",
     keys = {
       -- add a keymap to browse plugin files
-      -- stylua: ignore
-      {
-        "<leader>fP",
-        function()
-          require("telescope.builtin").find_files(
-            { cwd = require("lazy.core.config").options.root }
-          )
-        end,
-        desc = "Find Plugin File",
-      },
+      -- stylua: ignore start
+      { "<leader>fP", function() require("telescope.builtin").find_files( { cwd = require("lazy.core.config").options.root }) end, desc = "Find Plugin File", },
+      { "<leader>uc", Util.telescope("colorscheme", { enable_preview = true }), desc = "Colorscheme with preview" },
+      -- stylua: ignore end
     },
     -- change some options
     opts = {
       defaults = {
+        -- stylua: ignore start
         mappings = {
           i = {
-            ["<C-j>"] = function(...)
-              return require("telescope.actions").move_selection_next(...)
-            end,
-            ["<C-k>"] = function(...)
-              return require("telescope.actions").move_selection_previous(...)
-            end,
-            ["<C-p>"] = function(...)
-              return require("telescope.actions.layout").toggle_preview(...)
-            end,
+            ["<C-j>"] = function(...) return require("telescope.actions").move_selection_next(...) end,
+            ["<C-k>"] = function(...) return require("telescope.actions").move_selection_previous(...) end,
+            ["<C-p>"] = function(...) return require("telescope.actions.layout").toggle_preview(...) end,
           },
-          n = {
-            ["<C-p>"] = function(...)
-              return require("telescope.actions.layout").toggle_preview(...)
-            end,
+          n = { ["<C-p>"] = function(...) return require("telescope.actions.layout").toggle_preview(...) end,
           },
         },
+        -- stylua: ignore end
       },
     },
     config = function(_, opts)
@@ -124,14 +113,12 @@ return {
       },
     },
     config = true,
+    -- stylua: ignore start
     keys = {
       -- add <leader>uz to enter zen mode
-      {
-        "<leader>uz",
-        "<cmd>ZenMode<cr>",
-        desc = "Zen Mode",
-      },
+      { "<leader>uz", "<cmd>ZenMode<cr>", desc = "Zen Mode", },
     },
+    -- stylua: ignore end
   },
 
   -- windows maximum & restore

@@ -1,14 +1,12 @@
 return {
   -- TODO: tweak colorscheme
-  {
-    "nyoom-engineering/oxocarbon.nvim",
-  },
-
-  -- Configure LazyVim to load oxocarbon
+  { "nyoom-engineering/oxocarbon.nvim" },
+  { "projekt0n/github-nvim-theme" },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "oxocarbon",
+      -- colorscheme = "oxocarbon",
+      colorscheme = "github_dark",
     },
   },
 }

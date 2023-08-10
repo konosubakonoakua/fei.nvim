@@ -27,6 +27,8 @@ end
 
 -- #endregion local functions
 
+-- stylua: ignore start
+
 -- #region visual mode remappings
 
 --[[ Better paste
@@ -49,6 +51,7 @@ keymap({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = t
 -- #region windows remappings
 
 -- TODO: find new plugins for resizing
+-- FIXME: soeme window remapping not working
 keymap("n", "<C-w>z", cmd("WindowsMaximize"), { desc = "WindowsMaximize" })
 keymap("n", "<C-w>_", cmd("WindowsMaximizeVertically"), { desc = "WindowsMaximize VER" })
 keymap("n", "<C-w>|", cmd("WindowsMaximizeHorizontally"), { desc = "WindowsMaximize HOR" })
@@ -64,11 +67,11 @@ keymap("n", "<leader>wR", "<C-W>R", { desc = "Rotate window (ver)", remap = true
 keymap("n", "<leader>wz", "<C-W>=", { desc = "Restore window size", remap = true })
 keymap("n", "<leader>wv", "<C-W>|", { desc = "Maximum window (ver)", remap = true })
 keymap("n", "<leader>wf", "<C-W>|", { desc = "Maximum window (hor)", remap = true })
+keymap("n", "<leader>wk", "<C-W>s", { desc = "Split window below", remap = true })
+keymap("n", "<leader>wl", "<C-W>v", { desc = "Split window right", remap = true })
+keymap("n", "<leader>wh", "<C-W>v<C-W>h", { desc = "Split window left", remap = true })
 keymap("n", "<leader>wF", "<C-W>|<C-W>_", { desc = "Delete window (hor & ver)", remap = true })
 keymap("n", "<leader>wj", "<C-W>s<C-W>k", { desc = "Split window above", remap = true })
-keymap("n", "<leader>wk", "<C-W>s", { desc = "Split window below", remap = true })
-keymap("n", "<leader>wh", "<C-W>v<C-W>h", { desc = "Split window left", remap = true })
-keymap("n", "<leader>wl", "<C-W>v", { desc = "Split window right", remap = true })
 
 -- #endregion windows remappings
 
@@ -94,8 +97,7 @@ end
 --#region <leader>; group remappings
 
 -- system monitor
-if vim.fn.executable("btop") == 1 then
-  vim.keymap.set("n", "<leader>;b", function()
+if vim.fn.executable("btop") == 1 then vim.keymap.set("n", "<leader>;b", function()
     require("lazyvim.util").float_term({ "btop" }, { esc_esc = false, ctrl_hjkl = false })
   end, { desc = "btop" })
 end
@@ -116,4 +118,21 @@ keymap("n", "<leader>;L", Util.changelog, { desc = "LazyVim Changelog" })
 keymap("n", "<leader>;m", "<cmd>Mason<cr>", { desc = "Mason" })
 keymap("n", "<leader>;I", "<cmd>LspInfo<cr>", { desc = "LspInfo" })
 
---#endregion
+-- #endregion
+
+-- #region toggle options
+-- toggle options
+keymap("n", "<leader>uf", require("lazyvim.plugins.lsp.format").toggle, { desc = "Toggle format on Save" })
+keymap("n", "<leader>us", function() Util.toggle("spell") end, { desc = "Toggle Spelling" })
+keymap("n", "<leader>uw", function() Util.toggle("wrap") end, { desc = "Toggle Word Wrap" })
+keymap("n", "<leader>ul", function() Util.toggle_number() end, { desc = "Toggle Line Numbers" })
+keymap("n", "<leader>ud", Util.toggle_diagnostics, { desc = "Toggle Diagnostics" })
+local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
+keymap("n", "<leader>uC", function() Util.toggle("conceallevel", false, {0, conceallevel}) end, { desc = "Toggle Conceal" })
+if vim.lsp.inlay_hint then
+  keymap("n", "<leader>uh", function() vim.lsp.inlay_hint(0, nil) end, { desc = "Toggle Inlay Hints" })
+end
+
+-- #endregion toggle options
+
+-- stylua: ignore end

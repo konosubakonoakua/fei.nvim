@@ -10,21 +10,12 @@ return {
   -- Better `vim.notify()`
   {
     "rcarriga/nvim-notify",
+    -- stylua: ignore
     keys = {
-      {
-        "<leader>un",
-        function()
-          require("notify").dismiss({ silent = true, pending = true })
-        end,
-        desc = "Dismiss all Notifications",
-      },
-      {
-        "<leader>uN",
-        function()
-          require("telescope").extensions.notify.notify()
-        end,
-        desc = "Dispaly all Notification histories",
-      },
+      { "<leader>un", function() require("notify").dismiss({ silent = true, pending = true }) end,
+        desc = "Dismiss all Notifications", },
+      { "<leader>uN", function() require("telescope").extensions.notify.notify() end,
+        desc = "Dispaly all Notification histories", },
     },
     opts = {
       render = "compact",
