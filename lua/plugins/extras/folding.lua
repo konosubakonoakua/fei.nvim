@@ -82,7 +82,7 @@ end
 
 local fold_virt_text_handler_ver1 = function(virtText, lnum, endLnum, width, truncate)
   local newVirtText = {}
-  local suffix = ("  %d "):format(endLnum - lnum)
+  local suffix = ("  %d "):format(endLnum - lnum)
   local sufWidth = vim.fn.strdisplaywidth(suffix)
   local targetWidth = width - sufWidth
   local curWidth = 0
@@ -109,8 +109,8 @@ local fold_virt_text_handler_ver1 = function(virtText, lnum, endLnum, width, tru
 end
 
 local fold_virt_text_handler_ver2 = function(text, lnum, endLnum, width)
-  local suffix = "  "
-  local lines = ("[ %dL] "):format(endLnum - lnum)
+  local suffix = "  "
+  local lines = ("[ %dL] "):format(endLnum - lnum)
 
   local cur_width = 0
   for _, section in ipairs(text) do
