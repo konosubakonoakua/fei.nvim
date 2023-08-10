@@ -138,4 +138,12 @@ return {
       })
     end,
   },
+
+  -- TODO: config mini.pairs
+  -- auto pairs
+  {
+    "echasnovski/mini.pairs",
+    event = "VeryLazy",
+    opts = {},
+  },
 }
