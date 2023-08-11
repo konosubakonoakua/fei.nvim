@@ -8,4 +8,5 @@
 - [ ] FIXME: todo-commnets highlight not working in md files
 - [ ] FIXME: dynamic colorscheme not working
 - [ ] FIXME: <leader>e open edge will leave a random character at right bottom, <leader>ue will not
+- [ ] FIXME: vim illuminate encountered error when processing `-- #region` blocks
 
