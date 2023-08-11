@@ -60,6 +60,8 @@ return {
       opts.sources = cmp.config.sources(vim.list_extend(opts.sources, { { name = "emoji" } }))
       opts.mapping = vim.tbl_extend("force", opts.mapping, {
         -- TODO: find out how to use supertab
+        --
+        --[[
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             -- You could replace select_next_item() with confirm({ select = true }) to get VS Code autocompletion behavior
@@ -83,6 +85,7 @@ return {
             fallback()
           end
         end, { "i", "s" }),
+        ]]
         ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
         ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
         -- ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -123,17 +126,30 @@ return {
     keys = {
       { "<C-a>", function() return require("dial.map").inc_normal() end, expr = true, desc = "Increment" },
       { "<C-x>", function() return require("dial.map").dec_normal() end, expr = true, desc = "Decrement" },
+      -- TODO: config dial.nvim keymap
+      --
+      -- vim.keymap.set("n", "<C-a>", require("dial.map").inc_normal(), { noremap = true })
+      -- vim.keymap.set("n", "<C-x>", require("dial.map").dec_normal(), { noremap = true })
+      -- vim.keymap.set("n", "g<C-a>", require("dial.map").inc_gnormal(), { noremap = true })
+      -- vim.keymap.set("n", "g<C-x>", require("dial.map").dec_gnormal(), { noremap = true })
+      -- vim.keymap.set("v", "<C-a>", require("dial.map").inc_visual(), { noremap = true })
+      -- vim.keymap.set("v", "<C-x>", require("dial.map").dec_visual(), { noremap = true })
+      -- vim.keymap.set("v", "g<C-a>", require("dial.map").inc_gvisual(), { noremap = true })
+      -- vim.keymap.set("v", "g<C-x>", require("dial.map").dec_gvisual(), { noremap = true })
     },
     config = function()
       local augend = require("dial.augend")
       require("dial.config").augends:register_group({
         default = {
-          augend.integer.alias.decimal,
-          augend.integer.alias.hex,
-          augend.date.alias["%Y/%m/%d"],
-          augend.constant.alias.bool,
-          augend.semver.alias.semver,
           -- augend.constant.new({ elements = { "let", "const" } }),
+          augend.integer.alias.decimal,
+          augend.integer.alias.decimal_int,
+          augend.integer.alias.hex,
+          augend.integer.alias.binary,
+          augend.integer.alias.octal,
+          augend.date.alias["%Y/%m/%d"],
+          augend.semver.alias.semver,
+          augend.constant.alias.bool,
         },
       })
     end,

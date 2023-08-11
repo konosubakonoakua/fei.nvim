@@ -5,25 +5,9 @@
 --- This file is automatically loaded by lazyvim.config.init
 
 local Util = require("lazyvim.util")
+local keymap = require("util").keymap
+local cmd_concat = require("util").cmd_concat
 local _opts = { silent = true }
-
-local function keymap(mode, lhs, rhs, opts)
-  local keys = require("lazy.core.handler").handlers.keys
-  ---@cast keys LazyKeysHandler
-  -- do not create the keymap if a lazy keys handler exists
-  if not keys.active[keys.parse({ lhs, mode = mode }).id] then
-    opts = opts or {}
-    opts.silent = opts.silent ~= false
-    if opts.remap and not vim.g.vscode then
-      opts.remap = nil
-    end
-    vim.keymap.set(mode, lhs, rhs, opts)
-  end
-end
-
-local function cmd(command)
-  return table.concat({ "<Cmd>", command, "<CR>" })
-end
 
 -- #endregion local functions
 
@@ -52,11 +36,11 @@ keymap({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = t
 
 -- TODO: find new plugins for resizing
 -- FIXME: soeme window remapping not working
-keymap("n", "<C-w>z", cmd("WindowsMaximize"), { desc = "WindowsMaximize" })
-keymap("n", "<C-w>_", cmd("WindowsMaximizeVertically"), { desc = "WindowsMaximize VER" })
-keymap("n", "<C-w>|", cmd("WindowsMaximizeHorizontally"), { desc = "WindowsMaximize HOR" })
-keymap("n", "<C-w>=", cmd("WindowsEqualize"), { desc = "WindowsEqualize" })
-keymap("n", "<leader>wa", cmd("WindowsToggleAutowidth"), { desc = "New windows", remap = true })
+keymap("n", "<C-w>z", cmd_concat("WindowsMaximize"), { desc = "WindowsMaximize" })
+keymap("n", "<C-w>_", cmd_concat("WindowsMaximizeVertically"), { desc = "WindowsMaximize VER" })
+keymap("n", "<C-w>|", cmd_concat("WindowsMaximizeHorizontally"), { desc = "WindowsMaximize HOR" })
+keymap("n", "<C-w>=", cmd_concat("WindowsEqualize"), { desc = "WindowsEqualize" })
+keymap("n", "<leader>wa", cmd_concat("WindowsToggleAutowidth"), { desc = "New windows", remap = true })
 
 keymap("n", "<leader>wn", "<C-W>n", { desc = "New windows", remap = true })
 keymap("n", "<leader>wd", "<C-W>c", { desc = "Delete window", remap = true })
