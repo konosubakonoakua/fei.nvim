@@ -7,6 +7,7 @@
 local Util = require("lazyvim.util")
 local keymap = require("util").keymap
 local cmd_concat = require("util").cmd_concat
+local is_disabled_plugin = require("util").is_disabled_plugin
 local _opts = { silent = true }
 
 -- #endregion local functions
@@ -35,13 +36,18 @@ keymap({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = t
 -- #region windows remappings
 
 -- TODO: find new plugins for resizing
--- FIXME: soeme window remapping not working
-keymap("n", "<C-w>z", cmd_concat("WindowsMaximize"), { desc = "WindowsMaximize" })
-keymap("n", "<C-w>_", cmd_concat("WindowsMaximizeVertically"), { desc = "WindowsMaximize VER" })
-keymap("n", "<C-w>|", cmd_concat("WindowsMaximizeHorizontally"), { desc = "WindowsMaximize HOR" })
-keymap("n", "<C-w>=", cmd_concat("WindowsEqualize"), { desc = "WindowsEqualize" })
-keymap("n", "<leader>wa", cmd_concat("WindowsToggleAutowidth"), { desc = "New windows", remap = true })
+-- FIXME: some window remapping not working
+if not is_disabled_plugin("anuvyklack/windows.nvim") then
+  keymap("n", "<C-w>z", cmd_concat("WindowsMaximize"), { desc = "WindowsMaximize" })
+  keymap("n", "<C-w>_", cmd_concat("WindowsMaximizeVertically"), { desc = "WindowsMaximize VER" })
+  keymap("n", "<C-w>|", cmd_concat("WindowsMaximizeHorizontally"), { desc = "WindowsMaximize HOR" })
+  keymap("n", "<C-w>=", cmd_concat("WindowsEqualize"), { desc = "WindowsEqualize" })
+  keymap("n", "<leader>wa", cmd_concat("WindowsToggleAutowidth"), { desc = "New windows", remap = true })
+end
 
+-- TODO: find better keyremapping for windows
+--
+--[[
 keymap("n", "<leader>wn", "<C-W>n", { desc = "New windows", remap = true })
 keymap("n", "<leader>wd", "<C-W>c", { desc = "Delete window", remap = true })
 keymap("n", "<leader>wo", "<C-W>o", { desc = "Delete all other windows", remap = true })
@@ -56,17 +62,17 @@ keymap("n", "<leader>wl", "<C-W>v", { desc = "Split window right", remap = true 
 keymap("n", "<leader>wh", "<C-W>v<C-W>h", { desc = "Split window left", remap = true })
 keymap("n", "<leader>wF", "<C-W>|<C-W>_", { desc = "Delete window (hor & ver)", remap = true })
 keymap("n", "<leader>wj", "<C-W>s<C-W>k", { desc = "Split window above", remap = true })
-
+]]
 -- #endregion windows remappings
 
 -- #region plugin remappings
 
--- TODO: what is this?
--- keywordprg
+-- TODO: how to use keywordprg
 keymap("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
 
 -- Terminal Mappings
 keymap("t", "<C-L>", "<c-\\><c-n>A", { desc = "Clear Terminal" })
+
 -- Trouble
 -- Add keymap only show FIXME
 if Util.has("todo-comments.nvim") then
@@ -111,6 +117,7 @@ keymap("n", "<leader>us", function() Util.toggle("spell") end, { desc = "Toggle 
 keymap("n", "<leader>uw", function() Util.toggle("wrap") end, { desc = "Toggle Word Wrap" })
 keymap("n", "<leader>ul", function() Util.toggle_number() end, { desc = "Toggle Line Numbers" })
 keymap("n", "<leader>ud", Util.toggle_diagnostics, { desc = "Toggle Diagnostics" })
+-- TODO: how to use conceal
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
 keymap("n", "<leader>uC", function() Util.toggle("conceallevel", false, {0, conceallevel}) end, { desc = "Toggle Conceal" })
 if vim.lsp.inlay_hint then

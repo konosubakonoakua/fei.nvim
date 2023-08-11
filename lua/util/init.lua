@@ -20,4 +20,12 @@ function M.cmd_concat(command)
   return table.concat({ "<Cmd>", command, "<CR>" })
 end
 
+function M.is_disabled_plugin(plugin)
+  local disabled = require("plugins.disabled")
+  if not disabled then
+    return false
+  end
+  return vim.tbl_contains(vim.tbl_flatten(disabled), plugin)
+end
+
 return M
