@@ -2,7 +2,7 @@ return {
   {
     -- only work for Neovim version < 0.9.0
     "ukyouz/vim-gutentags",
-    enabled = false,
+    -- enabled = false,
     event = "VeryLazy",
     branch = "improve_update_perf",
     ft = {
@@ -24,7 +24,7 @@ return {
   },
   {
     "liuchengxu/vista.vim",
-    enabled = false,
+    -- enabled = false,
     keys = {
       {
         "<leader>ls",
