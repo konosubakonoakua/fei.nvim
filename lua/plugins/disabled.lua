@@ -8,7 +8,7 @@ return {
   -- disable neo-tree & edgy
   -- edgy disabled in lazy.lua (no import)
   -- { "nvim-neo-tree/neo-tree.nvim", enabled = false },
-  -- { "folke/edgy.nvim", enabled = false },
+  { "folke/edgy.nvim", enabled = false },
 
   -- disable zen mode
   { "folke/zen-mode.nvim", enabled = false },

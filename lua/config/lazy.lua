@@ -22,7 +22,7 @@ local spec = {
   { import = "lazyvim.plugins.extras.dap.nlua" },
   -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
   -- { import = "lazyvim.plugins.extras.ui.mini-starter" },
-  { import = "lazyvim.plugins.extras.ui.edgy" },
+  -- { import = "lazyvim.plugins.extras.ui.edgy" },
   -- import/override with your plugins
   { import = "plugins" },
   { import = "plugins.extras" },
