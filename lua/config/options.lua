@@ -6,3 +6,5 @@ if vim.g.neovide then
   vim.opt.guifont = { "Lilex Nerd Font Mono", "h9" }
   vim.g.neovide_scale_factor = 0.3
 end
+
+vim.g.python3_host_prog = "/usr/bin/python3"
