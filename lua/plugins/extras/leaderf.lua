@@ -1,8 +1,3 @@
--- -- do not enable for now
-if true then
-  return {}
-end
-
 -- local keymap = require("util").keymap
 
 -- TODO: solving searching slowly
@@ -12,6 +7,8 @@ return {
   {
     "Yggdroot/LeaderF",
     event = "VimEnter",
+    lazy = false,
+    build = ":LeaderfInstallCExtension", -- sudo apt install python3.10-distutils python3-dev python3-pip
     -- stylua: ignore
     keys = {
         { "<F5>", "<cmd>:Leaderf gtags --update<cr>", desc = "Update Gtags", noremap = false, silent = false, },

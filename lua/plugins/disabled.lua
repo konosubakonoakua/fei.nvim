@@ -17,9 +17,15 @@ return {
   { "anuvyklack/windows.nvim", enabled = false },
 
   -- disable gtags
-  { "ukyouz/vim-gutentags", enabled = false },
+  -- { "ukyouz/vim-gutentags", enabled = false },
   { "liuchengxu/vista.vim", enabled = false },
+
+  -- disable leaderf
+  { "Yggdroot/LeaderF", enabled = false },
 
   -- disable hardtime
   { "m4xshen/hardtime.nvim", enabled = false },
+
+  -- disable fzf-lua
+  { "ibhagwan/fzf-lua", enabled = false },
 }
