@@ -7,8 +7,8 @@ return {
   {
     "Yggdroot/LeaderF",
     event = "VimEnter",
-    lazy = false,
-    build = ":LeaderfInstallCExtension", -- sudo apt install python3.10-distutils python3-dev python3-pip
+    -- lazy = false,
+    -- build = ":LeaderfInstallCExtension", -- sudo apt install python3.10-distutils python3-dev python3-pip
     -- stylua: ignore
     keys = {
         { "<F5>", "<cmd>:Leaderf gtags --update<cr>", desc = "Update Gtags", noremap = false, silent = false, },
@@ -30,10 +30,10 @@ return {
     },
     init = function()
       -- vim.g.Lf_Gtagslabel = "native-pygments"
-      vim.g.Lf_GtagsGutentags = false
-      vim.g.Lf_GtagsAutoGenerate = true
-      vim.g.Lf_GtagsAutoUpdate = true
-
+      vim.g.Lf_GtagsGutentags = true
+      vim.g.Lf_GtagsAutoGenerate = false
+      vim.g.Lf_GtagsAutoUpdate = false
+      vim.g.Lf_CacheDirectory = vim.fn.expand("~/.cache/nvim/ctags")
       -- vim.g.Lf_ShortcutF = "<leader>p" -- to avoid <leader>f open LeaderfFile picker
       -- vim.g.Lf_ShortcutB = "<leader>fb" -- to avoid <leader>b open LeaderBuffer picker
 
@@ -81,7 +81,7 @@ return {
       }
       vim.g.Lf_CtagsFuncOpts = {
         -- python = "--langmap=Python:.py.pyw",
-        c = "--excmd=number --fields=+nS",
+        -- c = "--excmd=number --fields=+nS",
       }
     end,
   },

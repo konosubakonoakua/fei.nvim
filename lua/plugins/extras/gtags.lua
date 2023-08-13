@@ -1,8 +1,11 @@
+if true then
+  return {}
+end
 return {
   {
     -- only work for Neovim version < 0.9.0
     "ukyouz/vim-gutentags",
-    lazy = flase,
+    lazy = false,
     event = "VeryLazy",
     branch = "improve_update_perf",
     ft = {
@@ -84,6 +87,8 @@ return {
       vim.g.gutentags_add_default_project_roots = false
       vim.g.gutentags_exclude_project_root = { vim.fn.expand("~") }
       vim.g.gutentags_project_root = { ".root" }
+      -- vim.g.gutentags_cache_dir = vim.fn.expand("~/.cache/nvim/ctags/")
+      vim.notify(vim.g.gutentags_cache_dir)
       vim.g.gutentags_cache_dir = vim.fn.expand("~/.cache/nvim/ctags/")
       vim.g.gutentags_generate_on_new = true
       vim.g.gutentags_generate_on_missing = true
