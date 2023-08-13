@@ -56,17 +56,6 @@ return {
     },
   },
 
-  -- search/replace in multiple files
-  {
-    "nvim-pack/nvim-spectre",
-    cmd = "Spectre",
-    opts = { open_cmd = "noswapfile vnew" },
-    -- stylua: ignore
-    keys = {
-      { "<leader>sR", function() require("spectre").open() end, desc = "Replace in files (Spectre)" },
-    },
-  },
-
   -- change some telescope options and a keymap to browse plugin files
   {
     "nvim-telescope/telescope.nvim",
@@ -291,6 +280,17 @@ return {
         pattern = [[\b(KEYWORDS):]], -- ripgrep regex
         -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
       },
+    },
+  },
+
+  -- search/replace in multiple files
+  {
+    "nvim-pack/nvim-spectre",
+    cmd = "Spectre",
+    opts = { open_cmd = "noswapfile vnew" },
+    -- stylua: ignore
+    keys = {
+      { "<leader>cR", function() require("spectre").open() end, desc = "Replace in files (Spectre)" },
     },
   },
 }
