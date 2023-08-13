@@ -1,6 +1,7 @@
 # TODOs
 - [ ] TODO: add regex to exlude solved TODOs like '[x] TODO:'
 - [ ] TODO: adjust impair behavior
+- [ ] TODO: config fzf-lua keymaps
 - [ ] TODO: consider adding `leaderf` and config gtags for huge cpp projects
 
 # FIXMEs
