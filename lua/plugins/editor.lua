@@ -75,7 +75,7 @@ return {
       -- stylua: ignore start
       { "<leader>fP", function() require("telescope.builtin").find_files( { cwd = require("lazy.core.config").options.root }) end, desc = "Find Plugin File", },
       { "<leader>uc", Util.telescope("colorscheme", { enable_preview = true }), desc = "Colorscheme with preview" },
-      { "<leader>sr", "<cmd>Telescope resume<cr>", desc = "Resume" },
+      { "<leader>sr", "<cmd>Telescope resume<cr>", desc = "Telescope Resume" },
       -- stylua: ignore end
     },
     -- change some options
