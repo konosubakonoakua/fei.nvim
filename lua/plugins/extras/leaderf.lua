@@ -6,7 +6,6 @@
 if not vim.fn.has("python3") then
   return {}
   --[[
-      If you compile vim manually, --enable-pythoninterp and/or --enable-python3interp should be appended to configure when run configure.
       python3 -m pip install --user --upgrade pynvim
       https://github.com/Yggdroot/LeaderF/wiki/Leaderf-rg
       https://github.com/Yggdroot/LeaderF/wiki/Leaderf-gtags
@@ -50,6 +49,7 @@ return {
       -- { "<leader>kk", "<cmd>:Leaderf self<cr>", desc = "Leadrf self", noremap = false },
     },
     init = function()
+      vim.g.Lf_PythonVersion = 3
       vim.g.Lf_UseVersionControlTool = false
       vim.g.Lf_ShortcutF = ""
       vim.g.Lf_ShortcutB = ""

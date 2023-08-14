@@ -7,5 +7,5 @@ if vim.g.neovide then
   vim.g.neovide_scale_factor = 0.3
 end
 
--- vim.g.python3_host_prog = "/usr/bin/python3"
-vim.g.python3_host_prog = "/home/rfe1wx/App/miniconda3/envs/py38/bin/python3"
+-- INFO: trailing 0x0A in return value of vim.fn.system, strip it
+vim.g.python3_host_prog = vim.fn.system("which python3"):match("^%s*(.-)%s*$")

@@ -11,4 +11,5 @@
 - [ ] FIXME: <leader>e open edge will leave a random character at right bottom, <leader>ue will not
 - [x] FIXME: vim illuminate encountered error when processing `-- #region` blocks
 - [ ] FIXME: sometimes cursor block disapper: https://github.com/neovim/neovim/issues/21018
+- [ ] FIXME: No Python executable found that can `import neovim`.
 

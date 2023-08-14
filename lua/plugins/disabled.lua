@@ -20,7 +20,7 @@ return {
   -- { "ukyouz/vim-gutentags", enabled = false },
   { "liuchengxu/vista.vim", enabled = false },
 
-  -- -- disable leaderf
+  -- disable leaderf
   -- { "Yggdroot/LeaderF", enabled = false },
 
   -- disable hardtime
@@ -28,6 +28,9 @@ return {
 
   -- disable fzf-lua
   { "ibhagwan/fzf-lua", enabled = false },
+
+  -- disable telescope-file-browser
+  -- { "nvim-telescope/telescope-file-browser.nvim", enabled = false },
 
   -- diable folke/noice.nvim
   -- causing cursor disapper until reopen, when leaderf enabled
