@@ -3,37 +3,62 @@
 -- TODO: solving searching slowly
 -- lvim.builtin.telescope.defaults.path_display = { shorten = 5 }
 
+if not vim.fn.has("python3") then
+  return {}
+  --[[
+      If you compile vim manually, --enable-pythoninterp and/or --enable-python3interp should be appended to configure when run configure.
+      python3 -m pip install --user --upgrade pynvim
+      https://github.com/Yggdroot/LeaderF/wiki/Leaderf-rg
+      https://github.com/Yggdroot/LeaderF/wiki/Leaderf-gtags
+  --]]
+end
+
 return {
   {
     "Yggdroot/LeaderF",
     event = "VimEnter",
-    -- lazy = false,
+    lazy = false,
     -- build = ":LeaderfInstallCExtension", -- sudo apt install python3.10-distutils python3-dev python3-pip
     -- stylua: ignore
     keys = {
-        { "<F5>", "<cmd>:Leaderf gtags --update<cr>", desc = "Update Gtags", noremap = false, silent = false, },
-        -- { "<F7>", "<cmd>:Leaderf! rg --next<cr>", desc = "Goto Next rg result", noremap = false, silent = true, },
-        -- { "<F8>", "<cmd>:Leaderf! rg --prev<cr>", desc = "Goto Next rg result", noremap = false, silent = true, },
-        { "<leader>kd", "", desc = "Find gtags Definition", noremap = false, callback = function() vim.api.nvim_exec(string.format("Leaderf! gtags -d %s --auto-jump", vim.fn.expand('<cword>')), true) end, },
-        -- { "<leader>kp", "<cmd>:LeaderfFile<cr>", desc = "Find Files", noremap = false, },
-        { "<leader>kt", "<cmd>:LeaderfTag<cr>", desc = "Find Tags", noremap = false, },
-        { "<leader>kg", "<cmd>:Leaderf gtags<cr>", desc = "Find Gtags", noremap = false, },
-        { "<leader>kr", "", desc = "Find References", noremap = false, callback = function() vim.api.nvim_exec(string.format("Leaderf! gtags -r %s --auto-jump", vim.fn.expand('<cword>')), true) end, },
-        { "<leader>kG", "<cmd>:Leaderf! gtags --recall <cr>", desc = "Resume Gtags window", noremap = false, },
-        -- { "<leader>ks", "<cmd>:LeaderfBufTag<cr>", desc = "Find buffer Symbol", noremap = false, },
-        -- { "<leader>kl", "<cmd>:LeaderfLine<cr>", desc = "Find buffer Lines", noremap = false, },
-        -- { "<leader>kw", "<cmd>:Leaderf! rg<cr>", desc = "Find Words (Live rg)", noremap = false, },
-        -- { "<leader>kc", "", desc = "Find current word (rg)", noremap = false, callback = function() vim.api.nvim_exec(string.format("Leaderf! rg -s -w -F %s ", vim.fn.exepath('<cword>')), true) end, },
-        -- { "<leader>kR", "<cmd>:Leaderf! rg --recall <cr>", desc = "Resume Rg window", noremap = false, },
-        -- { "<leader>k\\", "<cmd>:LeaderfRgInteractive<cr>", desc = "Interactive search", noremap = false, },
-        -- { "<leader>kb", "<cmd>:LeaderfBuffer<cr>", desc = "Find Buffers" },
+      -- { "<leader>kt", "<cmd>:LeaderfTag<cr>", desc = "Find Tags", noremap = false },
+      { "<F5>",       "<cmd>:Leaderf gtags --update<cr>", desc = "Update Gtags",      noremap = false, silent = false },
+      { "<leader>kt", "<cmd>:Leaderf bufTag<cr>",         desc = "Find Buf Tags",     noremap = false },
+      { "<leader>kT", "<cmd>:Leaderf bufTagAll<cr>",      desc = "Find All Buf Tags", noremap = false },
+      { "<leader>kf", "<cmd>:Leaderf funcions<cr>",       desc = "Fincd Functions",   noremap = false },
+      { "<leader>kg", "<cmd>:Leaderf gtags<cr>",          desc = "Find Gtags",        noremap = false },
+
+      { "<leader>kd", "", desc = "Find gtags Definition", noremap = false, callback = function() vim.api.nvim_exec2(string.format("Leaderf! gtags -d %s --auto-jump", vim.fn.expand("<cword>")), {}) end, },
+      { "<leader>kr", "", desc = "Find References",       noremap = false, callback = function() vim.api.nvim_exec2(string.format("Leaderf! gtags -r %s --auto-jump", vim.fn.expand("<cword>")), {}) end, },
+      { "<leader>ko", "", desc = "Find Next",             noremap = false, callback = function() vim.api.nvim_exec2(string.format("Leaderf! gtags --recall %s", ""), {}) end, },
+      { "<leader>kn", "", desc = "Find Prev",             noremap = false, callback = function() vim.api.nvim_exec2(string.format("Leaderf! gtags --previous %s", ""), {}) end, },
+      -- { "<leader>kG", "<cmd>:Leaderf! gtags --recall <cr>", desc = "Resume Gtags window", noremap = false },
+
+
+      { "<F7>",       "<cmd>:Leaderf! rg --next<cr>",     desc = "Goto Next rg result",   noremap = false, silent = true },
+      { "<F8>",       "<cmd>:Leaderf! rg --prev<cr>",     desc = "Goto Next rg result",   noremap = false, silent = true },
+      { "<leader>kw", "<cmd>:Leaderf! rg<cr>",            desc = "Find Words (Live rg)",  noremap = false },
+      { "<leader>kR", "<cmd>:Leaderf! rg --recall <cr>",  desc = "Resume Rg window",      noremap = false },
+      { "<leader>kc", "", desc = "Find current word (rg)", noremap = false, callback = function() vim.api.nvim_exec2(string.format("Leaderf! rg -s -w -F %s ", vim.fn.exepath("<cword>")), {}) end, },
+
+      { "<leader>ks", "<cmd>:LeaderfBufTag<cr>",          desc = "Find buffer Symbol",  noremap = false },
+      { "<leader>kp", "<cmd>:LeaderfFile<cr>",            desc = "Find Files",          noremap = false },
+      { "<leader>kl", "<cmd>:LeaderfLine<cr>",            desc = "Find buffer Lines",   noremap = false },
+      { "<leader>kb", "<cmd>:LeaderfBuffer<cr>",          desc = "Find Buffers",                        },
+      { "<leader>kk", "<cmd>:LeaderfFile<cr>",            desc = "Find Files",          noremap = false },
+      { "<leader>k\\", "<cmd>:LeaderfRgInteractive<cr>",  desc = "Interactive search",  noremap = false },
+      -- { "<leader>kk", "<cmd>:Leaderf self<cr>", desc = "Leadrf self", noremap = false },
     },
     init = function()
+      vim.g.Lf_UseVersionControlTool = false
+      vim.g.Lf_ShortcutF = ""
+      vim.g.Lf_ShortcutB = ""
       -- vim.g.Lf_Gtagslabel = "native-pygments"
-      vim.g.Lf_GtagsGutentags = true
+      vim.g.Lf_GtagsGutentags = false
       vim.g.Lf_GtagsAutoGenerate = false
-      vim.g.Lf_GtagsAutoUpdate = false
-      vim.g.Lf_CacheDirectory = vim.fn.expand("~/.cache/nvim/ctags")
+      vim.g.Lf_GtagsAutoUpdate = true
+      -- vim.g.Lf_CacheDirectory = vim.fn.expand("~/.cache/nvim/ctags")
+      -- vim.g.Lf_CacheDirectory = vim.fn.expand("~/.LfCache/gtags")
       -- vim.g.Lf_ShortcutF = "<leader>p" -- to avoid <leader>f open LeaderfFile picker
       -- vim.g.Lf_ShortcutB = "<leader>fb" -- to avoid <leader>b open LeaderBuffer picker
 
@@ -49,7 +74,8 @@ return {
       vim.g.Lf_PreviewInPopup = 1
       vim.g.Lf_ShowDevIcons = 1
       vim.g.Lf_JumpToExistingWindow = 0
-      vim.g.Lf_StlSeparator = { left = "", right = "" }
+      vim.g.Lf_RootMarkers = { ".root_marker" }
+      vim.g.Lf_StlSeparator = { left = "", right = "" }
       -- stylua: ignore
       vim.g.Lf_NormalMap = {
           _        = {{"<C-j>", "j"}, {"<C-k>", "k"}},

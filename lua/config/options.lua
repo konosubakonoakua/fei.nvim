@@ -7,4 +7,5 @@ if vim.g.neovide then
   vim.g.neovide_scale_factor = 0.3
 end
 
-vim.g.python3_host_prog = "/usr/bin/python3"
+-- vim.g.python3_host_prog = "/usr/bin/python3"
+vim.g.python3_host_prog = "/home/rfe1wx/App/miniconda3/envs/py38/bin/python3"

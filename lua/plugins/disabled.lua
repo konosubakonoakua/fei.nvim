@@ -20,8 +20,8 @@ return {
   -- { "ukyouz/vim-gutentags", enabled = false },
   { "liuchengxu/vista.vim", enabled = false },
 
-  -- disable leaderf
-  { "Yggdroot/LeaderF", enabled = false },
+  -- -- disable leaderf
+  -- { "Yggdroot/LeaderF", enabled = false },
 
   -- disable hardtime
   { "m4xshen/hardtime.nvim", enabled = false },

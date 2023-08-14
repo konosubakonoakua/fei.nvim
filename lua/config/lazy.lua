@@ -31,7 +31,7 @@ local spec = {
 require("lazy").setup({
   spec = spec,
   defaults = {
-    lazy = true,
+    lazy = false,
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },

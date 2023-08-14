@@ -4,9 +4,9 @@
   -R ./ /external/lib/used/in/the/project/
 --]]
 
--- if true then
---   return {}
--- end
+if true then
+  return {}
+end
 return {
   {
     "dhananjaylatkar/cscope_maps.nvim",
