@@ -56,7 +56,7 @@ return {
       -- vim.g.Lf_Gtagslabel = "native-pygments"
       vim.g.Lf_GtagsGutentags = false
       vim.g.Lf_GtagsAutoGenerate = false
-      vim.g.Lf_GtagsAutoUpdate = true
+      vim.g.Lf_GtagsAutoUpdate = false
       -- vim.g.Lf_CacheDirectory = vim.fn.expand("~/.cache/nvim/ctags")
       -- vim.g.Lf_CacheDirectory = vim.fn.expand("~/.LfCache/gtags")
       -- vim.g.Lf_ShortcutF = "<leader>p" -- to avoid <leader>f open LeaderfFile picker
@@ -107,7 +107,7 @@ return {
       }
       vim.g.Lf_CtagsFuncOpts = {
         -- python = "--langmap=Python:.py.pyw",
-        -- c = "--excmd=number --fields=+nS",
+        c = "--excmd=number --fields=+nS",
       }
     end,
   },

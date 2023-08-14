@@ -29,6 +29,7 @@ return {
   -- disable fzf-lua
   { "ibhagwan/fzf-lua", enabled = false },
 
-  -- "folke/noice.nvim",
-  { "folke/noice.nvim", enabled = false },
+  -- diable folke/noice.nvim
+  -- causing cursor disapper until reopen, when leaderf enabled
+  -- { "folke/noice.nvim", enabled = false },
 }
