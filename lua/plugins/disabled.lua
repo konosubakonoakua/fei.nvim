@@ -28,4 +28,7 @@ return {
 
   -- disable fzf-lua
   { "ibhagwan/fzf-lua", enabled = false },
+
+  -- "folke/noice.nvim",
+  { "folke/noice.nvim", enabled = false },
 }

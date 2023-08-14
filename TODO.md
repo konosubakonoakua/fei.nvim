@@ -10,5 +10,5 @@
 - [ ] FIXME: dynamic colorscheme not working
 - [ ] FIXME: <leader>e open edge will leave a random character at right bottom, <leader>ue will not
 - [ ] FIXME: vim illuminate encountered error when processing `-- #region` blocks
-- [ ] FIXME: sometimes cursor block disapper
+- [ ] FIXME: sometimes cursor block disapper: https://github.com/neovim/neovim/issues/21018
 
