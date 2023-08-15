@@ -70,16 +70,24 @@ keymap("n", "<leader>wj", "<C-W>s<C-W>k", { desc = "Split window above", remap =
 -- search keywords in linux programmer's manual
 keymap("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
 
+-- floating terminal
+local lazyterm = function() Util.float_term(nil, { cwd = Util.get_root(), esc_esc = false, ctrl_hjkl = false }) end
+keymap("n", "<leader>ft", lazyterm, { desc = "Terminal (root dir)" })
+keymap("n", "<leader>fT", function() Util.float_term() end, { desc = "Terminal (cwd)" })
+keymap("n", "<c-/>", lazyterm, { desc = "Terminal (root dir)" })
+keymap("n", "<c-_>", lazyterm, { desc = "which_key_ignore" })
+
 -- Terminal Mappings
 -- TODO: mapping double esc causing fzf-lua quiting slowly using esc
-keymap("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
-keymap("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
-keymap("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
-keymap("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to upper window" })
-keymap("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to right window" })
-keymap("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
-keymap("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
-keymap("t", "<C-L>", "<c-\\><c-n>A", { desc = "Clear Terminal" })
+--
+-- keymap("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
+-- keymap("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
+-- keymap("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
+-- keymap("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to upper window" })
+-- keymap("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to right window" })
+-- keymap("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
+-- keymap("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
+keymap("t", "<C-L>", "<c-\\><c-n>A", { desc = "Clear Terminal" }) -- when <C-l> used for navi
 
 -- Trouble
 -- Add keymap only show FIXME
