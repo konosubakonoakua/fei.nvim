@@ -2,8 +2,9 @@
 - [ ] TODO: add regex to exlude solved TODOs like '[x] TODO:'
 - [ ] TODO: adjust impair behavior
 - [ ] TODO: config fzf-lua keymaps
-- [ ] TODO: consider adding `leaderf` and config gtags for huge cpp projects
-- [ ] TODO: create ~/.venv for nvim python support
+- [x] TODO: add `leaderf` and config gtags for huge cpp projects
+- [x] TODO: find a way to index multiple folders when using gtags with leaderf
+- [x] TODO: create ~/.venv for nvim python support
 
 # FIXMEs
 - [ ] FIXME: mason installed stylua cannot run in ubuntu18
