@@ -160,5 +160,15 @@ return {
     "echasnovski/mini.pairs",
     event = "VeryLazy",
     opts = {},
+    init = function()
+      require("mini.pairs").setup({
+        mappings = {
+          -- -- Don't add closing pair if cursor is in front of closing character
+          -- ["("] = { action = "open", pair = "()", neigh_pattern = "[^\\][^%)]" },
+          -- ["["] = { action = "open", pair = "[]", neigh_pattern = "[^\\][^%]]" },
+          -- ["{"] = { action = "open", pair = "{}", neigh_pattern = "[^\\][^%}]" },
+        },
+      })
+    end,
   },
 }
