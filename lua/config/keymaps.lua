@@ -14,6 +14,9 @@ local _opts = { silent = true }
 
 -- stylua: ignore start
 
+-- stay when using * to search
+keymap("n", "*", "*N", _opts)
+
 -- #region visual mode remappings
 
 --[[ Better paste
@@ -101,6 +104,12 @@ end
 -- #endregion plugin remappings
 
 --#region <leader>; group remappings
+
+-- Glow
+-- TODO: disable ctrl_hjkl & fix quit by q
+local glowterm = function() Util.float_term({ "glow", tostring(vim.fn.expand("%:p"))}, { cwd = Util.get_root(), esc_esc = false, ctrl_hjkl = false }) end
+-- keymap("n", "<leader>;g", "<cmd>Glow<cr>", { desc = "Glow" })
+keymap("n", "<leader>;g", glowterm, { desc = "Glow" })
 
 -- system monitor
 if vim.fn.executable("btop") == 1 then vim.keymap.set("n", "<leader>;b", function()
