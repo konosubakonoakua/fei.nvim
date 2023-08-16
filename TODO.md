@@ -6,6 +6,7 @@
 - [x] TODO: add `leaderf` and config gtags for huge cpp projects
 - [x] TODO: find a way to index multiple folders when using gtags with leaderf
 - [x] TODO: create ~/.venv for nvim python support
+- [ ] TODO: try lsp inlay in neovim 0.10.*
 
 # FIXMEs
 - [ ] FIXME: mason installed stylua cannot run in ubuntu18
@@ -16,4 +17,6 @@
 - [ ] FIXME: sometimes cursor block disapper: https://github.com/neovim/neovim/issues/21018
 - [x] FIXME: No Python executable found that can `import neovim`.
 - [ ] FIXME: error when saving/opening yml file: Request textDocument/foldingRange failed with message: Cannot read properties of undefined (reading 'lineFoldingOnly')
+- [ ] FIXME: neovim 0.10.* breaks the `<C-/>` terminal
+
 
