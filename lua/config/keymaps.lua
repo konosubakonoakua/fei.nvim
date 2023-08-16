@@ -4,15 +4,21 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 --- This file is automatically loaded by lazyvim.config.init
 
-local Util = require("lazyvim.util")
-local keymap = require("util").keymap
-local cmd_concat = require("util").cmd_concat
+-- stylua: ignore start
+local _opts   = { silent = true }
+-- local _myutil = require("util")
+local _util   = require("lazyvim.util")
+
+local _floatterm      = require("lazyvim.util").float_term
+local _lazyterm       = function() _floatterm(nil, { cwd = _util.get_root(), ctrl_hjkl = false }) end
+local _lazyterm_cwd   = function() _floatterm(nil, { cwd = vim.fn.expand("%:p:h"), ctrl_hjkl = false }) end
+
+local keymap             = require("util").keymap
+local cmd_concat         = require("util").cmd_concat
 local is_disabled_plugin = require("util").is_disabled_plugin
-local _opts = { silent = true }
 
 -- #endregion local functions
 
--- stylua: ignore start
 
 -- stay when using * to search
 keymap("n", "*", "*N", _opts)
@@ -41,11 +47,11 @@ keymap({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = t
 -- TODO: find new plugins for resizing
 -- FIXME: some window remapping not working
 if not is_disabled_plugin("anuvyklack/windows.nvim") then
-  keymap("n", "<C-w>z", cmd_concat("WindowsMaximize"), { desc = "WindowsMaximize" })
-  keymap("n", "<C-w>_", cmd_concat("WindowsMaximizeVertically"), { desc = "WindowsMaximize VER" })
-  keymap("n", "<C-w>|", cmd_concat("WindowsMaximizeHorizontally"), { desc = "WindowsMaximize HOR" })
-  keymap("n", "<C-w>=", cmd_concat("WindowsEqualize"), { desc = "WindowsEqualize" })
-  keymap("n", "<leader>wa", cmd_concat("WindowsToggleAutowidth"), { desc = "New windows", remap = true })
+  keymap("n", "<C-w>z",     cmd_concat("WindowsMaximize"),              { desc = "WindowsMaximize" })
+  keymap("n", "<C-w>_",     cmd_concat("WindowsMaximizeVertically"),    { desc = "WindowsMaximize VER" })
+  keymap("n", "<C-w>|",     cmd_concat("WindowsMaximizeHorizontally"),  { desc = "WindowsMaximize HOR" })
+  keymap("n", "<C-w>=",     cmd_concat("WindowsEqualize"),              { desc = "WindowsEqualize" })
+  keymap("n", "<leader>wa", cmd_concat("WindowsToggleAutowidth"),       { desc = "New windows", remap = true })
 end
 
 -- TODO: find better keyremapping for windows
@@ -73,12 +79,13 @@ keymap("n", "<leader>wj", "<C-W>s<C-W>k", { desc = "Split window above", remap =
 -- search keywords in linux programmer's manual
 keymap("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
 
--- floating terminal
-local lazyterm = function() Util.float_term(nil, { cwd = Util.get_root(), esc_esc = false, ctrl_hjkl = false }) end
-keymap("n", "<leader>ft", lazyterm, { desc = "Terminal (root dir)" })
-keymap("n", "<leader>fT", function() Util.float_term() end, { desc = "Terminal (cwd)" })
-keymap("n", "<c-/>", lazyterm, { desc = "Terminal (root dir)" })
-keymap("n", "<c-_>", lazyterm, { desc = "which_key_ignore" })
+-- floating terminal (using esc_esc to enter normal mode)
+keymap("n", "<leader>ft", _lazyterm_cwd,  { desc = "Terminal (cwd)" })
+keymap("n", "<leader>fT", _lazyterm,      { desc = "Terminal (root dir)" })
+-- FIXME: mapping of ` not working
+-- keymap("n", "<c-`>",      _lazyterm_cwd,  { desc = "Terminal (cwd)" })
+keymap("n", "<c-/>",      _lazyterm,      { desc = "Terminal (root dir)" })
+keymap("n", "<c-_>",      _lazyterm,      { desc = "which_key_ignore" })
 
 -- Terminal Mappings
 -- TODO: mapping double esc causing fzf-lua quiting slowly using esc
@@ -90,12 +97,10 @@ keymap("n", "<c-_>", lazyterm, { desc = "which_key_ignore" })
 -- keymap("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to right window" })
 -- keymap("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 -- keymap("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
-keymap("t", "<C-L>", "<c-\\><c-n>A", { desc = "Clear Terminal" }) -- when <C-l> used for navi
+keymap("t", "<C-L>", "<c-\\><c-n>A", { desc = "Clear Terminal" }) -- when <C-l> used for windows
 
 -- Trouble
--- Add keymap only show FIXME
-if Util.has("todo-comments.nvim") then
-  -- show fixme on telescope
+if _util.has("todo-comments.nvim") then
   keymap("n", "<leader>xsf", "<cmd>TodoTelescope keywords=FIX,FIXME,BUG<CR>", { desc = "Show FIXME" })
   keymap("n", "<leader>xst", "<cmd>TodoTelescope keywords=TODO<CR>", { desc = "Show TODO" })
   keymap("n", "<leader>xsT", "<cmd>TodoTelescope keywords=TEST<CR>", { desc = "Show TEST" })
@@ -107,47 +112,55 @@ end
 
 -- Glow
 -- TODO: disable ctrl_hjkl & fix quit by q
-local glowterm = function() Util.float_term({ "glow", tostring(vim.fn.expand("%:p"))}, { cwd = Util.get_root(), esc_esc = false, ctrl_hjkl = false }) end
--- keymap("n", "<leader>;g", "<cmd>Glow<cr>", { desc = "Glow" })
-keymap("n", "<leader>;g", glowterm, { desc = "Glow" })
+if vim.fn.executable("glow") == 1 then
+  -- FIXME: glow wont enter TUI with file path
+  -- https://github.com/charmbracelet/glow/issues/489
+  -- { "glow", tostring(vim.fn.expand("%:p"))},
+  keymap("n", "<leader>;g", function () _floatterm(
+    { "glow" }, { cwd = vim.fn.expand("%:p:h"), ctrl_hjkl = false }) end,
+    { desc = "!Glow" })
+  -- keymap("n", "<leader>;g", "<cmd>Glow<cr>", { desc = "Glow" })
+end
 
 -- system monitor
-if vim.fn.executable("btop") == 1 then vim.keymap.set("n", "<leader>;b", function()
-    require("lazyvim.util").float_term({ "btop" }, { esc_esc = false, ctrl_hjkl = false })
-  end, { desc = "btop" })
+if vim.fn.executable("btop") == 1 then
+  vim.keymap.set("n", "<leader>;b", function()
+    _floatterm({ "btop" }, { esc_esc = false, ctrl_hjkl = false })
+  end, { desc = "!Btop" })
 end
 
 -- Dashboard
 keymap("n", "<leader>;;", function()
-  if Util.has("alpha-nvim") then
+  if _util.has("alpha-nvim") then
     vim.cmd("Neotree close")
     vim.cmd("Alpha")
-  elseif Util.has("mini.starter") then
+  elseif _util.has("mini.starter") then
     local starter = require("mini.starter") -- TODO: need test mini.starter
     pcall(starter.refresh)
   end
-end, { desc = "dashboard", silent = true })
+end, { desc = "Dashboard", silent = true })
 
-keymap("n", "<leader>;l", "<cmd>Lazy<cr>", { desc = "Lazy" })
-keymap("n", "<leader>;L", Util.changelog, { desc = "LazyVim Changelog" })
-keymap("n", "<leader>;m", "<cmd>Mason<cr>", { desc = "Mason" })
+keymap("n", "<leader>;l", "<cmd>Lazy<cr>",    { desc = "Lazy.nvim" })
+keymap("n", "<leader>;m", "<cmd>Mason<cr>",   { desc = "Mason" })
 keymap("n", "<leader>;I", "<cmd>LspInfo<cr>", { desc = "LspInfo" })
+keymap("n", "<leader>;L", _util.changelog,    { desc = "LazyVim Changelog" })
+keymap("n", "<leader>;t", _lazyterm_cwd,      { desc = "Terminal (cwd)" })
+keymap("n", "<leader>;T", _lazyterm,          { desc = "Terminal (root dir)" })
 
 -- #endregion
 
 -- #region toggle options
--- toggle options
-keymap("n", "<leader>uf", require("lazyvim.plugins.lsp.format").toggle, { desc = "Toggle format on Save" })
-keymap("n", "<leader>us", function() Util.toggle("spell") end, { desc = "Toggle Spelling" })
-keymap("n", "<leader>uw", function() Util.toggle("wrap") end, { desc = "Toggle Word Wrap" })
-keymap("n", "<leader>ul", function() Util.toggle_number() end, { desc = "Toggle Line Numbers" })
-keymap("n", "<leader>ud", Util.toggle_diagnostics, { desc = "Toggle Diagnostics" })
--- TODO: how to use conceal
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
-keymap("n", "<leader>uC", function() Util.toggle("conceallevel", false, {0, conceallevel}) end, { desc = "Toggle Conceal" })
 if vim.lsp.inlay_hint then
   keymap("n", "<leader>uh", function() vim.lsp.inlay_hint(0, nil) end, { desc = "Toggle Inlay Hints" })
 end
+
+keymap("n", "<leader>us", function() _util.toggle("spell") end,      { desc = "Toggle Spelling" })
+keymap("n", "<leader>uw", function() _util.toggle("wrap") end,       { desc = "Toggle Word Wrap" })
+keymap("n", "<leader>ul", function() _util.toggle_number() end,      { desc = "Toggle Line Numbers" })
+keymap("n", "<leader>ud", function() _util.toggle_diagnostics() end, { desc = "Toggle Diagnostics" })
+keymap("n", "<leader>uC", function() _util.toggle("conceallevel", false, {0, conceallevel}) end, { desc = "Toggle Conceal" })
+keymap("n", "<leader>uf", function() require("lazyvim.plugins.lsp.format").toggle() end,         { desc = "Toggle format on Save" })
 
 -- #endregion toggle options
 

@@ -13,7 +13,7 @@ return {
           vim.b.godbolt_exec = 1
           vim.notify("godbolt execute output enabled", vim.log.levels.WARN)
         end
-      end)
+      end, { desc = "Toggle Godbolt Execution" })
 
       require("godbolt").setup({
         languages = {
