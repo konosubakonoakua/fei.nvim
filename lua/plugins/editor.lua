@@ -14,6 +14,29 @@ return {
   {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
+      enable_git_status = true,
+      enable_diagnostics = true,
+      -- enable_normal_mode_for_inputs = true,
+      follow_current_file = {
+        enabled = true,
+        leave_dirs_open = false,
+      },
+      -- TODO: neotree git symbols custom not working
+      git_status = {
+        symbols = {
+          -- Change type
+          -- added = "",
+          -- modified = "",
+          -- deleted = "✖",
+          -- renamed = "󰁕",
+          -- Status type
+          untracked = "",
+          ignored = "",
+          unstaged = "󰄱",
+          staged = "",
+          conflict = "",
+        },
+      },
       window = {
         mappings = {
           ["<space>"] = "none",
@@ -21,7 +44,17 @@ return {
       },
     },
   },
-
+  {
+    "s1n7ax/nvim-window-picker",
+    name = "window-picker",
+    event = "VeryLazy",
+    version = "2.*",
+    config = function()
+      require("window-picker").setup({
+        hint = "floating-big-letter",
+      })
+    end,
+  },
   -- here only using whichkey for reminding
   -- using 'keymap.lua' or other files to register actual keys
   {
