@@ -39,7 +39,7 @@ local setVimFoldOptions = function()
     diff = "╱",
     eob = " ",
   }
-  vim.o.foldcolumn = "1" -- '0' is not bad
+  vim.o.foldcolumn = "0" -- '0' is not bad
   vim.o.foldlevel = 99 -- Feel free to decrease the value
   vim.o.foldlevelstart = 99
   vim.o.foldenable = true
@@ -108,21 +108,21 @@ local fold_virt_text_handler_ver1 = function(virtText, lnum, endLnum, width, tru
   return newVirtText
 end
 
-local fold_virt_text_handler_ver2 = function(text, lnum, endLnum, width)
-  local suffix = "  "
-  local lines = ("[ %dL] "):format(endLnum - lnum)
-
-  local cur_width = 0
-  for _, section in ipairs(text) do
-    cur_width = cur_width + vim.fn.strdisplaywidth(section[1])
-  end
-
-  suffix = suffix .. (" "):rep(width - cur_width - vim.fn.strdisplaywidth(lines) - 3)
-
-  table.insert(text, { suffix, "Comment" })
-  table.insert(text, { lines, "Todo" })
-  return text
-end
+-- local fold_virt_text_handler_ver2 = function(text, lnum, endLnum, width)
+--   local suffix = "  "
+--   local lines = ("[ %dL] "):format(endLnum - lnum)
+--
+--   local cur_width = 0
+--   for _, section in ipairs(text) do
+--     cur_width = cur_width + vim.fn.strdisplaywidth(section[1])
+--   end
+--
+--   suffix = suffix .. (" "):rep(width - cur_width - vim.fn.strdisplaywidth(lines) - 3)
+--
+--   table.insert(text, { suffix, "Comment" })
+--   table.insert(text, { lines, "Todo" })
+--   return text
+-- end
 
 -- TODO: use enhanceAction or not
 --
