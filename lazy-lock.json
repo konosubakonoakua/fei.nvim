@@ -18,7 +18,7 @@
   "friendly-snippets": { "branch": "main", "commit": "377d45475b49e37460a902d6d569d2093d4037d0" },
   "gitsigns.nvim": { "branch": "main", "commit": "55f8fc7b13205d44359080ed00095674c353bd76" },
   "glow.nvim": { "branch": "main", "commit": "8942dfb05794f436af4fbc90a34393f1fd36f361" },
-  "godbolt.nvim": { "branch": "main", "commit": "63cceab5980765a5f621989a30ee8929d57ad3cf" },
+  "godbolt.nvim": { "branch": "main", "commit": "26c6876da7d176eca6e23f8f154f31e4a58a011b" },
   "indent-blankline.nvim": { "branch": "master", "commit": "4541d690816cb99a7fc248f1486aa87f3abce91c" },
   "lazy.nvim": { "branch": "main", "commit": "3ad55ae678876516156cca2f361c51f7952a924b" },
   "lualine.nvim": { "branch": "master", "commit": "45e27ca739c7be6c49e5496d14fcf45a303c3a63" },
@@ -46,7 +46,7 @@
   "nvim-navic": { "branch": "master", "commit": "9c89730da6a05acfeb6a197e212dfadf5aa60ca0" },
   "nvim-notify": { "branch": "master", "commit": "ea9c8ce7a37f2238f934e087c255758659948e0f" },
   "nvim-spectre": { "branch": "master", "commit": "5b39919a2947b1266b3aa34d0b0b14c35523bc69" },
-  "nvim-treesitter": { "branch": "master", "commit": "11d79aa0f731439f2cd05579a64ac13857002f16" },
+  "nvim-treesitter": { "branch": "master", "commit": "5f01ffd47843d5030001df81a83c2f9ea1c06d97" },
   "nvim-treesitter-textobjects": { "branch": "master", "commit": "9e519b6146512c8e2e702faf8ac48420f4f5deec" },
   "nvim-ts-context-commentstring": { "branch": "main", "commit": "e9062e2dfb9854e6a927370f2d720de354c88524" },
   "nvim-ufo": { "branch": "main", "commit": "aebd36bf5447862671356fcd5d4a8708ce6c9470" },
@@ -67,5 +67,6 @@
   "venv-selector.nvim": { "branch": "main", "commit": "48b8d9775058ef5650016038f58d127b059b9987" },
   "vim-illuminate-akua": { "branch": "master", "commit": "4abd74cce12069548b15152c6167c975b9c8c7ff" },
   "vim-startuptime": { "branch": "master", "commit": "454b3de856b7bd298700de33d79774ca9b9e3875" },
-  "which-key.nvim": { "branch": "main", "commit": "7ccf476ebe0445a741b64e36c78a682c1c6118b7" }
+  "which-key.nvim": { "branch": "main", "commit": "7ccf476ebe0445a741b64e36c78a682c1c6118b7" },
+  "window-picker": { "branch": "main", "commit": "fd5d3348b3e254ca3134f97793b4a8c702c4ad1d" }
 }
