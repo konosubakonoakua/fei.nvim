@@ -41,6 +41,10 @@ return {
     keys = function()
       return {}
     end,
+    opts = {
+      history = false,
+      delete_check_events = "TextChanged",
+    },
   },
   {
     -- TODO: add lspkind maybe
