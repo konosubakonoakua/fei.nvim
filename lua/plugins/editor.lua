@@ -164,6 +164,7 @@ return {
     config = function(_, opts)
       local telescope = require("telescope")
       telescope.setup(opts)
+      require("telescope").load_extension("macros")
     end,
   },
 
@@ -256,6 +257,35 @@ return {
         ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
         { desc = "Telescope cwd file_browser", noremap = true }
       )
+    end,
+  },
+
+  {
+    "ecthelionvi/NeoComposer.nvim",
+    dependencies = { "kkharji/sqlite.lua" },
+    opts = {
+      notify = false,
+      delay_timer = 0,
+      colors = {
+        bg = "#16161e",
+        fg = "#ff9e64",
+        red = "#ec5f67",
+        blue = "#5fb3b3",
+        green = "#99c794",
+      },
+      keymaps = {
+        play_macro = "Q",
+        yank_macro = "yq",
+        stop_macro = "cq",
+        toggle_record = "q",
+        cycle_next = "<c-n>",
+        cycle_prev = "<c-p>",
+        toggle_macro_menu = "<m-q>",
+      },
+    },
+    init = function()
+      require("telescope").load_extension("macros")
+      vim.api.nvim_set_keymap("n", "<space>fm", "<cmd>Telescope macros<cr>", { desc = "Find Macros", noremap = true })
     end,
   },
 
