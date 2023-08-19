@@ -10,7 +10,9 @@ if vim.g.neovide then
 end
 
 -- INFO: trailing 0x0A in return value of vim.fn.system, strip it
-vim.g.python3_host_prog = vim.fn.system("which python3"):match("^%s*(.-)%s*$")
+if not plat.isPlatWindows() then
+  vim.g.python3_host_prog = vim.fn.system("which python3"):match("^%s*(.-)%s*$")
+end
 
 -- sqlite.lua
 if plat.isPlatWindows() then
