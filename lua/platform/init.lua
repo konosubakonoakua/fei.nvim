@@ -9,9 +9,15 @@ local function libsuffix()
   return jit.os == "Windows" and ".dll" or ".so"
 end
 
-return {
+local M = {
   os = jit.os,
   libdeps = {
     sqlite3 = depspath .. "/" .. "sqlite3" .. libsuffix(),
   },
 }
+
+function M.isPlatWindows()
+  return jit.os == "Windows"
+end
+
+return M

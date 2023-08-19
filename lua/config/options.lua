@@ -13,4 +13,6 @@ end
 vim.g.python3_host_prog = vim.fn.system("which python3"):match("^%s*(.-)%s*$")
 
 -- sqlite.lua
-vim.g.sqlite_clib_path = plat.libdeps.sqlite3
+if plat.isPlatWindows() then
+  vim.g.sqlite_clib_path = plat.libdeps.sqlite3
+end
