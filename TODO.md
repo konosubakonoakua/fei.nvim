@@ -18,5 +18,6 @@
 - [x] FIXME: No Python executable found that can `import neovim`.
 - [ ] FIXME: error when saving/opening yml file: Request textDocument/foldingRange failed with message: Cannot read properties of undefined (reading 'lineFoldingOnly')
 - [ ] FIXME: neovim 0.10.* breaks the `<C-/>` terminal
+- [ ] FIXME: NEOTREE not syncing path with buffer on Windows platform (maybe security software issue)
 
 
