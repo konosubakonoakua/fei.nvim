@@ -4,7 +4,7 @@
   -- zen-mode (not good)
 ]]
 
-local Util = require("lazyvim.util")
+local _util = require("lazyvim.util")
 
 return {
   -- PERF: when using / to search, will aborting early if matched with flash
