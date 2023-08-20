@@ -137,15 +137,7 @@ return {
   -- change some telescope options and a keymap to browse plugin files
   {
     "nvim-telescope/telescope.nvim",
-    keys = {
-      -- add a keymap to browse plugin files
-      -- stylua: ignore start
-      { "<leader>fP", function() require("telescope.builtin").find_files( { cwd = require("lazy.core.config").options.root }) end, desc = "Find Plugin File", },
-      { "<leader>uc", Util.telescope("colorscheme", { enable_preview = true }), desc = "Colorscheme with preview" },
-      { "<leader>sr", "<cmd>Telescope resume<cr>", desc = "Telescope Resume" },
-      -- stylua: ignore end
-    },
-    -- change some options
+    keys = {},
     opts = {
       defaults = {
         -- stylua: ignore start
@@ -244,19 +236,6 @@ return {
         },
       })
       require("telescope").load_extension("file_browser")
-      vim.api.nvim_set_keymap(
-        "n",
-        "<space>;f",
-        ":Telescope file_browser<CR>",
-        { desc = "Telescope file_browser", noremap = true }
-      )
-      -- open file_browser with the path of the current buffer
-      vim.api.nvim_set_keymap(
-        "n",
-        "<space>;c",
-        ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
-        { desc = "Telescope cwd file_browser", noremap = true }
-      )
     end,
   },
 
@@ -285,7 +264,6 @@ return {
     },
     init = function()
       require("telescope").load_extension("macros")
-      vim.api.nvim_set_keymap("n", "<space>fm", "<cmd>Telescope macros<cr>", { desc = "Find Macros", noremap = true })
     end,
   },
 
@@ -397,9 +375,7 @@ return {
     cmd = "Spectre",
     opts = { open_cmd = "noswapfile vnew" },
     -- stylua: ignore
-    keys = {
-      { "<leader>cR", function() require("spectre").open() end, desc = "Replace in files (Spectre)" },
-    },
+    keys = {},
   },
 
   -- markdown preview

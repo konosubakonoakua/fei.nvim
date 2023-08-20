@@ -14,6 +14,7 @@ local _lazyterm       = function() _floatterm(nil, { cwd = _util.get_root(), ctr
 local _lazyterm_cwd   = function() _floatterm(nil, { cwd = vim.fn.expand("%:p:h"), ctrl_hjkl = false }) end
 
 local keymap             = require("util").keymap
+local keymap_force       = vim.keymap.set
 local cmd_concat         = require("util").cmd_concat
 local is_disabled_plugin = require("util").is_disabled_plugin
 
@@ -99,13 +100,6 @@ keymap("n", "<c-_>",      _lazyterm,      { desc = "which_key_ignore" })
 -- keymap("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
 keymap("t", "<C-L>", "<c-\\><c-n>A", { desc = "Clear Terminal" }) -- when <C-l> used for windows
 
--- Trouble
-if _util.has("todo-comments.nvim") then
-  keymap("n", "<leader>xsf", "<cmd>TodoTelescope keywords=FIX,FIXME,BUG<CR>", { desc = "Show FIXME" })
-  keymap("n", "<leader>xst", "<cmd>TodoTelescope keywords=TODO<CR>", { desc = "Show TODO" })
-  keymap("n", "<leader>xsT", "<cmd>TodoTelescope keywords=TEST<CR>", { desc = "Show TEST" })
-  keymap("n", "<leader>xsi", "<cmd>TodoTelescope keywords=INFO<CR>", { desc = "Show INFO" })
-end
 -- #endregion plugin remappings
 
 --#region <leader>; group remappings
@@ -151,17 +145,36 @@ keymap("n", "<leader>;T", _lazyterm,          { desc = "Terminal (root dir)" })
 
 -- #region toggle options
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
+keymap_force("n", "<leader>uC", function() _util.toggle("conceallevel", false, {0, conceallevel}) end, { desc = "Toggle Conceal" })
+
 if vim.lsp.inlay_hint then
-  keymap("n", "<leader>uh", function() vim.lsp.inlay_hint(0, nil) end, { desc = "Toggle Inlay Hints" })
+  keymap_force("n", "<leader>uh", function() vim.lsp.inlay_hint(0, nil) end, { desc = "Toggle Inlay Hints" })
 end
 
 keymap("n", "<leader>us", function() _util.toggle("spell") end,      { desc = "Toggle Spelling" })
 keymap("n", "<leader>uw", function() _util.toggle("wrap") end,       { desc = "Toggle Word Wrap" })
 keymap("n", "<leader>ul", function() _util.toggle_number() end,      { desc = "Toggle Line Numbers" })
 keymap("n", "<leader>ud", function() _util.toggle_diagnostics() end, { desc = "Toggle Diagnostics" })
-keymap("n", "<leader>uC", function() _util.toggle("conceallevel", false, {0, conceallevel}) end, { desc = "Toggle Conceal" })
 keymap("n", "<leader>uf", function() require("lazyvim.plugins.lsp.format").toggle() end,         { desc = "Toggle format on Save" })
 
 -- #endregion toggle options
+
+-- #region telescope
+if _util.has("todo-comments.nvim") then
+  keymap("n", "<leader>xsf", "<cmd>TodoTelescope keywords=FIX,FIXME,BUG<CR>", { desc = "Show FIXME" })
+  keymap("n", "<leader>xst", "<cmd>TodoTelescope keywords=TODO<CR>", { desc = "Show TODO" })
+  keymap("n", "<leader>xsT", "<cmd>TodoTelescope keywords=TEST<CR>", { desc = "Show TEST" })
+  keymap("n", "<leader>xsi", "<cmd>TodoTelescope keywords=INFO<CR>", { desc = "Show INFO" })
+end
+keymap_force("n", "<leader>uc", _util.telescope("colorscheme", { enable_preview = true }), {desc = "Colorscheme with preview"})
+keymap_force("n", "<leader>sr", "<cmd>Telescope resume<cr>",   { desc = "Telescope Resume" })
+keymap_force("n", "<leader>s;", "<cmd>Telescope builtin<cr>",  { desc = "Telescope Builtins", noremap = true })
+keymap_force("n", "<leader>cR", "<cmd>Spectre<cr>",            { desc = "Replace in files (Spectre)" })
+keymap_force("n", "<leader>;f", ":Telescope file_browser<CR>", { desc = "Telescope file_browser", noremap = true })
+keymap_force("n", "<leader>;c", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", { desc = "Telescope cwd file_browser", noremap = true })
+keymap_force("n", "<leader>fm", "<cmd>Telescope macros<cr>",   { desc = "NeoComposer Macros", noremap = true })
+keymap_force("n", "<leader>fP", function() require("telescope.builtin")
+  .find_files( { cwd = require("lazy.core.config").options.root }) end, {desc = "Find Plugin File"})
+-- #endregion telescope
 
 -- stylua: ignore end
