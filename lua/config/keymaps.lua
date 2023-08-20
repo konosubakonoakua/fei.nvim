@@ -172,6 +172,7 @@ keymap_force("n", "<leader>s;", "<cmd>Telescope builtin<cr>",  { desc = "Telesco
 keymap_force("n", "<leader>cR", "<cmd>Spectre<cr>",            { desc = "Replace in files (Spectre)" })
 keymap_force("n", "<leader>;f", ":Telescope file_browser<CR>", { desc = "Telescope file_browser", noremap = true })
 keymap_force("n", "<leader>;c", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", { desc = "Telescope cwd file_browser", noremap = true })
+keymap_force("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
 keymap_force("n", "<leader>fm", "<cmd>Telescope macros<cr>",   { desc = "NeoComposer Macros", noremap = true })
 keymap_force("n", "<leader>fP", function() require("telescope.builtin")
   .find_files( { cwd = require("lazy.core.config").options.root }) end, {desc = "Find Plugin File"})
