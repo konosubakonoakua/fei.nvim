@@ -14,7 +14,7 @@
 - [ ] FIXME: dynamic colorscheme not working
 - [ ] FIXME: <leader>e open edge will leave a random character at right bottom, <leader>ue will not
 - [x] FIXME: vim illuminate encountered error when processing `-- #region` blocks
-- [ ] FIXME: sometimes cursor block disapper: https://github.com/neovim/neovim/issues/21018
+- [ ] FIXME: sometimes cursor block disapper: https://github.com/neovim/neovim/issues/21018 https://github.com/Yggdroot/LeaderF/commit/998a06e48d755ab84845735a6720a0ef3a43f937
 - [x] FIXME: No Python executable found that can `import neovim`.
 - [ ] FIXME: error when saving/opening yml file: Request textDocument/foldingRange failed with message: Cannot read properties of undefined (reading 'lineFoldingOnly')
 - [ ] FIXME: neovim 0.10.* breaks the `<C-/>` terminal

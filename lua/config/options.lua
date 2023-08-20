@@ -18,3 +18,5 @@ end
 if plat.isPlatWindows() then
   vim.g.sqlite_clib_path = plat.libdeps.sqlite3
 end
+
+vim.opt.guicursor = "a:block"

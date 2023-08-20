@@ -22,6 +22,7 @@ return {
 
   -- disable leaderf
   -- { "Yggdroot/LeaderF", enabled = false },
+  -- { "konosubakonoakua/LeaderF", enabled = false },
 
   -- disable hardtime
   { "m4xshen/hardtime.nvim", enabled = false },

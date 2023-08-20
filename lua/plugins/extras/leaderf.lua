@@ -14,7 +14,9 @@ end
 
 return {
   {
-    "Yggdroot/LeaderF",
+    -- "Yggdroot/LeaderF",
+    "konosubakonoakua/LeaderF",
+    branch = "fix/guicursor-invisible",
     event = "VimEnter",
     lazy = false,
     -- build = ":LeaderfInstallCExtension", -- sudo apt install python3.10-distutils python3-dev python3-pip
