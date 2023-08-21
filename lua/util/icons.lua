@@ -1,6 +1,6 @@
 return {
   mode = {
-    n = "", -- Normal󰫻
+    n = "󰫻", -- Normal
     -- no = "", -- Operator-pending
     -- nov = "", -- Operator-pending (forced charwise |o_v|)
     -- noV = "", -- Operator-pending (forced linewise |o_V|)
