@@ -7,6 +7,11 @@
 - [x] TODO: find a way to index multiple folders when using gtags with leaderf
 - [x] TODO: create ~/.venv for nvim python support
 - [ ] TODO: try lsp inlay in neovim 0.10.*
+- [ ] TODO: make better completions
+- [ ] TODO: enable completion in command mode
+- [ ] TODO: set highlights for different modes
+- [ ] TODO: change spacer for lualine
+
 
 # FIXMEs
 - [ ] FIXME: mason installed stylua cannot run in ubuntu18
