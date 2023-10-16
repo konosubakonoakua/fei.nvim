@@ -30,41 +30,66 @@ return {
     },
   },
 
-  -- Dashboard. This runs when neovim starts, and is what displays
-  -- the "LAZYVIM" banner.
   {
-    "goolord/alpha-nvim",
-    event = "VimEnter",
+    "nvimdev/dashboard-nvim",
     opts = function()
-      local dashboard = require("alpha.themes.dashboard")
       local logo = [[
-                                 __
-    ___     ___    ___   __  __ /\_\    ___ ___
-   / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\
+                 __
+ ___     ___    ___   __  __ /\_\    ___ ___
+ / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\
   /\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \
   \ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\
    \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/
       ]]
-      dashboard.section.header.val = vim.split(logo, "\n")
-      dashboard.section.buttons.val = {
-        dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
-        dashboard.button("n", "󱇧 " .. " New file", ":ene <BAR> startinsert <CR>"),
-        dashboard.button("r", "󱋡 " .. " Recent files", ":Telescope oldfiles <CR>"),
-        dashboard.button("g", "󱘢 " .. " Find text", ":Telescope live_grep <CR>"),
-        dashboard.button("c", " " .. " Config", ":e $MYVIMRC <CR>"),
-        dashboard.button("s", " " .. " Restore Session", [[:lua require("persistence").load() <cr>]]),
-        dashboard.button("l", "󰤄 " .. " Lazy", ":Lazy<CR>"),
-        dashboard.button("q", " " .. " Quit", ":qa<CR>"),
+
+      logo = string.rep("\n", 8) .. logo .. "\n\n"
+      -- local _util = require("lazyvim.util")
+
+      local opts = {
+        theme = "doom",
+        hide = {
+          -- this is taken care of by lualine
+          -- enabling this messes up the actual laststatus setting after loading a file
+          statusline = false,
+        },
+        config = {
+          header = vim.split(logo, "\n"),
+      -- stylua: ignore
+      center = {
+        { action = "Telescope find_files",              desc = " Find file",       icon = " ", key = "f" },
+        { action = "ene | startinsert",                 desc = " New file",        icon = " ", key = "n" },
+        { action = "Telescope oldfiles",                desc = " Recent files",    icon = " ", key = "r" },
+        { action = "Telescope live_grep",               desc = " Find text",       icon = " ", key = "g" },
+        { action = "e $MYVIMRC",                        desc = " Config",          icon = " ", key = "c" },
+        { action = 'lua require("persistence").load()', desc = " Restore Session", icon = " ", key = "s" },
+        { action = "LazyExtras",                        desc = " Lazy Extras",     icon = " ", key = "e" },
+        { action = "Lazy",                              desc = " Lazy",            icon = "󰒲 ", key = "l" },
+        { action = "qa",                                desc = " Quit",            icon = " ", key = "q" },
+      },
+          footer = function()
+            local stats = require("lazy").stats()
+            local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
+            return { "⚡ Neovim loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms .. "ms" }
+          end,
+        },
       }
-      for _, button in ipairs(dashboard.section.buttons.val) do
-        button.opts.hl = "AlphaButtons"
-        button.opts.hl_shortcut = "AlphaShortcut"
+
+      for _, button in ipairs(opts.config.center) do
+        button.desc = button.desc .. string.rep(" ", 43 - #button.desc)
       end
-      dashboard.section.header.opts.hl = "AlphaHeader"
-      dashboard.section.buttons.opts.hl = "AlphaButtons"
-      dashboard.section.footer.opts.hl = "AlphaFooter"
-      dashboard.opts.layout[1].val = 8
-      return dashboard
+
+      -- close Lazy and re-open when the dashboard is ready
+      if vim.o.filetype == "lazy" then
+        vim.cmd.close()
+        vim.api.nvim_create_autocmd("User", {
+          pattern = "DashboardLoaded",
+          callback = function()
+            require("lazy").show()
+          end,
+        })
+      end
+
+      return opts
     end,
   },
 
@@ -117,7 +142,7 @@ return {
             {
               function() return require("noice").api.status.command.get() end,
               cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
-              color = _util.fg("Statement"),
+              color = _util.ui.fg("Statement"),
             },
             -- -- stylua: ignore
             -- {
@@ -129,9 +154,13 @@ return {
             {
               function() return "  " .. require("dap").status() end,
               cond = function () return package.loaded["dap"] and require("dap").status() ~= "" end,
-              color = _util.fg("Debug"),
+              color = _util.ui.fg("Debug"),
             },
-            { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = _util.fg("Special") },
+            {
+              require("lazy.status").updates,
+              cond = require("lazy.status").has_updates,
+              color = _util.ui.fg("Special"),
+            },
             {
               "diff",
               symbols = {

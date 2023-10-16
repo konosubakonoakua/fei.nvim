@@ -1,10 +1,11 @@
-return {
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      inlay_hints = {
-        enabled = true,
-      },
-    },
-  },
-}
+return {}
+-- return {
+--   {
+--     "neovim/nvim-lspconfig",
+--     opts = {
+--       inlay_hints = {
+--         enabled = true,
+--       },
+--     },
+--   },
+-- }

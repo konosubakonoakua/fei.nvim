@@ -9,9 +9,9 @@ local _opts   = { silent = true }
 -- local _myutil = require("util")
 local _util   = require("lazyvim.util")
 
-local _floatterm      = require("lazyvim.util").float_term
-local _lazyterm       = function() _floatterm(nil, { cwd = _util.get_root(), ctrl_hjkl = false }) end
-local _lazyterm_cwd   = function() _floatterm(nil, { cwd = vim.fn.expand("%:p:h"), ctrl_hjkl = false }) end
+local _floatterm      = require("lazyvim.util").terminal.open
+local _lazyterm       = function() _floatterm(nil, { cwd = _util.root.get(), ctrl_hjkl = false }) end
+local _lazyterm_cwd   = function() _floatterm(nil, { cwd = tostring(vim.fn.expand("%:p:h")), ctrl_hjkl = false }) end
 
 local keymap             = require("util").keymap
 local keymap_force       = vim.keymap.set
@@ -111,7 +111,7 @@ if vim.fn.executable("glow") == 1 then
   -- https://github.com/charmbracelet/glow/issues/489
   -- { "glow", tostring(vim.fn.expand("%:p"))},
   keymap("n", "<leader>;g", function () _floatterm(
-    { "glow" }, { cwd = vim.fn.expand("%:p:h"), ctrl_hjkl = false }) end,
+    { "glow" }, { cwd = tostring(vim.fn.expand("%:p:h")), ctrl_hjkl = false }) end,
     { desc = "!Glow" })
   -- keymap("n", "<leader>;g", "<cmd>Glow<cr>", { desc = "Glow" })
 end
@@ -125,7 +125,10 @@ end
 
 -- Dashboard
 keymap("n", "<leader>;;", function()
-  if _util.has("alpha-nvim") then
+  if _util.has("dashboard-nvim") then
+    vim.cmd("Neotree close")
+    vim.cmd("Dashboard")
+  elseif _util.has("alpha-nvim") then
     vim.cmd("Neotree close")
     vim.cmd("Alpha")
   elseif _util.has("mini.starter") then
@@ -137,9 +140,10 @@ end, { desc = "Dashboard", silent = true })
 keymap("n", "<leader>;l", "<cmd>Lazy<cr>",    { desc = "Lazy.nvim" })
 keymap("n", "<leader>;m", "<cmd>Mason<cr>",   { desc = "Mason" })
 keymap("n", "<leader>;I", "<cmd>LspInfo<cr>", { desc = "LspInfo" })
-keymap("n", "<leader>;L", _util.changelog,    { desc = "LazyVim Changelog" })
 keymap("n", "<leader>;t", _lazyterm_cwd,      { desc = "Terminal (cwd)" })
 keymap("n", "<leader>;T", _lazyterm,          { desc = "Terminal (root dir)" })
+keymap("n", "<leader>;E", "<cmd>LazyExtras<cr>", { desc = "LazyExtras" })
+keymap("n", "<leader>;L", _util.news.changelog,  { desc = "LazyVim Changelog" })
 
 -- #endregion
 
@@ -153,8 +157,8 @@ end
 
 keymap("n", "<leader>us", function() _util.toggle("spell") end,      { desc = "Toggle Spelling" })
 keymap("n", "<leader>uw", function() _util.toggle("wrap") end,       { desc = "Toggle Word Wrap" })
-keymap("n", "<leader>ul", function() _util.toggle_number() end,      { desc = "Toggle Line Numbers" })
-keymap("n", "<leader>ud", function() _util.toggle_diagnostics() end, { desc = "Toggle Diagnostics" })
+keymap("n", "<leader>ul", function() _util.toggle.number() end,      { desc = "Toggle Line Numbers" })
+keymap("n", "<leader>ud", function() _util.toggle.diagnostics() end, { desc = "Toggle Diagnostics" })
 keymap("n", "<leader>uf", function() require("lazyvim.plugins.lsp.format").toggle() end,         { desc = "Toggle format on Save" })
 
 -- #endregion toggle options

@@ -1,6 +1,3 @@
-if true then
-  return {}
-end
 return {
   {
     -- only work for Neovim version < 0.9.0
