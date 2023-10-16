@@ -266,10 +266,10 @@ return {
       require("telescope").load_extension("live_grep_args")
     end,
   },
-
+  -- INFO: yanky on windows put sqlite to disabled, so force enable here
+  { "kkharji/sqlite.lua", enabled = true },
   {
     "ecthelionvi/NeoComposer.nvim",
-    dependencies = { "kkharji/sqlite.lua" },
     opts = {
       notify = false,
       delay_timer = 0,
