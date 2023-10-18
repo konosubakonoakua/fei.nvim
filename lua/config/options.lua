@@ -5,9 +5,11 @@
 local plat = require("platform")
 
 if vim.g.neovide then
-  vim.opt.guifont = { "Lilex Nerd Font Mono", "h9" }
-  vim.g.neovide_scale_factor = 1.2
+  vim.opt.guifont = { "Lilex Nerd Font Mono", "h8" }
+  -- vim.g.neovide_scale_factor = 1.2
 end
+
+vim.opt.exrc = true
 
 -- INFO: trailing 0x0A in return value of vim.fn.system, strip it
 if not plat.isPlatWindows() then
