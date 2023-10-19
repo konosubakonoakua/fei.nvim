@@ -273,6 +273,13 @@ return {
     opts = {
       notify = false,
       delay_timer = 0,
+      queue_most_recent = false,
+      window = {
+        border = "rounded",
+        winhl = {
+          Normal = "ComposerNormal",
+        },
+      },
       colors = {
         bg = "#16161e",
         fg = "#ff9e64",
