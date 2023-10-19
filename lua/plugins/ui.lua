@@ -33,14 +33,8 @@ return {
   {
     "nvimdev/dashboard-nvim",
     opts = function()
-      local logo = [[
-                 __
- ___     ___    ___   __  __ /\_\    ___ ___
- / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\
-  /\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \
-  \ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\
-   \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/
-      ]]
+      local logos = require("util.logos")
+      local logo = logos[math.random(#logos)]
 
       logo = string.rep("\n", 8) .. logo .. "\n\n"
       -- local _util = require("lazyvim.util")
