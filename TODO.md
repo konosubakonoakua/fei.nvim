@@ -1,28 +1,36 @@
-# TODOs
+# TODO.md
+
+## TODOs
+
 - [ ] TODO: add regex to exlude solved TODOs like '[x] TODO:'
 - [ ] TODO: adjust impair behavior
 - [ ] TODO: config fzf-lua keymaps
-- [ ] TODO: integrate neovim-remote & lazygit (edit in same process)
+- [x] TODO: integrate neovim-remote & lazygit (edit in same process)
 - [x] TODO: add `leaderf` and config gtags for huge cpp projects
 - [x] TODO: find a way to index multiple folders when using gtags with leaderf
 - [x] TODO: create ~/.venv for nvim python support
-- [ ] TODO: try lsp inlay in neovim 0.10.*
+- [x] TODO: try lsp inlay in neovim 0.10.\* (working well for c++)
 - [ ] TODO: make better completions
-- [ ] TODO: enable completion in command mode
-- [ ] TODO: set highlights for different modes
+- [x] TODO: enable completion in command mode
+- [ ] TODO: set highlights for different modes (lualine)
 - [ ] TODO: change spacer for lualine
+- [ ] TODO: change dashboard vertical spacing (upstream)
 
+## FIXMEs
 
-# FIXMEs
 - [ ] FIXME: mason installed stylua cannot run in ubuntu18
 - [ ] FIXME: todo-commnets highlight not working in md files
-- [ ] FIXME: dynamic colorscheme not working
+- [x] FIXME: dynamic colorscheme not working (not been reproduced)
 - [ ] FIXME: <leader>e open edge will leave a random character at right bottom, <leader>ue will not
-- [x] FIXME: vim illuminate encountered error when processing `-- #region` blocks
-- [ ] FIXME: sometimes cursor block disapper: https://github.com/neovim/neovim/issues/21018 https://github.com/Yggdroot/LeaderF/commit/998a06e48d755ab84845735a6720a0ef3a43f937
-- [x] FIXME: No Python executable found that can `import neovim`.
-- [ ] FIXME: error when saving/opening yml file: Request textDocument/foldingRange failed with message: Cannot read properties of undefined (reading 'lineFoldingOnly')
-- [ ] FIXME: neovim 0.10.* breaks the `<C-/>` terminal
+- [x] FIXME: vim illuminate encountered error when processing `-- #region` blocks (upstream fixed)
+- [ ] FIXME: sometimes cursor block disapper: [nvim issue](https://github.com/neovim/neovim/issues/21018) [leaderf commit](https://github.com/Yggdroot/LeaderF/commit/998a06e48d755ab84845735a6720a0ef3a43f937)
+- [x] FIXME: No Python executable found that can `import neovim`. (fixed by set python3_host_prog)
+- [x] FIXME: error when saving/opening yml file: Request textDocument/foldingRange failed with message: Cannot read properties of undefined (reading 'lineFoldingOnly')(not been reproduced)
+- [x] FIXME: neovim 0.10.\* breaks the `<C-/>` terminal
 - [ ] FIXME: NEOTREE not syncing path with buffer on Windows platform (maybe security software issue)
-
-
+- [ ] FIXME: sometimes terminal remaining, cannot close
+- [ ] FIXME: colorful banner cannot close when resizing
+- [ ] FIXME: telescope-file-browser.nvim slow (~2s) when initing
+- [x] FIXME: cpp dap break point not working (compiling issue, need debug info `-g`)
+- [ ] FIXME: closing terminal causing nvim not responding with high cpu loading sometimes
+- [ ] BUG: _FREEZE FOR NO REASON_ randomly (0.10)
