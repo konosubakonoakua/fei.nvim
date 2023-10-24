@@ -18,7 +18,8 @@
     "lazyvim.plugins.extras.util.project",
     "lazyvim.plugins.extras.vscode",
     "plugins.extras.folding",
-    "plugins.extras.godbolt"
+    "plugins.extras.godbolt",
+    "plugins.extras.project"
   ],
   "news": {
     "NEWS.md": "2123"
