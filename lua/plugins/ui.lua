@@ -1,6 +1,6 @@
 --[[ Summary
   * nvim-notify
-    * set timeout to 4s
+    * set timeout to 0.5s
     * set compact layout
     * set slide animation
     * new keys for listing notify history
@@ -17,17 +17,17 @@ return {
       { "<leader>uN", function() require("telescope").extensions.notify.notify() end,
         desc = "Dispaly all Notification histories", },
     },
-    opts = {
-      render = "compact",
-      stages = "slide",
-      timeout = 2000, -- TODO: adjust notify timeout
-      max_height = function()
+    opts = function(_, opts)
+      opts.render = "compact"
+      -- opts.stages = "slide"
+      opts.timeout = 500 -- TODO: adjust notify timeout
+      opts.max_height = function()
         return math.floor(vim.o.lines * 0.75)
-      end,
-      max_width = function()
+      end
+      opts.max_width = function()
         return math.floor(vim.o.columns * 0.75)
-      end,
-    },
+      end
+    end,
   },
   {
     "nvimdev/dashboard-nvim",
