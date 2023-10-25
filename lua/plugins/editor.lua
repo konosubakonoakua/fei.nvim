@@ -9,6 +9,29 @@ local _util = require("lazyvim.util")
 return {
   -- PERF: when using / to search, will aborting early if matched with flash
 
+  -- FIXME: window picker not working
+  {
+    "s1n7ax/nvim-window-picker",
+    name = "window-picker",
+    version = "2.*",
+    config = function()
+      require("window-picker").setup({
+        filter_rules = {
+          include_current_win = false,
+          autoselect_one = true,
+          -- filter using buffer options
+          bo = {
+            -- if the file type is one of following, the window will be ignored
+            filetype = { "neo-tree", "neo-tree-popup", "notify" },
+            -- if the buffer type is one of following, the window will be ignored
+            buftype = { "terminal", "quickfix" },
+          },
+        },
+        hint = "floating-big-letter",
+      })
+    end,
+  },
+
   -- TODO: config neo-tree
   -- use 'o' as toggle folder open or close
   {
@@ -48,17 +71,6 @@ return {
           --".null-ls_*",
         },
       }
-    end,
-  },
-  {
-    "s1n7ax/nvim-window-picker",
-    name = "window-picker",
-    event = "VeryLazy",
-    version = "2.*",
-    config = function()
-      require("window-picker").setup({
-        hint = "floating-big-letter",
-      })
     end,
   },
 
