@@ -38,6 +38,11 @@ return {
       logo = string.rep("\n", 8) .. logo .. "\n\n"
       -- local _util = require("lazyvim.util")
       local use_preview = math.random() < 0.5
+
+      if require("platform").isPlatWindows() then
+        use_preview = false
+      end
+
       local preview = {
         command = "cat",
         file_path = vim.fn.stdpath("config") .. "/lua/util/logo_neovim.cat",
