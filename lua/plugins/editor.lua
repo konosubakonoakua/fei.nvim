@@ -13,36 +13,42 @@ return {
   -- use 'o' as toggle folder open or close
   {
     "nvim-neo-tree/neo-tree.nvim",
-    opts = {
-      enable_git_status = true,
-      enable_diagnostics = true,
-      -- enable_normal_mode_for_inputs = true,
-      follow_current_file = {
-        enabled = true,
-        leave_dirs_open = false,
-      },
-      -- TODO: neotree git symbols custom not working
-      git_status = {
-        symbols = {
-          -- Change type
-          -- added = "",
-          -- modified = "",
-          -- deleted = "✖",
-          -- renamed = "󰁕",
-          -- Status type
-          untracked = "",
-          ignored = "",
-          unstaged = "󰄱",
-          staged = "",
-          conflict = "",
+    config = function(_, opts)
+      if vim.fn.executable("fd") == 1 then
+        opts.filesystem.find_command = "fd"
+        opts.filesystem.find_args = {
+          fd = {
+            "--exclude",
+            ".git",
+            "--exclude",
+            "node_modules",
+          },
+        }
+      end
+      opts.filesystem.filtered_items = {
+        visible = false, -- when true, they will just be displayed differently than normal items
+        hide_dotfiles = false,
+        hide_gitignored = true,
+        hide_hidden = true, -- only works on Windows for hidden files/directories
+        hide_by_name = {
+          "node_modules",
         },
-      },
-      window = {
-        mappings = {
-          ["<space>"] = "none",
+        hide_by_pattern = { -- uses glob style patterns
+          --"*.meta",
+          --"*/src/*/tsconfig.json",
         },
-      },
-    },
+        always_show = { -- remains visible even if other settings would normally hide it
+          --".gitignored",
+        },
+        never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
+          ".DS_Store",
+          "thumbs.db",
+        },
+        never_show_by_pattern = { -- uses glob style patterns
+          --".null-ls_*",
+        },
+      }
+    end,
   },
   {
     "s1n7ax/nvim-window-picker",
@@ -55,6 +61,7 @@ return {
       })
     end,
   },
+
   -- here only using whichkey for reminding
   -- using 'keymap.lua' or other files to register actual keys
   {
