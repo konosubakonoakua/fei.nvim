@@ -34,3 +34,4 @@
 - [x] FIXME: cpp dap break point not working (compiling issue, need debug info `-g`)
 - [ ] FIXME: closing terminal causing nvim not responding with high cpu loading sometimes
 - [ ] BUG: _FREEZE FOR NO REASON_ randomly (0.10)
+- [ ] FIXME: todo & project not included in telescope builtins
