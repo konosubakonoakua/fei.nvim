@@ -92,22 +92,6 @@ return {
     },
   },
 
-  -- change surround mapping to gs
-  {
-    "echasnovski/mini.surround",
-    opts = {
-      mappings = {
-        add = "gsa",
-        delete = "gsd",
-        find = "gsf",
-        find_left = "gsF",
-        highlight = "gsh",
-        replace = "gsr",
-        update_n_lines = "gsn",
-      },
-    },
-  },
-
   -- Automatically highlights other instances of the word under your cursor.
   -- This works with LSP, Treesitter, and regexp matching to find the other
   -- instances.
