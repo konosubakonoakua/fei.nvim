@@ -41,10 +41,10 @@ return {
     keys = function()
       return {}
     end,
-    opts = {
-      history = false,
-      delete_check_events = "TextChanged",
-    },
+    opts = function(_, opts)
+      opts.history = false
+      opts.delete_check_events = "TextChanged"
+    end,
   },
   {
     -- TODO: add lspkind maybe
@@ -163,7 +163,7 @@ return {
   {
     "echasnovski/mini.pairs",
     event = "VeryLazy",
-    opts = {},
+    -- opts = {},
     init = function()
       require("mini.pairs").setup({
         mappings = {
