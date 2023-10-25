@@ -142,7 +142,7 @@ keymap("n", "<leader>;m", "<cmd>Mason<cr>",   { desc = "Mason" })
 keymap("n", "<leader>;I", "<cmd>LspInfo<cr>", { desc = "LspInfo" })
 keymap("n", "<leader>;t", _lazyterm_cwd,      { desc = "Terminal (cwd)" })
 keymap("n", "<leader>;T", _lazyterm,          { desc = "Terminal (root dir)" })
-keymap("n", "<leader>;E", "<cmd>LazyExtras<cr>", { desc = "LazyExtras" })
+keymap("n", "<leader>;x", "<cmd>LazyExtras<cr>", { desc = "LazyExtras" })
 keymap("n", "<leader>;L", _util.news.changelog,  { desc = "LazyVim Changelog" })
 
 -- #endregion
