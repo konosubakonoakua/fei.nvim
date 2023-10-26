@@ -8,8 +8,6 @@ local _util = require("lazyvim.util")
 
 return {
   -- PERF: when using / to search, will aborting early if matched with flash
-
-  -- FIXME: window picker not working
   {
     "s1n7ax/nvim-window-picker",
     name = "window-picker",
@@ -34,6 +32,7 @@ return {
 
   -- TODO: config neo-tree
   -- use 'o' as toggle folder open or close
+  --[[
   {
     "nvim-neo-tree/neo-tree.nvim",
     config = function(_, opts)
@@ -73,6 +72,7 @@ return {
       }
     end,
   },
+  --]]
 
   -- here only using whichkey for reminding
   -- using 'keymap.lua' or other files to register actual keys
