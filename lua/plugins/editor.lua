@@ -32,10 +32,11 @@ return {
 
   -- TODO: config neo-tree
   -- use 'o' as toggle folder open or close
-  --[[
+  -- [[
   {
     "nvim-neo-tree/neo-tree.nvim",
     config = function(_, opts)
+      --[[
       if vim.fn.executable("fd") == 1 then
         opts.filesystem.find_command = "fd"
         opts.filesystem.find_args = {
@@ -46,7 +47,34 @@ return {
             "node_modules",
           },
         }
-      end
+      end--]]
+
+      opts.enable_diagnostics = false
+      -- opts.enable_git_status = true
+      -- -- Show markers for files with unsaved changes.
+      -- opts.enable_modified_markers = true
+      -- -- Refresh the tree when a file is written. Only used if `use_libuv_file_watcher` is false.
+      -- opts.enable_refresh_on_write = true
+
+      -- -- (default 500) in ms, needed for containers to redraw right aligned and faded content
+      -- -- set to -1 to disable the resize timer entirely
+      -- -- NOTE: this will speed up to 50 ms for 1 second following a resize
+      -- opts.resize_timer_interval = -1
+
+      -- INFO: default using / as buffer text search
+      -- https://github.com/nvim-neo-tree/neo-tree.nvim/issues/382#issuecomment-1159292124
+      opts.window.mappings = {
+        ["/"] = "none",
+        ["g/"] = "fuzzy_finder",
+      }
+
+      -- opts.filesystem = {
+      -- bind_to_cwd = false,
+      -- follow_current_file = { enabled = true },
+      -- use_libuv_file_watcher = true,
+      -- }
+
+      --[[
       opts.filesystem.filtered_items = {
         visible = false, -- when true, they will just be displayed differently than normal items
         hide_dotfiles = false,
@@ -70,6 +98,7 @@ return {
           --".null-ls_*",
         },
       }
+      --]]
     end,
   },
   --]]
@@ -96,23 +125,27 @@ return {
   -- change some telescope options and a keymap to browse plugin files
   {
     "nvim-telescope/telescope.nvim",
-    keys = {},
-    opts = {
-      defaults = {
-        -- stylua: ignore start
-        mappings = {
-          i = {
-            ["<C-j>"] = function(...) return require("telescope.actions").move_selection_next(...) end,
-            ["<C-k>"] = function(...) return require("telescope.actions").move_selection_previous(...) end,
-            ["<C-p>"] = function(...) return require("telescope.actions.layout").toggle_preview(...) end,
-          },
-          n = { ["<C-p>"] = function(...) return require("telescope.actions.layout").toggle_preview(...) end,
-          },
-        },
-        -- stylua: ignore end
+    dependencies = {
+      { -- add telescope-fzf-native
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+        enabled = true,
+        config = function()
+          require("telescope").load_extension("fzf")
+        end,
+      },
+      { -- add telescope-zf-native
+        "natecraddock/telescope-zf-native.nvim",
+        enabled = false,
+        config = function()
+          require("telescope").load_extension("zf-native")
+        end,
       },
     },
+    keys = {},
     config = function(_, opts)
+      -- PERF: default is "smart", performance killer
+      opts.defaults.path_dispaly = nil
       -- stylua: ignore start
       opts.defaults.mappings = {
         i = {
@@ -129,18 +162,6 @@ return {
       telescope.setup(opts)
       require("telescope").load_extension("macros")
     end,
-  },
-
-  -- add telescope-fzf-native
-  {
-    "nvim-telescope/telescope.nvim",
-    dependencies = {
-      "nvim-telescope/telescope-fzf-native.nvim",
-      build = "make",
-      config = function()
-        require("telescope").load_extension("fzf")
-      end,
-    },
   },
 
   --[[
