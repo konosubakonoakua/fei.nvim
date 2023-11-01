@@ -181,6 +181,10 @@ return {
     config = function(_, opts)
       -- PERF: default is "smart", performance killer
       opts.defaults.path_dispaly = nil
+      opts.defaults.layout_config = {
+        width = 0.9,
+        height = 0.9,
+      }
       -- stylua: ignore start
       opts.defaults.mappings = {
         i = {
