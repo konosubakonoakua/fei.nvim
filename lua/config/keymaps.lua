@@ -187,18 +187,19 @@ keymap("n", "<leader>fP", function() require("telescope.builtin")
 if _util.has("fzf-lua") then
   vim.keymap.set({ "n", "v", "i" }, "<C-x><C-f>", function() require("fzf-lua").complete_path() end, { silent = true, desc = "Fuzzy complete path" })
   -- TODO: not available keystroke
+  --
   -- vim.keymap.set({ "n" }, "<C-;>", ":FzfLua files<cr>", { silent = true, desc = "FzfLua files" })
   -- vim.keymap.set({ "n" }, "<C-.>", ":FzfLua files<cr>", { silent = true, desc = "FzfLua files" })
   vim.keymap.set({ "n" }, "<A-;>", ":FzfLua files<cr>", { silent = true, desc = "FzfLua files" })
 
   -- keymap("n", "<leader>fd", "",            { desc = "FzfLua files" })
   -- keymap("n", "<leader>fi", ":FzfLua<cr>", { desc = "FzfLua builtins" })
+  -- keymap_force("n", "<leader><leader><leader>", ":FzfLua files<cr>",      {desc = "FzfLua files",          noremap = true})
 
-  keymap_force("n", "<leader><leader><leader>", ":FzfLua files<cr>",      {desc = "FzfLua files",          noremap = true})
+  keymap_force("n", "<leader><leader>d", "<cmd>lua _G.fzf_dirs()<cr>",    {desc = "FzfLua change dir",     noremap = true})
   keymap_force("n", "<leader><leader>i", ":FzfLua builtin<cr>",           {desc = "FzfLua builtins",       noremap = true})
   keymap_force("n", "<leader><leader>b", ":FzfLua buffers<cr>",           {desc = "FzfLua buffers",        noremap = true})
-  keymap_force("n", "<leader><leader>f", ":FzfLua files<cr>",             {desc = "FzfLua files",          noremap = true})
-  keymap_force("n", "<leader><leader>F", ":FzfLua files<cr>",             {desc = "FzfLua files cwd",      noremap = true})
+  keymap_force("n", "<leader><leader>c", ":FzfLua files<cr>",             {desc = "FzfLua files",          noremap = true})
   keymap_force("n", "<leader><leader>o", ":FzfLua oldfiles<cr>",          {desc = "FzfLua oldfiles",       noremap = true})
   keymap_force("n", "<leader><leader>q", ":FzfLua quickfix<cr>",          {desc = "FzfLua quickfix",       noremap = true})
   keymap_force("n", "<leader><leader>Q", ":FzfLua quickfix_stack<cr>",    {desc = "FzfLua quickfix_stack", noremap = true})
@@ -216,6 +217,7 @@ if _util.has("fzf-lua") then
   keymap_force("n", "<leader><leader>/r", ":FzfLua live_grep_resume<cr>", {desc = "FzfLua live_grep_resume", noremap = true})
   keymap_force("n", "<leader><leader>/g", ":FzfLua live_grep_glob<cr>",   {desc = "FzfLua live_grep_glob",   noremap = true})
   keymap_force("n", "<leader><leader>/n", ":FzfLua live_grep_native<cr>", {desc = "FzfLua live_grep_native", noremap = true})
+  keymap_force("n", "<leader><leader>f", ":lua require('fzf-lua').files({ cwd = require('lazyvim.util').root() })<cr>", {desc = "FzfLua files cwd", noremap = true})
 end
 -- #endregion fzf-lua
 

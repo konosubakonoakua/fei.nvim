@@ -1,4 +1,32 @@
 -- TODO: consider using arsham/fzfmania.nvim
+
+-- [[ Example: directory switcher
+_G.fzf_dirs = function(opts)
+  local fzf_lua = require("fzf-lua")
+  opts = opts or {}
+  opts.prompt = "Directories> "
+  opts.fn_transform = function(x)
+    return fzf_lua.utils.ansi_codes.magenta(x)
+  end
+  opts.actions = {
+    ["default"] = function(selected)
+      vim.cmd("cd " .. selected[1])
+    end,
+  }
+  fzf_lua.fzf_exec("fd --type d", opts)
+end
+
+-- -- map our provider to a user command ':Directories'
+-- vim.cmd([[command! -nargs=* Directories lua _G.fzf_dirs()]])
+
+-- -- or to a keybind, both below are (sort of) equal
+-- vim.keymap.set("n", "<C-k>", _G.fzf_dirs)
+-- vim.keymap.set("n", "<C-k>", "<cmd>lua _G.fzf_dirs()<CR>")
+
+-- -- We can also send call options directly
+-- :lua _G.fzf_dirs({ cwd = <other directory> })
+--]]
+
 return {
   {
     "nvim-telescope/telescope.nvim",
