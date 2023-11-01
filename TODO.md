@@ -16,6 +16,10 @@
 - [ ] TODO: change spacer for lualine
 - [ ] TODO: change dashboard vertical spacing (upstream)
 
+## PERFs
+
+- [ ] PERF: replace performance critial functionalities (telescope) with fzf-lua
+
 ## FIXMEs
 
 - [ ] FIXME: mason installed stylua cannot run in ubuntu18

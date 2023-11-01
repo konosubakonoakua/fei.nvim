@@ -1,7 +1,26 @@
 -- TODO: consider using arsham/fzfmania.nvim
 return {
   {
+    "nvim-telescope/telescope.nvim",
+    cmd = "Telescope",
+    version = false, -- telescope did only one release, so use HEAD for now
+    keys = {
+      { "<leader><space>", nil, desc = nil },
+    },
+  },
+  {
+    "folke/which-key.nvim",
+    opts = {
+      plugins = { spelling = true },
+      defaults = {
+        mode = { "n", "v" },
+        ["<leader><leader>"] = { name = "+FzfLua" },
+      },
+    },
+  },
+  {
     "ibhagwan/fzf-lua",
+    version = false,
     lazy = false,
     dependencies = {
       { "nvim-tree/nvim-web-devicons" },
@@ -11,6 +30,17 @@ return {
       local actions = require("fzf-lua.actions")
       -- stylua: ignore
       require("fzf-lua").setup({
+      --[[
+        Profile      Details
+        default      fzf-lua defaults, uses neovim "builtin" previewer and devicons (if available) for git/files/buffers
+        fzf-native   utilizes fzf's native previewing ability in the terminal where possible using bat for previews
+        fzf-tmux     similar to fzf-native and opens in a tmux popup (requires tmux > 3.2)
+        fzf-vim      closest to fzf.vim's defaults (+icons), also sets up user commands (:Files, :Rg, etc)
+        max-perf     similar to fzf-native and disables icons globally for max performance
+        telescope    closest match to telescope defaults in look and feel and keybinds
+        skim         uses skim as an fzf alternative, (requires the sk binary)
+      --]]
+      'telescope',
       -- fzf_bin         = 'sk',            -- use skim instead of fzf?
                                             -- https://github.com/lotabout/skim
                                             -- can also be set to 'fzf-tmux'
@@ -33,11 +63,11 @@ return {
         border           = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
         -- requires neovim > v0.9.0, passed as is to `nvim_open_win`
         -- can be sent individually to any provider to set the win title
-        -- title         = "Title",
-        -- title_pos     = "center",    -- 'left', 'center' or 'right'
-        fullscreen       = false,           -- start fullscreen?
+        title            = "FzfLua",
+        title_pos        = "center",       -- 'left', 'center' or 'right'
+        fullscreen       = true,           -- start fullscreen?
         preview = {
-          default     = 'bat',           -- override the default previewer?
+          default        = 'bat',           -- override the default previewer?
                                             -- default uses the 'builtin' previewer
           border         = 'border',        -- border|noborder, applies only to
                                             -- native fzf previewers (bat/cat/git/etc)
@@ -76,7 +106,9 @@ return {
           --
           -- called once upon creation of the fzf main window
           -- can be used to add custom fzf-lua mappings, e.g:
-          --   vim.keymap.set("t", "<C-j>", "<Down>", { silent = true, buffer = true })
+            vim.keymap.set("t", "<C-j>", "<Down>", { silent = true, buffer = true })
+            vim.keymap.set("t", "<C-k>", "<Up>", { silent = true, buffer = true })
+
         end,
         -- called once *after* the fzf interface is closed
         -- on_close = function() ... end
