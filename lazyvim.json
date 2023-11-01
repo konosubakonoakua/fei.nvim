@@ -17,7 +17,6 @@
     "lazyvim.plugins.extras.test.core",
     "lazyvim.plugins.extras.util.project",
     "lazyvim.plugins.extras.vscode",
-    "plugins.extras.folding",
     "plugins.extras.fzf",
     "plugins.extras.godbolt",
     "plugins.extras.project"
