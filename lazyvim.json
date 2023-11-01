@@ -19,7 +19,9 @@
     "lazyvim.plugins.extras.vscode",
     "plugins.extras.fzf",
     "plugins.extras.godbolt",
-    "plugins.extras.project"
+    "plugins.extras.project",
+    "plugins.extras.telescope.glyph",
+    "plugins.extras.telescope.zoxide"
   ],
   "news": {
     "NEWS.md": "2123"
