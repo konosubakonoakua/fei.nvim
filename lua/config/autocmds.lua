@@ -81,9 +81,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
--- Disable diagnostics in a .env file
-vim.api.nvim_create_autocmd("BufRead", {
-  pattern = ".env",
+-- Disable diagnostics in certain files
+vim.api.nvim_create_autocmd({ "BufRead", "BufNew" }, {
+  pattern = { ".env", "*.md", "*.MD" },
   callback = function()
     vim.diagnostic.disable(0)
   end,
