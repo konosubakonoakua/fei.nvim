@@ -115,6 +115,7 @@ return {
         ["<leader>l"] = { name = "placeholder" }, -- TODO: remap <leader>l
         ["<leader>L"] = { name = "placeholder" }, -- TODO: remap <leader>L
         ["<leader>;"] = { name = "+utils" },
+        ["<leader><leader>"] = { name = "+FzfLua" },
       },
     },
   },
@@ -267,7 +268,7 @@ return {
     opts = {
       notify = false,
       delay_timer = 0,
-      queue_most_recent = false,
+      queue_most_recent = true,
       window = {
         border = "rounded",
         winhl = {
