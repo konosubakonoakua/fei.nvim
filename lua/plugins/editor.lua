@@ -4,7 +4,7 @@
   -- zen-mode (not good)
 ]]
 
-local _util = require("lazyvim.util")
+local Util = require("lazyvim.util")
 
 return {
   -- PERF: when using / to search, will aborting early if matched with flash
@@ -35,70 +35,104 @@ return {
   -- [[
   {
     "nvim-neo-tree/neo-tree.nvim",
-    config = function(_, opts)
-      --[[
-      if vim.fn.executable("fd") == 1 then
-        opts.filesystem.find_command = "fd"
-        opts.filesystem.find_args = {
+    branch = "v3.x",
+    cmd = "Neotree",
+    keys = {
+      {
+        "<leader>fe",
+        function()
+          require("neo-tree.command").execute({ toggle = true, dir = Util.root() })
+        end,
+        desc = "Explorer NeoTree (root dir)",
+      },
+      {
+        "<leader>fE",
+        function()
+          require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
+        end,
+        desc = "Explorer NeoTree (cwd)",
+      },
+      { "<leader>e", "<leader>fe", desc = "Explorer NeoTree (root dir)", remap = true },
+      { "<leader>E", "<leader>fE", desc = "Explorer NeoTree (cwd)", remap = true },
+      {
+        "<leader>ge",
+        function()
+          require("neo-tree.command").execute({ source = "git_status", toggle = true })
+        end,
+        desc = "Git explorer",
+      },
+      {
+        "<leader>be",
+        function()
+          require("neo-tree.command").execute({ source = "buffers", toggle = true })
+        end,
+        desc = "Buffer explorer",
+      },
+    },
+    deactivate = function()
+      vim.cmd([[Neotree close]])
+    end,
+    init = function()
+      if vim.fn.argc(-1) == 1 then
+        local stat = vim.loop.fs_stat(vim.fn.argv(0))
+        if stat and stat.type == "directory" then
+          require("neo-tree")
+        end
+      end
+    end,
+    opts = {
+      sources = { "filesystem", "buffers", "git_status", "document_symbols" },
+      open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" },
+      filesystem = {
+        bind_to_cwd = false,
+        follow_current_file = { enabled = true },
+        use_libuv_file_watcher = true,
+        find_command = "fd",
+        find_args = {
           fd = {
             "--exclude",
             ".git",
             "--exclude",
             "node_modules",
           },
-        }
-      end--]]
-
-      opts.enable_diagnostics = false
-      -- opts.enable_git_status = true
-      -- -- Show markers for files with unsaved changes.
-      -- opts.enable_modified_markers = true
-      -- -- Refresh the tree when a file is written. Only used if `use_libuv_file_watcher` is false.
-      -- opts.enable_refresh_on_write = true
-
-      -- -- (default 500) in ms, needed for containers to redraw right aligned and faded content
-      -- -- set to -1 to disable the resize timer entirely
-      -- -- NOTE: this will speed up to 50 ms for 1 second following a resize
-      -- opts.resize_timer_interval = -1
-
-      -- INFO: default using / as buffer text search
-      -- https://github.com/nvim-neo-tree/neo-tree.nvim/issues/382#issuecomment-1159292124
-      opts.window.mappings = {
-        ["/"] = "none",
-        ["g/"] = "fuzzy_finder",
-      }
-
-      -- opts.filesystem = {
-      -- bind_to_cwd = false,
-      -- follow_current_file = { enabled = true },
-      -- use_libuv_file_watcher = true,
-      -- }
-
-      --[[
-      opts.filesystem.filtered_items = {
-        visible = false, -- when true, they will just be displayed differently than normal items
-        hide_dotfiles = false,
-        hide_gitignored = true,
-        hide_hidden = true, -- only works on Windows for hidden files/directories
-        hide_by_name = {
-          "node_modules",
         },
-        hide_by_pattern = { -- uses glob style patterns
-          --"*.meta",
-          --"*/src/*/tsconfig.json",
+      },
+      window = {
+        mappings = {
+          ["<space>"] = "none",
+          ["/"] = "none",
+          ["g/"] = "fuzzy_finder",
         },
-        always_show = { -- remains visible even if other settings would normally hide it
-          --".gitignored",
+      },
+      default_component_configs = {
+        indent = {
+          with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
+          expander_collapsed = "",
+          expander_expanded = "",
+          expander_highlight = "NeoTreeExpander",
         },
-        never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
-          ".DS_Store",
-          "thumbs.db",
-        },
-        never_show_by_pattern = { -- uses glob style patterns
-          --".null-ls_*",
-        },
-      }
-      --]]
+      },
+    },
+    config = function(_, opts)
+      local function on_move(data)
+        Util.lsp.on_rename(data.source, data.destination)
+      end
+
+      local events = require("neo-tree.events")
+      opts.event_handlers = opts.event_handlers or {}
+      vim.list_extend(opts.event_handlers, {
+        { event = events.FILE_MOVED, handler = on_move },
+        { event = events.FILE_RENAMED, handler = on_move },
+      })
+      require("neo-tree").setup(opts)
+      vim.api.nvim_create_autocmd("TermClose", {
+        pattern = "*lazygit",
+        callback = function()
+          if package.loaded["neo-tree.sources.git_status"] then
+            require("neo-tree.sources.git_status").refresh()
+          end
+        end,
+      })
     end,
   },
   --]]
