@@ -15,6 +15,9 @@
 - [ ] TODO: set highlights for different modes (lualine)
 - [ ] TODO: change spacer for lualine
 - [ ] TODO: change dashboard vertical spacing (upstream)
+- [ ] TODO: adapt keymap for fzf-lua command that using cwd
+- [ ] TODO: (fzf-lua) use up/down arrow for preview page up/down
+- [x] TODO: (markdown) create autocommands to disable diagnosis for markdown file type
 
 ## PERFs
 
