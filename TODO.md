@@ -1,5 +1,16 @@
 # TODO.md
 
+## FEATs
+
+- lazyextras
+  - telescope
+    - [ ] [octo](https://github.com/pwntester/octo.nvim)
+    - [ ] [pathogen](https://github.com/brookhong/telescope-pathogen.nvim)
+    - [ ] [zoxide](https://github.com/nvim-telescope/telescope-z.nvim.git)
+    - [ ] [tmux](https://github.com/camgraff/telescope-tmux.nvim)
+    - [ ] [lazy](https://github.com/tsakirist/telescope-lazy.nvim)
+    - [ ] [luasnip](https://github.com/benfowler/telescope-luasnip.nvim)
+
 ## TODOs
 
 - [ ] TODO: add regex to exlude solved TODOs like '[x] TODO:'
@@ -18,6 +29,7 @@
 - [ ] TODO: adapt keymap for fzf-lua command that using cwd
 - [ ] TODO: (fzf-lua) use up/down arrow for preview page up/down
 - [x] TODO: (markdown) create autocommands to disable diagnosis for markdown file type
+- [ ] TODO: (telescope) fullscreen
 
 ## PERFs
 
@@ -40,6 +52,8 @@
 - [ ] FIXME: telescope-file-browser.nvim slow (~2s) when initing
 - [x] FIXME: cpp dap break point not working (compiling issue, need debug info `-g`)
 - [ ] FIXME: closing terminal causing nvim not responding with high cpu loading sometimes
-- [ ] BUG: _FREEZE FOR NO REASON_ randomly (0.10)
+- [x] BUG: _FREEZE FOR NO REASON_ randomly (0.10)
+  - seems that yanky is the root cause, disable it for now
+  - seems that xclip is the troublemaker [#37](https://github.com/gbprod/yanky.nvim/issues/37)
 - [ ] FIXME: todo & project not included in telescope builtins
 - [ ] FIXME: `ctrl-;` is globally bounded by ibus. `gsettings list-recursively | grep -i "semi" && gsettings set org.freedesktop.ibus.panel.emoji hotkey []`
