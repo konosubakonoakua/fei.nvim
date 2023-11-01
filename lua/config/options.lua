@@ -36,3 +36,4 @@ if plat.isPlatWindows() then
 end
 
 vim.opt.guicursor = "a:block"
+vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
