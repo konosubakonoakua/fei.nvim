@@ -13,7 +13,6 @@
     "lazyvim.plugins.extras.lang.rust",
     "lazyvim.plugins.extras.lang.yaml",
     "lazyvim.plugins.extras.lsp.none-ls",
-    "lazyvim.plugins.extras.test.core",
     "lazyvim.plugins.extras.util.project",
     "lazyvim.plugins.extras.vscode",
     "plugins.extras.coding.yanky",
@@ -22,6 +21,7 @@
     "plugins.extras.project",
     "plugins.extras.telescope.file_browser",
     "plugins.extras.telescope.glyph",
+    "plugins.extras.test.neotest",
     "plugins.extras.telescope.zoxide"
   ],
   "news": {

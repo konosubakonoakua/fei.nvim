@@ -150,6 +150,8 @@ return {
         ["<leader>L"] = { name = "placeholder" }, -- TODO: remap <leader>L
         ["<leader>;"] = { name = "+utils" },
         ["<leader><leader>"] = { name = "+FzfLua" },
+        ["<leader>T"] = { name = "+Test" },
+        ["<leader>t"] = { name = "+Telescope" },
       },
     },
   },
