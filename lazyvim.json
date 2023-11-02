@@ -1,6 +1,5 @@
 {
   "extras": [
-    "lazyvim.plugins.extras.coding.yanky",
     "lazyvim.plugins.extras.dap.core",
     "lazyvim.plugins.extras.dap.nlua",
     "lazyvim.plugins.extras.editor.aerial",
@@ -17,6 +16,7 @@
     "lazyvim.plugins.extras.test.core",
     "lazyvim.plugins.extras.util.project",
     "lazyvim.plugins.extras.vscode",
+    "plugins.extras.coding.yanky",
     "plugins.extras.fzf",
     "plugins.extras.godbolt",
     "plugins.extras.project",
