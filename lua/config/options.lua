@@ -37,3 +37,4 @@ end
 
 vim.opt.guicursor = "a:block"
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
+vim.g.dashboard_colorful_banner_chance = 0.05 -- %5 chance

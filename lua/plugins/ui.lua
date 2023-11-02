@@ -37,7 +37,7 @@ return {
       local logo = logos[math.random(#logos)]
       logo = string.rep("\n", 8) .. logo .. "\n\n"
       -- local _util = require("lazyvim.util")
-      local use_preview = math.random() < 0.5
+      local use_preview = math.random() < vim.g.dashboard_colorful_banner_chance
 
       if require("platform").isPlatWindows() then
         use_preview = false
