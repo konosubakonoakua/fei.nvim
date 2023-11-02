@@ -22,6 +22,7 @@
     "plugins.extras.telescope.file_browser",
     "plugins.extras.telescope.glyph",
     "plugins.extras.test.neotest",
+    "plugins.extras.util.nnn",
     "plugins.extras.telescope.zoxide"
   ],
   "news": {
