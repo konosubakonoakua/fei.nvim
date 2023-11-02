@@ -1,5 +1,45 @@
 -- TODO: consider using arsham/fzfmania.nvim
 
+local keymap = require("util").keymap
+local keymap_force = vim.keymap.set
+local register_keymaps = function()
+    -- stylua: ignore start
+    vim.keymap.set({ "n", "v", "i" }, "<C-x><C-f>", function() require("fzf-lua").complete_path() end, { silent = true, desc = "Fuzzy complete path" })
+    -- TODO: not available keystroke
+    --
+    -- vim.keymap.set({ "n" }, "<C-;>", ":FzfLua files<cr>", { silent = true, desc = "FzfLua files" })
+    -- vim.keymap.set({ "n" }, "<C-.>", ":FzfLua files<cr>", { silent = true, desc = "FzfLua files" })
+    vim.keymap.set({ "n" }, "<A-;>", ":FzfLua files<cr>", { silent = true, desc = "FzfLua files" })
+
+    -- keymap("n", "<leader>fd", "",            { desc = "FzfLua files" })
+    -- keymap("n", "<leader>fi", ":FzfLua<cr>", { desc = "FzfLua builtins" })
+    -- keymap_force("n", "<leader><leader><leader>", ":FzfLua files<cr>",      {desc = "FzfLua files",          noremap = true})
+
+    keymap_force("n", "<leader><leader>d", "<cmd>lua _G.fzf_dirs()<cr>",    {desc = "FzfLua change dir",     noremap = true})
+    keymap_force("n", "<leader><leader>i", ":FzfLua builtin<cr>",           {desc = "FzfLua builtins",       noremap = true})
+    keymap_force("n", "<leader><leader>b", ":FzfLua buffers<cr>",           {desc = "FzfLua buffers",        noremap = true})
+    keymap_force("n", "<leader><leader>c", ":FzfLua files<cr>",             {desc = "FzfLua files",          noremap = true})
+    keymap_force("n", "<leader><leader>o", ":FzfLua oldfiles<cr>",          {desc = "FzfLua oldfiles",       noremap = true})
+    keymap_force("n", "<leader><leader>q", ":FzfLua quickfix<cr>",          {desc = "FzfLua quickfix",       noremap = true})
+    keymap_force("n", "<leader><leader>Q", ":FzfLua quickfix_stack<cr>",    {desc = "FzfLua quickfix_stack", noremap = true})
+    keymap_force("n", "<leader><leader>l", ":FzfLua location<cr>",          {desc = "FzfLua location",       noremap = true})
+    keymap_force("n", "<leader><leader>L", ":FzfLua location_list<cr>",     {desc = "FzfLua location_list",  noremap = true})
+    keymap_force("n", "<leader><leader>gg", ":FzfLua grep<cr>",             {desc = "FzfLua grep",           noremap = true})
+    keymap_force("n", "<leader><leader>gl", ":FzfLua grep_last<cr>",        {desc = "FzfLua grep_last",      noremap = true})
+    keymap_force("n", "<leader><leader>gc", ":FzfLua grep_cword<cr>",       {desc = "FzfLua grep_cword",     noremap = true})
+    keymap_force("n", "<leader><leader>gC", ":FzfLua grep_cWORD<cr>",       {desc = "FzfLua grep_cWORD",     noremap = true})
+    keymap_force("n", "<leader><leader>gv", ":FzfLua grep_visual<cr>",      {desc = "FzfLua grep_visual",    noremap = true})
+    keymap_force("n", "<leader><leader>gp", ":FzfLua grep_project<cr>",     {desc = "FzfLua grep_project",   noremap = true})
+    keymap_force("n", "<leader><leader>gb", ":FzfLua grep_curbuf<cr>",      {desc = "FzfLua grep_curbuf",    noremap = true})
+    keymap_force("n", "<leader><leader>gB", ":FzfLua lgrep_curbuf<cr>",     {desc = "FzfLua lgrep_curbuf",   noremap = true})
+    keymap_force("n", "<leader><leader>//", ":FzfLua live_grep<cr>",        {desc = "FzfLua live_grep",      noremap = true})
+    keymap_force("n", "<leader><leader>/r", ":FzfLua live_grep_resume<cr>", {desc = "FzfLua live_grep_resume", noremap = true})
+    keymap_force("n", "<leader><leader>/g", ":FzfLua live_grep_glob<cr>",   {desc = "FzfLua live_grep_glob",   noremap = true})
+    keymap_force("n", "<leader><leader>/n", ":FzfLua live_grep_native<cr>", {desc = "FzfLua live_grep_native", noremap = true})
+    keymap_force("n", "<leader><leader>f", ":lua require('fzf-lua').files({ cwd = require('lazyvim.util').root() })<cr>", {desc = "FzfLua files cwd", noremap = true})
+  -- stylua: ignore end
+end
+
 -- [[ Example: directory switcher
 _G.fzf_dirs = function(opts)
   local fzf_lua = require("fzf-lua")
@@ -768,6 +808,7 @@ return {
       -- 'EN SPACE' (U+2002), the below sets it to 'NBSP' (U+00A0) instead
       -- nbsp = '\xc2\xa0',
     })
+      register_keymaps()
     end,
   },
 }
