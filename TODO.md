@@ -5,8 +5,8 @@
 - lazyextras
   - telescope
     - [ ] [octo](https://github.com/pwntester/octo.nvim)
-    - [ ] [pathogen](https://github.com/brookhong/telescope-pathogen.nvim)
-    - [ ] [zoxide](https://github.com/nvim-telescope/telescope-z.nvim.git)
+    - [x] [pathogen](https://github.com/brookhong/telescope-pathogen.nvim)
+    - [x] [zoxide](https://github.com/nvim-telescope/telescope-z.nvim.git)
     - [ ] [tmux](https://github.com/camgraff/telescope-tmux.nvim)
     - [ ] [lazy](https://github.com/tsakirist/telescope-lazy.nvim)
     - [ ] [luasnip](https://github.com/benfowler/telescope-luasnip.nvim)
@@ -57,3 +57,4 @@
   - seems that xclip is the troublemaker [#37](https://github.com/gbprod/yanky.nvim/issues/37)
 - [ ] FIXME: todo & project not included in telescope builtins
 - [ ] FIXME: `ctrl-;` is globally bounded by ibus. `gsettings list-recursively | grep -i "semi" && gsettings set org.freedesktop.ibus.panel.emoji hotkey []`
+- [ ] FIXME: after opening python files in big codebase like u-boot, nvim become slaggish (maybe the pylsp)
