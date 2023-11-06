@@ -58,3 +58,4 @@
 - [ ] FIXME: todo & project not included in telescope builtins
 - [ ] FIXME: `ctrl-;` is globally bounded by ibus. `gsettings list-recursively | grep -i "semi" && gsettings set org.freedesktop.ibus.panel.emoji hotkey []`
 - [ ] FIXME: after opening python files in big codebase like u-boot, nvim become slaggish (maybe the pylsp)
+- [ ] FIXME: nnn explorer fails to show up sometiems (ERROR: too many open files)
