@@ -15,16 +15,16 @@
     "lazyvim.plugins.extras.lang.yaml",
     "lazyvim.plugins.extras.lsp.none-ls",
     "lazyvim.plugins.extras.util.project",
-    "lazyvim.plugins.extras.vscode",
     "plugins.extras.coding.yanky",
-    "plugins.extras.fzf",
-    "plugins.extras.godbolt",
-    "plugins.extras.project",
+    "plugins.extras.editor.fzf",
+    "plugins.extras.editor.godbolt",
+    "plugins.extras.editor.project",
     "plugins.extras.telescope.file_browser",
     "plugins.extras.telescope.glyph",
+    "plugins.extras.telescope.zoxide",
     "plugins.extras.test.neotest",
     "plugins.extras.util.nnn",
-    "plugins.extras.telescope.zoxide"
+    "plugins.extras.util.vscode"
   ],
   "news": {
     "NEWS.md": "2123"
