@@ -47,10 +47,10 @@ return {
     end,
   },
   {
-    -- TODO: add lspkind maybe
     "hrsh7th/nvim-cmp",
-    version = false,
-    dependencies = { "hrsh7th/cmp-emoji" },
+    dependencies = {
+      "hrsh7th/cmp-emoji",
+    },
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
       local has_words_before = function()
@@ -62,17 +62,15 @@ return {
       local luasnip = require("luasnip")
       local cmp = require("cmp")
 
-      opts.sources = cmp.config.sources(vim.list_extend(opts.sources, { { name = "emoji" } }))
       opts.mapping = vim.tbl_extend("force", opts.mapping, {
-        -- TODO: find out how to use supertab
-        --
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             -- You could replace select_next_item() with confirm({ select = true }) to get VS Code autocompletion behavior
+            -- cmp.confirm({ select = true })
             cmp.select_next_item()
-          -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-          -- this way you will only jump inside the snippet region
-          elseif luasnip.expand_or_jumpable() then
+            -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+            -- this way you will only jump inside the snippet region
+          elseif luasnip.expand_or_locally_jumpable() then
             luasnip.expand_or_jump()
           elseif has_words_before() then
             cmp.complete()
@@ -89,40 +87,48 @@ return {
             fallback()
           end
         end, { "i", "s" }),
-
-        ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-        -- ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        -- ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-        -- ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-        -- ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        -- ["<C-Space>"] = cmp.mapping.complete(),
-        -- ["<C-e>"] = cmp.mapping.abort(),
-        -- ["<CR>"] = cmp.mapping.confirm({ select = true }),
-        -- ["<S-CR>"] = cmp.mapping.confirm({
-        --   behavior = cmp.ConfirmBehavior.Replace,
-        --   select = true,
-        -- }),
       })
-      opts.formatting.fields = { "kind", "abbr", "menu" }
-      opts.formatting.format = function(_, item)
-        -- FIXME: How to get types on the left, and offset the menu
-        --
-        -- local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
-        -- local strings = vim.split(kind.kind, "%s", { trimempty = true })
-        -- kind.kind = " " .. (strings[1] or "") .. " "
-        -- kind.menu = "    (" .. (strings[2] or "") .. ")"
-        local icons = require("lazyvim.config").icons.kinds
-        -- item.kind = string.format('%s %s', icons[item.kind], item.kind)
-        item.kind = string.format(" %s", icons[item.kind])
-        return item
-      end
-      -- TODO: completion ghost text ON or OFF
-      -- opts.experimental.ghost_text = {
-      --   hl_group = "CmpGhostText",
-      -- }
     end,
   },
+  {
+    "hrsh7th/nvim-cmp",
+    opts = function(_, opts)
+      local cmp = require("cmp")
+      opts.mapping = vim.tbl_deep_extend("force", opts.mapping, {
+        ["<CR>"] = cmp.mapping.confirm({ select = false }),
+        ["<S-CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+        ["<C-CR>"] = function(fallback)
+          cmp.abort()
+          vim.notify("abort")
+          -- fallback()
+        end,
+        ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+        ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+        ["<C-g>"] = cmp.mapping.abort(),
+      })
+    end,
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    opts = function(_, opts)
+      -- opts.window.completion = {
+      --   winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+      --   col_offset = -3,
+      --   side_padding = 0,
+      -- }
+      ------ https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance
+      opts.formatting.fields = { "kind", "abbr", "menu" }
+      opts.formatting.format = function(_, item)
+        local icons = require("lazyvim.config").icons.kinds
+        if icons[item.kind] then
+          -- add prefix `space` to align the icon
+          item.kind = " " .. tostring(icons[item.kind])
+        end
+        return item
+      end
+    end,
+  },
+
   -- better increase/descrease
   {
     "monaqa/dial.nvim",
