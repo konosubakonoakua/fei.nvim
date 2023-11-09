@@ -18,7 +18,6 @@
     "plugins.extras.coding.yanky",
     "plugins.extras.editor.fzf",
     "plugins.extras.editor.godbolt",
-    "plugins.extras.editor.neocomposer",
     "plugins.extras.editor.project",
     "plugins.extras.lsp.zig",
     "plugins.extras.telescope.file_browser",
