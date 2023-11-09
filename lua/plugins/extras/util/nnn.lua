@@ -47,6 +47,7 @@ local cfg = {
 
 return {
   "luukvbaal/nnn.nvim",
+  version = false,
   config = function()
     require("nnn").setup(cfg)
     vim.api.nvim_set_hl(0, "NnnBorder", { bg = "NONE" })

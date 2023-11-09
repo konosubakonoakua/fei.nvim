@@ -238,6 +238,7 @@ return {
   -- zen-mode
   {
     "folke/zen-mode.nvim",
+    version = false,
     cmd = { "ZenMode" },
     opts = {
       window = {
@@ -265,6 +266,7 @@ return {
   -- todo-comments
   {
     "folke/todo-comments.nvim",
+    version = false,
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {
       signs = true, -- show icons in the signs column
@@ -337,6 +339,7 @@ return {
   -- search/replace in multiple files
   {
     "nvim-pack/nvim-spectre",
+    version = false,
     cmd = "Spectre",
     opts = { open_cmd = "noswapfile vnew" },
     -- stylua: ignore
@@ -346,6 +349,7 @@ return {
   -- markdown preview
   {
     "ellisonleao/glow.nvim",
+    version = false,
     config = true,
     cmd = "Glow",
     keys = {},

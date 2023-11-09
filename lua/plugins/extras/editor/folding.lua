@@ -177,6 +177,7 @@ end
 return {
   {
     "kevinhwang91/nvim-ufo",
+    version = false,
     dependencies = { "kevinhwang91/promise-async" },
     event = { "BufReadPost", "BufNewFile" },
     keys = keyremappings,

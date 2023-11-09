@@ -1,6 +1,7 @@
 -- https://github.com/nvim-telescope/telescope-file-browser.nvim
 return {
   "nvim-telescope/telescope-file-browser.nvim",
+  version = false,
   dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
   init = function()
     local fb_actions = require("telescope._extensions.file_browser.actions")

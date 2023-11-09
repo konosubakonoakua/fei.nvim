@@ -2,6 +2,7 @@ return {
   {
     -- only work for Neovim version < 0.9.0
     "ukyouz/vim-gutentags",
+    version = false,
     lazy = false,
     enabled = false,
     event = "VeryLazy",
@@ -112,6 +113,7 @@ return {
   },
   {
     "liuchengxu/vista.vim",
+    version = false,
     enabled = false,
     keys = {
       {

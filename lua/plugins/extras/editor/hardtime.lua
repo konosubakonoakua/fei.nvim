@@ -12,6 +12,7 @@ return {
   ]]
   {
     "m4xshen/hardtime.nvim",
+    version = false,
     opts = {
       -- default values is disabled the arrow keys
       disabled_keys = { ["<LEFT>"] = {}, ["<RIGHT>"] = {} },

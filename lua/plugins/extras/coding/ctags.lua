@@ -7,6 +7,7 @@
 return {
   {
     "dhananjaylatkar/cscope_maps.nvim",
+    version = false,
     lazy = false,
     dependencies = {
       -- "folke/which-key.nvim", -- optional [for whichkey hints]
@@ -38,6 +39,7 @@ return {
   },
   {
     "ukyouz/vim-gutentags",
+    version = false,
     lazy = false,
     -- event = "VeryLazy",
     branch = "improve_update_perf",

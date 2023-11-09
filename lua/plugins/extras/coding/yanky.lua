@@ -2,6 +2,7 @@ return {
   -- better yank/paste
   {
     "gbprod/yanky.nvim",
+    version = false,
     dependencies = { { "kkharji/sqlite.lua", enabled = not jit.os:find("Windows") } },
     opts = {
       highlight = { timer = 250 },

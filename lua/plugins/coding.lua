@@ -49,6 +49,7 @@ return {
   {
     -- TODO: add lspkind maybe
     "hrsh7th/nvim-cmp",
+    version = false,
     dependencies = { "hrsh7th/cmp-emoji" },
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
@@ -125,6 +126,7 @@ return {
   -- better increase/descrease
   {
     "monaqa/dial.nvim",
+    version = false,
     -- stylua: ignore
     keys = {
       { "<C-a>", function() return require("dial.map").inc_normal() end, expr = true, desc = "Increment" },

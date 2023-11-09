@@ -1,6 +1,7 @@
 return {
   {
     "ahmedkhalf/project.nvim",
+    version = false,
     opts = {
       manual_mode = true,
     },

@@ -2,6 +2,7 @@ return {
   {
     "konosubakonoakua/godbolt.nvim",
     lazy = true,
+    version = false,
     init = function()
       vim.b.godbolt_exec = 0
 

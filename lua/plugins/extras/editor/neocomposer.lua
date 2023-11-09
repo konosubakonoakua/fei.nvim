@@ -3,6 +3,7 @@ return {
   { "kkharji/sqlite.lua", enabled = true },
   {
     "ecthelionvi/NeoComposer.nvim",
+    version = false,
     opts = {
       notify = false,
       delay_timer = 0,

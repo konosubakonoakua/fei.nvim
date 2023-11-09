@@ -31,6 +31,7 @@ return {
   },
   {
     "nvimdev/dashboard-nvim",
+    version = false,
     optional = true,
     opts = function(_, opts)
       local logos = require("util.logos")
@@ -62,6 +63,7 @@ return {
   -- statusline
   {
     "nvim-lualine/lualine.nvim",
+    version = false,
     event = "VeryLazy",
     opts = function()
       local icons = require("util.icons")

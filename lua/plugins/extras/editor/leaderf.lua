@@ -16,6 +16,7 @@ return {
   {
     -- "Yggdroot/LeaderF",
     "konosubakonoakua/LeaderF",
+    version = false,
     branch = "fix/guicursor-invisible",
     event = "VimEnter",
     lazy = false,

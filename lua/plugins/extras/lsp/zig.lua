@@ -18,6 +18,7 @@ return {
   },
   {
     "ziglang/zig.vim",
+    version = false,
     ft = { "zig" },
     init = function()
       vim.g.zig_fmt_autosave = 0 -- handled by lsp

@@ -1,9 +1,13 @@
 return {
   -- TODO: tweak colorscheme
-  { "nyoom-engineering/oxocarbon.nvim" },
+  {
+    "nyoom-engineering/oxocarbon.nvim",
+    version = false,
+  },
   { "projekt0n/github-nvim-theme" },
   {
     "Mofiqul/adwaita.nvim",
+    version = false,
     lazy = false,
     priority = 1000,
     config = function()
