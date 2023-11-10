@@ -33,6 +33,6 @@ return {
 
     t.setup(opts)
     t.load_extension("zoxide")
-    vim.keymap.set("n", "<leader><space>z", t.extensions.zoxide.list)
+    vim.keymap.set("n", "<leader><space>z", t.extensions.zoxide.list, { desc = "zoxide" })
   end,
 }
