@@ -95,16 +95,47 @@ return {
     opts = function(_, opts)
       local cmp = require("cmp")
       opts.mapping = vim.tbl_deep_extend("force", opts.mapping, {
-        ["<CR>"] = cmp.mapping.confirm({ select = false }),
-        ["<S-CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
-        ["<C-CR>"] = function(fallback)
-          cmp.abort()
-          vim.notify("abort")
-          -- fallback()
-        end,
+        ["<UP>"] = cmp.mapping.scroll_docs(-4),
+        ["<DOWN>"] = cmp.mapping.scroll_docs(4),
+
         ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
         ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<C-g>"] = cmp.mapping.abort(),
+
+        ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        ["<S-CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+
+        -- ["<C-Space>"] = cmp.mapping.complete(),
+
+        ---- INFO: I need something else instead of `<C-e>` to abort cmp.
+        ["<C-Space>"] = cmp.mapping({
+          i = function()
+            if cmp.visible() then -- pop-up menu is visible
+              -- cmp.select_next_item()
+              cmp.abort()
+              cmp.close()
+            else
+              cmp.complete() -- open the pop-up menu
+            end
+          end,
+        }),
+        ["<C-e>"] = cmp.mapping.abort(),
+        -- ["<C-y>"] = cmp.mapping.abort(),
+        ["<C-o>"] = cmp.mapping.abort(),
+        ["<C-c>"] = cmp.mapping.abort(),
+        -- ["<C-i>"] = cmp.mapping.abort(), -- TODO: <C-i> remapping not working
+
+        -- -- if no selection, enter a newline.
+        -- ["<CR>"] = cmp.mapping({
+        --   i = function(fallback)
+        --     if cmp.visible() and cmp.get_active_entry() then
+        --       cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+        --     else
+        --       fallback()
+        --     end
+        --   end,
+        --   s = cmp.mapping.confirm({ select = true }),
+        --   c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+        -- }),
       })
     end,
   },
