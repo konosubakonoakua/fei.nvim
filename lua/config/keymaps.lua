@@ -168,6 +168,18 @@ keymap("n", "<leader>ul", function() _util.toggle.number() end,      { desc = "T
 keymap("n", "<leader>ud", function() _util.toggle.diagnostics() end, { desc = "Toggle Diagnostics" })
 keymap("n", "<leader>uf", function() require("lazyvim.util.format").toggle() end, { desc = "Toggle format on Save" })
 
+_G.cmp_enabled = true
+keymap("n", "<leader>ua", function()
+    _G.cmp_enabled = not _G.cmp_enabled
+    require("cmp").setup.buffer({ enabled = _G.cmp_enabled })
+    if _G.cmp_enabled then
+      vim.notify("Enabled: auto completion", vim.log.levels.WARN);
+    else
+      vim.notify("Disabled: auto completion", vim.log.levels.WARN);
+    end
+  end, { desc = "Toggle auto completion (buffer)" })
+
+
 -- #endregion toggle options
 
 -- #region telescope
