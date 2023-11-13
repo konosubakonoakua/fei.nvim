@@ -184,6 +184,7 @@ return {
         { open = "(", close = ")" },
         { open = "[", close = "]" },
         { open = "{", close = "}" },
+        { open = "|", close = "|" },
       }
       opts.ignore_beginning = true --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
       opts.exclude = {} -- tabout will ignore these filetypes
