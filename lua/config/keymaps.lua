@@ -8,10 +8,12 @@
 local _opts   = { silent = true }
 -- local _myutil = require("util")
 local _util   = require("lazyvim.util")
+local _floatterm = _util.terminal.open
 
-local _floatterm      = require("lazyvim.util").terminal.open
-local _lazyterm       = function() _floatterm(nil, { cwd = _util.root(), ctrl_hjkl = false }) end
-local _lazyterm_cwd   = function() _floatterm(nil, { cwd = tostring(vim.fn.expand("%:p:h")), ctrl_hjkl = false }) end
+local _lazyterm       = function() _util.terminal(nil, { cwd = _util.root() }) end
+local _lazyterm_cwd   = function() _util.terminal(nil, { cwd = tostring(vim.fn.expand("%:p:h")), ctrl_hjkl = false }) end
+-- local _lazyterm       = function() _floatterm(nil, { cwd = _util.root(), ctrl_hjkl = false }) end
+-- local _lazyterm_cwd   = function() _floatterm(nil, { cwd = tostring(vim.fn.expand("%:p:h")), ctrl_hjkl = false }) end
 
 local keymap             = require("util").keymap
 local keymap_force       = vim.keymap.set
@@ -81,10 +83,8 @@ keymap("n", "<leader>wj", "<C-W>s<C-W>k", { desc = "Split window above", remap =
 keymap("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
 
 -- floating terminal (using esc_esc to enter normal mode)
-keymap("n", "<leader>ft", _lazyterm_cwd,  { desc = "Terminal (cwd)" })
-keymap("n", "<leader>fT", _lazyterm,      { desc = "Terminal (root dir)" })
--- FIXME: mapping of ` not working
--- keymap("n", "<c-`>",      _lazyterm_cwd,  { desc = "Terminal (cwd)" })
+keymap("n", "<leader>fT", _lazyterm_cwd,  { desc = "Terminal (cwd)" })
+keymap("n", "<leader>ft", _lazyterm,      { desc = "Terminal (root dir)" })
 keymap("n", "<c-/>",      _lazyterm,      { desc = "Terminal (root dir)" })
 keymap("n", "<c-_>",      _lazyterm,      { desc = "which_key_ignore" })
 
@@ -99,6 +99,15 @@ keymap("n", "<c-_>",      _lazyterm,      { desc = "which_key_ignore" })
 -- keymap("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 -- keymap("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
 keymap("t", "<C-L>", "<c-\\><c-n>A", { desc = "Clear Terminal" }) -- when <C-l> used for windows
+
+-- Windows -- TODO: consider unregister windows shortcut
+--
+-- keymap("n", "<leader>ww", "<C-W>p", { desc = "Other window", remap = true })
+-- keymap("n", "<leader>wd", "<C-W>c", { desc = "Delete window", remap = true })
+-- keymap("n", "<leader>w-", "<C-W>s", { desc = "Split window below", remap = true })
+-- keymap("n", "<leader>w|", "<C-W>v", { desc = "Split window right", remap = true })
+-- keymap("n", "<leader>-", "<C-W>s", { desc = "Split window below", remap = true })
+-- keymap("n", "<leader>|", "<C-W>v", { desc = "Split window right", remap = true })
 
 -- #endregion plugin remappings
 
