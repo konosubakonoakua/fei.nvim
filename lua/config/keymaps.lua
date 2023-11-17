@@ -15,7 +15,8 @@ local _lazyterm_cwd   = function() _util.terminal(nil, { cwd = tostring(vim.fn.e
 -- local _lazyterm       = function() _floatterm(nil, { cwd = _util.root(), ctrl_hjkl = false }) end
 -- local _lazyterm_cwd   = function() _floatterm(nil, { cwd = tostring(vim.fn.expand("%:p:h")), ctrl_hjkl = false }) end
 
-local keymap             = require("util").keymap
+-- local keymap             = require("util").keymap
+local keymap             = vim.keymap.set
 local keymap_force       = vim.keymap.set
 local cmd_concat         = require("util").cmd_concat
 local is_disabled_plugin = require("util").is_disabled_plugin
