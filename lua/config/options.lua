@@ -39,3 +39,6 @@ vim.opt.pumblend = 0
 vim.opt.guicursor = "a:block"
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 vim.g.dashboard_colorful_banner_chance = 0.001 -- %0.1 chance
+
+-- FIXED: inner word of (???)
+vim.opt.iskeyword:append({ "?" })
