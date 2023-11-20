@@ -10,22 +10,6 @@ return {
       opts.detection_methods = { "lsp", "pattern" }
       opts.patterns = {
         ".git",
-        ".hg",
-        ".svn",
-        ".bzr",
-        "_darcs",
-        "Makefile",
-        "package.json",
-        "CMakeLists.txt",
-        ".toml",
-        ".yaml",
-        "build.zig",
-        "build.bazel",
-        "configure.ac",
-        "autogen.sh",
-        "setup.py",
-        "README",
-        "README.md",
       }
       require("project_nvim").setup(opts)
       require("lazyvim.util").on_load("telescope.nvim", function()
