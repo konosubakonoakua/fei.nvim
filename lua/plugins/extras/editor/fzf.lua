@@ -16,6 +16,8 @@ local register_keymaps = function()
     -- keymap_force("n", "<leader><leader><leader>", ":FzfLua files<cr>",      {desc = "FzfLua files",          noremap = true})
 
     keymap_force("n", "<leader><leader>r", ":FzfLua resume<cr>",            {desc = "FzfLua Resume",         noremap = true})
+    -- keymap_force("n", "<leader><leader>w", ":FzfLua grep_cword<cr>",        {desc = "FzfLua cword",          noremap = true})
+    -- keymap_force("n", "<leader><leader>W", ":FzfLua grep_cWORD<cr>",        {desc = "FzfLua cWORD",          noremap = true})
     keymap_force("n", "<leader><leader>d", "<cmd>lua _G.fzf_dirs()<cr>",    {desc = "FzfLua change dir",     noremap = true})
     keymap_force("n", "<leader><leader>i", ":FzfLua builtin<cr>",           {desc = "FzfLua builtins",       noremap = true})
     keymap_force("n", "<leader><leader>b", ":FzfLua buffers<cr>",           {desc = "FzfLua buffers",        noremap = true})
