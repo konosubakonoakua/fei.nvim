@@ -205,6 +205,7 @@ keymap_force("n", "<leader>s;", "<cmd>Telescope builtin<cr>",  { desc = "Telesco
 keymap_force("n", "<leader>cR", "<cmd>Spectre<cr>",            { desc = "Replace in files (Spectre)" })
 keymap_force("n", "<leader>fG", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", {desc = "Live grep args", noremap = true})
 keymap_force("n", "<leader>fm", "<cmd>Telescope macros<cr>",   { desc = "NeoComposer Macros", noremap = true })
+keymap_force("n", "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "Fuzzy Search (Current)" })
 keymap_force("n", "<leader>fg", ":Telescope grep_string<cr>", {desc = "Telescope Grep String", noremap = true})
 keymap("n", "<leader>fP", function() require("telescope.builtin")
   .find_files( { cwd = require("lazy.core.config").options.root }) end, {desc = "Find Plugin File"})
