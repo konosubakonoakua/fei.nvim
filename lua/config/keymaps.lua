@@ -120,7 +120,9 @@ if vim.fn.executable("glow") == 1 then
   -- FIXME: glow wont enter TUI with file path
   -- https://github.com/charmbracelet/glow/issues/489
   -- { "glow", tostring(vim.fn.expand("%:p"))},
-  keymap("n", "<leader>;g", function () _floatterm(
+  keymap("n", "<leader>;g", function ()
+    -- vim.notify("open glow at " .. tostring(vim.fn.expand("%:p:h")))
+    _floatterm(
     { "glow" }, { cwd = tostring(vim.fn.expand("%:p:h")), ctrl_hjkl = false }) end,
     { desc = "!Glow" })
   -- keymap("n", "<leader>;g", "<cmd>Glow<cr>", { desc = "Glow" })
