@@ -20,7 +20,6 @@
     "plugins.extras.editor.godbolt",
     "plugins.extras.editor.project",
     "plugins.extras.lsp.zig",
-    "plugins.extras.telescope.file_browser",
     "plugins.extras.telescope.glyph",
     "plugins.extras.telescope.zoxide",
     "plugins.extras.test.neotest",
