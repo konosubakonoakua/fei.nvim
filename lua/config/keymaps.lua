@@ -163,7 +163,10 @@ keymap("n", "<leader>;t", _lazyterm_cwd,      { desc = "Terminal (cwd)" })
 keymap("n", "<leader>;T", _lazyterm,          { desc = "Terminal (root dir)" })
 keymap("n", "<leader>;x", "<cmd>LazyExtras<cr>", { desc = "LazyExtras" })
 keymap("n", "<leader>;L", _util.news.changelog,  { desc = "LazyVim Changelog" })
-keymap("n", "<leader>;P", "<cmd>AddProject<cr>",  { desc = "Project Add Current" })
+keymap("n", "<leader>;P", function()
+  vim.notify("Added '" .. require("lazyvim.util").root() .. "' to project list.", vim.log.levels.WARN)
+  vim.cmd('AddProject')
+end, { desc = "Project Add Current" })
 
 -- #endregion
 
