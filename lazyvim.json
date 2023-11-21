@@ -18,6 +18,7 @@
     "plugins.extras.coding.yanky",
     "plugins.extras.editor.fzf",
     "plugins.extras.editor.godbolt",
+    "plugins.extras.editor.motion",
     "plugins.extras.editor.project",
     "plugins.extras.lsp.zig",
     "plugins.extras.telescope.glyph",
