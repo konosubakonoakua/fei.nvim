@@ -3,7 +3,8 @@ return {
     "ahmedkhalf/project.nvim",
     version = false,
     opts = {
-      manual_mode = false,
+      -- only add project manually, using :AddProject
+      manual_mode = true,
     },
     event = "VeryLazy",
     config = function(_, opts)
