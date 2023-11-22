@@ -1,0 +1,4 @@
+CompileFlags:
+  Remove: [
+    -mthumb-interwork,
+  ]
