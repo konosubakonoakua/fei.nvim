@@ -23,6 +23,16 @@ local is_disabled_plugin = require("util").is_disabled_plugin
 
 -- #endregion local functions
 
+-- #region flash jump line
+vim.keymap.set({ "i", "x", "n", "s" }, "<A-s>", function()
+  require("flash").jump({
+    search = { mode = "search", max_length = 0 },
+    label = { after = { 0, 0 } },
+    pattern = "^",
+  })
+end, { desc = "line jump" })
+vim.keymap.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
+-- #endregion flash jump line
 
 -- stay when using * to search
 keymap("n", "*", "*N", _opts)
