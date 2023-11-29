@@ -50,6 +50,9 @@ return {
             -- autohide flash when in operator-pending mode
             opts.autohide = opts.autohide or (vim.fn.mode(true):find("no") and vim.v.operator == "y")
 
+            -- autohide flash when using macro
+            opts.autohide = not opts.autohide and not (vim.fn.reg_executing() == "" and vim.fn.reg_recording() == "")
+
             -- disable jump labels when not enabled, when using a count,
             -- or when recording/executing registers
             opts.jump_labels = opts.jump_labels
