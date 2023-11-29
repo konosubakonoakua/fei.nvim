@@ -206,6 +206,20 @@ keymap("n", "<leader>ua", function()
   end, { desc = "Toggle auto completion (buffer)" })
 
 
+-- enable lazyredraw to speed up macro execution
+_G.lazyredraw_enabled = true
+keymap("n", "<leader>uR", function()
+    _G.lazyredraw_enabled = not _G.lazyredraw_enabled
+
+    if _G.lazyredraw_enabled then
+      vim.cmd("set lazyredraw")
+      vim.notify("Enabled: lazyredraw", vim.log.levels.WARN);
+    else
+      vim.cmd("set nolazyredraw")
+      vim.notify("Disabled: lazyredraw", vim.log.levels.INFO);
+    end
+  end, { desc = "Toggle lazyredraw" })
+
 -- #endregion toggle options
 
 -- #region telescope
