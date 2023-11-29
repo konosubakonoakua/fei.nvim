@@ -34,6 +34,13 @@ end, { desc = "line jump" })
 vim.keymap.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 -- #endregion flash jump line
 
+-- TODO: maybe remap @ to disable minipairs before macro playing
+-- 
+-- vim.keymap.set({ "n" }, "@", function ()
+--   vim.g.minipairs_disable = true
+--   vim.cmd('@')
+-- end, { desc = "Play Macro [reg]" })
+
 -- stay when using * to search
 keymap("n", "*", "*N", _opts)
 
