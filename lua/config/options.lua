@@ -5,6 +5,9 @@
 local plat = require("platform")
 
 if vim.g.neovide then
+  -- disable lazyredraw
+  vim.o.lazyredraw = false
+
   -- font
   vim.opt.guifont = { "Lilex Nerd Font Mono", "h8" }
   vim.g.neovide_scale_factor = 1.0
