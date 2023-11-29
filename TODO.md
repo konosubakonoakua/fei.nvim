@@ -64,4 +64,9 @@
 - [ ] FIXME: (python) after opening python files in big codebase like u-boot, nvim become slaggish (maybe the pylsp)
 - [ ] FIXME: (nnn) nnn explorer fails to show up sometiems (ERROR: too many open files)
 - [ ] FIXME: (project) if opened a file not in a `root pattern` folder, then open a lua file something that in `root pattern`, neo-tree cannot follow the former.
-- [ ] FIXME: (motion) disable char motions (fFtT) when searching or during MACRO playing and recording.
+- [x] FIXME: (motion) disable char motions (fFtT) when searching or during MACRO playing and recording.
+- [x] FIXME: (coding) disable char pairs when during MACRO playing and recording.
+  - using `<C-v>` to enter special chars like `"'({`
+  - using `<leader>up` manually for now.
+  - don't know how to call functions before playing macros
+  - https://github.com/neovim/neovim/pull/24565
