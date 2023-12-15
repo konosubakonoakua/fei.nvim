@@ -44,7 +44,7 @@ return {
           },
         },
         char = {
-          enabled = true,
+          enabled = false,
           -- dynamic configuration for ftFT motions
           config = function(opts)
             -- autohide flash when in operator-pending mode
