@@ -177,7 +177,7 @@ return {
     dependencies = {
       { -- add telescope-fzf-native
         "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
+        build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
         enabled = true,
         config = function()
           require("telescope").load_extension("fzf")
@@ -194,7 +194,7 @@ return {
     keys = {},
     config = function(_, opts)
       -- PERF: default is "smart", performance killer
-      opts.defaults.path_dispaly = nil
+      opts.defaults.path_display = { "absolute" }
       opts.defaults.layout_config = {
         width = 0.9,
         height = 0.9,
