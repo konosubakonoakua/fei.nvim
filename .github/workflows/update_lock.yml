@@ -1,0 +1,41 @@
+name: update lockfile
+on:
+  # Scheduled update (each day)
+  schedule: [{ cron: "30 01 * * *" }]
+
+jobs:
+  update-lockfile:
+    if: github.repository_owner == 'konosubakonoakua'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required to count the commits
+      - uses: andstor/file-existence-action@v2
+        id: check_lockfile
+        with:
+          files: "lazy-lock.json"
+      - name: Run count-new-commits
+        run: |
+          echo "NEW_COMMIT_COUNT=$(git log --oneline --since '24 hours ago' --perl-regexp --author='^((?!github-actions).*)$' | wc -l)" >> "$GITHUB_ENV"
+      - uses: rhysd/action-setup-vim@v1
+        if: ${{ steps.check_lockfile.outputs.files_exists == 'true' && env.NEW_COMMIT_COUNT > 0 }}
+        with:
+          neovim: true
+      - name: Run lockfile-autoupdate
+        if: ${{ steps.check_lockfile.outputs.files_exists == 'true' && env.NEW_COMMIT_COUNT > 0 }}
+        timeout-minutes: 5
+        run: |
+          ./scripts/install.sh
+          nvim --headless "+Lazy! update" +qa
+          cp -pv "${HOME}/.config/nvim/lazy-lock.json" .
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        if: ${{ steps.check_lockfile.outputs.files_exists == 'true' && env.NEW_COMMIT_COUNT > 0 }}
+        with:
+          commit_message: "chore: update lazy-lock"
+          commit_user_name: "github-actions[bot]"
+          commit_user_email: "41898282+github-actions[bot]@users.noreply.github.com"
+          commit_author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          file_pattern: "lazy-lock.json"
