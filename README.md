@@ -1,35 +1,35 @@
 # 💤 LazyVim
 
-A starter template for [LazyVim](https://github.com/LazyVim/LazyVim).
-Refer to the [documentation](https://lazyvim.github.io/installation) to get started.
+> [!TIP]
+> 
+> A personal [LazyVim](https://github.com/LazyVim/LazyVim) config.
+> 
+> - [TODO.md](./docs/TODO.md)
+> - [USAGE.md](./docs/USAGE.md)
+
 
 ## Notes
 ### Installing
-### Push after shallow-clone
-```bash
-git fetch --unshallow
-```
-### Todos
-[TODO.md](./TODO.md)
+- Win*
+  - cmd
 
-### LSP
-#### clangd with different compilers
+    ```bat
+    :: tbd
+    ```
 
-In order to re-config lspconfig, first set `vim.o.exrc = true`,
-then new a `.nvim.lua` file in project root.
+  - pswh
 
-```bash
-require("lspconfig").clangd.setup({
-	cmd = {
-		"clangd",
-		"--background-index",
-		"--clang-tidy",
-		"--header-insertion=iwyu",
-		"--completion-style=detailed",
-		"--function-arg-placeholders",
-		"--fallback-style=llvm",
-		"--query-driver=/usr/bin/c++",
-	},
-	filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
-})
-```
+    ```powershell
+    # tbd
+    ```
+
+- *nix
+
+    ```bash
+    if command -v curl >/dev/null 2>&1; then
+        bash -c "$(curl -fsSL https://raw.githubusercontent.com/konosubakonoakua/lazyvim.conf/main/scripts/install.sh)"
+    else
+        bash -c "$(wget -O- https://raw.githubusercontent.com/konosubakonoakua/lazyvim.conf/main/scripts/install.sh)"
+    fi
+    ```
+
