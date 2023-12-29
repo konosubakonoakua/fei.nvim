@@ -4,8 +4,16 @@ A starter template for [LazyVim](https://github.com/LazyVim/LazyVim).
 Refer to the [documentation](https://lazyvim.github.io/installation) to get started.
 
 ## Notes
+### Installing
+### Push after shallow-clone
+```bash
+git fetch --unshallow
+```
+### Todos
+[TODO.md](./TODO.md)
 
-### clangd with different compilers
+### LSP
+#### clangd with different compilers
 
 In order to re-config lspconfig, first set `vim.o.exrc = true`,
 then new a `.nvim.lua` file in project root.
