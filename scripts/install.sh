@@ -154,7 +154,7 @@ check_ssh() {
 
 clone_pref() {
 	info "Checking 'git clone' preferences..."
-	if ! prompt_confirm "Would you like to perform a shallow clone ('--depth=1')?"; then
+	if prompt_confirm "Not using shallow clone ('--depth=1')?"; then
 		CLONE_ATTR+=("--depth=1")
 	fi
 }
