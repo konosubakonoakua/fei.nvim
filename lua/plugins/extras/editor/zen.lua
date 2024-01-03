@@ -1,7 +1,7 @@
 return {
   {
     "folke/zen-mode.nvim",
-    disabled = true,
+    enabled = false,
     version = false,
     cmd = { "ZenMode" },
     opts = {
@@ -21,7 +21,7 @@ return {
   -- https://github.com/pocco81/true-zen.nvim
   {
     "Pocco81/true-zen.nvim",
-    disabled = false,
+    enabled = true,
     config = function()
       require("true-zen").setup {}
     end,
@@ -30,7 +30,7 @@ return {
   -- windows maximum & restore
   {
     "anuvyklack/windows.nvim",
-    disabled = true, -- no need, use zen instead
+    enabled = false, -- no need, use zen instead
     dependencies = "anuvyklack/middleclass",
     config = function()
       require("windows").setup()

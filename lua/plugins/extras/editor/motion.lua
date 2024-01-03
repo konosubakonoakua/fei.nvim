@@ -140,6 +140,7 @@ return {
   -- https://github.com/gsuuon/tshjkl.nvim
   {
     "gsuuon/tshjkl.nvim",
+    enabled = true,
     opts = {
       keymaps = {
         toggle = "<leader>um",
