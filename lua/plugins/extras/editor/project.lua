@@ -11,6 +11,7 @@ return {
       opts.detection_methods = { "lsp", "pattern" }
       opts.patterns = {
         ".git",
+        ".root",
       }
       require("project_nvim").setup(opts)
       require("lazyvim.util").on_load("telescope.nvim", function()
