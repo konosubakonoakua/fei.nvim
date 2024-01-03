@@ -48,3 +48,13 @@ vim.opt.iskeyword:append({ "?" })
 
 -- disable autoformat by default
 vim.g.autoformat = false
+
+-- Use faster grep alternatives if possible
+if vim.fn.executable('rg') == 1 then
+  vim.opt.grepprg =
+      [[rg --hidden --glob "!.git" --no-heading --smart-case --vimgrep --follow $*]]
+  vim.opt.grepformat = '%f:%l:%c:%m'
+elseif vim.fn.executable('ag') == 1 then
+  vim.opt.grepprg = [[ag --nogroup --nocolor --vimgrep]]
+  vim.opt.grepformat = '%f:%l:%c:%m'
+end
