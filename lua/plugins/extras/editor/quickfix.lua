@@ -1,3 +1,4 @@
+-- TODO: adjust preview size (100k for now)
 return {
   -- vim.cmd([[
   --     hi BqfPreviewBorder guifg=#3e8e2d ctermfg=71
