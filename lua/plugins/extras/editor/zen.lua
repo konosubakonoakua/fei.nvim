@@ -1,7 +1,7 @@
 return {
   {
     "folke/zen-mode.nvim",
-    enabled = false,
+    enabled = true,
     version = false,
     cmd = { "ZenMode" },
     opts = {
@@ -21,9 +21,37 @@ return {
   -- https://github.com/pocco81/true-zen.nvim
   {
     "Pocco81/true-zen.nvim",
-    enabled = true,
+    enabled = false,
     config = function()
-      require("true-zen").setup {}
+      local api = vim.api
+
+      -- FIXME: true-zen not working well
+      -- cannot recover
+      api.nvim_set_keymap("n", "<leader>zn", ":TZNarrow<CR>", {})
+      api.nvim_set_keymap("v", "<leader>zn", ":'<,'>TZNarrow<CR>", {})
+      api.nvim_set_keymap("n", "<leader>zf", ":TZFocus<CR>", {})
+      api.nvim_set_keymap("n", "<leader>zm", ":TZMinimalist<CR>", {})
+      api.nvim_set_keymap("n", "<leader>za", ":TZAtaraxis<CR>", {})
+      -- -- or
+      -- local truezen = require('true-zen')
+      -- local keymap = vim.keymap
+      --
+      -- keymap.set('n', '<leader>zn', function()
+      --   local first = 0
+      --   local last = vim.api.nvim_buf_line_count(0)
+      --   truezen.narrow(first, last)
+      -- end, { noremap = true })
+      -- keymap.set('v', '<leader>zn', function()
+      --   local first = vim.fn.line('v')
+      --   local last = vim.fn.line('.')
+      --   truezen.narrow(first, last)
+      -- end, { noremap = true })
+      -- keymap.set('n', '<leader>zf', truezen.focus, { noremap = true })
+      -- keymap.set('n', '<leader>zm', truezen.minimalist, { noremap = true })
+      -- keymap.set('n', '<leader>za', truezen.ataraxis, { noremap = true })
+      require("true-zen").setup({
+
+      })
     end,
   },
 
