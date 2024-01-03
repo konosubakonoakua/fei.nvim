@@ -814,4 +814,5 @@ return {
       register_keymaps()
     end,
   },
+  {'junegunn/fzf', ft='qf'}
 }
