@@ -23,6 +23,7 @@ jobs:
       - uses: rhysd/action-setup-vim@v1
         if: ${{ steps.check_lockfile.outputs.files_exists == 'true' && env.NEW_COMMIT_COUNT > 0 }}
         with:
+          version: nightly
           neovim: true
       - name: Run lockfile-autoupdate
         if: ${{ steps.check_lockfile.outputs.files_exists == 'true' && env.NEW_COMMIT_COUNT > 0 }}
