@@ -58,3 +58,6 @@ elseif vim.fn.executable('ag') == 1 then
   vim.opt.grepprg = [[ag --nogroup --nocolor --vimgrep]]
   vim.opt.grepformat = '%f:%l:%c:%m'
 end
+
+-- alway use unix file format
+vim.opt.ff = "unix"
