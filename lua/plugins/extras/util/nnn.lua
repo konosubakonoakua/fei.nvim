@@ -45,6 +45,13 @@ local cfg = {
   offset = false, -- whether or not to write position offset to tmpfile(for use in preview-tui)
 }
 
+-- nnn terminal keymap
+if vim.fn.executable("nnn") == 1 then
+  vim.keymap.set("n", "<leader>;n", function()
+    require("lazyvim.util").terminal.open({ "nnn" }, { esc_esc = false, ctrl_hjkl = false })
+  end, { desc = "!nnn" })
+end
+
 return {
   "luukvbaal/nnn.nvim",
   version = false,

@@ -216,13 +216,6 @@ if vim.fn.executable("btop") == 1 then
   end, { desc = "!Btop" })
 end
 
--- nnn
-if vim.fn.executable("nnn") == 1 then
-  vim.keymap.set("n", "<leader>;n", function()
-    _floatterm({ "nnn" }, { esc_esc = false, ctrl_hjkl = false })
-  end, { desc = "!nnn" })
-end
-
 -- Dashboard
 keymap("n", "<leader>;;", function()
   if _util.has("dashboard-nvim") then
