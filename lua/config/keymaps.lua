@@ -131,19 +131,6 @@ keymap("t", "<C-L>", "<c-\\><c-n>A", { desc = "Clear Terminal" }) -- when <C-l>
 
 --#region <leader>; group remappings
 
--- Glow
--- TODO: disable ctrl_hjkl & fix quit by q
-if vim.fn.executable("glow") == 1 then
-  -- FIXME: glow wont enter TUI with file path
-  -- https://github.com/charmbracelet/glow/issues/489
-  -- { "glow", tostring(vim.fn.expand("%:p"))},
-  keymap("n", "<leader>;g", function ()
-    -- vim.notify("open glow at " .. tostring(vim.fn.expand("%:p:h")))
-    _floatterm(
-    { "glow" }, { cwd = tostring(vim.fn.expand("%:p:h")), ctrl_hjkl = false }) end,
-    { desc = "!Glow" })
-  -- keymap("n", "<leader>;g", "<cmd>Glow<cr>", { desc = "Glow" })
-end
 
 -- layzgit editfile <C-o><C-e>, <C-o> to copy the filename, <C-e> to open it
 -- https://github.com/kdheepak/lazygit.nvim/issues/22

@@ -1,4 +1,23 @@
+local _util       = require("lazyvim.util")
+local keymap      = vim.keymap.set
+local _floatterm  = _util.terminal.open
+
+-- Glow Keymap
+-- TODO: disable ctrl_hjkl & fix quit by q
+if vim.fn.executable("glow") == 1 then
+  -- FIXME: glow wont enter TUI with file path
+  -- https://github.com/charmbracelet/glow/issues/489
+  -- { "glow", tostring(vim.fn.expand("%:p"))},
+  keymap("n", "<leader>;G", function ()
+    -- vim.notify("open glow at " .. tostring(vim.fn.expand("%:p:h")))
+    _floatterm(
+    { "glow" }, { cwd = tostring(vim.fn.expand("%:p:h")), ctrl_hjkl = false }) end,
+    { desc = "!Glow" })
+  keymap("n", "<leader>;g", "<cmd>Glow<cr>", { desc = "Preview Markdown" })
+end
+
 -- markdown preview
+-- TODO: adjust markdown preview size
 return {
 {
   "ellisonleao/glow.nvim",
