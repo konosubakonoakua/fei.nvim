@@ -16,7 +16,6 @@
     "lazyvim.plugins.extras.util.project",
     "plugins.extras.coding.yanky",
     "plugins.extras.editor.fzf",
-    "plugins.extras.editor.godbolt",
     "plugins.extras.editor.markdown",
     "plugins.extras.editor.motion",
     "plugins.extras.editor.project",
@@ -27,7 +26,8 @@
     "plugins.extras.telescope.zoxide",
     "plugins.extras.test.neotest",
     "plugins.extras.util.nnn",
-    "plugins.extras.util.vscode"
+    "plugins.extras.util.vscode",
+    "plugins.extras.util.godbolt"
   ],
   "news": {
     "NEWS.md": "2123"
