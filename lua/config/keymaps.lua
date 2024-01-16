@@ -24,14 +24,14 @@ local is_disabled_plugin = require("util").is_disabled_plugin
 -- #endregion local functions
 
 -- #region flash jump line
-vim.keymap.set({ "i", "x", "n", "s" }, "<A-s>", function()
+vim.keymap.set({ "i", "x", "n", "s" }, "<C-s>", function()
   require("flash").jump({
     search = { mode = "search", max_length = 0 },
     label = { after = { 0, 0 } },
     pattern = "^",
   })
 end, { desc = "line jump" })
-vim.keymap.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
+vim.keymap.set({ "i", "x", "n", "s" }, "<leader>fw", "<cmd>w<cr><esc>", { desc = "Write file" })
 -- #endregion flash jump line
 
 -- TODO: maybe remap @ to disable minipairs before macro playing
@@ -296,6 +296,7 @@ end
 keymap_force("n", "<leader>uc", _util.telescope("colorscheme", { enable_preview = true }), {desc = "Colorscheme with preview"})
 keymap_force("n", "<leader>sr", "<cmd>Telescope resume<cr>",   { desc = "Telescope Resume" })
 keymap_force("n", "<leader>s;", "<cmd>Telescope builtin<cr>",  { desc = "Telescope Builtins", noremap = true })
+keymap_force("n", "<leader>sb", ":lua require('telescope.builtin').current_buffer_fuzzy_find({default_text = vim.fn.expand('<cword>')})<cr>", {desc = "find current buffer", noremap = true})
 keymap_force("n", "<leader>sB", ":lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>", {desc = "Find opened files", noremap = true})
 keymap_force("n", "<leader>cR", "<cmd>Spectre<cr>",            { desc = "Replace in files (Spectre)" })
 keymap_force("n", "<leader>fm", "<cmd>Telescope macros<cr>",   { desc = "NeoComposer Macros", noremap = true })
