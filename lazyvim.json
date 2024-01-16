@@ -25,6 +25,7 @@
     "plugins.extras.telescope.glyph",
     "plugins.extras.telescope.zoxide",
     "plugins.extras.test.neotest",
+    "plugins.extras.util.lazygit",
     "plugins.extras.util.nnn",
     "plugins.extras.util.vscode",
     "plugins.extras.util.godbolt"
