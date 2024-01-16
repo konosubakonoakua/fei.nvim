@@ -45,6 +45,11 @@ local cfg = {
   offset = false, -- whether or not to write position offset to tmpfile(for use in preview-tui)
 }
 
+-- nnn don't support windows platform
+if jit.os == "Windows" then
+  return {}
+end
+
 -- nnn terminal keymap
 if vim.fn.executable("nnn") == 1 then
   vim.keymap.set("n", "<leader>;n", function()
