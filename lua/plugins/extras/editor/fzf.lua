@@ -1,4 +1,17 @@
 -- TODO: consider using arsham/fzfmania.nvim
+if jit.os == "Windows" then
+  return {
+    {
+      "nvim-telescope/telescope.nvim",
+      cmd = "Telescope",
+      version = false, -- telescope did only one release, so use HEAD for now
+      keys = {
+        { "<leader><space>", nil, desc = nil },
+      },
+    },
+    {'junegunn/fzf', ft='qf'},
+  }
+end
 
 local keymap = require("util").keymap
 local keymap_force = vim.keymap.set
