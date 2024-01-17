@@ -10,10 +10,8 @@ local _opts   = { silent = true }
 local _util   = require("lazyvim.util")
 local _floatterm = _util.terminal.open
 
-local _lazyterm       = function() _util.terminal(nil, { cwd = _util.root() }) end
+local _lazyterm       = function() _util.terminal(nil, { cwd = _util.root(), ctrl_hjkl = false }) end
 local _lazyterm_cwd   = function() _util.terminal(nil, { cwd = tostring(vim.fn.expand("%:p:h")), ctrl_hjkl = false }) end
--- local _lazyterm       = function() _floatterm(nil, { cwd = _util.root(), ctrl_hjkl = false }) end
--- local _lazyterm_cwd   = function() _floatterm(nil, { cwd = tostring(vim.fn.expand("%:p:h")), ctrl_hjkl = false }) end
 
 -- local keymap             = require("util").keymap
 local keymap             = vim.keymap.set
