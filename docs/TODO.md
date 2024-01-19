@@ -59,6 +59,7 @@
 - [x] FIXME: (editor) _FREEZE FOR NO REASON_ randomly (0.10)
   - seems that yanky is the root cause, disable it for now
   - seems that xclip is the troublemaker [#37](https://github.com/gbprod/yanky.nvim/issues/37)
+  - USE `xsel` INSTEAD.
 - [ ] FIXME: (telescope) todo & project not included in telescope builtins
 - [ ] FIXME: (keymap) `ctrl-;` is globally bounded by ibus. `gsettings list-recursively | grep -i "semi" && gsettings set org.freedesktop.ibus.panel.emoji hotkey []`
 - [ ] FIXME: (python) after opening python files in big codebase like u-boot, nvim become slaggish (maybe the pylsp)
