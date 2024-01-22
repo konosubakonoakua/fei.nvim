@@ -22,4 +22,10 @@ return {
       { "<leader>fp", "<Cmd>Telescope projects<CR>", desc = "Projects" },
     },
   },
+  { -- https://github.com/CWood-sdf/spaceport.nvim
+    'CWood-sdf/spaceport.nvim',
+    enabled = false,
+    opts = {},
+    lazy = false, -- load spaceport immediately
+  },
 }
