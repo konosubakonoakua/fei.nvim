@@ -220,6 +220,12 @@ keymap_force("n", "<leader>fg", ":Telescope grep_string<cr>", {desc = "Telescope
 keymap_force("n", "<leader>fG", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", {desc = "Live grep args", noremap = true})
 keymap_force("n", "<leader>fP", function() require("telescope.builtin").find_files( { cwd = require("lazy.core.config").options.root }) end, {desc = "Find Plugin File"})
 keymap_force("n", "<leader>sM", "<cmd>Telescope man_pages sections=ALL<cr>", {desc = "Man Pages" })
+keymap_force("n", "<leader>sg", _util.telescope("live_grep"),                                        { desc = "Grep (root dir)" })
+keymap_force("n", "<leader>sG", _util.telescope("live_grep", { cwd = false }),                       { desc = "Grep (cwd)" })
+keymap_force("v", "<leader>sw", _util.telescope("grep_string"),                                      { desc = "Selection (root dir)" })
+keymap_force("n", "<leader>sw", _util.telescope("grep_string", { word_match = "-w" }),               { desc = "Word (root dir)" })
+keymap_force("v", "<leader>sW", _util.telescope("grep_string", { cwd = false }),                     { desc = "Selection (cwd)" })
+keymap_force("n", "<leader>sW", _util.telescope("grep_string", { cwd = false, word_match = "-w" }),  { desc = "Word (cwd)" })
 -- #endregion telescope
 
 -- stylua: ignore end
