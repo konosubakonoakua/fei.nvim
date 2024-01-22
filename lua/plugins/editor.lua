@@ -174,6 +174,7 @@ return {
   -- change some telescope options and a keymap to browse plugin files
   {
     "nvim-telescope/telescope.nvim",
+    version = false, -- telescope did only one release, so use HEAD for now
     dependencies = {
       { -- add telescope-fzf-native
         "nvim-telescope/telescope-fzf-native.nvim",
