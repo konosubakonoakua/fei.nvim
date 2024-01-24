@@ -9,7 +9,7 @@ if vim.g.neovide then
   vim.o.lazyredraw = false
 
   -- font
-  vim.opt.guifont = "Lilex Nerd Font Mono:h14"
+  vim.opt.guifont = "Lilex Nerd Font:h14"
   vim.g.neovide_scale_factor = 1.0
 
   -- windows
