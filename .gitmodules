@@ -1,0 +1,3 @@
+[submodule "docs/vimer"]
+	path = docs/vimer
+	url = https://github.com/konosubakonoakua/vimer.git
