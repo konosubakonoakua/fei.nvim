@@ -6,10 +6,11 @@
 > 
 > - [TODO.md](./docs/TODO.md)
 > - [USAGE.md](./docs/USAGE.md)
+> - [I AM VIM MAN](https://github.com/konosubakonoakua/vimer/blob/main/README.md)
+> - [DOTFILES](https://github.com/konosubakonoakua/.dotfiles/blob/main/README.md)
 
 
-## Notes
-### Installing
+## Installing
 - Win*
   - cmd
 
