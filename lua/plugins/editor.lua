@@ -40,30 +40,16 @@ return {
     cmd = "Neotree",
     keys = {
       {
-        "<leader>fe",
-        function()
-          vim.notify(require("lazyvim.util").root())
-        end,
-        desc = "Explorer NeoTree (root dir)",
-      },
-      {
-        "<leader>fE",
-        function()
-          vim.notify(vim.loop.cwd())
-        end,
-        desc = "Explorer NeoTree (cwd)",
-      },
-      {
         "<leader>e",
         function()
-          require("neo-tree.command").execute({ toggle = true, dir = Util.root() })
+          require("neo-tree.command").execute({ reveal = true, toggle = true, dir = Util.root() })
         end,
         desc = "Explorer NeoTree (root dir)",
       },
       {
         "<leader>E",
         function()
-          require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
+          require("neo-tree.command").execute({ reveal = true, toggle = true, dir = vim.loop.cwd() })
         end,
         desc = "Explorer NeoTree (cwd)",
       },
@@ -98,6 +84,7 @@ return {
       open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" },
       filesystem = {
         bind_to_cwd = false,
+        -- BUG: not working on windows
         follow_current_file = { enabled = true },
         use_libuv_file_watcher = true,
         find_command = "fd",
