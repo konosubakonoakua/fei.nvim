@@ -20,8 +20,8 @@ return {
                     },
                 })
                 cmp.setup(config)
-    },
             end,
+        },
     },
     config = function(_, opts)
         require("conjure.main").main()
