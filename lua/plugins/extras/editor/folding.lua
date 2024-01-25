@@ -2,6 +2,8 @@
   -- "kevinhwang91/nvim-ufo"
 ]]
 
+local icons = require("util.icons").fold
+
 -- TODO: format tabwidth
 
 -- stylua: ignore start
@@ -39,13 +41,11 @@ local setVimFoldOptions = function()
     diff = "╱",
     eob = " ",
   }
-  vim.o.foldcolumn = "0" -- '0' is not bad
+  vim.o.foldcolumn = "0" -- indicate folds and their nesting levels
   vim.o.foldlevel = 99 -- Feel free to decrease the value
   vim.o.foldlevelstart = 99
   vim.o.foldenable = true
-  -- FIXME: hilight group not working
-  --
-  --[[vim.cmd[[
+  vim.cmd[[
     hi default UfoFoldedFg guifg=Normal.foreground
     hi default UfoFoldedBg guibg=Folded.background
     hi default link UfoPreviewSbar PmenuSbar
@@ -66,7 +66,6 @@ local function selectProviderWithChainByDefault(bufnr, filetype, buftype)
         return require("promise").reject(err)
       end
     end
-
     return require("ufo")
       .getFolds(bufnr, "lsp")
       :catch(function(err)
@@ -82,7 +81,7 @@ end
 
 local fold_virt_text_handler_ver1 = function(virtText, lnum, endLnum, width, truncate)
   local newVirtText = {}
-  local suffix = ("  %d "):format(endLnum - lnum)
+  local suffix = (" " .. icons.fold .. " %d "):format(endLnum - lnum)
   local sufWidth = vim.fn.strdisplaywidth(suffix)
   local targetWidth = width - sufWidth
   local curWidth = 0
@@ -193,6 +192,7 @@ return {
   -- https://github.com/luukvbaal/statuscol.nvim/issues/74
   {
     "luukvbaal/statuscol.nvim",
+    enabled = false,
     config = function()
       local builtin = require("statuscol.builtin")
       local cfg = {
