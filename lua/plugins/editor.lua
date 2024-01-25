@@ -198,8 +198,9 @@ return {
       -- PERF: default is "smart", performance killer
       opts.defaults.path_display = { "absolute" }
       opts.defaults.layout_config = {
-        width = 0.9,
-        height = 0.9,
+        width = 999,
+        height = 999,
+        -- vertical = { width = 1.0, height = 1.0 }
       }
       -- stylua: ignore start
       opts.defaults.mappings = {
