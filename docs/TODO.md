@@ -55,6 +55,8 @@
 - [x] FIXME: (terminal) neovim 0.10.\* breaks the `<C-/>` terminal
 - [ ] FIXME: (neo-tree) not syncing path with buffer on Windows platform (maybe security software issue)
 - [ ] FIXME: (termianl) sometimes terminal remaining, cannot close
+  - if open terminal at dashboard on startup, there's a high chance to reproduce the issue
+  - and it is safer to use `<C-/>` to toggle instead of quitting.
 - [ ] FIXME: (logo) colorful banner cannot close when resizing
 - [ ] FIXME: (telescope) telescope-file-browser.nvim slow (~2s) when initing
 - [x] FIXME: (dap) cpp dap break point not working (compiling issue, need debug info `-g`)
