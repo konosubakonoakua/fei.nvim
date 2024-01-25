@@ -5,6 +5,7 @@
 ]]
 
 local Util = require("lazyvim.util")
+local icons = require("util.icons").todo
 
 return {
   -- PERF: when using / to search, will aborting early if matched with flash
@@ -247,6 +248,14 @@ return {
     end,
   },
 
+  -- TODO: ###
+  -- FIX: ###
+  -- HACK: ###
+  -- WARN: ###
+  -- PERF: ###
+  -- NOTE: ###
+  -- TEST: ###
+
   -- todo-comments
   {
     "folke/todo-comments.nvim",
@@ -258,13 +267,13 @@ return {
       -- keywords recognized as todo comments
       -- found icons on https://www.nerdfonts.com/cheat-sheet
       keywords = {
-        FIX = { icon = " ", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
-        TODO = { icon = " ", color = "info" },
-        HACK = { icon = " ", color = "warning" },
-        WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
-        PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-        NOTE = { icon = "󰍦 ", color = "hint", alt = { "INFO" } },
-        TEST = { icon = " ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+        FIX = { icon = icons.bug, color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
+        TODO = { icon = icons.todo, color = "info" },
+        HACK = { icon = icons.hack, color = "#F86F03" },
+        WARN = { icon = icons.warn, color = "warning", alt = { "WARNING", "XXX" } },
+        PERF = { icon = icons.perf, alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+        NOTE = { icon = icons.note, color = "hint", alt = { "INFO" } },
+        TEST = { icon = icons.test, color = "#2CD3E1", alt = { "TESTING", "PASSED", "FAILED" } },
       },
       gui_style = {
         fg = "NONE", -- The gui style to use for the fg highlight group.

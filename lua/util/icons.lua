@@ -93,4 +93,16 @@ return {
     Value = " ",
     Variable = " ",
   },
+  todo = {
+    bug = " ",
+    todo = " ",
+    hack = " ",
+    warn = " ",
+    perf = " ",
+    note = "󰍦 ",
+    test = "󰙨 ",
+  },
+  fold = {
+    fold = "",
+  },
 }
