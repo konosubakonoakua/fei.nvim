@@ -1,11 +1,70 @@
---[[ Summary
-  -- telescope
-  -- telescope-fzf-native
-  -- zen-mode (not good)
-]]
+-- https://github.com/nvim-neo-tree/neo-tree.nvim/wiki/Recipes
+-- https://github.com/nvim-neo-tree/neo-tree.nvim/wiki/Visual-Customizations
+--
+-- Network
+-- https://github.com/miversen33/netman.nvim#neo-tree
+--
+-- How to get the current path of a neo-tree buffer
+-- https://github.com/nvim-neo-tree/neo-tree.nvim/discussions/319
+--
+--
 
 local Util = require("lazyvim.util")
 local icons = require("util.icons").todo
+
+-- region execute bash on selected
+-- https://www.reddit.com/r/neovim/comments/13pixc0/how_to_get_whole_path_in_neotree_if_not_in_root/
+local neotree_execute_bash = function (state)
+  -- state.path # this points to the root dir of the tree
+  local node = state.tree:get_node() -- node in focus when keybind is pressed
+  local abs_path = node.path
+  local rel_path = vim.fn.fnamemodify(abs_path, ":~:.")
+  local file_name = node.name
+  local is_file = node.type == "file" -- or `node.type` could be a "directory"
+  local file_ext = node.ext
+  local file_type = vim.filetype.match({ filename = abs_path })
+  vim.print(node)
+end
+-- endregion execute bash on selected
+
+-- region Navigation with hjkl
+-- https://github.com/nvim-neo-tree/neo-tree.nvim/discussions/163
+local neotree_navi_h = function(state)
+  local node = state.tree:get_node()
+  -- goto parent folder when reach the current root
+  if node:get_parent_id() == nil then
+    require'neo-tree.sources.filesystem.commands'.navigate_up(state)
+  end
+  if node.type == 'directory' and node:is_expanded() then
+    require'neo-tree.sources.filesystem'.toggle_directory(state, node)
+  else
+    require'neo-tree.ui.renderer'.focus_node(state, node:get_parent_id())
+  end
+end
+
+local neotree_navi_l = function(state)
+  local node = state.tree:get_node()
+  if node.type == 'directory' then
+    if not node:is_expanded() then
+      require'neo-tree.sources.filesystem'.toggle_directory(state, node)
+    elseif node:has_children() then
+      require'neo-tree.ui.renderer'.focus_node(state, node:get_child_ids()[1])
+    end
+  end
+end
+-- endregion Navigation with hjkl
+
+-- region open file without losing focus
+local neotree_openfile_nojump = function (state)
+  local node = state.tree:get_node()
+  if require("neo-tree.utils").is_expandable(node) then
+    state.commands["toggle_node"](state)
+  else
+    state.commands['open'](state)
+    vim.cmd('Neotree reveal')
+  end
+end
+-- endregion open file without losing focus
 
 return {
   -- PERF: when using / to search, will aborting early if matched with flash
@@ -99,9 +158,20 @@ return {
       },
       window = {
         mappings = {
+          -- region open file without losing focus
+          ['<tab>'] = neotree_openfile_nojump,
+          -- endregion open file without losing focus
           ["<space>"] = "none",
           ["/"] = "none",
           ["g/"] = "fuzzy_finder",
+          -- region Navigation with hjkl
+          ["h"] = neotree_navi_h,
+          ["l"] = neotree_navi_l,
+          -- endregion Navigation with hjkl
+          --
+          -- ['e'] = function() vim.api.nvim_exec('Neotree focus filesystem left', true) end,
+          -- ['b'] = function() vim.api.nvim_exec('Neotree focus buffers left', true) end,
+          -- ['g'] = function() vim.api.nvim_exec('Neotree focus git_status left', true) end,
         },
       },
       default_component_configs = {
