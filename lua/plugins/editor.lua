@@ -66,6 +66,86 @@ local neotree_openfile_nojump = function (state)
 end
 -- endregion open file without losing focus
 
+-- region fix file following issue
+local open_tree = function (args)
+  local manager = require("neo-tree.sources.manager")
+  local reveal_file = manager.get_path_to_reveal()
+
+  if args.dir and jit.os == "Windows" then
+    -- Hack to work around a bug in neo-tree where it changes path too late for reveal
+    state = manager.get_state(args.source, nil, nil)
+    manager.navigate(state, args.dir, reveal_file, nil, false)
+  end
+
+  require("neo-tree.command").execute({
+    dir = args.dir,
+    -- source = args.source,
+    reveal_file = reveal_file,
+    reveal_force_cwd = true,
+    toggle = true,
+  })
+end
+
+local neotree_reveal = function (use_cwd)
+  local bufnr = vim.fn.bufnr('%')
+  local abs_file_path = vim.api.nvim_buf_get_name(bufnr)
+  abs_file_path = Util.is_win() and abs_file_path:gsub("/", "\\") or abs_file_path
+  local abs_dir_path = vim.fn.fnamemodify(abs_file_path, ":p:h")
+  abs_dir_path = Util.is_win() and abs_dir_path:gsub("/", "\\") or abs_dir_path
+  local smart_path = nil
+  if use_cwd then
+    smart_path = vim.loop.cwd()
+  else
+    smart_path = Util.root({
+      { "lsp" },
+      { ".git", "lua", ".root" },
+      { "cwd" },
+    })
+  end
+
+  -- vim.notify(
+  --   "\n" ..
+  --   "abs_file:" .. tostring(abs_file_path) .. "\n" ..
+  --   "abs_dir:" .. tostring(abs_dir_path) .. "\n" ..
+  --   "smart:" .. tostring(smart_path) .. "\n" ..
+  --   "\n"
+  -- )
+
+  -- local loc = string.find(abs_dir_path, smart_path)
+  local loc = abs_dir_path and abs_dir_path:find(smart_path, 1, true) == 1
+  if not loc then
+    smart_path = abs_dir_path
+    -- vim.notify("abs_dir DOSEN'T contain smartpath")
+  else
+    -- vim.notify("abs_dir DOSE contain smartpath")
+  end
+
+
+  -- open_tree({
+  --   dir = smart_path,
+  --   source = "filesystem",
+  -- })
+  require("neo-tree.command").execute({
+    -- reveal = true,
+    -- current = true,
+    -- reveal_force_cwd = true,
+    -- reveal_file = abs_file_path,
+    toggle = true,
+    dir = smart_path
+  })
+    -- vim.notify(
+    --   "\n" ..
+    --   -- "abs_file:" .. tostring(abs_file_path) .. "\n" ..
+    --   -- "abs_dir:" .. tostring(abs_dir_path) .. "\n" ..
+    --   -- "loc:" .. tostring(loc) .. "\n" ..
+    --   "smart:" .. tostring(smart_path) .. "\n" ..
+    --   "\n"
+    -- )
+end
+local neotree_reveal_cwd = function() neotree_reveal(true) end
+local neotree_reveal_root = function() neotree_reveal(false) end
+-- region fix file following issue
+
 return {
   -- PERF: when using / to search, will aborting early if matched with flash
   {
@@ -94,24 +174,16 @@ return {
   -- use 'o' as toggle folder open or close
   -- [[
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
+    -- "nvim-neo-tree/neo-tree.nvim",
+    "konosubakonoakua/neo-tree.nvim",
+    -- branch = "v3.x",
+    branch = "main",
     cmd = "Neotree",
     keys = {
-      {
-        "<leader>e",
-        function()
-          require("neo-tree.command").execute({ reveal = true, toggle = true, dir = Util.root() })
-        end,
-        desc = "Explorer NeoTree (root dir)",
-      },
-      {
-        "<leader>E",
-        function()
-          require("neo-tree.command").execute({ reveal = true, toggle = true, dir = vim.loop.cwd() })
-        end,
-        desc = "Explorer NeoTree (cwd)",
-      },
+      -- region fix file following issue
+      { "<leader>e", neotree_reveal_root, desc = "Explorer NeoTree (root dir)", },
+      { "<leader>E", neotree_reveal_cwd, desc = "Explorer NeoTree (cwd)", },
+      -- endregion fix file following issue
       {
         "<leader>ge",
         function()
