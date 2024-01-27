@@ -260,4 +260,43 @@ vim.keymap.set('n', '<space>wl', function() print(vim.inspect(vim.lsp.buf.list_w
 -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 -- #endregion LSP Mappings.
 
+
+-- region neovide keymapping
+if vim.fn.has("gui_running") == 1 then
+  vim.notify("neovim running on GUI")
+  if vim.g.neovide == true then
+    vim.g.neovide_scale_factor_max = 4.0
+    vim.g.neovide_scale_factor_min = 0.1
+    vim.g.neovide_scale_factor_default = 1.2
+    vim.g.neovide_transparency_default = 0.8
+
+    keymap_force({"n", "i"}, "<C-=>", ":lua vim.g.neovide_scale_factor = math.min(vim.g.neovide_scale_factor + 0.1,  vim.g.neovide_scale_factor_max)<CR>", { silent = true, desc = "Neovide Font +++" })
+    keymap_force({"n", "i"}, "<C-->", ":lua vim.g.neovide_scale_factor = math.max(vim.g.neovide_scale_factor - 0.1,  vim.g.neovide_scale_factor_min)<CR>", { silent = true, desc = "Neovide Font ---"})
+    keymap_force({"n", "i"}, "<C-+>", ":lua vim.g.neovide_transparency = math.min(vim.g.neovide_transparency + 0.025, 1.0)<CR>", { silent = true, desc = "Neovide Trans +++" })
+    keymap_force({"n", "i"}, "<C-_>", ":lua vim.g.neovide_transparency = math.max(vim.g.neovide_transparency - 0.025, 0.0)<CR>", { silent = true, desc = "Neovide Trans ---" })
+    keymap_force({"n", "i"}, "<C-0>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor_default<CR>", { silent = true , desc = "Neovide Font Reset"})
+    keymap_force({"n", "i"}, "<C-)>", ":lua vim.g.neovide_transparency = vim.g.neovide_transparency_default<CR>", { silent = true , desc = "Neovide Trans Reset"})
+  else
+    vim.g.gui_font_default_size = 16
+    vim.g.gui_font_size = vim.g.gui_font_default_size
+    -- vim.g.gui_font_face = "Fira Code Retina"
+
+    RefreshGuiFont = function() vim.opt.guifont = string.format("%s:h%s",vim.g.gui_font_face, vim.g.gui_font_size) end
+    ResizeGuiFont = function(delta) vim.g.gui_font_size = vim.g.gui_font_size + delta; RefreshGuiFont() end
+    ResetGuiFont = function () vim.g.gui_font_size = vim.g.gui_font_default_size; RefreshGuiFont() end
+
+    -- -- Call function on startup to set default value
+    -- ResetGuiFont()
+
+    local opts = { noremap = true, silent = true }
+    opts.desc = "GUI FONT +++"
+    vim.api.nvim_set_keymap.set({'n', 'i'}, "<C-+>", function() ResizeGuiFont(1)  end, opts)
+    opts.desc = "GUI FONT ---"
+    vim.api.nvim_set_keymap.set({'n', 'i'}, "<C-->", function() ResizeGuiFont(-1) end, opts)
+    opts.desc = "GUI FONT Reset"
+    vim.api.nvim_set_keymap.set({'n', 'i'}, "<C-0>", function() ResetGuiFont() end, opts)
+  end
+end
+-- endregion neovide keymapping
+
 -- stylua: ignore end
