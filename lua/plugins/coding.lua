@@ -90,7 +90,7 @@ return {
         }),
         ["<C-e>"] = cmp.mapping.abort(),
         -- ["<C-y>"] = cmp.mapping.abort(),
-        ["<C-o>"] = cmp.mapping.abort(),
+        -- ["<C-o>"] = cmp.mapping.abort(), -- used to enter normal mode
         ["<C-c>"] = cmp.mapping.abort(),
         -- ["<C-i>"] = cmp.mapping.abort(), -- TODO: <C-i> remapping not working
 
