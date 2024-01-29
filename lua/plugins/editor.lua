@@ -11,6 +11,22 @@
 
 local Util = require("lazyvim.util")
 local icons = require("util.icons").todo
+local events = require("neo-tree.events")
+
+-- region neo-tree event_handlers
+local neotree_event_handlers = {
+
+  -- https://github.com/nvim-neo-tree/neo-tree.nvim/discussions/667
+  -- force neo-tree buffer to stay in normal mode
+  {
+    event = events.NEO_TREE_BUFFER_ENTER,
+    handler = function()
+      vim.cmd("stopinsert")
+    end,
+  },
+
+}
+-- endregion neo-tree event_handlers
 
 -- region emulating Vim's fold commands
 local renderer = require "neo-tree.ui.renderer"
@@ -486,12 +502,15 @@ return {
         Util.lsp.on_rename(data.source, data.destination)
       end
 
-      local events = require("neo-tree.events")
+      -- region neo-tree event_handlers
       opts.event_handlers = opts.event_handlers or {}
       vim.list_extend(opts.event_handlers, {
         { event = events.FILE_MOVED, handler = on_move },
         { event = events.FILE_RENAMED, handler = on_move },
       })
+      -- extend default handlers with user defined ones
+      vim.list_extend(opts.event_handlers, neotree_event_handlers)
+      -- endregion neo-tree event_handlers
       require("neo-tree").setup(opts)
       vim.api.nvim_create_autocmd("TermClose", {
         pattern = "*lazygit",
