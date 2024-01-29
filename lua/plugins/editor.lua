@@ -437,6 +437,7 @@ return {
       end
     end,
     opts = {
+      use_popups_for_input = false,
       sources = { "filesystem", "buffers", "git_status", "document_symbols" },
       open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" },
       filesystem = {
