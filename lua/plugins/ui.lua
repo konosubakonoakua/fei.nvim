@@ -6,6 +6,44 @@
     * new keys for listing notify history
 ]]
 
+local colors = {
+  -- bg       = '#202328',
+  bg       = '#161616', -- oxocarbon.nvim
+  fg       = '#bbc2cf',
+  yellow   = '#ECBE7B',
+  cyan     = '#008080',
+  darkblue = '#081633',
+  green    = '#98be65',
+  orange   = '#FF8800',
+  violet   = '#a9a1e1',
+  magenta  = '#c678dd',
+  blue     = '#51afef',
+  red      = '#ec5f67',
+}
+
+local mode_color = {
+  n = colors.red,
+  i = colors.green,
+  v = colors.blue,
+  [''] = colors.blue,
+  V = colors.blue,
+  c = colors.magenta,
+  no = colors.red,
+  s = colors.orange,
+  S = colors.orange,
+  [''] = colors.orange,
+  ic = colors.yellow,
+  R = colors.violet,
+  Rv = colors.violet,
+  cv = colors.red,
+  ce = colors.red,
+  r = colors.cyan,
+  rm = colors.cyan,
+  ['r?'] = colors.cyan,
+  ['!'] = colors.red,
+  t = colors.red,
+}
+
 return {
   {
     "folke/noice.nvim",
@@ -63,6 +101,7 @@ return {
       end
     end,
   },
+
   {
     "nvimdev/dashboard-nvim",
     version = false,
@@ -122,6 +161,10 @@ return {
                 mode_text = icons.mode[mode] or mode
                 return mode_text .. ""
                 -- vim.notify(require("util.icons").mode[vim.fn.mode()])
+              end,
+              separator = {left = "", right = ""},
+              color = function(section)
+                return { fg = mode_color[vim.fn.mode()], bg=colors.bg }
               end,
             },
           },
