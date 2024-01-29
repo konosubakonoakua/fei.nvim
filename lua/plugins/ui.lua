@@ -94,7 +94,7 @@ return {
     end,
   },
 
-  -- statusline
+  -- lualine
   {
     "nvim-lualine/lualine.nvim",
     version = false,
@@ -108,17 +108,22 @@ return {
           theme = "auto",
           globalstatus = true,
           disabled_filetypes = { statusline = { "dashboard", "alpha" } },
+          -- component_separators = '',
+          -- section_separators = '',
         },
         sections = {
           -- lualine_a = { "mode" },
           lualine_a = {
-            -- fffstylua: ignore
-            -- function() return string.upper(vim.fn.mode()) .. icons.mode end,
-            function()
-              local mode = vim.fn.mode()
-              return icons.mode[mode] or mode
-              -- vim.notify(require("util.icons").mode[vim.fn.mode()])
-            end,
+            {
+              -- stylua: ignore
+              -- function() return string.upper(vim.fn.mode()) .. icons.mode end,
+              function()
+                local mode = vim.fn.mode()
+                mode_text = icons.mode[mode] or mode
+                return mode_text .. ""
+                -- vim.notify(require("util.icons").mode[vim.fn.mode()])
+              end,
+            },
           },
           lualine_b = { "branch" },
           lualine_c = {
