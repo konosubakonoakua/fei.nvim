@@ -13,9 +13,10 @@ return {
     -- Terminal mode)
     -- ntT = "", -- Normal using |t_CTRL-\_CTRL-O| in |Terminal-mode|
     v = "", -- Visual by character
-    -- vs = "", -- Visual by character using |v_CTRL-O| in Select mode
+    -- vs = "󱇚", -- Visual by character using |v_CTRL-O| in Select mode
     V = "", -- Visual by line
-    -- Vs = "", -- Visual by line using |v_CTRL-O| in Select mode
+    -- Vs = "󱇚", -- Visual by line using |v_CTRL-O| in Select mode
+    [''] = "󱇚",
     -- CTRL-V   Visual blockwise
     -- CTRL-Vs  Visual blockwise using |v_CTRL-O| in Select mode
     -- s = "", -- Select by character
