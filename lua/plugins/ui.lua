@@ -130,6 +130,7 @@ return {
                 info = icons.diagnostics.Info,
                 hint = icons.diagnostics.Hint,
               },
+              separator = "",
             },
             { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
             { "filename", path = 1, symbols = { modified = "", readonly = "󰌾", unnamed = "󰴓" } },
@@ -145,23 +146,27 @@ return {
               function() return require("noice").api.status.command.get() end,
               cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
               color = _util.ui.fg("Statement"),
+              separator="",
             },
             -- stylua: ignore
             {
               function() return require("noice").api.status.mode.get() end,
               cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
               color = _util.ui.fg("Constant"),
+              separator="",
             },
             -- stylua: ignore
             {
               function() return "  " .. require("dap").status() end,
               cond = function () return package.loaded["dap"] and require("dap").status() ~= "" end,
               color = _util.ui.fg("Debug"),
+              separator="",
             },
             {
               require("lazy.status").updates,
               cond = require("lazy.status").has_updates,
               color = _util.ui.fg("Special"),
+              separator="",
             },
             {
               "diff",
@@ -170,6 +175,7 @@ return {
                 modified = icons.git.modified,
                 removed = icons.git.removed,
               },
+              separator="",
             },
           },
           lualine_y = {
