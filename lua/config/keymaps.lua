@@ -182,6 +182,7 @@ keymap("n", "<leader>uw", function() _util.toggle("wrap") end,       { desc = "T
 keymap("n", "<leader>ul", function() _util.toggle.number() end,      { desc = "Toggle Line Numbers" })
 keymap("n", "<leader>ud", function() _util.toggle.diagnostics() end, { desc = "Toggle Diagnostics" })
 keymap("n", "<leader>uf", function() require("lazyvim.util.format").toggle() end, { desc = "Toggle format on Save" })
+keymap("n", "<leader>uI", ":IBLToggle<cr>",      { desc = "Toggle IndentLine" })
 
 _G.cmp_enabled = true
 keymap("n", "<leader>ua", function()
@@ -193,7 +194,6 @@ keymap("n", "<leader>ua", function()
       vim.notify("Disabled: auto completion", vim.log.levels.WARN);
     end
   end, { desc = "Toggle auto completion (buffer)" })
-
 
 -- enable lazyredraw to speed up macro execution
 _G.lazyredraw_enabled = true
@@ -209,6 +209,7 @@ keymap("n", "<leader>uR", function()
     end
   end, { desc = "Toggle lazyredraw" })
 
+keymap("n", "<leader>us", function() _util.toggle("spell") end,      { desc = "Toggle Spelling" })
 -- #endregion toggle options
 
 -- #region telescope
