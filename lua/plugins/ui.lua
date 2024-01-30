@@ -246,44 +246,79 @@ return {
     event = "LazyFile",
     main = "ibl",
     -- dev = true,
-    opts = {
-      indent = {
-        char = "┊",
-        tab_char = "┊",
-        smart_indent_cap = true,
-      },
-      whitespace = {
-        remove_blankline_trail = true,
-      },
-      -- scope = {
-      --   enabled = true,
-      --   highlight = {"@function"},
-      -- },
-      exclude = {
-        buftypes = {
-          "terminal",
-          "nofile",
-          "prompt",
+    opts = function (_, opts)
+      local rainbow_highlights = {
+        'RainbowRed',
+        'RainbowYellow',
+        'RainbowBlue',
+        'RainbowOrange',
+        'RainbowGreen',
+        'RainbowViolet',
+        'RainbowCyan',
+      }
+
+      local hooks = require('ibl.hooks')
+      -- create the highlight groups in the highlight setup hook, so they are reset
+      -- every time the colorscheme changes
+      hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+        vim.api.nvim_set_hl(0, 'RainbowRed', { fg = '#542429' })
+        vim.api.nvim_set_hl(0, 'RainbowYellow', { fg = '#594725' })
+        vim.api.nvim_set_hl(0, 'RainbowBlue', { fg = '#20425e' })
+        vim.api.nvim_set_hl(0, 'RainbowOrange', { fg = '#825a34' })
+        vim.api.nvim_set_hl(0, 'RainbowGreen', { fg = '#465e35' })
+        vim.api.nvim_set_hl(0, 'RainbowViolet', { fg = '#5f366b' })
+        vim.api.nvim_set_hl(0, 'RainbowCyan', { fg = '#2e595e' })
+      end)
+
+      opts = {
+        indent = {
+          char = "┊",
+          tab_char = "┊",
+          smart_indent_cap = true,
+          highlight = rainbow_highlights,
         },
-        filetypes = {
-          "help",
-          "alpha",
-          "dashboard",
-          "neo-tree",
-          "Trouble",
-          "trouble",
-          "lazy",
-          "mason",
-          "notify",
-          "toggleterm",
-          "lazyterm",
-          "log",
-          "TelescopePrompt",
-          "TelescopeResults",
-          "terminal",
-          "undotree"
+        whitespace = {
+          remove_blankline_trail = true,
         },
-      },
-    },
+        scope = {
+          char = "󰇝",
+          -- char = "󱪼",
+          enabled = true,
+          show_start = false,
+          show_end = false,
+          show_exact_scope = false,
+          -- highlight = {
+          --   "@function"
+          -- },
+        },
+        exclude = {
+          buftypes = {
+            "terminal",
+            "nofile",
+            "quickfix",
+            "prompt",
+          },
+          filetypes = {
+            "help",
+            "alpha",
+            "dashboard",
+            "neo-tree",
+            "Trouble",
+            "trouble",
+            "lazy",
+            "mason",
+            "notify",
+            "toggleterm",
+            "lazyterm",
+            "log",
+            "TelescopePrompt",
+            "TelescopeResults",
+            "terminal",
+            "undotree"
+          },
+        },
+      }
+      return opts
+    end
   },
 }
