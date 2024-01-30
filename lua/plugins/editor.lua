@@ -400,10 +400,10 @@ return {
   -- use 'o' as toggle folder open or close
   -- [[
   {
-    -- "nvim-neo-tree/neo-tree.nvim",
-    "konosubakonoakua/neo-tree.nvim",
-    -- branch = "v3.x",
-    branch = "main",
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    -- "konosubakonoakua/neo-tree.nvim",
+    -- branch = "main",
     cmd = "Neotree",
     keys = {
       -- region fix file following issue
