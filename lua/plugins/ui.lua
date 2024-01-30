@@ -241,4 +241,49 @@ return {
       }
     end,
   },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = "LazyFile",
+    main = "ibl",
+    -- dev = true,
+    opts = {
+      indent = {
+        char = "┊",
+        tab_char = "┊",
+        smart_indent_cap = true,
+      },
+      whitespace = {
+        remove_blankline_trail = true,
+      },
+      -- scope = {
+      --   enabled = true,
+      --   highlight = {"@function"},
+      -- },
+      exclude = {
+        buftypes = {
+          "terminal",
+          "nofile",
+          "prompt",
+        },
+        filetypes = {
+          "help",
+          "alpha",
+          "dashboard",
+          "neo-tree",
+          "Trouble",
+          "trouble",
+          "lazy",
+          "mason",
+          "notify",
+          "toggleterm",
+          "lazyterm",
+          "log",
+          "TelescopePrompt",
+          "TelescopeResults",
+          "terminal",
+          "undotree"
+        },
+      },
+    },
+  },
 }
