@@ -31,6 +31,8 @@ require("lspconfig").clangd.setup({
 ## Navi
 ## Search
 ## GIT
+### lazygit
+- put `config.yml` to `~/AppData/Roaming/lazygit/config.yml`.
 ### Push after shallow-clone
 ```bash
 git fetch --unshallow
