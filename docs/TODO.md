@@ -3,13 +3,46 @@
 ## FEATs
 
 - lazyextras
+  - coding
+    - [x] ctags
+    - [x] gtags
+    - [x] tab
+    - [x] yanky
+  - editor
+    - [x] bookmarks
+    - [x] folding
+    - [x] fzf
+    - [x] leaderf
+    - [x] macro
+    - [x] markdown
+    - [x] motion
+    - [x] project
+    - [x] quickfix
+    - [x] zen
+  - lsp
+    - [x] zig
   - telescope
-    - [ ] [octo](https://github.com/pwntester/octo.nvim)
+    - [x] file_browser.lua
+    - [x] glyph.lua
     - [x] [pathogen](https://github.com/brookhong/telescope-pathogen.nvim)
     - [x] [zoxide](https://github.com/nvim-telescope/telescope-z.nvim.git)
+    - [ ] [octo](https://github.com/pwntester/octo.nvim)
     - [ ] [tmux](https://github.com/camgraff/telescope-tmux.nvim)
     - [ ] [lazy](https://github.com/tsakirist/telescope-lazy.nvim)
     - [ ] [luasnip](https://github.com/benfowler/telescope-luasnip.nvim)
+  - test
+    - [x] neotest
+  - utils
+    - [x] chatgpt
+    - [x] conjure
+    - [x] godbolt
+    - [x] lazygit
+    - [x] nerdfont
+    - [x] nnn
+    - [x] oil
+    - [x] remote-ssh
+    - [x] remote-tab
+    - [x] vscode
 
 ## TODOs
 
@@ -23,8 +56,8 @@
 - [x] TODO: (lsp) try lsp inlay in `neovim 0.10.*` (working well for c++)
 - [x] TODO: (completion) make better completions
 - [x] TODO: (completion) enable in command mode
-- [ ] TODO: (lualine) set highlights for different modes
-- [ ] TODO: (lualine) change spacer
+- [x] TODO: (lualine) set highlights for different modes
+- [x] TODO: (lualine) change spacer
 - [ ] TODO: (dashboard) change vertical spacing (upstream)
 - [x] TODO: (fzf-lua) config fzf-lua keymaps
 - [ ] TODO: (fzf-lua) adapt keymap for fzf-lua file & grep command that using cwd
@@ -54,11 +87,15 @@
 - [x] FIXME: (folding) error when saving/opening yml file: Request textDocument/foldingRange failed with message: Cannot read properties of undefined (reading 'lineFoldingOnly')(not been reproduced)
 - [x] FIXME: (terminal) neovim 0.10.\* breaks the `<C-/>` terminal
 - [ ] FIXME: (neo-tree) not syncing path with buffer on Windows platform (maybe security software issue)
-- [ ] FIXME: (termianl) sometimes terminal remaining, cannot close
+- [x] FIXME: (termianl) sometimes terminal remaining, cannot close
   - if open terminal at dashboard on startup, there's a high chance to reproduce the issue
   - and it is safer to use `<C-/>` to toggle instead of quitting.
-- [ ] FIXME: (logo) colorful banner cannot close when resizing
-- [ ] FIXME: (telescope) telescope-file-browser.nvim slow (~2s) when initing
+  - SHELL cannot be like "/bin/bash", only "bash" is ok.
+  - temporary fixed by lazyvim #2429
+- [x] FIXME: (logo) colorful banner cannot close when resizing
+  - seems fixed by upstream
+- [x] FIXME: (telescope) telescope-file-browser.nvim slow (~2s) when initing
+  - randomly, disabled now
 - [x] FIXME: (dap) cpp dap break point not working (compiling issue, need debug info `-g`)
 - [x] FIXME: (terminal) closing terminal causing nvim not responding with high cpu loading sometimes
   - cannot reproduce
