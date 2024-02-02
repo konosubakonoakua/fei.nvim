@@ -21,7 +21,7 @@
     "plugins.extras.editor.motion",
     "plugins.extras.editor.project",
     "plugins.extras.editor.quickfix",
-    "plugins.extras.editor.zen",
+    "plugins.extras.editor.window",
     "plugins.extras.lsp.zig",
     "plugins.extras.telescope.glyph",
     "plugins.extras.telescope.zoxide",

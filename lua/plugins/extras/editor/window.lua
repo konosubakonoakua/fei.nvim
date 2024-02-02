@@ -55,6 +55,7 @@ return {
     end,
   },
 
+  -- FIXME: some window remapping not working
   -- windows maximum & restore
   {
     "anuvyklack/windows.nvim",
@@ -62,6 +63,13 @@ return {
     dependencies = "anuvyklack/middleclass",
     config = function()
       require("windows").setup()
+      -- stylua: ignore start
+      vim.keymap.set("n", "<C-w>z",     cmd_concat("WindowsMaximize"),              { desc = "WindowsMaximize" })
+      vim.keymap.set("n", "<C-w>_",     cmd_concat("WindowsMaximizeVertically"),    { desc = "WindowsMaximize VER" })
+      vim.keymap.set("n", "<C-w>|",     cmd_concat("WindowsMaximizeHorizontally"),  { desc = "WindowsMaximize HOR" })
+      vim.keymap.set("n", "<C-w>=",     cmd_concat("WindowsEqualize"),              { desc = "WindowsEqualize" })
+      vim.keymap.set("n", "<leader>wa", cmd_concat("WindowsToggleAutowidth"),       { desc = "New windows", remap = true })
+      -- stylua: ignore end
     end,
   },
 }
