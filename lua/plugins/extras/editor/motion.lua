@@ -48,6 +48,7 @@ return {
         -- 1: when pos == "end" and pos < current position
         offset = nil, ---@type number
       },
+      modes = {
         -- options used when flash is activated through
         -- a regular search with `/` or `?`
         search = {
