@@ -68,7 +68,7 @@ keymap("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 keymap("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 -- endregion line move
 
-
+-- region visual mode remappings
 --[[ Better paste
   remap "p" in visual mode to delete the highlighted text
   without overwriting your yanked/copied text,
@@ -80,11 +80,11 @@ keymap("v", "p", '"_dP', _opts)
 keymap("v", "<", "<gv", _opts)
 keymap("v", ">", ">gv", _opts)
 
+-- endregion visual mode remappings
+
 -- better up/down
 keymap({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 keymap({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-
--- endregion visual mode remappings
 
 -- region windows remappings
 
@@ -187,7 +187,7 @@ keymap("n", "<leader>;P", function()
   vim.cmd('AddProject')
 end, { desc = "Project Add Current" })
 
--- endregion
+-- endregion <leader>; group remappings
 
 -- region toggle options
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
@@ -232,6 +232,14 @@ keymap("n", "<leader>uR", function()
 keymap("n", "<leader>us", function() _util.toggle("spell") end,      { desc = "Toggle Spelling" })
 -- endregion toggle options
 
+-- region ui
+keymap_force("n", "<leader>uc", _util.telescope("colorscheme", { enable_preview = true }), {desc = "Colorscheme with preview"})
+-- endregion ui
+
+-- region code
+keymap_force("n", "<leader>cR", "<cmd>Spectre<cr>", { desc = "Replace in files (Spectre)" })
+-- endregion
+
 -- region telescope
 if _util.has("todo-comments.nvim") then
   keymap("n", "<leader>xsf", "<cmd>TodoTelescope keywords=FIX,FIXME,BUG<CR>", { desc = "Show FIXME" })
@@ -239,19 +247,21 @@ if _util.has("todo-comments.nvim") then
   keymap("n", "<leader>xsT", "<cmd>TodoTelescope keywords=TEST<CR>", { desc = "Show TEST" })
   keymap("n", "<leader>xsi", "<cmd>TodoTelescope keywords=INFO<CR>", { desc = "Show INFO" })
 end
-keymap_force("n", "<leader>uc", _util.telescope("colorscheme", { enable_preview = true }), {desc = "Colorscheme with preview"})
-keymap_force("n", "<leader>sr", "<cmd>Telescope resume<cr>",   { desc = "Telescope Resume" })
-keymap_force("n", "<leader>s;", "<cmd>Telescope builtin<cr>",  { desc = "Telescope Builtins", noremap = true })
--- keymap_force("n", "<leader>sb", ":lua require('telescope.builtin').current_buffer_fuzzy_find({default_text = vim.fn.expand('<cword>')})<cr>", {desc = "find current buffer", noremap = true})
-keymap_force("n", "<leader>sb", ":lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>", {desc = "find current buffer", noremap = true})
-keymap_force("n", "<leader>sB", ":lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>", {desc = "Find opened files", noremap = true})
-keymap_force("n", "<leader>cR", "<cmd>Spectre<cr>",            { desc = "Replace in files (Spectre)" })
+
+-- <leader>f
 keymap_force("n", "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "Fuzzy Search (Current)" })
 keymap_force("n", "<leader>fc", function() require('telescope.builtin').find_files({find_command={'fd', vim.fn.expand("<cword>")}}) end, { desc = "Telescope Find cfile" })
 keymap_force("n", "<leader>fC", _util.telescope.config_files(), { desc = "Find Config File" })
 keymap_force("n", "<leader>fg", ":Telescope grep_string<cr>", {desc = "Telescope Grep String", noremap = true})
 keymap_force("n", "<leader>fG", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", {desc = "Live grep args", noremap = true})
 keymap_force("n", "<leader>fP", function() require("telescope.builtin").find_files( { cwd = require("lazy.core.config").options.root }) end, {desc = "Find Plugin File"})
+
+-- <leader>s
+keymap_force("n", "<leader>sr", "<cmd>Telescope resume<cr>",   { desc = "Telescope Resume" })
+keymap_force("n", "<leader>s;", "<cmd>Telescope builtin<cr>",  { desc = "Telescope Builtins", noremap = true })
+-- keymap_force("n", "<leader>sb", ":lua require('telescope.builtin').current_buffer_fuzzy_find({default_text = vim.fn.expand('<cword>')})<cr>", {desc = "find current buffer", noremap = true})
+keymap_force("n", "<leader>sb", ":lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>", {desc = "find current buffer", noremap = true})
+keymap_force("n", "<leader>sB", ":lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>", {desc = "Find opened files", noremap = true})
 keymap_force("n", "<leader>sM", "<cmd>Telescope man_pages sections=ALL<cr>", {desc = "Man Pages" })
 keymap_force("n", "<leader>sg", _util.telescope("live_grep"),                                        { desc = "Grep (root dir)" })
 keymap_force("n", "<leader>sG", _util.telescope("live_grep", { cwd = false }),                       { desc = "Grep (cwd)" })
@@ -259,7 +269,11 @@ keymap_force("v", "<leader>sw", _util.telescope("grep_string"),                 
 keymap_force("n", "<leader>sw", _util.telescope("grep_string", { word_match = "-w" }),               { desc = "Word (root dir)" })
 keymap_force("v", "<leader>sW", _util.telescope("grep_string", { cwd = false }),                     { desc = "Selection (cwd)" })
 keymap_force("n", "<leader>sW", _util.telescope("grep_string", { cwd = false, word_match = "-w" }),  { desc = "Word (cwd)" })
-keymap_force("n", "<leader>sj", "<cmd>Telescope jumplist<cr>",   { desc = "Jumplist", noremap = true })
+keymap_force("n", "<leader>sj", "<cmd>Telescope jumplist<cr>",    { desc = "Jumplist", noremap = true })
+keymap_force("n", "<leader>sl", "<cmd>Telescope loclist<cr>",     { desc = "Loclist", noremap = true })
+keymap_force("n", "<leader>se", "<cmd>Telescope treesitter<cr>",  { desc = "Treesitter", noremap = true })
+keymap_force("n", "<leader>su", "<cmd>Telescope tags<cr>",        { desc = "Tags", noremap = true })
+keymap_force("n", "<leader>sU", "<cmd>Telescope tagstack<cr>",    { desc = "Tagstack", noremap = true })
 -- endregion telescope
 
 -- region LSP Mappings.
