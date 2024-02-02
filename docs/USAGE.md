@@ -48,3 +48,9 @@ git fetch --unshallow
 :g/pattern/d " matched
 :g!/pattern/d " unmatched
 ```
+## FILES
+### do something for all `lua` files
+```shell
+# remove all leading # in lua files
+find -name "*.lua" -exec sh -c "echo -n {}'>>>>>>\n'; sed -i 's/#region/region/' {}; sed -i 's/#endregion/endregion/' {}" \;
+```
