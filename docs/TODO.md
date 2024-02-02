@@ -68,6 +68,7 @@
 - [x] TODO: (cmpletion) add tab functionalities to tab out surroundings (`tabout.nvim`)
 - [ ] TODO: (editor) integrate tmux or zellij with neovim
 - [x] TODO: (macros) when using macros, some plugins should keep closed (autopair,smartF/T)
+- [x] TODO: (telescope) customize keymappings
 
 ## PERFs
 

@@ -33,6 +33,7 @@ return {
     },
     init = function()
       require("telescope").load_extension("macros")
+      keymap_force("n", "<leader>fm", "<cmd>Telescope macros<cr>",   { desc = "NeoComposer Macros", noremap = true })
     end,
   },
 }

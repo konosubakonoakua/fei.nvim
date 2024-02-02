@@ -246,7 +246,6 @@ keymap_force("n", "<leader>s;", "<cmd>Telescope builtin<cr>",  { desc = "Telesco
 keymap_force("n", "<leader>sb", ":lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>", {desc = "find current buffer", noremap = true})
 keymap_force("n", "<leader>sB", ":lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>", {desc = "Find opened files", noremap = true})
 keymap_force("n", "<leader>cR", "<cmd>Spectre<cr>",            { desc = "Replace in files (Spectre)" })
-keymap_force("n", "<leader>fm", "<cmd>Telescope macros<cr>",   { desc = "NeoComposer Macros", noremap = true })
 keymap_force("n", "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "Fuzzy Search (Current)" })
 keymap_force("n", "<leader>fc", function() require('telescope.builtin').find_files({find_command={'fd', vim.fn.expand("<cword>")}}) end, { desc = "Telescope Find cfile" })
 keymap_force("n", "<leader>fC", _util.telescope.config_files(), { desc = "Find Config File" })
@@ -260,7 +259,8 @@ keymap_force("v", "<leader>sw", _util.telescope("grep_string"),                 
 keymap_force("n", "<leader>sw", _util.telescope("grep_string", { word_match = "-w" }),               { desc = "Word (root dir)" })
 keymap_force("v", "<leader>sW", _util.telescope("grep_string", { cwd = false }),                     { desc = "Selection (cwd)" })
 keymap_force("n", "<leader>sW", _util.telescope("grep_string", { cwd = false, word_match = "-w" }),  { desc = "Word (cwd)" })
--- region telescope
+keymap_force("n", "<leader>sj", "<cmd>Telescope jumplist<cr>",   { desc = "Jumplist", noremap = true })
+-- #endregion telescope
 
 -- region LSP Mappings.
 local opts = { buffer = bufnr, noremap = true, silent = true }
