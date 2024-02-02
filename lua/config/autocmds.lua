@@ -53,3 +53,12 @@ vim.api.nvim_create_autocmd({ "RecordingEnter" }, {
 --     -- vim.notify("minipairs enabled")
 --   end,
 -- })
+
+-- command history
+vim.api.nvim_create_autocmd("cmdwinenter", {
+  callback = function()
+    vim.keymap.set({"n", "i"}, "<C-y>", "<cr>q:", { buffer = true })
+    vim.keymap.set({"n", "i"}, "<F5>", "<cr>q:", { buffer = true })
+    vim.keymap.set("n", "<leader>q", ":q<cr>", { buffer = true })
+  end,
+})
