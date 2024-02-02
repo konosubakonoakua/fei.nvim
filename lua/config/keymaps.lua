@@ -1,4 +1,4 @@
--- #region local functions
+-- region local functions
 
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
@@ -33,13 +33,13 @@ local keydel           = vim.keymap.del
 local cmd_concat         = require("util").cmd_concat
 local is_disabled_plugin = require("util").is_disabled_plugin
 
--- #endregion local functions
+-- region local functions
 
 vim.keymap.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Write file" })
 vim.keymap.set({ "x", "n", "s" }, "<leader>fw", "<cmd>w<cr><esc>", { desc = "Write file" })
 
 -- TODO: maybe remap @ to disable minipairs before macro playing
--- 
+--
 -- vim.keymap.set({ "n" }, "@", function ()
 --   vim.g.minipairs_disable = true
 --   vim.cmd('@')
@@ -48,7 +48,6 @@ vim.keymap.set({ "x", "n", "s" }, "<leader>fw", "<cmd>w<cr><esc>", { desc = "Wri
 -- stay when using * to search
 keymap("n", "*", "*N", _opts)
 
--- #region visual mode remappings
 -- TODO: validate if this affects the `i<esc>j` sequence to moveline
 -- Clear search with <esc>, currently only in normal mode
 -- keymap({ "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
@@ -68,6 +67,7 @@ keymap("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 keymap("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 -- endregion line move
 
+-- region visual mode remappings
 
 --[[ Better paste
   remap "p" in visual mode to delete the highlighted text
@@ -84,9 +84,9 @@ keymap("v", ">", ">gv", _opts)
 keymap({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 keymap({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
--- #endregion visual mode remappings
+-- region visual mode remappings
 
--- #region windows remappings
+-- region windows remappings
 
 -- TODO: find new plugins for resizing
 -- FIXME: some window remapping not working
@@ -116,9 +116,9 @@ keymap("n", "<leader>wh", "<C-W>v<C-W>h", { desc = "Split window left", remap = 
 keymap("n", "<leader>wF", "<C-W>|<C-W>_", { desc = "Delete window (hor & ver)", remap = true })
 keymap("n", "<leader>wj", "<C-W>s<C-W>k", { desc = "Split window above", remap = true })
 ]]
--- #endregion windows remappings
+-- region windows remappings
 
--- #region plugin remappings
+-- region plugin remappings
 
 -- search keywords in linux programmer's manual
 keymap("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
@@ -150,9 +150,9 @@ keymap("t", "<C-L>", "<c-\\><c-n>A", { desc = "Clear Terminal" }) -- when <C-l>
 -- keymap("n", "<leader>-", "<C-W>s", { desc = "Split window below", remap = true })
 -- keymap("n", "<leader>|", "<C-W>v", { desc = "Split window right", remap = true })
 
--- #endregion plugin remappings
+-- region plugin remappings
 
---#region <leader>; group remappings
+-- region <leader>; group remappings
 
 -- system monitor
 if vim.fn.executable("btop") == 1 then
@@ -187,9 +187,9 @@ keymap("n", "<leader>;P", function()
   vim.cmd('AddProject')
 end, { desc = "Project Add Current" })
 
--- #endregion
+-- region
 
--- #region toggle options
+-- region toggle options
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
 keymap_force("n", "<leader>uC", function() _util.toggle("conceallevel", false, {0, conceallevel}) end, { desc = "Toggle Conceal" })
 
@@ -230,9 +230,9 @@ keymap("n", "<leader>uR", function()
   end, { desc = "Toggle lazyredraw" })
 
 keymap("n", "<leader>us", function() _util.toggle("spell") end,      { desc = "Toggle Spelling" })
--- #endregion toggle options
+-- region toggle options
 
--- #region telescope
+-- region telescope
 if _util.has("todo-comments.nvim") then
   keymap("n", "<leader>xsf", "<cmd>TodoTelescope keywords=FIX,FIXME,BUG<CR>", { desc = "Show FIXME" })
   keymap("n", "<leader>xst", "<cmd>TodoTelescope keywords=TODO<CR>", { desc = "Show TODO" })
@@ -260,9 +260,9 @@ keymap_force("v", "<leader>sw", _util.telescope("grep_string"),                 
 keymap_force("n", "<leader>sw", _util.telescope("grep_string", { word_match = "-w" }),               { desc = "Word (root dir)" })
 keymap_force("v", "<leader>sW", _util.telescope("grep_string", { cwd = false }),                     { desc = "Selection (cwd)" })
 keymap_force("n", "<leader>sW", _util.telescope("grep_string", { cwd = false, word_match = "-w" }),  { desc = "Word (cwd)" })
--- #endregion telescope
+-- region telescope
 
--- #region LSP Mappings.
+-- region LSP Mappings.
 local opts = { buffer = bufnr, noremap = true, silent = true }
 -- vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
 -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
@@ -279,8 +279,7 @@ vim.keymap.set('n', '<space>wl', function() print(vim.inspect(vim.lsp.buf.list_w
 -- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 -- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
--- #endregion LSP Mappings.
-
+-- region LSP Mappings.
 
 -- region neovide keymapping
 if vim.fn.has("gui_running") == 1 then

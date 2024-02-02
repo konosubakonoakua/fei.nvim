@@ -1,4 +1,4 @@
--- #region flash jump line
+-- region flash jump line
 vim.keymap.set({ "i", "x", "n", "s" }, "<A-s>", function()
   local col = vim.api.nvim_win_get_cursor(0)[2]
   require("flash").jump({
@@ -16,7 +16,7 @@ vim.keymap.set({ "i", "x", "n", "s" }, "<A-s>", function()
   })
   vim.api.nvim_input(col .. 'l')
 end, { desc = "line jump" })
--- #endregion flash jump line
+-- endregion flash jump line
 
 return {
   -- https://github.com/folke/flash.nvim

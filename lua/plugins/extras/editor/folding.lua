@@ -125,7 +125,7 @@ end
 
 -- TODO: use enhanceAction or not
 --
--- #region enhanceAction
+-- region enhanceAction
 --
 -- ------------------------------------------enhanceAction---------------------------------------------
 -- local function peekOrHover()
@@ -171,7 +171,7 @@ end
 -- end
 --
 -- ------------------------------------------enhanceAction---------------------------------------------
--- #endregion enhanceAction
+-- endregion enhanceAction
 
 return {
   {
