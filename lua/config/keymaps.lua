@@ -226,7 +226,10 @@ keymap_force("n", "<leader>uc", _util.telescope("colorscheme", { enable_preview 
 -- endregion ui
 
 -- region code
-keymap_force("n", "<leader>cR", "<cmd>Spectre<cr>", { desc = "Replace in files (Spectre)" })
+keymap("n", "<leader>cR", "<cmd>lua require('spectre').open({cwd=require('lazyvim.util').root()})<CR>", { desc = "Replace in files (Spectre)" })
+keymap('v', '<leader>cR', '<esc><cmd>lua require("spectre").open_visual({cwd=require("lazyvim.util").root()})<CR>', { desc = "Search current word" })
+keymap('n', '<leader>cw', '<cmd>lua require("spectre").open_visual({select_word=true, cwd=require("lazyvim.util").root()})<CR>', { desc = "Search current word" })
+keymap('n', '<leader>cW', '<cmd>lua require("spectre").open_file_search({select_word=true, cwd=require("lazyvim.util").root()})<CR>', { desc = "Search on current file" })
 -- endregion
 
 -- region telescope
