@@ -29,6 +29,7 @@ end
 -- local keymap             = require("util").keymap
 local keymap             = vim.keymap.set
 local keymap_force       = vim.keymap.set
+local keydel           = vim.keymap.del
 local cmd_concat         = require("util").cmd_concat
 local is_disabled_plugin = require("util").is_disabled_plugin
 
@@ -48,6 +49,25 @@ vim.keymap.set({ "x", "n", "s" }, "<leader>fw", "<cmd>w<cr><esc>", { desc = "Wri
 keymap("n", "*", "*N", _opts)
 
 -- #region visual mode remappings
+-- TODO: validate if this affects the `i<esc>j` sequence to moveline
+-- Clear search with <esc>, currently only in normal mode
+-- keymap({ "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
+keymap({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
+
+-- region line move
+-- Move Lines
+keymap("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
+keymap("n", "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
+keymap("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
+keymap("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
+-- TODO: validate if this affects the `i<esc>j` sequence to moveline
+-- maybe the safe map is the cause
+-- keydel({"i", "n"}, "<A-j>")
+-- keydel({"i", "n"}, "<A-k>")
+keymap("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
+keymap("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+-- endregion line move
+
 
 --[[ Better paste
   remap "p" in visual mode to delete the highlighted text
