@@ -43,3 +43,8 @@ git fetch --unshallow
 ```vim
 :vim pattern % | copen
 ```
+### delete all [un]matched lines
+```vim
+:g/pattern/d " matched
+:g!/pattern/d " unmatched
+```
