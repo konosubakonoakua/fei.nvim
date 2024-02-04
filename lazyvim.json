@@ -15,6 +15,7 @@
     "lazyvim.plugins.extras.lsp.none-ls",
     "lazyvim.plugins.extras.util.project",
     "plugins.extras.coding.yanky",
+    "plugins.extras.editor.dap",
     "plugins.extras.editor.folding",
     "plugins.extras.editor.fzf",
     "plugins.extras.editor.markdown",
