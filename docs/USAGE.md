@@ -4,13 +4,19 @@ take down common use case here.
 ## Keymap
 ### Function keys
 map `<C-Fx>` is equal to map `<Fy>` where y = x + 24.
+
 map `<S-Fx>` is equal to map `<Fy>` where y = x + 12.
 ## Edit
 ## Macro
 
 ## Terminal
-## CWD
-## LSP
+## Cwd
+## Dev
+### Bisec
+https://git-scm.com/book/en/v2/Git-Tools-Debugging-with-Git
+### Backtraces
+https://neovim.io/doc/user/dev_tools.html#dev-tools-backtrace
+## Lsp
 ### lspconfig clangd with different compilers
 
 In order to re-config lspconfig, first set `vim.o.exrc = true`,
@@ -34,7 +40,7 @@ require("lspconfig").clangd.setup({
 ## Window
 ## Navi
 ## Search
-## GIT
+## Git
 ### lazygit
 - put `config.yml` to `~/AppData/Roaming/lazygit/config.yml`.
 ### Push after shallow-clone
@@ -82,9 +88,14 @@ The POSIX standard supports the following classes or categories of charactersh (
 :g/pattern/d " matched
 :g!/pattern/d " unmatched
 ```
-## FILES
+## Files
 ### do something for all `lua` files
 ```shell
 # remove all leading # in lua files
 find -name "*.lua" -exec sh -c "echo -n {}'>>>>>>\n'; sed -i 's/#region/region/' {}; sed -i 's/#endregion/endregion/' {}" \;
 ```
+## Nvim Docs
+### Preview with `nvim-bqf`
+> [!TIP] When using <bkd>gO</kbd> to open toc, press <kbd>o</kbd> instead of <kbd>enter</kbd>
+> 
+> https://github.com/kevinhwang91/nvim-bqf/tree/main?tab=readme-ov-file#function-table
