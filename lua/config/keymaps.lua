@@ -1,3 +1,6 @@
+-- map `<C-Fx>` is equal to map `<Fy>` where y = x + 24.
+-- map `<S-Fx>` is equal to map `<Fy>` where y = x + 12.
+
 -- region local functions
 
 -- Keymaps are automatically loaded on the VeryLazy event

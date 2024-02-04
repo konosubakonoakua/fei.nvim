@@ -8,14 +8,17 @@ local M = {
   keys = { "<F5>", "<F8>", "<F9>" },
 }
 
+-- map `<C-Fx>` is equal to map `<Fy>` where y = x + 24.
+-- map `<S-Fx>` is equal to map `<Fy>` where y = x + 12.
 M.keys = {
-  { "<F4>", "<cmd>lua require'dap'.terminate()<CR>",             silent = true, desc = "Terminate" },
+  { "<F4>", "<cmd>lua require'dap'.terminate()<CR>",          silent = true, desc = "Terminate" },
   { "<F5>", "<cmd>lua require'dap'.continue()<CR>",           silent = true, desc = "DAP launch or continue" },
   { "<F8>", "<cmd>lua require'dapui'.toggle()<CR>",           silent = true, desc = "DAP toggle UI" },
   { "<F9>", "<cmd>lua require'dap'.toggle_breakpoint()<CR>",  silent = true, desc = "DAP toggle breakpoint" },
   { "<F10>", "<cmd>lua require'dap'.step_over()<CR>",         silent = true, desc = "DAP step over" },
   { "<F11>", "<cmd>lua require'dap'.step_into()<CR>",         silent = true, desc = "DAP step into" },
   { "<F12>", "<cmd>lua require'dap'.step_out()<CR>",          silent = true, desc = "DAP step out" },
+  { "<F17>", "<cmd>lua require'dap'.terminate()<CR>",         silent = true, desc = "Terminate" }, -- <S-F5>
   -- { "<leader>dc", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", silent = true, desc = "set breakpoint with condition" },
   { "<leader>dP", "<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", silent = true, desc = "set breakpoint with log point message" },
   -- { "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<CR>", silent = true, desc = "toggle debugger REPL" },

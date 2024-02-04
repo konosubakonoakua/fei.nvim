@@ -1,6 +1,10 @@
 # USAGE
 take down common use case here.
 
+## Keymap
+### Function keys
+map `<C-Fx>` is equal to map `<Fy>` where y = x + 24.
+map `<S-Fx>` is equal to map `<Fy>` where y = x + 12.
 ## Edit
 ## Macro
 
