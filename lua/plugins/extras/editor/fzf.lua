@@ -106,7 +106,6 @@ return {
   },
   {
     "ibhagwan/fzf-lua",
-    optional = true,
     version = false,
     lazy = false,
     dependencies = {
@@ -832,7 +831,6 @@ return {
   },
   {
     'junegunn/fzf',
-    optional = true,
     ft='qf'
   }
 }

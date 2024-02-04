@@ -102,7 +102,6 @@ else
   return {
     {
       "kdheepak/lazygit.nvim",
-      optional = true,
       -- optional for floating window border decoration
       dependencies = { "nvim-lua/plenary.nvim", },
     },

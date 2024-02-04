@@ -161,7 +161,6 @@ return {
   -- https://github.com/gsuuon/tshjkl.nvim
   {
     "gsuuon/tshjkl.nvim",
-    optional = true,
     enabled = true,
     opts = {
       keymaps = {
