@@ -1,6 +1,9 @@
 return {
   -- INFO: yanky on windows put sqlite to disabled, so force enable here
-  { "kkharji/sqlite.lua", enabled = true },
+  {
+    "kkharji/sqlite.lua",
+    enabled = true
+  },
   {
     "ecthelionvi/NeoComposer.nvim",
     version = false,

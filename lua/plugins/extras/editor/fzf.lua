@@ -86,6 +86,7 @@ end
 return {
   {
     "nvim-telescope/telescope.nvim",
+    optional = true,
     cmd = "Telescope",
     version = false, -- telescope did only one release, so use HEAD for now
     keys = {
@@ -94,6 +95,7 @@ return {
   },
   {
     "folke/which-key.nvim",
+    optional = true,
     opts = {
       plugins = { spelling = true },
       defaults = {
@@ -104,6 +106,7 @@ return {
   },
   {
     "ibhagwan/fzf-lua",
+    optional = true,
     version = false,
     lazy = false,
     dependencies = {
@@ -827,5 +830,9 @@ return {
       register_keymaps()
     end,
   },
-  {'junegunn/fzf', ft='qf'}
+  {
+    'junegunn/fzf',
+    optional = true,
+    ft='qf'
+  }
 }

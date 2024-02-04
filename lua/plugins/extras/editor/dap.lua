@@ -4,6 +4,7 @@ local function fzf_lua(cmd) require("fzf-lua")[cmd]() end
 -- TODO: restore keymaps after quiting DAP-UI
 local M = {
   "mfussenegger/nvim-dap",
+  optional = true,
   keys = { "<F5>", "<F8>", "<F9>" },
 }
 

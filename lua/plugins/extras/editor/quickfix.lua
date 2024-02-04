@@ -53,5 +53,4 @@ return {
       require("bqf").setup(opts)
     end,
   },
-
 }

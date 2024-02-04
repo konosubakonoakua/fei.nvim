@@ -22,6 +22,7 @@ return {
   -- https://github.com/folke/flash.nvim
   {
     "folke/flash.nvim",
+    optional = true,
     event = "VeryLazy",
     vscode = true,
     ---@type Flash.Config
@@ -160,6 +161,7 @@ return {
   -- https://github.com/gsuuon/tshjkl.nvim
   {
     "gsuuon/tshjkl.nvim",
+    optional = true,
     enabled = true,
     opts = {
       keymaps = {

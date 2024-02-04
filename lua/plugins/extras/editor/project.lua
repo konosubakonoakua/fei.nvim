@@ -1,6 +1,7 @@
 return {
   {
     "ahmedkhalf/project.nvim",
+    optional = true,
     version = false,
     opts = {
       -- only add project manually, using :AddProject
@@ -24,6 +25,7 @@ return {
   },
   { -- https://github.com/CWood-sdf/spaceport.nvim
     'CWood-sdf/spaceport.nvim',
+    optional = true,
     enabled = false,
     opts = {},
     lazy = false, -- load spaceport immediately

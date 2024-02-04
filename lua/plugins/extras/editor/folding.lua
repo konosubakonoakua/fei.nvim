@@ -192,6 +192,7 @@ return {
   -- https://github.com/luukvbaal/statuscol.nvim/issues/74
   {
     "luukvbaal/statuscol.nvim",
+    optional = true,
     enabled = false,
     config = function()
       local builtin = require("statuscol.builtin")
