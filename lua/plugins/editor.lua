@@ -683,7 +683,6 @@ return {
     cmd = "Spectre",
     opts = { open_cmd = "noswapfile vnew" },
     -- stylua: ignore
-    keys = {},
   },
 
 }
