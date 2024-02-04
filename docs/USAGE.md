@@ -96,6 +96,9 @@ find -name "*.lua" -exec sh -c "echo -n {}'>>>>>>\n'; sed -i 's/#region/region/'
 ```
 ## Nvim Docs
 ### Preview with `nvim-bqf`
-> [!TIP] When using <bkd>gO</kbd> to open toc, press <kbd>o</kbd> instead of <kbd>enter</kbd>
-> 
+
+> [!TIP]
+> When using <kbd>gO</kbd> to open toc, press <kbd>o</kbd> instead of <kbd>enter</kbd>
+>
 > https://github.com/kevinhwang91/nvim-bqf/tree/main?tab=readme-ov-file#function-table
+
