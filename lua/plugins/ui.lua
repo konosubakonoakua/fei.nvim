@@ -247,6 +247,16 @@ return {
     enabled = true,
     event = { "UIEnter" },
     config = function()
+      _G.hlchunk_enabled = true
+      _G.hlchunkToggle = function ()
+        if _G.hlchunk_enabled == true then
+          vim.cmd([[DisableHL]])
+          _G.hlchunk_enabled = false
+        else
+          vim.cmd([[EnableHL]])
+          _G.hlchunk_enabled = true
+        end
+      end
       local ft = require("hlchunk.utils.filetype")
       require("hlchunk").setup({
         chunk = {
@@ -313,8 +323,7 @@ return {
       })
     end,
     keys = {
-      { "<leader>ui", ":EnableHL<cr>", mode = "n", desc = "Toggle IndentLine" },
-      { "<leader>uI", ":DisableHL<cr>", mode = "n",  desc = "Disable IndentLine" }
+      { "<leader>uI", function() _G.hlchunkToggle() end, mode = "n",  desc = "Toggle IndentLine" }
     },
   },
 
