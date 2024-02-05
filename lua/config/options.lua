@@ -61,3 +61,8 @@ end
 
 -- alway use unix file format
 vim.opt.ff = "unix"
+
+-- INFO: Press <Esc>key too fast (under ttimeoutlen) will trigger <Alt-key>
+-- https://github.com/neovim/neovim/issues/8213
+-- https://github.com/neovim/neovim/pull/8226
+vim.opt.ttimeoutlen = 30
