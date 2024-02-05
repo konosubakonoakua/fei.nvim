@@ -241,8 +241,83 @@ return {
       }
     end,
   },
+
+  {
+    "shellRaining/hlchunk.nvim",
+    enabled = true,
+    event = { "UIEnter" },
+    config = function()
+      local ft = require("hlchunk.utils.filetype")
+      require("hlchunk").setup({
+        chunk = {
+          enable = true,
+          notify = true,
+          use_treesitter = true,
+          -- details about support_filetypes and exclude_filetypes in https://github.com/shellRaining/hlchunk.nvim/blob/main/lua/hlchunk/utils/filetype.lua
+          support_filetypes = ft.support_filetypes,
+          exclude_filetypes = ft.exclude_filetypes,
+          chars = {
+            horizontal_line = "─",
+            vertical_line = "┊", --│
+            left_top = "╭",
+            left_bottom = "╰",
+            right_arrow = "─", --▸
+          },
+          style = {
+            { fg = "#806d9c" },
+            { fg = "#c21f30" }, -- this fg is used to highlight wrong chunk
+          },
+          textobject = "",
+          max_file_size = 1024 * 1024,
+          error_sign = true,
+        },
+
+        indent = {
+          enable = true,
+          use_treesitter = true,
+          chars = {
+            -- "│",
+            "¦",
+            -- "┆",
+            -- "┊",
+          },
+          style = {
+            '#542429',
+            '#594725',
+            '#20425e',
+            '#825a34',
+            '#465e35',
+            '#5f366b',
+            '#2e595e',
+            -- "#FF0000",
+            -- "#FF7F00",
+            -- "#FFFF00",
+            -- "#00FF00",
+            -- "#00FFFF",
+            -- "#0000FF",
+            -- "#8B00FF",
+          },
+        },
+
+        line_num = {
+          enable = true,
+          use_treesitter = false,
+          style = "#806d9c",
+        },
+
+        blank = {
+          enable = true,
+          chars = { " ", },
+          style = { vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Whitespace")), "fg", "gui"), },
+        },
+      })
+    end
+  },
+
   {
     "lukas-reineke/indent-blankline.nvim",
+    optional = true,
+    enabled = false,
     event = "LazyFile",
     main = "ibl",
     -- dev = true,
