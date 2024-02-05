@@ -63,10 +63,10 @@ keymap("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
 keymap("n", "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
 keymap("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
 keymap("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
--- TODO: validate if this affects the `i<esc>j` sequence to moveline
--- maybe the safe map is the cause
--- keydel({"i", "n"}, "<A-j>")
--- keydel({"i", "n"}, "<A-k>")
+-- FIXME: `i<esc>j` sequence triggers <A-j> in insert mode
+-- https://github.com/neovim/neovim/issues/27344
+keydel({"i"}, "<A-j>")
+keydel({"i"}, "<A-k>")
 keymap("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 keymap("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 -- endregion line move
