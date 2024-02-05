@@ -195,7 +195,6 @@ keymap("n", "<leader>uw", function() _util.toggle("wrap") end,       { desc = "T
 keymap("n", "<leader>ul", function() _util.toggle.number() end,      { desc = "Toggle Line Numbers" })
 keymap("n", "<leader>ud", function() _util.toggle.diagnostics() end, { desc = "Toggle Diagnostics" })
 keymap("n", "<leader>uf", function() require("lazyvim.util.format").toggle() end, { desc = "Toggle format on Save" })
-keymap("n", "<leader>uI", ":IBLToggle<cr>",      { desc = "Toggle IndentLine" })
 
 _G.cmp_enabled = true
 keymap("n", "<leader>ua", function()

@@ -311,7 +311,11 @@ return {
           style = { vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Whitespace")), "fg", "gui"), },
         },
       })
-    end
+    end,
+    keys = {
+      { "<leader>ui", ":EnableHL<cr>", mode = "n", desc = "Toggle IndentLine" },
+      { "<leader>uI", ":DisableHL<cr>", mode = "n",  desc = "Disable IndentLine" }
+    },
   },
 
   {
@@ -320,6 +324,9 @@ return {
     enabled = false,
     event = "LazyFile",
     main = "ibl",
+    keys = {
+      { "<leader>uI", ":IBLToggle<cr>", mode = "n", desc = "Toggle IndentLine" }
+    },
     -- dev = true,
     opts = function (_, opts)
       local rainbow_highlights = {
