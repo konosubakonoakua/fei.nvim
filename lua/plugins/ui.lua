@@ -264,6 +264,11 @@ return {
         },
         excluded = {
           glowpreview = true,
+          dapui_scope = true,
+          dapui_stacks = true,
+          dapui_watches = true,
+          dapui_console = true,
+          dapui_breakpoints = true,
         }
       }
       ft_user.supported = vim.list_extend(ft.support_filetypes, ft_user.supported)
