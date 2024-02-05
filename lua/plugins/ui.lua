@@ -258,14 +258,24 @@ return {
         end
       end
       local ft = require("hlchunk.utils.filetype")
+      local ft_user = {
+        supported = {
+          "*.zig",
+        },
+        excluded = {
+          glowpreview = true,
+        }
+      }
+      ft_user.supported = vim.list_extend(ft.support_filetypes, ft_user.supported)
+      ft_user.excluded = vim.tbl_extend("force", ft.exclude_filetypes, ft_user.excluded)
       require("hlchunk").setup({
         chunk = {
           enable = true,
           notify = true,
           use_treesitter = true,
           -- details about support_filetypes and exclude_filetypes in https://github.com/shellRaining/hlchunk.nvim/blob/main/lua/hlchunk/utils/filetype.lua
-          support_filetypes = ft.support_filetypes,
-          exclude_filetypes = ft.exclude_filetypes,
+          support_filetypes = ft_user.supported,
+          exclude_filetypes = ft_user.excluded,
           chars = {
             horizontal_line = "─",
             vertical_line = "┊", --│
