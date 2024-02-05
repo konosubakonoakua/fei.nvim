@@ -90,7 +90,7 @@ return {
         desc = "Dispaly all Notification histories", },
     },
     opts = function(_, opts)
-      opts.render = "compact"
+      opts.render = "default" or "default" or "minimal" or "simple" or "compact" or "wrapped-compact"
       -- opts.stages = "slide"
       opts.timeout = 500 -- TODO: adjust notify timeout
       opts.max_height = function()
