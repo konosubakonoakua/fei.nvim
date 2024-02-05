@@ -30,6 +30,7 @@
     "plugins.extras.test.neotest",
     "plugins.extras.util.godbolt",
     "plugins.extras.util.lazygit",
+    "plugins.extras.util.neogit",
     "plugins.extras.util.nnn",
     "plugins.extras.util.oil",
     "plugins.extras.util.vscode"
