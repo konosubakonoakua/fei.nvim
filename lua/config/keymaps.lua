@@ -86,11 +86,26 @@ keymap("v", "<", "<gv", _opts)
 keymap("v", ">", ">gv", _opts)
 
 -- change tabstop & shiftwidth
+-- method with count
+-- keymap("n", "<leader>u<tab>", function ()
+--   local cmd = "<cmd>set tabstop=" .. vim.v.count .. " shiftwidth=" .. vim.v.count .. "<cr>"
+--   vim.notify(cmd)
+--   return cmd
+-- end, {expr = true, desc = "Set tabstop & shiftwidth"})
+--
 keymap("n", "<leader>u<tab>", function ()
-  local cmd = "<cmd>set tabstop=" .. vim.v.count .. " shiftwidth=" .. vim.v.count .. "<cr>"
-  vim.notify(cmd)
-  return cmd
-end, {expr = true})
+  local sel = vim.fn.confirm(
+    "Select desired tabstop & shiftwidth",
+    "&2\n&4\n&8")
+  -- vim.notify(vim.inspect(sel))
+  if sel ~= 0 then
+    vim.o.tabstop = 2^sel
+    vim.o.shiftwidth = 2^sel
+    vim.notify(
+      "tabstop & shiftwidth now equal to [" .. tostring(2^sel) .. "]",
+      vim.log.levels.WARN)
+  end
+end, {desc = "Set tabstop & shiftwidth"})
 -- endregion indent start
 
 -- endregion visual mode remappings
