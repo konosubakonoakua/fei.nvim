@@ -401,7 +401,8 @@ return {
   -- [[
   {
     "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
+    -- branch = "v3.x",
+    branch = "main",
     -- "konosubakonoakua/neo-tree.nvim",
     -- branch = "main",
     cmd = "Neotree",
