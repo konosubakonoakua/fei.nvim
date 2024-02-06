@@ -269,6 +269,8 @@ return {
           dapui_watches = true,
           dapui_console = true,
           dapui_breakpoints = true,
+          lazyterm = true,
+          ["neo-tree-popup"] = true,
         }
       }
       ft_user.supported = vim.list_extend(ft.support_filetypes, ft_user.supported)
