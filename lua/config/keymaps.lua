@@ -32,7 +32,7 @@ end
 -- local keymap             = require("util").keymap
 local keymap             = vim.keymap.set
 local keymap_force       = vim.keymap.set
-local keydel           = vim.keymap.del
+local keydel             = vim.keymap.del
 local cmd_concat         = require("util").cmd_concat
 local is_disabled_plugin = require("util").is_disabled_plugin
 
@@ -328,5 +328,11 @@ if vim.fn.has("gui_running") == 1 then
   end
 end
 -- endregion neovide keymapping
+
+-- region <leader>l/<leader>L
+-- TODO: remap <leader>l and <leader>L
+keydel("n", "<leader>l")
+keydel("n", "<leader>L")
+-- endregion <leader>l/<leader>L
 
 -- stylua: ignore end
