@@ -424,6 +424,9 @@ return {
         end,
         desc = "Buffer explorer",
       },
+      {
+        "<leader>ce", ":Neotree document_symbols<cr>", desc = "Neotree (Symbols)",
+      },
     },
     deactivate = function()
       vim.cmd([[Neotree close]])
@@ -458,14 +461,26 @@ return {
       window = {
         mappings = {
           -- region open file without losing focus
-          ['<tab>'] = neotree_openfile_nojump,
+          ['<tab>'] = {
+            neotree_openfile_nojump,
+            desc = "open file (no jump)",
+            nowait = true
+          },
           -- endregion open file without losing focus
           ["<space>"] = "none",
           ["/"] = "none",
           ["g/"] = "fuzzy_finder",
           -- region Navigation with hjkl
-          ["h"] = neotree_navi_h,
-          ["l"] = neotree_navi_l,
+          ["h"] = {
+            neotree_navi_h,
+            desc = "navigate h",
+            nowait = true
+          },
+          ["l"] = {
+            neotree_navi_l,
+            desc = "navigate l",
+            nowait = true
+          },
           -- endregion Navigation with hjkl
 
           -- ['e'] = function() vim.api.nvim_exec('Neotree focus filesystem left', true) end,
@@ -474,18 +489,66 @@ return {
 
           -- region emulating Vim's fold commands
           ["z"] = "none",
-          ["zo"] = neotree_zo,
-          ["zO"] = neotree_zO,
-          ["zc"] = neotree_zc,
-          ["zC"] = neotree_zC,
-          ["za"] = neotree_za,
-          ["zA"] = neotree_zA,
-          ["zx"] = neotree_zx,
-          ["zX"] = neotree_zX,
-          ["zm"] = neotree_zm,
-          ["zM"] = neotree_zM,
-          ["zr"] = neotree_zr,
-          ["zR"] = neotree_zR,
+          ["zo"] = {
+            neotree_zo,
+            desc = "folder expand",
+            nowait = true
+          },
+          ["zO"] = {
+            neotree_zO,
+            desc = "folder expand recursively",
+            nowait = true
+          },
+          ["zc"] = {
+            neotree_zc,
+            desc = "folder collapse",
+            nowait = true
+          },
+          ["zC"] = {
+            neotree_zC,
+            desc = "folder collapse recursively",
+            nowait = true
+          },
+          ["za"] = {
+            neotree_za,
+            desc = "folder toggle folding with count",
+            -- nowait = true
+          },
+          ["zA"] = {
+            neotree_zA,
+            desc = "folder toggle folding with count recursively",
+            nowait = true
+          },
+          ["zx"] = {
+            neotree_zx,
+            desc = "folder update folding by depth then reveal",
+            nowait = true
+          },
+          ["zX"] = {
+            neotree_zX,
+            desc = "folder update folding by depth",
+            nowait = true
+          },
+          ["zm"] = {
+            neotree_zm,
+            desc = "folder collapse with count",
+            nowait = true
+          },
+          ["zM"] = {
+            neotree_zM,
+            desc = "folder collapse all",
+            nowait = true
+          },
+          ["zr"] = {
+            neotree_zr,
+            desc = "folder expand with count",
+            nowait = true
+          },
+          ["zR"] = {
+            neotree_zR,
+            desc = "folder expand all",
+            nowait = true
+          },
           -- endregion emulating Vim's fold commands
         },
       },
