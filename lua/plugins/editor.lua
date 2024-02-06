@@ -397,8 +397,8 @@ return {
   },
 
   -- TODO: config neo-tree
-  -- use 'o' as toggle folder open or close
-  -- [[
+  -- when neo-tree win lost focus,
+  -- dont redraw on large folder with many opend dir
   {
     "nvim-neo-tree/neo-tree.nvim",
     -- branch = "v3.x",
@@ -408,8 +408,18 @@ return {
     cmd = "Neotree",
     keys = {
       -- region fix file following issue
-      { "<leader>e", neotree_reveal_root, desc = "Explorer NeoTree (root dir)", },
-      { "<leader>E", neotree_reveal_cwd, desc = "Explorer NeoTree (cwd)", },
+      {
+        "<leader>e",
+        -- neotree_reveal_root,
+        "<cmd>Neotree toggle show<cr>",
+        desc = "Explorer NeoTree (root dir)",
+      },
+      {
+        "<leader>E",
+        -- neotree_reveal_cwd,
+        "<cmd>Neotree toggle show<cr>",
+        desc = "Explorer NeoTree (cwd)",
+      },
       -- endregion fix file following issue
       {
         "<leader>ge",
@@ -426,8 +436,41 @@ return {
         desc = "Buffer explorer",
       },
       {
-        "<leader>ce", ":Neotree document_symbols<cr>", desc = "Neotree (Symbols)",
+        "<leader>ce", "<cmd>Neotree document_symbols<cr>", desc = "Neotree (Symbols)",
       },
+      {
+        -- TODO: not working if already on the neotree window,
+        -- consider record the last file buffer which needs to be revealed in <leader>e
+        -- currently stop using auto-follow
+        "<leader>fe", function ()
+          -- TODO: quit if not on a realfile or use history
+          require('neo-tree.command').execute({
+            action = "show",
+            source = "filesystem",
+            position = "left",
+            -- reveal_file = reveal_file,
+            dir = Util.root(),
+            -- reveal_force_cwd = true,
+            -- toggle = true,
+          })
+          -- FIXME: don't close opend folders
+          -- show_only_explicitly_opened() can be disabled
+          require("neo-tree.sources.filesystem.init").follow(nil, true)
+          -- -- FIXME: cannot focus on file
+          -- vim.cmd([[
+          --   Neotree reveal
+          -- ]])
+          require('neo-tree.command').execute({
+            action = "reveal",
+            source = "filesystem",
+            position = "left",
+            dir = Util.root(),
+            -- toggle = true,
+          })
+        end,
+        mode = 'n',
+        desc="Open neo-tree at current file or working directory"
+      }
     },
     deactivate = function()
       vim.cmd([[Neotree close]])
@@ -447,7 +490,7 @@ return {
       filesystem = {
         bind_to_cwd = false,
         -- BUG: not working on windows
-        follow_current_file = { enabled = true },
+        follow_current_file = { enabled = false },
         use_libuv_file_watcher = true,
         find_command = "fd",
         find_args = {
@@ -642,6 +685,7 @@ return {
         -- vertical = { width = 1.0, height = 1.0 }
       }
       -- stylua: ignore start
+      -- TODO: add keymap to delete selected buffers, maybe need a keymap to select all
       opts.defaults.mappings = {
         i = {
           ["<C-j>"] = function(...) return require("telescope.actions").move_selection_next(...) end,
