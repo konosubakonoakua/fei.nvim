@@ -80,9 +80,18 @@ keymap("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 ]]
 keymap("v", "p", '"_dP', _opts)
 
+-- region indent
 -- stay in visual mode when indent
 keymap("v", "<", "<gv", _opts)
 keymap("v", ">", ">gv", _opts)
+
+-- change tabstop & shiftwidth
+keymap("n", "<leader>u<tab>", function ()
+  local cmd = "<cmd>set tabstop=" .. vim.v.count .. " shiftwidth=" .. vim.v.count .. "<cr>"
+  vim.notify(cmd)
+  return cmd
+end, {expr = true})
+-- endregion indent start
 
 -- endregion visual mode remappings
 
