@@ -355,7 +355,7 @@ return {
         },
         scope = {
           -- TODO: ask at github whether the scope char cusomization supported 
-          char = { '', '󰔌', '󰵼', "󰀻", "|", "<", },
+          char = { "|" },
           enabled = true,
           show_start = false,
           show_end = false,
