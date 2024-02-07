@@ -208,7 +208,7 @@ return {
 
   {
     "shellRaining/hlchunk.nvim",
-    enabled = true,
+    enabled = false,
     event = { "UIEnter" },
     config = function()
       _G.hlchunk_enabled = true
@@ -312,7 +312,7 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     optional = true,
-    enabled = false,
+    enabled = true,
     event = "LazyFile",
     main = "ibl",
     keys = {
@@ -354,15 +354,30 @@ return {
           remove_blankline_trail = true,
         },
         scope = {
-          char = "󰇝",
-          -- char = "󱪼",
+          -- TODO: ask at github whether the scope char cusomization supported 
+          char = { '', '󰔌', '󰵼', "󰀻", "|", "<", },
           enabled = true,
           show_start = false,
           show_end = false,
           show_exact_scope = false,
-          -- highlight = {
-          --   "@function"
-          -- },
+          injected_languages = true,
+          highlight = {
+            "@function",
+            "CmpItemKindProperty",
+          },
+          exclude = {
+            -- language = { "rust" },
+            -- node_type = { lua = { "block", "chunk" } },
+          },
+          include = {
+            node_type = {
+              -- ["*"] = { "*" }, -- enabled all
+              lua = {
+                "return_statement",
+                "table_constructor",
+              },
+            },
+          },
         },
         exclude = {
           buftypes = {
