@@ -4,6 +4,7 @@ return {
     cmd = "NerdIcons",
     lazy = true,
     version = false,
+    enabled = false, -- need use regex to search
     init = function()
       require("nerdicons").setup({
         border = "rounded",
@@ -15,5 +16,16 @@ return {
         copy = "<C-y>",
       })
     end,
+  },
+  {
+    '2kabhishek/nerdy.nvim',
+    lazy = true,
+    cmd = 'Nerdy',
+    version = false,
+    enabled = true,
+    dependencies = {
+      'stevearc/dressing.nvim',
+      'nvim-telescope/telescope.nvim',
+    },
   },
 }
