@@ -32,6 +32,7 @@
     "plugins.extras.util.godbolt",
     "plugins.extras.util.lazygit",
     "plugins.extras.util.neogit",
+    "plugins.extras.util.nerdfont",
     "plugins.extras.util.nnn",
     "plugins.extras.util.oil",
     "plugins.extras.util.vscode"
