@@ -145,7 +145,12 @@ return {
               separator = "",
             },
             { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-            { "filename", path = 1, symbols = { modified = "", readonly = "󰌾", unnamed = "󰴓" }, separator = "" },
+            { "filename", path = 1, symbols = {
+                modified = icons.lualine.filename.modified,
+                readonly = icons.lualine.filename.readonly,
+                unnamed = icons.lualine.filename.unnamed,
+              }, separator = ""
+            },
             -- stylua: ignore
             { "aerial", sep = " ", sep_icon = "", depth = nil, dense = false, dense_sep = ".", colored = true, },
             {

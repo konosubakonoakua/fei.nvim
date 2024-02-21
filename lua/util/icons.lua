@@ -106,4 +106,11 @@ return {
   fold = {
     fold = "",
   },
+  lualine = {
+    filename = {
+      modified = "󰇥", -- 
+      readonly = "󰍁",
+      unnamed = "󰩃", -- 󱩡 󰻭
+    },
+  },
 }
