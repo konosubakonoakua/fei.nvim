@@ -1,9 +1,9 @@
 return {
   {
     "folke/zen-mode.nvim",
-    optional = true,
     enabled = true,
     version = false,
+    lazy = true,
     cmd = { "ZenMode" },
     opts = {
       window = {
