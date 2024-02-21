@@ -145,8 +145,9 @@ return {
               separator = "",
             },
             { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-            { "filename", path = 1, symbols = { modified = "", readonly = "󰌾", unnamed = "󰴓" } },
+            { "filename", path = 1, symbols = { modified = "", readonly = "󰌾", unnamed = "󰴓" }, separator = "" },
             -- stylua: ignore
+            { "aerial", sep = " ", sep_icon = "", depth = nil, dense = false, dense_sep = ".", colored = true, },
             {
               function() return require("nvim-navic").get_location() end,
               cond = function() return package.loaded["nvim-navic"] and require("nvim-navic").is_available() end,
