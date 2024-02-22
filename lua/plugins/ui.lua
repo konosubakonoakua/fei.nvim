@@ -368,6 +368,8 @@ return {
         vim.api.nvim_set_hl(0, 'RainbowGreen', { fg = '#465e35' })
         vim.api.nvim_set_hl(0, 'RainbowViolet', { fg = '#5f366b' })
         vim.api.nvim_set_hl(0, 'RainbowCyan', { fg = '#2e595e' })
+
+        vim.api.nvim_set_hl(0, 'PinkIBLScope', { fg = '#262626', bg = '#ff7eb6' })
       end)
 
       opts = {
@@ -390,7 +392,7 @@ return {
           injected_languages = true,
           highlight = {
             "@function",
-            "CmpItemKindProperty",
+            "PinkIBLScope",
           },
           exclude = {
             -- language = { "rust" },
