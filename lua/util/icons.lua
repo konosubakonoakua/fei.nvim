@@ -107,6 +107,12 @@ return {
     fold = "",
   },
   lualine = {
+     branch= {
+      branch_v1 = "",
+      branch_v2 = "",
+      folder = "",
+      git = "󰊢",
+    },
     filename = {
       modified = "󰇥", -- 
       readonly = "󰍁",

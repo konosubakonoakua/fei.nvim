@@ -148,7 +148,10 @@ return {
               end,
             },
           },
-          lualine_b = { "branch" },
+          -- lualine_b = { "branch" },
+          lualine_b = {
+            {'branch', icon = {icons.lualine.branch.branch_v1, align='left', color={fg='#a074c4'}}},
+          },
           lualine_c = {
             {
               "diagnostics",
