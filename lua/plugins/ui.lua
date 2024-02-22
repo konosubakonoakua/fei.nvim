@@ -6,6 +6,22 @@
     * new keys for listing notify history
 ]]
 
+--- @param trunc_width number trunctates component when screen width is less then trunc_width
+--- @param trunc_len number truncates component to trunc_len number of chars
+--- @param hide_width number hides component when window width is smaller then hide_width
+--- @param no_ellipsis boolean whether to disable adding '...' at end after truncation
+--- return function that can format the component accordingly
+local function trunc(trunc_width, trunc_len, hide_width, no_ellipsis)
+  return function(str)
+    local win_width = vim.fn.winwidth(0)
+    if hide_width and win_width < hide_width then return ''
+    elseif trunc_width and trunc_len and win_width < trunc_width and #str > trunc_len then
+       return str:sub(1, trunc_len) .. (no_ellipsis and '' or '...')
+    end
+    return str
+  end
+end
+
 return {
   {
     "folke/noice.nvim",
@@ -149,10 +165,11 @@ return {
                 modified = icons.lualine.filename.modified,
                 readonly = icons.lualine.filename.readonly,
                 unnamed = icons.lualine.filename.unnamed,
-              }, separator = ""
+              }, separator = "",
+              fmt = trunc(120, 50, 50, true),
             },
             -- stylua: ignore
-            { "aerial", sep = " ", sep_icon = "", depth = nil, dense = false, dense_sep = ".", colored = true, },
+            { "aerial", sep = " ", sep_icon = "", depth = 2, dense = false, dense_sep = ".", colored = true, },
             {
               function() return require("nvim-navic").get_location() end,
               cond = function() return package.loaded["nvim-navic"] and require("nvim-navic").is_available() end,
@@ -197,6 +214,7 @@ return {
             },
           },
           lualine_y = {
+            { "encoding", separator = "" },
             { "progress", separator = " ", padding = { left = 1, right = 0 } },
             { "location", padding = { left = 0, right = 1 } },
           },
