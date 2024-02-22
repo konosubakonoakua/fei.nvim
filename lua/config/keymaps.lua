@@ -8,6 +8,7 @@
 --- This file is automatically loaded by lazyvim.config.init
 
 -- stylua: ignore start
+local term_border = "rounded"
 local _opts   = { silent = true }
 -- local _myutil = require("util")
 local _util   = require("lazyvim.util")
@@ -17,7 +18,8 @@ local _lazyterm = function()
   _util.terminal(nil, {
     cwd = _util.root(),
     ctrl_hjkl = false,
-    size = { width = 1.0, height = 1.0 },
+    size = { width = 0.95, height = 0.93 },
+    border = term_border,
   })
 end
 
@@ -25,7 +27,10 @@ local _lazyterm_cwd = function()
   _util.terminal(nil, {
     cwd = tostring(vim.fn.expand("%:p:h")),
     ctrl_hjkl = false,
-    size = { width = 1.0, height = 1.0 },
+    -- size = { width = 1.0, height = 1.0 },
+    size = { width = 0.95, height = 0.93 },
+    -- border = term_border,
+    border = term_border,
   })
 end
 
@@ -174,7 +179,7 @@ keymap("t", "<C-L>", "<c-\\><c-n>A", { desc = "Clear Terminal" }) -- when <C-l>
 -- system monitor
 if vim.fn.executable("btop") == 1 then
   vim.keymap.set("n", "<leader>;b", function()
-    _floatterm({ "btop" }, { esc_esc = false, ctrl_hjkl = false })
+    _floatterm({ "btop" }, { esc_esc = false, ctrl_hjkl = false, border = "rounded" })
   end, { desc = "!Btop" })
 end
 
