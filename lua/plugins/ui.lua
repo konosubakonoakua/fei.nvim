@@ -172,7 +172,7 @@ return {
               fmt = trunc(120, 50, 50, true),
             },
             -- stylua: ignore
-            { "aerial", sep = " ", sep_icon = "", depth = 2, dense = false, dense_sep = ".", colored = true, },
+            { "aerial", sep = " ", sep_icon = "", depth = 5, dense = false, dense_sep = ".", colored = true, },
             {
               function() return require("nvim-navic").get_location() end,
               cond = function() return package.loaded["nvim-navic"] and require("nvim-navic").is_available() end,
