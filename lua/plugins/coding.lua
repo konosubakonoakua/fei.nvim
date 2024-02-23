@@ -1,3 +1,5 @@
+local icon_kinds = require("lazyvim.config").icons.kinds
+
 return {
   -- extend auto completion
   {
@@ -112,18 +114,21 @@ return {
   {
     "hrsh7th/nvim-cmp",
     opts = function(_, opts)
-      -- opts.window.completion = {
-      --   winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
-      --   col_offset = -3,
-      --   side_padding = 0,
-      -- }
+      opts.window = {
+        completion = {
+          border = "none",
+          scrollbar = nil,
+          -- winhighlight = 'Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None',
+          col_offset = 0,
+          side_padding = 0,
+        }
+      }
       ------ https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance
       opts.formatting.fields = { "kind", "abbr", "menu" }
       opts.formatting.format = function(_, item)
-        local icons = require("lazyvim.config").icons.kinds
-        if icons[item.kind] then
-          -- add prefix `space` to align the icon
-          item.kind = " " .. tostring(icons[item.kind])
+        -- item.menu = item.kind
+        if icon_kinds[item.kind] then
+          item.kind = " " .. icon_kinds[item.kind] .. " "
         end
         return item
       end
