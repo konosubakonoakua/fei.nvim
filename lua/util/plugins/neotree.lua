@@ -284,7 +284,11 @@ end
 _G.neotree_follow_current_file_status = true
 local neotree_toggle_follow_current_file = function()
   _G.neotree_follow_current_file_status = not _G.neotree_follow_current_file_status
-  vim.notify(vim.inspect(_G.neotree_follow_current_file_status))
+  if _G.neotree_follow_current_file_status == true then
+    vim.notify("Neotree follow current file ON", vim.log.levels.WARN)
+  else
+    vim.notify("Neotree follow current file OFF", vim.log.levels.WARN)
+  end
   require("neo-tree").setup({
     filesystem = {
       -- BUG: not working on windows
