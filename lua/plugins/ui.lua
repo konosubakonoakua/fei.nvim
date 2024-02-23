@@ -163,8 +163,8 @@ return {
               },
               separator = "",
             },
-            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-            { "filename", path = 1, symbols = {
+            { "filetype", icon_only = true, separator = "", padding = { left = 0, right = 0 } },
+            { "filename", path = 4, symbols = {
                 modified = icons.lualine.filename.modified,
                 readonly = icons.lualine.filename.readonly,
                 unnamed = icons.lualine.filename.unnamed,
@@ -176,6 +176,7 @@ return {
             {
               function() return require("nvim-navic").get_location() end,
               cond = function() return package.loaded["nvim-navic"] and require("nvim-navic").is_available() end,
+              separator = "",
             },
           },
           lualine_x = {
@@ -217,15 +218,18 @@ return {
             },
           },
           lualine_y = {
-            { "encoding", separator = "" },
-            { "progress", separator = " ", padding = { left = 1, right = 0 } },
-            { "location", padding = { left = 0, right = 1 } },
+            -- { "encoding", separator = "" },
+            { "progress", separator = " 󰟙 ", padding = { left = 0, right = 0 } },
+            { "location", separator = "", padding = { left = 0, right = 1 } },
           },
           lualine_z = {
-            function()
-              local status = require("NeoComposer.ui").status_recording()
-              return status == "" and os.date("%R") or status
-            end,
+            {
+              function()
+                local status = require("NeoComposer.ui").status_recording()
+                return status == "" and os.date("%R") or status
+              end,
+              separator = "",
+            },
           },
         },
         extensions = { "neo-tree", "lazy" },
