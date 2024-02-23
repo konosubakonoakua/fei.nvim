@@ -218,9 +218,30 @@ return {
             },
           },
           lualine_y = {
-            -- { "encoding", separator = "" },
-            { "progress", separator = " 󰟙 ", padding = { left = 0, right = 0 } },
-            { "location", separator = "", padding = { left = 0, right = 1 } },
+            { "encoding", separator = "" },
+            {
+              function ()
+                local cur = vim.fn.line('.')
+                local btm = vim.fn.line('$')
+                local top = 1
+                local icon = "󰟙 "
+                if cur == top then
+                  return icon .. 'T:'
+                elseif cur == btm then
+                  return icon .. 'B:'
+                else
+                  return icon .. string.format('%d:', vim.fn.line('.') / vim.fn.line('$') * 100)
+                end
+              end,
+              separator = "", padding = { left = 0, right = 0 }
+            },
+            {
+              function ()
+                local line = vim.fn.line('.')
+                local col = vim.fn.virtcol('.')
+                return string.format('%d:%d', line, col)
+              end, separator = "", padding = { left = 0, right = 0 }
+            },
           },
           lualine_z = {
             {
