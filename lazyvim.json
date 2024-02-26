@@ -14,6 +14,7 @@
     "lazyvim.plugins.extras.lang.yaml",
     "lazyvim.plugins.extras.lsp.none-ls",
     "lazyvim.plugins.extras.util.project",
+    "plugins.extras.coding.neorepl",
     "plugins.extras.coding.yanky",
     "plugins.extras.editor.bookmarks",
     "plugins.extras.editor.dap",
