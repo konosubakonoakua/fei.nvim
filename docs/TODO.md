@@ -43,6 +43,7 @@
     - [x] remote-ssh
     - [x] remote-tab
     - [x] vscode
+    - [ ] [tmux](https://github.com/aserowy/tmux.nvim)
 
 ## TODOs
 
