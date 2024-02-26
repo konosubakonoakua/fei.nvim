@@ -147,8 +147,10 @@ keymap("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
 
 -- floating terminal (using esc_esc to enter normal mode)
 local _lazyterm_singleton = function ()
+  -- vim.notify(vim.inspect(vim.v.count))
   -- NOTE: avoid to open another terminal after enter normal mode using <esc><esc>
-  if vim.bo.ft == "lazyterm" or vim.bo.ft == "toggleterm" then
+  -- but still can use a count prefix which not equal to 0 to create a new terminal
+  if vim.v.count == 0 and (vim.bo.ft == "lazyterm" or vim.bo.ft == "toggleterm") then
     vim.cmd("close")
   else
     _lazyterm()
