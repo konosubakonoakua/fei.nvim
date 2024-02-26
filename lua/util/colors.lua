@@ -1,8 +1,7 @@
 local M = {}
 
 M.raw_colors = {
-  -- bg       = '#202328',
-  bg       = '#161616', -- oxocarbon.nvim
+  bg       = '#00161616', -- oxocarbon.nvim
   fg       = '#bbc2cf',
   yellow   = '#ECBE7B',
   cyan     = '#008080',
@@ -13,6 +12,11 @@ M.raw_colors = {
   magenta  = '#c678dd',
   blue     = '#51afef',
   red      = '#ec5f67',
+}
+
+M.lualine_colors = {
+  lualine_b_branch_inactive = "lualine_b_branch_inactive",
+  lualine_b_branch_normal = "lualine_b_branch_normal",
 }
 
 M.mode_colors = {
@@ -37,5 +41,9 @@ M.mode_colors = {
   ['!'] = M.raw_colors.red,
   t = M.raw_colors.red,
 }
+
+M.int2colorcode = function (int)
+  return string.format("#%x", int)
+end
 
 return M
