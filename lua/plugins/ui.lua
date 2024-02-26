@@ -135,22 +135,45 @@ return {
           lualine_a = {
             {
               -- stylua: ignore
-              -- function() return string.upper(vim.fn.mode()) .. icons.mode end,
               function()
                 local mode = vim.fn.mode()
                 mode_text = icons.mode[mode] or mode
-                return mode_text .. ""
-                -- vim.notify(require("util.icons").mode[vim.fn.mode()])
+                return mode_text
               end,
               separator = {left = "", right = ""},
               color = function(section)
-                return { fg = mode_colors[vim.fn.mode()], bg=raw_colors.bg }
+                local lualine_b_branch_normal = vim.api.nvim_get_hl(
+                  0, {name="lualine_b_branch_normal"})
+                -- vim.notify(vim.inspect(lualine_b_branch_normal))
+                return {
+                  fg = mode_colors[vim.fn.mode()],
+                  bg = string.format("#%x", lualine_b_branch_normal.bg or 0) or "#00000000",
+                  -- gui = "bold"
+                }
               end,
+              padding = { left = 1, right = 1 }
             },
           },
-          -- lualine_b = { "branch" },
           lualine_b = {
-            {'branch', icon = {icons.lualine.branch.branch_v1, align='left', color={fg='#a074c4'}}},
+            {
+              'branch',
+              icon = {
+                icons.lualine.branch.branch_v1,
+                align='left',
+                -- TODO: change branch icon color according to repo status
+                color = {
+                  fg = "lualine_b_branch_normal",
+                  gui = "bold",
+                },
+              },
+              -- color = function(section)
+              --   return {
+                  -- fg = mode_colors[vim.fn.mode()],
+                  -- bg="lualine_c_normal",
+                  -- gui = "bold"
+                -- }
+              -- end,
+            },
           },
           lualine_c = {
             {
