@@ -142,12 +142,12 @@ return {
               end,
               separator = {left = "", right = ""},
               color = function(section)
-                local lualine_b_branch_normal = vim.api.nvim_get_hl(
-                  0, {name="lualine_b_branch_normal"})
-                -- vim.notify(vim.inspect(lualine_b_branch_normal))
+                local hlname = "lualine_c_inactive"
+                local hl = vim.api.nvim_get_hl(
+                  0, { name = hlname })
                 return {
                   fg = mode_colors[vim.fn.mode()],
-                  bg = string.format("#%x", lualine_b_branch_normal.bg or 0) or "#00000000",
+                  bg = string.format("#%x", hl.bg or 0) or "#00000000",
                   -- gui = "bold"
                 }
               end,
@@ -161,18 +161,22 @@ return {
                 icons.lualine.branch.branch_v1,
                 align='left',
                 -- TODO: change branch icon color according to repo status
-                color = {
-                  fg = "lualine_b_branch_normal",
-                  gui = "bold",
-                },
+                -- color = {
+                --   fg = "lualine_b_branch_normal",
+                --   gui = "bold",
+                -- },
               },
-              -- color = function(section)
-              --   return {
+              color = function(section)
+                local hlname = "lualine_c_inactive"
+                local hl = vim.api.nvim_get_hl(
+                  0, { name = hlname })
+                return {
                   -- fg = mode_colors[vim.fn.mode()],
-                  -- bg="lualine_c_normal",
-                  -- gui = "bold"
-                -- }
-              -- end,
+                  fg = "#66ffffff",
+                  bg = string.format("#%x", hl.bg or 0) or "#00000000",
+                  gui = "bold"
+                }
+              end,
             },
           },
           lualine_c = {
@@ -186,7 +190,7 @@ return {
               },
               separator = "",
             },
-            { "filetype", icon_only = true, separator = "", padding = { left = 0, right = 0 } },
+            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
             { "filename", path = 4, symbols = {
                 modified = icons.lualine.filename.modified,
                 readonly = icons.lualine.filename.readonly,
