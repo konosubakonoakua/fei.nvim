@@ -146,10 +146,20 @@ keymap("n", "<leader>wj", "<C-W>s<C-W>k", { desc = "Split window above", remap =
 keymap("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
 
 -- floating terminal (using esc_esc to enter normal mode)
+local _lazyterm_singleton = function ()
+  -- NOTE: avoid to open another terminal after enter normal mode using <esc><esc>
+  if vim.bo.ft == "lazyterm" or vim.bo.ft == "toggleterm" then
+    vim.cmd("close")
+  else
+    _lazyterm()
+  end
+end
+
 keymap("n", "<leader>fT", _lazyterm_cwd,  { desc = "Terminal (cwd)" })
 keymap("n", "<leader>ft", _lazyterm,      { desc = "Terminal (root dir)" })
-keymap("n", "<c-/>",      _lazyterm,      { desc = "Terminal (root dir)" })
-keymap("n", "<c-_>",      _lazyterm,      { desc = "which_key_ignore" })
+keymap("n", "<c-/>",      _lazyterm_singleton,      { desc = "Terminal (root dir)" })
+-- NOTE: most terminals don't correctly map C-/, and sometimes you need to use C-_ for that key instead.
+keymap("n", "<c-_>",      _lazyterm_singleton,      { desc = "which_key_ignore" })
 
 -- Terminal Mappings
 -- TODO: mapping double esc causing fzf-lua quiting slowly using esc
