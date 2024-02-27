@@ -128,7 +128,7 @@ return {
       opts.formatting.format = function(_, item)
         -- item.menu = item.kind
         if icon_kinds[item.kind] then
-          item.kind = " " .. icon_kinds[item.kind] .. " "
+          item.kind = " " .. icon_kinds[item.kind]-- .. " "
         end
         return item
       end
