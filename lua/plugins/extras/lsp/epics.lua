@@ -1,8 +1,7 @@
 return {
   {
-    "epics-extensions/epics.nvim",
-    -- "konosubakonoakua/epics.nvim",
-    -- TODO: add filetype alias for makefile content
+    -- "epics-extensions/epics.nvim",
+    "konosubakonoakua/epics.nvim",
     enabled = true,
     init = function ()
       require("epics").setup({})
