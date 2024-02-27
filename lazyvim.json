@@ -16,6 +16,7 @@
     "lazyvim.plugins.extras.util.project",
     "plugins.extras.coding.neorepl",
     "plugins.extras.coding.yanky",
+    "plugins.extras.editor.bigfile",
     "plugins.extras.editor.bookmarks",
     "plugins.extras.editor.dap",
     "plugins.extras.editor.folding",
