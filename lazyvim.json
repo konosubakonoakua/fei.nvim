@@ -27,6 +27,7 @@
     "plugins.extras.editor.quickfix",
     "plugins.extras.editor.toggleterm",
     "plugins.extras.editor.window",
+    "plugins.extras.lsp.epics",
     "plugins.extras.lsp.zig",
     "plugins.extras.telescope.glyph",
     "plugins.extras.telescope.zoxide",
