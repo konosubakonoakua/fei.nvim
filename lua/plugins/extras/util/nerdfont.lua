@@ -27,5 +27,8 @@ return {
       'stevearc/dressing.nvim',
       'nvim-telescope/telescope.nvim',
     },
+    config = function ()
+      require('telescope').load_extension('nerdy')
+    end
   },
 }
