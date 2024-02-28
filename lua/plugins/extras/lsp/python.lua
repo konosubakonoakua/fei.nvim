@@ -9,38 +9,60 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        pyright = {},
-        ruff_lsp = {
-          keys = {
-            {
-              "<leader>co",
-              function()
-                vim.lsp.buf.code_action({
-                  apply = true,
-                  context = {
-                    only = { "source.organizeImports" },
-                    diagnostics = {},
-                  },
-                })
-              end,
-              desc = "Organize Imports",
-            },
-          },
-        },
-      },
-      setup = {
-        ruff_lsp = function()
-          require("lazyvim.util").lsp.on_attach(function(client, _)
-            if client.name == "ruff_lsp" then
-              -- Disable hover in favor of Pyright
-              client.server_capabilities.hoverProvider = false
-            end
-          end)
-        end,
+    dependencies = {
+      {
+        "microsoft/python-type-stubs",
+        version = "*",
+        enabled = true,
+        cond = true, -- only keep the latest version, do not require loading
       },
     },
+    opts = function(_, opts)
+      ---@type lspconfig.options.pyright
+      opts.servers.pyright = {
+        settings = {
+          python = {
+          },
+        },
+      }
+      opts.servers.pyright.before_init = function(_, config)
+        config.settings.python.analysis = {
+          autoImportCompletions = true,
+          typeCheckingMode = "basic",
+          autoSearchPaths = true,
+          useLibraryCodeForTypes = false, -- PERF: slow when big libs imported
+          diagnosticMode = "openFilesOnly",
+
+          -- PERF: super sluggish when open too big projects
+          stubPath = vim.fn.stdpath("data") .. "/lazy/python-type-stubs/stubs",
+        }
+      end
+      opts.servers.ruff_lsp = {
+        keys = {
+          {
+            "<leader>co",
+            function()
+              vim.lsp.buf.code_action({
+                apply = true,
+                context = {
+                  only = { "source.organizeImports" },
+                  diagnostics = {},
+                },
+              })
+            end,
+            desc = "Organize Imports",
+          },
+        },
+      }
+      opts.setup.ruff_lsp = function()
+        require("lazyvim.util").lsp.on_attach(function(client, _)
+          if client.name == "ruff_lsp" then
+            -- Disable hover in favor of Pyright
+            client.server_capabilities.hoverProvider = false
+          end
+        end)
+      end
+    end,
   },
   {
     "nvim-neotest/neotest",
@@ -78,7 +100,7 @@ return {
   },
   {
     "linux-cultist/venv-selector.nvim",
-    dependencies = { "mfussenegger/nvim-dap-python", },
+    dependencies = { "mfussenegger/nvim-dap-python" },
     enabled = true,
     lazy = false,
     cmd = "VenvSelect",
@@ -98,15 +120,22 @@ return {
     end,
     keys = {
       -- TODO: find an automatic way to set venv
-      { "<leader>cv", function ()
-        vim.cmd("VenvSelect")
-        local venv_path = require('venv-selector').get_active_path()
-        if require("lazyvim.util").has("nvim-dap-python") then
-          require("dap-python").setup(venv_path)
-        end
+      {
+        "<leader>cv",
+        function()
+          vim.cmd("VenvSelect")
+          local venv_path = require("venv-selector").get_active_path()
+          if require("lazyvim.util").has("nvim-dap-python") then
+            require("dap-python").setup(venv_path)
+          end
         end,
-        desc = "Select VirtualEnv"
-      }
+        desc = "Select venv",
+      },
+      {
+        "<leader>cV",
+        "<cmd>lua require('venv-selector').deactivate_venv()<cr>",
+        desc = "Deactivate venv",
+      },
     },
   },
 }
