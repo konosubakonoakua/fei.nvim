@@ -1,7 +1,8 @@
 return {
   -- TODO: tweak colorscheme
   {
-    "nyoom-engineering/oxocarbon.nvim",
+    "konosubakonoakua/oxocarbon.nvim",
+    -- "nyoom-engineering/oxocarbon.nvim",
     lazy = false,
     priority = 1000,
     version = false,
@@ -9,13 +10,13 @@ return {
   {
     "projekt0n/github-nvim-theme",
     lazy = true,
-    priority = 1000,
+    priority = 100,
   },
   {
     "catppuccin/nvim",
     lazy = false,
     name = "catppuccin",
-    priority = 1000,
+    priority = 999,
     config = function ()
       require("catppuccin").setup({
         color_overrides = {
@@ -55,10 +56,10 @@ return {
     "Mofiqul/adwaita.nvim",
     version = false,
     lazy = false,
-    priority = 1000,
+    priority = 998,
     config = function()
       vim.g.adwaita_darker = true
-      vim.g.adwaita_disable_cursorline = true
+      vim.g.adwaita_disable_cursorline = false
       vim.g.adwaita_transparent = true
       -- vim.cmd("colorscheme adwaita")
     end,
