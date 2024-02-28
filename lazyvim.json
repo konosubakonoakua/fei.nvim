@@ -28,6 +28,7 @@
     "plugins.extras.editor.toggleterm",
     "plugins.extras.editor.window",
     "plugins.extras.lsp.epics",
+    "plugins.extras.lsp.pylance",
     "plugins.extras.lsp.python",
     "plugins.extras.lsp.zig",
     "plugins.extras.mason.mason",
