@@ -73,4 +73,33 @@ return {
       -- stylua: ignore end
     end,
   },
+
+  -- https://github.com/nvim-zh/colorful-winsep.nvim
+  {
+    "konosubakonoakua/colorful-winsep.nvim",
+    config = true,
+    enabled = true,
+    opts = function (_, opts)
+          -- highlight for Window separator
+          -- opts.hi = {
+          --   bg = "#16161E",
+          --   fg = "#1F3442",
+          -- }
+          -- This plugin will not be activated for filetype in the following table.
+          opts.no_exec_files = { "packer", "TelescopePrompt", "mason", "CompetiTest", "NvimTree" }
+          -- Symbols for separator lines, the order: horizontal, vertical, top left, top right, bottom left, bottom right.
+          -- opts.symbols = { "━", "┃", "┏", "┓", "┗", "┛" }
+          opts.symbols = { "━", "┃", "┏", "┓", "┗", "┛" }
+          -- Smooth moving switch
+          opts.smooth = false -- beter keep false when using neovide
+          opts.anchor = {
+            left = { height = 1, x = -1, y = -1 },
+            right = { height = 1, x = -1, y = 0 },
+            up = { width = 0, x = -1, y = 0 },
+            bottom = { width = 0, x = 0, y = 0 },
+          }
+      return opts
+    end,
+    event = { "WinNew" },
+  }
 }
