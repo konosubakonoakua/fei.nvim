@@ -40,7 +40,8 @@
     "plugins.extras.util.nerdfont",
     "plugins.extras.util.nnn",
     "plugins.extras.util.oil",
-    "plugins.extras.util.vscode"
+    "plugins.extras.util.vscode",
+    "plugins.extras.util.wakatime"
   ],
   "news": {
     "NEWS.md": "2123"
