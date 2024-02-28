@@ -30,6 +30,7 @@
     "plugins.extras.lsp.epics",
     "plugins.extras.lsp.python",
     "plugins.extras.lsp.zig",
+    "plugins.extras.mason.mason",
     "plugins.extras.telescope.zoxide",
     "plugins.extras.test.neotest",
     "plugins.extras.util.godbolt",
