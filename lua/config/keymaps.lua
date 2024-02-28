@@ -188,6 +188,21 @@ keymap("t", "<C-L>", "<c-\\><c-n>A", { desc = "Clear Terminal" }) -- when <C-l>
 
 -- region <leader>; group remappings
 
+-- ptpython
+if vim.fn.executable("ptpython") == 1 then
+  -- TODO: consider adding python env selection
+  vim.keymap.set("n", "<leader>;p", function()
+    _floatterm(
+      { "ptpython", "--vi" },
+      { esc_esc = false, ctrl_hjkl = false, border = "rounded",
+        env = {
+          ['some_env_vars'] = "" -- NOTE: env parameter placeholder
+        }
+      }
+    )
+  end, { desc = "!ptpython" })
+end
+
 -- system monitor
 if vim.fn.executable("btop") == 1 then
   vim.keymap.set("n", "<leader>;b", function()
