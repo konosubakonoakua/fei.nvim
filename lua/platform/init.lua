@@ -18,6 +18,11 @@ function M.isPlatWindows()
   return jit.os == "Windows"
 end
 
+function M.isPlatGithubAction()
+  -- export env in bash: export PLATFORM_GITHUB_ACTION=1
+  return os.getenv("PLATFORM_GITHUB_ACTION") == "1"
+end
+
 -- INFO: always use powershell on windows
 if jit.os == "Windows" then
   vim.cmd[[

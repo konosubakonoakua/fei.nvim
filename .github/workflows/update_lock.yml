@@ -31,7 +31,8 @@ jobs:
         timeout-minutes: 10
         run: |
           ./scripts/install.sh
-          nvim --headless -c "let g:loaded_wakatime = 1" -c "Lazy! update" -c qa
+          export PLATFORM_GITHUB_ACTION=1
+          nvim --headless "+Lazy! update" +qa
           cp -pv "${HOME}/.config/nvim/lazy-lock.json" .
       - uses: stefanzweifel/git-auto-commit-action@v5
         if: ${{ steps.check_lockfile.outputs.files_exists == 'true' && env.NEW_COMMIT_COUNT > 0 }}
