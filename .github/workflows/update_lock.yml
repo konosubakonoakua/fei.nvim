@@ -30,6 +30,7 @@ jobs:
         timeout-minutes: 10
         run: |
           ./scripts/install.sh
+          sed -i "s/.*wakatime.*//" "${HOME}/.config/nvim/lazyvim.json"
           nvim --headless "+Lazy! update" +qa
           cp -pv "${HOME}/.config/nvim/lazy-lock.json" .
       - uses: stefanzweifel/git-auto-commit-action@v5
