@@ -1,5 +1,7 @@
 # 💤 LazyVim
 
+[![update lockfile](https://github.com/konosubakonoakua/lazyvim.conf/actions/workflows/update_lock.yml/badge.svg)](https://github.com/konosubakonoakua/lazyvim.conf/actions/workflows/update_lock.yml)
+
 > [!TIP]
 > 
 > A personal [LazyVim](https://github.com/LazyVim/LazyVim) config.
