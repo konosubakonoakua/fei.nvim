@@ -34,7 +34,14 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  -- install = { colorscheme = { "tokyonight", "habamax" } },
+  install = {
+    missing = true, -- install missing plugins on startup
+    colorscheme = { -- lazy.nvim ui theme with fallbacks
+      "oxocarbon",
+      "tokyonight",
+      "wildcharm",
+    },
+  },
   checker = { enabled = false }, -- automatically check for plugin updates
   -- BUG: hot reloading not working well currently,
   -- always need to manually reopen nvim
