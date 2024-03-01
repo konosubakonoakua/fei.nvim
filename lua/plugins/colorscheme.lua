@@ -8,8 +8,13 @@ return {
     version = false,
   },
   {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 100,
+  },
+  {
     "projekt0n/github-nvim-theme",
-    lazy = true,
+    lazy = false,
     priority = 100,
   },
   {
