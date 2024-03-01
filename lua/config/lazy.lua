@@ -36,6 +36,12 @@ require("lazy").setup({
   },
   -- install = { colorscheme = { "tokyonight", "habamax" } },
   checker = { enabled = false }, -- automatically check for plugin updates
+  -- BUG: hot reloading not working well currently,
+  -- always need to manually reopen nvim
+  change_detection = {
+    enabled = false,
+    notify = true,
+  },
   performance = {
     rtp = {
       -- disable some rtp plugins
