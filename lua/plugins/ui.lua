@@ -79,7 +79,7 @@ return {
     opts = function(_, opts)
       opts.render = "default" or "default" or "minimal" or "simple" or "compact" or "wrapped-compact"
       opts.stages = "slide"
-      opts.timeout = 500 -- TODO: adjust notify timeout
+      opts.timeout = 800 -- TODO: adjust notify timeout
       opts.max_height = function()
         return math.floor(vim.o.lines * 0.75)
       end
