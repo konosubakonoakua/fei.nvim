@@ -8,21 +8,35 @@ return {
     version = false,
   },
   {
+    "scottmckendry/cyberdream.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("cyberdream").setup({
+        -- Recommended - see "Configuring" below for more config options
+        transparent = true,
+        italic_comments = true,
+        hide_fillchars = true,
+        borderless_telescope = true,
+      })
+    end,
+  },
+  {
     "folke/tokyonight.nvim",
     lazy = false,
-    priority = 100,
+    priority = 1000,
   },
   {
     "projekt0n/github-nvim-theme",
     lazy = false,
-    priority = 100,
+    priority = 1000,
   },
   {
     "catppuccin/nvim",
     lazy = false,
     name = "catppuccin",
-    priority = 999,
-    config = function ()
+    priority = 1000,
+    config = function()
       require("catppuccin").setup({
         color_overrides = {
           mocha = {
@@ -55,13 +69,13 @@ return {
           },
         },
       })
-    end
+    end,
   },
   {
     "Mofiqul/adwaita.nvim",
     version = false,
     lazy = false,
-    priority = 998,
+    priority = 1000,
     config = function()
       vim.g.adwaita_darker = true
       vim.g.adwaita_disable_cursorline = false
