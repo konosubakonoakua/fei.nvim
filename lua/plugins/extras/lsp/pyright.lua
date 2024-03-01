@@ -1,4 +1,5 @@
-return {
+-- extremely sluggish on linux, so disabled it
+return not require("platform").isPlatWindows() and {} or {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
