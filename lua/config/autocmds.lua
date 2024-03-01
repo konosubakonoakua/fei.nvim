@@ -55,10 +55,16 @@ vim.api.nvim_create_autocmd({ "RecordingEnter" }, {
 -- })
 
 -- command history
+-- command-line window
 vim.api.nvim_create_autocmd("cmdwinenter", {
   callback = function()
-    vim.keymap.set({"n", "i"}, "<C-y>", "<cr>q:", { buffer = true })
-    vim.keymap.set({"n", "i"}, "<F5>", "<cr>q:", { buffer = true })
-    vim.keymap.set("n", "<leader>q", ":q<cr>", { buffer = true })
+    vim.keymap.set({"n", "i"}, "<C-y>", "<cr>q:", { buffer = true, silent = true })
+    vim.keymap.set({"n", "i"}, "<F5>", "<cr>q:", { buffer = true, silent = true })
+    -- TODO: figure out whether it is possible to jump to another window while keeping command-line window
+    -- vim.keymap.set({"n"}, "<C-k>", "<C-w>k", { buffer = true, silent = true })
+    -- vim.keymap.set({"n"}, "<C-j>", "<C-w>j", { buffer = true, silent = true })
+    -- NOTE: in cmdline-windows, use q to quit, <C-q> as recording
+    vim.keymap.set("n", "<C-q>", "q", { buffer = true, silent = true, noremap = true })
+    vim.keymap.set("n", "q", ":q<cr>", { buffer = true, silent = true, noremap = true })
   end,
 })
