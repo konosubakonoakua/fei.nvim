@@ -69,17 +69,22 @@ local pylance_default_config = {
   },
 }
 
-return {
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = {},
-    -- TODO: find out why opts not working
-    init = function()
-      local configs = require("lspconfig.configs")
-      require("lspconfig.configs").pylance = pylance_default_config
-      require("lspconfig").pylance.setup({})
-    end,
-    -- opts = function(_, opts)
-    -- end,
-  },
-}
+-- NOTE: pylance mason package only works on linux
+if require("platform").isPlatWindows() then
+  return {}
+else
+  return {
+    {
+      "neovim/nvim-lspconfig",
+      dependencies = {},
+      -- TODO: find out why opts not working
+      init = function()
+        local configs = require("lspconfig.configs")
+        require("lspconfig.configs").pylance = pylance_default_config
+        require("lspconfig").pylance.setup({})
+      end,
+      -- opts = function(_, opts)
+      -- end,
+    },
+  }
+end
