@@ -54,6 +54,8 @@
 - [x] TODO: (tags)(leaderf) add `leaderf` and config gtags for huge cpp projects
 - [x] TODO: (tags)(leaderf) find a way to index multiple folders when using gtags with leaderf
 - [x] TODO: (python) create `~/.venv` for nvim python support
+- [ ] TODO: (python) venv for nvim python support on windows
+- [ ] TODO: (python) better python lsp server
 - [x] TODO: (lsp) try lsp inlay in `neovim 0.10.*` (working well for c++)
 - [x] TODO: (completion) make better completions
 - [x] TODO: (completion) enable in command mode
@@ -119,3 +121,6 @@
   - using `<leader>up` manually for now.
   - don't know how to call functions before playing macros
   - https://github.com/neovim/neovim/pull/24565
+- [ ] FIXME: (highlight) `GitSigns` fallback hl groups not working sometimes using some colorschemes like oxo
+  - tried to add GitSigns hls instead of using fallback on `oxocarbon` theme #a1931b1c397cdbdda30e563ba023b7bcb0380b2a
+- [x] FIXME: (neo-tree) follow current file failed on some certain names
