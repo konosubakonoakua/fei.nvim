@@ -40,9 +40,18 @@ return {
           ---@type NoiceViewOptions
           opts = {}, -- merged with defaults from documentation
         },
+        override = {
+          ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+          ['vim.lsp.util.stylize_markdown'] = true,
+          ['cmp.entry.get_documentation'] = true,
+        },
       },
       presets = {
-        lsp_doc_border = true,
+        lsp_doc_border = false, -- add a border to hover docs and signature help
+        bottom_search = false, -- use a classic bottom cmdline for search
+        command_palette = true, -- position the cmdline and popupmenu together
+        long_message_to_split = true, -- long messages will be sent to a split
+        inc_rename = false, -- enables an input dialog for inc-rename.nvim
       },
     },
     -- stylua: ignore
@@ -69,7 +78,7 @@ return {
     },
     opts = function(_, opts)
       opts.render = "default" or "default" or "minimal" or "simple" or "compact" or "wrapped-compact"
-      -- opts.stages = "slide"
+      opts.stages = "slide"
       opts.timeout = 500 -- TODO: adjust notify timeout
       opts.max_height = function()
         return math.floor(vim.o.lines * 0.75)
@@ -77,6 +86,7 @@ return {
       opts.max_width = function()
         return math.floor(vim.o.columns * 0.75)
       end
+      opts.background_colour = "#000000"
     end,
   },
 
