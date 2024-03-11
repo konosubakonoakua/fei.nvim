@@ -26,6 +26,7 @@
     "plugins.extras.editor.motion",
     "plugins.extras.editor.project",
     "plugins.extras.editor.quickfix",
+    "plugins.extras.editor.rgb",
     "plugins.extras.editor.toggleterm",
     "plugins.extras.editor.window",
     "plugins.extras.lsp.epics",
