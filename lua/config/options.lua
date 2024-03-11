@@ -26,7 +26,8 @@ if vim.g.neovide then
   -- vim.g.neovide_cursor_vfx_mode = "railgun"
 end
 
-vim.opt.exrc = true
+vim.opt.exrc = true   -- allow local .nvim.lua .vimrc .exrc files
+vim.opt.secure = true -- disable shell and write commands in local .nvim.lua .vimrc .exrc files
 
 -- INFO: trailing 0x0A in return value of vim.fn.system, strip it
 if not plat.isPlatWindows() then
