@@ -72,6 +72,8 @@
 - [ ] TODO: (editor) integrate tmux or zellij with neovim
 - [x] TODO: (macros) when using macros, some plugins should keep closed (autopair,smartF/T)
 - [x] TODO: (telescope) customize keymappings
+- [ ] TODO: ([neoconf](https://github.com/folke/neoconf.nvim)) customize lsp config for project-local settings
+- [] TODO: (lazyrc) add lazyrc for different projects [#1878](https://github.com/LazyVim/LazyVim/discussions/1878)
 
 ## PERFs
 
