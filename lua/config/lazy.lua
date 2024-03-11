@@ -13,6 +13,7 @@ local spec = {
   -- add LazyVim and import its plugins
   { "LazyVim/LazyVim", import = "lazyvim.plugins" },
   { import = "plugins" },
+  { import = 'lazyvim.plugins.extras.lazyrc' },
 }
 
 require("lazy").setup({
