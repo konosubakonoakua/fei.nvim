@@ -454,7 +454,7 @@ return {
           injected_languages = true,
           highlight = {
             "@function",
-            "PinkIBLScope",
+            -- "PinkIBLScope",
           },
           exclude = {
             -- language = { "rust" },
