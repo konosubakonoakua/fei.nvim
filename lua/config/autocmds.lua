@@ -36,14 +36,16 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
+-- NOTE: Use <C-v> instead
 -- Auto disable or enable mini.pairs when using macro
-vim.api.nvim_create_autocmd({ "RecordingEnter" }, {
-  group = augroup("disable_minipairs_when_using_macro"),
-  callback = function(event)
-    vim.g.minipairs_disable = true
+--
+-- vim.api.nvim_create_autocmd({ "RecordingEnter" }, {
+--   group = augroup("disable_minipairs_when_using_macro"),
+--   callback = function(event)
+--     vim.g.minipairs_disable = true
     -- vim.notify("minipairs disabled")
-  end,
-})
+--   end,
+-- })
 
 -- https://github.com/neovim/neovim/pull/24565
 -- vim.api.nvim_create_autocmd({ "RecordingLeave" }, {
