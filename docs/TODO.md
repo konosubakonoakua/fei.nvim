@@ -78,6 +78,8 @@
 ## PERFs
 
 - [ ] PERF: (telescopte)(fzf-lua) replace performance critial functionalities (telescope) with fzf-lua
+- [x] PERF: (macro) slow macro execution
+  - solved by remapping `@`, disabled all autocmd when executing macro
 
 ## FIXMEs
 
