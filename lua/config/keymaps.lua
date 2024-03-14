@@ -245,7 +245,14 @@ keymap_force("n", "<leader>uC", function() _util.toggle("conceallevel", false, {
 if vim.lsp.inlay_hint then
   keymap_force("n", "<leader>uh", function() vim.lsp.inlay_hint(0, nil) end, { desc = "Toggle Inlay Hints" })
 end
-
+local statuscolumn_orignal = vim.o.statuscolumn
+keymap("n", "<leader>uS", function()
+  local current = vim.o.statuscolumn
+  if current ~= "" then
+    statuscolumn_orignal = current
+  end
+  _util.toggle("statuscolumn", false, { "", statuscolumn_orignal})
+end, { desc = "Toggle Statuscolumn" })
 keymap("n", "<leader>us", function() _util.toggle("spell") end,      { desc = "Toggle Spelling" })
 keymap("n", "<leader>uw", function() _util.toggle("wrap") end,       { desc = "Toggle Word Wrap" })
 keymap("n", "<leader>ul", function() _util.toggle.number() end,      { desc = "Toggle Line Numbers" })
