@@ -405,4 +405,21 @@ vim.cmd([[
   nnoremap @ <cmd>execute "noautocmd norm! " . v:count1 . "@" . getcharstr()<cr>
 ]])
 
+-- region <leader>b
+keymap('n', '<leader>b.', function()
+    local buffers = vim.api.nvim_list_bufs()
+    for _, buf in ipairs(buffers) do
+        if vim.api.nvim_buf_is_valid(buf) then
+          local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+          if #lines == 1 and #lines[1] == 0 then
+          -- Buffer is empty, delete it
+          vim.api.nvim_buf_delete(buf, { force = true })
+        end
+      end
+    end
+  end, { desc = "Delete all empty buffer", noremap = true, silent = true })
+-- endregion <leader>b
+
 -- stylua: ignore end
+
+-- vim:sw=2:ts=2:
