@@ -10,9 +10,12 @@
 > - [USAGE.md](./docs/USAGE.md)
 > - [I AM VIM MAN](https://github.com/konosubakonoakua/vimer/blob/main/README.md)
 > - [DOTFILES](https://github.com/konosubakonoakua/.dotfiles/blob/main/README.md)
+> - [Programming in lua](https://www.lua.org/manual/5.4/manual.html)
+> - [neovim lua guide](https://neovim.io/doc/user/lua-guide.html)
 
 
 ## Installing
+<!--
 - Win*
   - cmd
 
@@ -25,6 +28,7 @@
     ```powershell
     # tbd
     ```
+-->
 
 - *nix
 
