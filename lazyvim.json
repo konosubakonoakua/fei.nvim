@@ -37,6 +37,7 @@
     "plugins.extras.mason.mason",
     "plugins.extras.telescope.zoxide",
     "plugins.extras.test.neotest",
+    "plugins.extras.util.github",
     "plugins.extras.util.godbolt",
     "plugins.extras.util.lazygit",
     "plugins.extras.util.neogit",
