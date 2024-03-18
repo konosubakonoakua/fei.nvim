@@ -31,8 +31,8 @@
 -->
 
 - *nix
-
     ```bash
+    pip install pynvim pywin32 # pywin32 for windows platform
     if command -v curl >/dev/null 2>&1; then
         bash -c "$(curl -fsSL https://raw.githubusercontent.com/konosubakonoakua/lazyvim.conf/main/scripts/install.sh)"
     else
