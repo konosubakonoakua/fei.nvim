@@ -3,9 +3,9 @@ return {
     -- https://github.com/crusj/bookmarks.nvim
     -- "crusj/bookmarks.nvim",
     "konosubakonoakua/bookmarks.nvim",
-    -- keys = {
-    --   { "<tab><tab>", mode = { "n" } },
-    -- },
+    keys = {
+      { "\\\\", function () require("telescope").extensions.bookmarks.bookmarks() end, mode = { "n" }, desc = "Telescope Bookmarks", },
+    },
     branch = "main",
     dependencies = { "nvim-web-devicons" },
     config = function()
@@ -14,8 +14,8 @@ return {
         mappings_enabled = true, -- If the value is false, only valid for global keymaps: toggle、add、delete_on_virt、show_desc
         -- TODO: reassign keymaps for bookmarks
         keymap = {
-          toggle = "\\\\", -- Toggle bookmarks(global keymap)
-          add = "\\z", -- Add bookmarks(global keymap)
+          toggle = "\\t", -- Toggle bookmarks(global keymap)
+          add = "\\a", -- Add bookmarks(global keymap)
           jump = "<CR>", -- Jump from bookmarks(buf keymap)
           delete = "dd", -- Delete bookmarks(buf keymap)
           order = "<space>", -- Order bookmarks by frequency or updated_time(buf keymap)
