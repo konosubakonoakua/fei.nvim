@@ -1,92 +1,132 @@
-return {
-  {
-    "rasulomaroff/reactive.nvim",
-    enabled = true,
-    keys = {
-      {
-        "<leader>uM",
-        function()
-          vim.cmd("ReactiveToggle")
-          vim.notify("ReactiveToggle", vim.log.levels.WARN)
-        end,
-        desc = "Toggle Reactive Cursorlines",
-      },
+-- TODO: make cursorline as plugin
+local api = vim.api
+local rgb_tweak = require("util.colors").rgb_tweak
+local tweak_ratio = 0.3
+
+local M = {}
+
+local options = {
+  show_warnings = true, -- Show warning if any required option is missing
+  highlights = {
+    defaults = {
+      bold = false,
+      italic = false,
     },
-    event = "VeryLazy",
-    config = function()
-      rgb_tweak = require("util.colors").rgb_tweak
-      rgb_tweak_ratio = 0.25
-
-      local get_hl_cursorline_normal_bg = function()
-        local hl_cursorline_normal = vim.api.nvim_get_hl(0, { name = "CursorLine" })
-        vim.notify(vim.inspect(vim.api.nvim_get_hl(0, { name = "CursorLine" })))
-        return string.format("#%x", hl_cursorline_normal.bg or 0)-- or "#262626"
-      end
-
-      local modes_n_line_bg   = function()
-        -- vim.notify(get_hl_cursorline_normal_bg())
-        return rgb_tweak(get_hl_cursorline_normal_bg(), 1.0) end
-      -- local modes_n_linenr_bg = function() return rgb_tweak(get_hl_cursorline_normal_bg(), 1.0) end
-      -- local modes_n_linenr_fg = function() return get_hl_cursorline_normal_bg() end
-
-      local modes_i_line_bg   = rgb_tweak("#42be65", rgb_tweak_ratio)
-      local modes_i_linenr_bg = rgb_tweak("#42be65", rgb_tweak_ratio)
-      local modes_i_linenr_fg = "#42be65"
-
-      local modes_v_line_bg   = rgb_tweak("#be95ff", rgb_tweak_ratio)
-      local modes_v_linenr_bg = rgb_tweak("#be95ff", rgb_tweak_ratio)
-      local modes_v_linenr_fg = "#be95ff"
-
-      local modes_R_line_bg   = rgb_tweak("#eaca89", rgb_tweak_ratio)
-      local modes_R_linenr_bg = rgb_tweak("#eaca89", rgb_tweak_ratio)
-      local modes_R_linenr_fg = "#eaca89"
-
-      require("reactive").add_preset({
-        name = "my-preset",
-        skip = function()
-          -- vim.notify(vim.inspect(hl_cursorline_normal_bg))
-          local buftype = vim.api.nvim_buf_get_option(0, "buftype")
-          return buftype ~= "" -- skip non-normal buffers
-        end,
-        -- static = {
-        --   winhl = {
-        --     inactive = {
-        --       CursorLine = { bg = rgb_tweak(hl_cursorline_normal_bg, rgb_tweak_ratio*0.5) },
-        --       CursorLineNr = { bg = rgb_tweak(hl_cursorline_normal_bg, rgb_tweak_ratio*0.5)  },
-        --     },
-        --   },
-        -- },
-        modes = {
-          -- NOTE: cannot set bg dynamiclly
-          -- use autocmd instead
-          -- n = {
-          --   winhl = {
-          --     CursorLine = { bg = modes_n_line_bg() },
-          --     CursorLineNr = { bg = modes_n_linenr_bg() },
-          --   },
-          -- },
-          i = {
-            winhl = {
-              CursorLine = { bg = modes_i_line_bg },
-              CursorLineNr = { fg = modes_i_linenr_fg, bg = modes_i_linenr_bg },
-            },
-          },
-          -- visual
-          [{ "v", "V", "\x16" }] = {
-            winhl = {
-              Visual = { bg = modes_v_line_bg },
-              CursorLineNr = { fg = modes_v_linenr_fg, bg = modes_v_linenr_bg },
-            },
-          },
-          -- replace
-          R = {
-            winhl = {
-              CursorLine = { bg = modes_R_line_bg },
-              CursorLineNr = { fg = modes_R_linenr_fg, bg = modes_R_linenr_bg },
-            },
-          },
-        },
-      })
-    end,
   },
 }
+
+--- Gets the highlight `group`.
+--- @param hl_name string
+--- @return table<string, any>
+function M.get_highlight(hl_name)
+  return api.nvim_get_hl(0, { name = hl_name, link = false })
+end
+
+local function fallback_hl_from_mode(mode)
+  local hls = {
+    Normal = 'BufferLineBackground',
+    Insert = 'Debug',
+    Visual = '@constant',
+    Select = 'Keyword',
+    Replace = 'Keyword',
+    Command = 'Constant',
+    Terminal = 'Question',
+    TerminalNormal = 'CursorLineNr',
+  }
+  return hls[mode] or hls.normal
+end
+
+-- Link any missing mode highlight to its fallback highlight
+local function set_fallback_highlight_groups()
+  local modes = {
+    'Normal',
+    'Insert',
+    'Visual',
+    'Command',
+    'Replace',
+    'Select',
+    'Terminal',
+    'TerminalNormal',
+  }
+
+  for _, mode in pairs(modes) do
+    local hl_name = mode .. 'Mode'
+    if vim.tbl_isempty(M.get_highlight(hl_name)) then
+      local fallback_hl = fallback_hl_from_mode(mode)
+
+      -- if mode == 'Normal' or mode == 'TerminalNormal' then
+      --   -- We can't directly link the `(Terminal)NormalMode` highlight to
+      --   -- `CursorLineNr` since it will mutate, so we copy it instead
+      --   local cursor_line_nr = M.get_highlight('CursorLineNr')
+      --   api.nvim_set_hl(0, hl_name, cursor_line_nr)
+      -- else
+        api.nvim_set_hl(0, hl_name, { link = fallback_hl })
+      -- end
+    end
+  end
+end
+
+--- Get mode name from mode.
+---@param mode string
+---@return string
+local function mode_name_from_mode(mode)
+  local mode_names = {
+    ['n']  = 'Normal',
+    ['i']  = 'Insert',
+    ['v']  = 'Visual',
+    ['V']  = 'Visual',
+    ['']  = 'Visual',
+    ['s']  = 'Select',
+    ['S']  = 'Select',
+    ['R']  = 'Replace',
+    ['c']  = 'Command',
+    ['t']  = 'Terminal',
+    ['nt'] = 'TerminalNormal',
+  }
+  return mode_names[mode] or 'Normal'
+end
+
+--- Set the foreground and background color of 'CursorLineNr'. Accepts any
+--- highlight definition map that `vim.api.nvim_set_hl()` does.
+--- @param hl_name string
+function M.set_cursor_line_highlight(hl_name)
+  local hl_group = M.get_highlight(hl_name)
+  local hl = vim.tbl_extend('force', options.highlights.defaults, hl_group)
+  -- hl.bg = hl.fg
+  hl.bg = (hl.fg and rgb_tweak(string.format("#%x", hl.fg), tweak_ratio)) -- or "#000000"
+  hl_new = {}
+  hl_new.bg = hl.bg
+  hl_new.bold = true
+  hl_new.cterm = {
+    bold = true
+  }
+  if hl_name == "VisualMode" then
+    api.nvim_set_hl(0, 'Visual', hl_new)
+  end
+  api.nvim_set_hl(0, 'CursorLineNr', hl_new)
+  hl_new.cterm.bold = false
+  hl_new.bold = false
+  api.nvim_set_hl(0, 'CursorLine', hl_new)
+end
+
+local function create_autocmds()
+  local augroup = api.nvim_create_augroup('Modicator', {})
+  api.nvim_create_autocmd('ModeChanged', {
+    callback = function()
+      local mode = api.nvim_get_mode().mode
+      local mode_name = mode_name_from_mode(mode)
+      M.set_cursor_line_highlight(mode_name .. 'Mode')
+    end,
+    group = augroup,
+  })
+  api.nvim_create_autocmd('Colorscheme', {
+    callback = set_fallback_highlight_groups,
+    group = augroup,
+  })
+end
+
+set_fallback_highlight_groups()
+api.nvim_set_hl(0, 'CursorLineNr', { link = 'NormalMode' })
+create_autocmds()
+
+return {}
