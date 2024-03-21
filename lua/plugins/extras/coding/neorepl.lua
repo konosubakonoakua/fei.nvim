@@ -5,7 +5,7 @@ return {
     lazy = true,
     -- event = "WinEnter",
     init = function ()
-      -- NOTE: type /q to close REPL instance
+      -- NOTE: q to close REPL instance in norm mode
       vim.keymap.set('n', 'g:', function()
         -- get current buffer and window
         local buf = vim.api.nvim_get_current_buf()
@@ -14,7 +14,7 @@ return {
         vim.cmd('split')
         -- spawn repl and set the context to our buffer
         require('neorepl').new{
-          lang = 'vim',
+          lang = 'lua',
           buffer = buf,
           window = win,
         }
