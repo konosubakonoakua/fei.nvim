@@ -1,7 +1,7 @@
 -- TODO: make cursorline as plugin
 local api = vim.api
 local rgb_tweak = require("util.colors").rgb_tweak
-local tweak_ratio = 0.3
+local tweak_ratio = 0.38
 
 vim.cmd([[
 au WinLeave * setlocal cursorlineopt=number
