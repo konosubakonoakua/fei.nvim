@@ -1,8 +1,8 @@
 return {
   {
     -- TODO: keymapping for 'octo.nvim'
-    "konosubakonoakua/octo.nvim",
-    -- 'pwntester/octo.nvim',
+    -- "konosubakonoakua/octo.nvim",
+    'pwntester/octo.nvim',
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim",
