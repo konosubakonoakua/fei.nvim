@@ -3,6 +3,11 @@ local api = vim.api
 local rgb_tweak = require("util.colors").rgb_tweak
 local tweak_ratio = 0.3
 
+vim.cmd([[
+au WinLeave * setlocal cursorlineopt=number
+au WinEnter * setlocal cursorlineopt=both
+]])
+
 local M = {}
 
 local options = {
