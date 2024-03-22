@@ -2,6 +2,7 @@
 local api = vim.api
 local rgb_tweak = require("util.colors").rgb_tweak
 local tweak_ratio = 0.38
+local tweak_ratio_insert = 0.38 * 0.6
 
 vim.cmd([[
 au WinLeave * setlocal cursorlineopt=number
@@ -98,7 +99,12 @@ function M.set_cursor_line_highlight(hl_name)
   local hl_group = M.get_highlight(hl_name)
   local hl = vim.tbl_extend('force', options.highlights.defaults, hl_group)
   -- hl.bg = hl.fg
-  hl.bg = (hl.fg and rgb_tweak(string.format("#%x", hl.fg), tweak_ratio)) -- or "#000000"
+  local _tweak_ratio = tweak_ratio
+  if hl_name == "InsertMode" then
+    _tweak_ratio = tweak_ratio_insert
+  end
+
+  hl.bg = (hl.fg and rgb_tweak(string.format("#%x", hl.fg), _tweak_ratio)) -- or "#000000"
   hl_new = {}
   hl_new.bg = hl.bg
   hl_new.bold = true
