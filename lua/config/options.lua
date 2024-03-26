@@ -67,3 +67,9 @@ vim.opt.ff = "unix"
 -- https://github.com/neovim/neovim/issues/8213
 -- https://github.com/neovim/neovim/pull/8226
 vim.opt.ttimeoutlen = 30
+
+
+-- lsp
+-- NOTE: we need put here to load first, otherwise pyright will be installed too
+-- Set to "basedpyright" to use basedpyright instead of pyright.
+vim.g.lazyvim_python_lsp = "basedpyright"
