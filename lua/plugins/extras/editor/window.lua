@@ -15,6 +15,7 @@ return {
     keys = {
       -- add <leader>uz to enter zen mode
       { "<leader>uz", "<cmd>ZenMode<cr>", desc = "Zen Mode", },
+      { "<C-w>u", "<cmd>ZenMode<cr>", desc = "Zen Mode", },
     },
     -- stylua: ignore end
   },
