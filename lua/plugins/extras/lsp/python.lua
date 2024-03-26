@@ -1,3 +1,5 @@
+vim.g.lazyvim_python_lsp = "basedpyright"
+
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -18,6 +20,12 @@ return {
       },
     },
     opts = function(_, opts)
+      opts.servers.pyright = {
+        enabled = vim.g.lazyvim_python_lsp ~= "basedpyright",
+      }
+      opts.servers.basedpyright = {
+        enabled = vim.g.lazyvim_python_lsp == "basedpyright",
+      }
       opts.servers.ruff_lsp = {
         keys = {
           {
