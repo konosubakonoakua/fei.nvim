@@ -40,7 +40,9 @@ if plat.isPlatWindows() then
 end
 
 vim.opt.pumblend = 0
-vim.opt.guicursor = "a:block"
+-- NOTE: stop setting guicursor manually with noice.nvim,
+-- there's a chance that the guicursor disappears
+-- vim.opt.guicursor = "a:block"
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 vim.g.dashboard_colorful_banner_chance = 0.001 -- %0.1 chance
 
