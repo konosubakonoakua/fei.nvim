@@ -8,8 +8,6 @@
 -- https://github.com/nvim-neo-tree/neo-tree.nvim/discussions/319
 --
 --
-
-local Util = require("lazyvim.util")
 local icons = require("util.icons").todo
 local events = require("neo-tree.events")
 
@@ -90,7 +88,7 @@ return {
             source = "filesystem",
             position = "left",
             -- reveal_file = reveal_file,
-            dir = Util.root(),
+            dir = LazyVim.root(),
             -- reveal_force_cwd = true,
             -- toggle = true,
           })
@@ -105,7 +103,7 @@ return {
             action = "reveal",
             source = "filesystem",
             position = "left",
-            dir = Util.root(),
+            dir = LazyVim.root(),
             -- toggle = true,
           })
         end,
@@ -167,7 +165,7 @@ return {
     },
     config = function(_, opts)
       local function on_move(data)
-        Util.lsp.on_rename(data.source, data.destination)
+        LazyVim.lsp.on_rename(data.source, data.destination)
       end
 
       -- region neo-tree event_handlers
@@ -219,24 +217,6 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     version = false, -- telescope did only one release, so use HEAD for now
-    dependencies = {
-      { -- add telescope-fzf-native
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-        enabled = true,
-        config = function()
-          require("telescope").load_extension("fzf")
-        end,
-      },
-      { -- add telescope-zf-native
-        "natecraddock/telescope-zf-native.nvim",
-        enabled = false,
-        config = function()
-          require("telescope").load_extension("zf-native")
-        end,
-      },
-    },
-    keys = {},
     config = function(_, opts)
       -- PERF: default is "smart", performance killer
       opts.defaults.path_display = { "absolute" }

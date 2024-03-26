@@ -10,13 +10,11 @@
 -- stylua: ignore start
 local term_border = "rounded"
 local _opts   = { silent = true }
--- local _myutil = require("util")
-local _util   = require("lazyvim.util")
-local _floatterm = _util.terminal.open
+local _floatterm = LazyVim.terminal.open
 
 local _lazyterm = function()
-  _util.terminal(nil, {
-    cwd = _util.root(),
+  LazyVim.terminal(nil, {
+    cwd = LazyVim.root(),
     ctrl_hjkl = false,
     size = { width = 0.95, height = 0.93 },
     border = term_border,
@@ -24,7 +22,7 @@ local _lazyterm = function()
 end
 
 local _lazyterm_cwd = function()
-  _util.terminal(nil, {
+  LazyVim.terminal(nil, {
     cwd = tostring(vim.fn.expand("%:p:h")),
     ctrl_hjkl = false,
     -- size = { width = 1.0, height = 1.0 },
@@ -34,7 +32,6 @@ local _lazyterm_cwd = function()
   })
 end
 
--- local keymap             = require("util").keymap
 local keymap             = vim.keymap.set
 local keymap_force       = vim.keymap.set
 local keydel             = vim.keymap.del
@@ -212,13 +209,13 @@ end
 
 -- Dashboard
 keymap("n", "<leader>;;", function()
-  if _util.has("dashboard-nvim") then
+  if LazyVim.has("dashboard-nvim") then
     vim.cmd("Neotree close")
     vim.cmd("Dashboard")
-  elseif _util.has("alpha-nvim") then
+  elseif LazyVim.has("alpha-nvim") then
     vim.cmd("Neotree close")
     vim.cmd("Alpha")
-  elseif _util.has("mini.starter") then
+  elseif LazyVim.has("mini.starter") then
     local starter = require("mini.starter") -- TODO: need test mini.starter
     pcall(starter.refresh)
   end
@@ -230,9 +227,9 @@ keymap("n", "<leader>;I", "<cmd>LspInfo<cr>", { desc = "LspInfo" })
 keymap("n", "<leader>;t", _lazyterm_cwd,      { desc = "Terminal (cwd)" })
 keymap("n", "<leader>;T", _lazyterm,          { desc = "Terminal (root dir)" })
 keymap("n", "<leader>;x", "<cmd>LazyExtras<cr>", { desc = "LazyExtras" })
-keymap("n", "<leader>;L", _util.news.changelog,  { desc = "LazyVim Changelog" })
+keymap("n", "<leader>;L", LazyVim.news.changelog,  { desc = "LazyVim Changelog" })
 keymap("n", "<leader>;P", function()
-  vim.notify("Added '" .. require("lazyvim.util").root() .. "' to project list.", vim.log.levels.WARN)
+  vim.notify("Added '" .. LazyVim.root() .. "' to project list.", vim.log.levels.WARN)
   vim.cmd('AddProject')
 end, { desc = "Project Add Current" })
 
@@ -240,7 +237,7 @@ end, { desc = "Project Add Current" })
 
 -- region toggle options
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
-keymap_force("n", "<leader>uC", function() _util.toggle("conceallevel", false, {0, conceallevel}) end, { desc = "Toggle Conceal" })
+keymap_force("n", "<leader>uC", function() LazyVim.toggle("conceallevel", false, {0, conceallevel}) end, { desc = "Toggle Conceal" })
 
 if vim.lsp.inlay_hint then
   keymap_force("n", "<leader>uh", function() vim.lsp.inlay_hint(0, nil) end, { desc = "Toggle Inlay Hints" })
@@ -251,13 +248,13 @@ keymap("n", "<leader>uS", function()
   if current ~= "" then
     statuscolumn_orignal = current
   end
-  _util.toggle("statuscolumn", false, { "", statuscolumn_orignal})
+  LazyVim.toggle("statuscolumn", false, { "", statuscolumn_orignal})
 end, { desc = "Toggle Statuscolumn" })
-keymap("n", "<leader>us", function() _util.toggle("spell") end,      { desc = "Toggle Spelling" })
-keymap("n", "<leader>uw", function() _util.toggle("wrap") end,       { desc = "Toggle Word Wrap" })
-keymap("n", "<leader>ul", function() _util.toggle.number() end,      { desc = "Toggle Line Numbers" })
-keymap("n", "<leader>ud", function() _util.toggle.diagnostics() end, { desc = "Toggle Diagnostics" })
-keymap("n", "<leader>uf", function() require("lazyvim.util.format").toggle() end, { desc = "Toggle format on Save" })
+keymap("n", "<leader>us", function() LazyVim.toggle("spell") end,      { desc = "Toggle Spelling" })
+keymap("n", "<leader>uw", function() LazyVim.toggle("wrap") end,       { desc = "Toggle Word Wrap" })
+keymap("n", "<leader>ul", function() LazyVim.toggle.number() end,      { desc = "Toggle Line Numbers" })
+keymap("n", "<leader>ud", function() LazyVim.toggle.diagnostics() end, { desc = "Toggle Diagnostics" })
+keymap("n", "<leader>uf", function() LazyVim.format.toggle() end,      { desc = "Toggle format on Save" })
 
 _G.cmp_enabled = true
 keymap("n", "<leader>ua", function()
@@ -284,22 +281,22 @@ keymap("n", "<leader>uR", function()
     end
   end, { desc = "Toggle lazyredraw" })
 
-keymap("n", "<leader>us", function() _util.toggle("spell") end,      { desc = "Toggle Spelling" })
+keymap("n", "<leader>us", function() LazyVim.toggle("spell") end,      { desc = "Toggle Spelling" })
 -- endregion toggle options
 
 -- region ui
-keymap_force("n", "<leader>uc", _util.telescope("colorscheme", { enable_preview = true }), {desc = "Colorscheme with preview"})
+keymap_force("n", "<leader>uc", LazyVim.telescope("colorscheme", { enable_preview = true }), {desc = "Colorscheme with preview"})
 -- endregion ui
 
 -- region code
 keymap('n', '<leader>cB', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', { desc = "Search cbuf (Spectre)" })
-keymap("n", "<leader>cR", "<cmd>lua require('spectre').open({cwd=require('lazyvim.util').root()})<CR>", { desc = "Replace files (Spectre)" })
-keymap('v', '<leader>cR', '<esc><cmd>lua require("spectre").open_visual({cwd=require("lazyvim.util").root()})<CR>', { desc = "Search cword (Spectre)" })
-keymap('v', '<leader>cw', '<cmd>lua require("spectre").open_visual({select_word=true, cwd=require("lazyvim.util").root()})<CR>', { desc = "Search cword (Spectre)" })
+keymap("n", "<leader>cR", "<cmd>lua require('spectre').open({cwd=LazyVim.root()})<CR>", { desc = "Replace files (Spectre)" })
+keymap('v', '<leader>cR', '<esc><cmd>lua require("spectre").open_visual({cwd=LazyVim.root()})<CR>', { desc = "Search cword (Spectre)" })
+keymap('v', '<leader>cw', '<cmd>lua require("spectre").open_visual({select_word=true, cwd=LazyVim.root()})<CR>', { desc = "Search cword (Spectre)" })
 -- endregion
 
 -- region telescope
-if _util.has("todo-comments.nvim") then
+if LazyVim.has("todo-comments.nvim") then
   keymap("n", "<leader>xsf", "<cmd>TodoTelescope keywords=FIX,FIXME,BUG<CR>", { desc = "Show FIXME" })
   keymap("n", "<leader>xst", "<cmd>TodoTelescope keywords=TODO<CR>", { desc = "Show TODO" })
   keymap("n", "<leader>xsT", "<cmd>TodoTelescope keywords=TEST<CR>", { desc = "Show TEST" })
@@ -309,7 +306,7 @@ end
 -- <leader>f
 keymap_force("n", "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "Fuzzy Search (Current)" })
 keymap_force("n", "<leader>fc", function() require('telescope.builtin').find_files({find_command={'fd', vim.fn.expand("<cword>")}}) end, { desc = "Telescope Find cfile" })
-keymap_force("n", "<leader>fC", _util.telescope.config_files(), { desc = "Find Config File" })
+keymap_force("n", "<leader>fC", LazyVim.telescope.config_files(), { desc = "Find Config File" })
 keymap_force("n", "<leader>fg", ":Telescope grep_string<cr>", {desc = "Telescope Grep String", noremap = true})
 keymap_force("n", "<leader>fG", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", {desc = "Live grep args", noremap = true})
 keymap_force("n", "<leader>fP", function() require("telescope.builtin").find_files( { cwd = require("lazy.core.config").options.root }) end, {desc = "Find Plugin File"})
@@ -321,12 +318,12 @@ keymap_force("n", "<leader>s;", function () require("telescope.builtin").builtin
 keymap_force("n", "<leader>sb", ":lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>", {desc = "find current buffer", noremap = true})
 keymap_force("n", "<leader>sB", ":lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>", {desc = "Find opened files", noremap = true})
 keymap_force("n", "<leader>sM", "<cmd>Telescope man_pages sections=ALL<cr>", {desc = "Man Pages" })
-keymap_force("n", "<leader>sg", _util.telescope("live_grep"),                                        { desc = "Grep (root dir)" })
-keymap_force("n", "<leader>sG", _util.telescope("live_grep", { cwd = false }),                       { desc = "Grep (cwd)" })
-keymap_force("v", "<leader>sw", _util.telescope("grep_string"),                                      { desc = "Selection (root dir)" })
-keymap_force("n", "<leader>sw", _util.telescope("grep_string", { word_match = "-w" }),               { desc = "Word (root dir)" })
-keymap_force("v", "<leader>sW", _util.telescope("grep_string", { cwd = false }),                     { desc = "Selection (cwd)" })
-keymap_force("n", "<leader>sW", _util.telescope("grep_string", { cwd = false, word_match = "-w" }),  { desc = "Word (cwd)" })
+keymap_force("n", "<leader>sg", LazyVim.telescope("live_grep"),                                        { desc = "Grep (root dir)" })
+keymap_force("n", "<leader>sG", LazyVim.telescope("live_grep", { cwd = false }),                       { desc = "Grep (cwd)" })
+keymap_force("v", "<leader>sw", LazyVim.telescope("grep_string"),                                      { desc = "Selection (root dir)" })
+keymap_force("n", "<leader>sw", LazyVim.telescope("grep_string", { word_match = "-w" }),               { desc = "Word (root dir)" })
+keymap_force("v", "<leader>sW", LazyVim.telescope("grep_string", { cwd = false }),                     { desc = "Selection (cwd)" })
+keymap_force("n", "<leader>sW", LazyVim.telescope("grep_string", { cwd = false, word_match = "-w" }),  { desc = "Word (cwd)" })
 keymap_force("n", "<leader>sj", "<cmd>Telescope jumplist<cr>",    { desc = "Jumplist", noremap = true })
 keymap_force("n", "<leader>sl", "<cmd>Telescope loclist<cr>",     { desc = "Loclist", noremap = true })
 keymap_force("n", "<leader>se", "<cmd>Telescope treesitter<cr>",  { desc = "Treesitter", noremap = true })

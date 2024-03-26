@@ -14,7 +14,7 @@ local M = {
 
 M.init = function ()
   vim.keymap.set("n", "<leader>gn", function ()
-    require("neogit").open({cwd = require("lazyvim.util").root()})
+    require("neogit").open({cwd = LazyVim.root()})
   end, { desc = "Neogit lazyroot" })
   vim.keymap.set("n", "<leader>gN", function ()
     require("neogit").open({cwd = vim.loop.cwd()})

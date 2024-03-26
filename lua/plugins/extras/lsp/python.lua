@@ -36,7 +36,7 @@ return {
         },
       }
       opts.setup.ruff_lsp = function()
-        require("lazyvim.util").lsp.on_attach(function(client, _)
+        LazyVim.lsp.on_attach(function(client, _)
           if client.name == "ruff_lsp" then
             -- Disable hover in favor of Pyright
             client.server_capabilities.hoverProvider = false
@@ -87,7 +87,7 @@ return {
     cmd = "VenvSelect",
     opts = function(_, opts)
       -- FIXME: not working at all, dap-python only use custom func in enrich_config
-      if require("lazyvim.util").has("nvim-dap-python") then
+      if LazyVim.has("nvim-dap-python") then
         opts.dap_enabled = true
       end
       return vim.tbl_deep_extend("force", opts, {
@@ -106,7 +106,7 @@ return {
         function()
           vim.cmd("VenvSelect")
           local venv_path = require("venv-selector").get_active_path()
-          if require("lazyvim.util").has("nvim-dap-python") then
+          if LazyVim.has("nvim-dap-python") then
             require("dap-python").setup(venv_path)
           end
         end,

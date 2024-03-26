@@ -1,11 +1,3 @@
---[[ Summary
-  * nvim-notify
-    * set timeout to 0.5s
-    * set compact layout
-    * set slide animation
-    * new keys for listing notify history
-]]
-
 --- @param trunc_width number trunctates component when screen width is less then trunc_width
 --- @param trunc_len number truncates component to trunc_len number of chars
 --- @param hide_width number hides component when window width is smaller then hide_width
@@ -98,7 +90,6 @@ return {
       local logos = require("util.logos")
       local logo = logos[math.random(#logos)]
       logo = string.rep("\n", 8) .. logo .. "\n\n"
-      -- local _util = require("lazyvim.util")
       local use_preview = math.random() < vim.g.dashboard_colorful_banner_chance
 
       if require("platform").isPlatWindows() then
@@ -128,7 +119,6 @@ return {
     event = "VeryLazy",
     opts = function()
       local icons = require("util.icons")
-      local _util = require("lazyvim.util")
       local raw_colors = require("util.colors").raw_colors
       local mode_colors = require("util.colors").mode_colors
 
@@ -221,27 +211,27 @@ return {
             {
               function() return require("noice").api.status.command.get() end,
               cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
-              color = _util.ui.fg("Statement"),
+              color = LazyVim.ui.fg("Statement"),
               separator="",
             },
             -- stylua: ignore
             {
               function() return require("noice").api.status.mode.get() end,
               cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
-              color = _util.ui.fg("Constant"),
+              color = LazyVim.ui.fg("Constant"),
               separator="",
             },
             -- stylua: ignore
             {
               function() return "  " .. require("dap").status() end,
               cond = function () return package.loaded["dap"] and require("dap").status() ~= "" end,
-              color = _util.ui.fg("Debug"),
+              color = LazyVim.ui.fg("Debug"),
               separator="",
             },
             {
               require("lazy.status").updates,
               cond = require("lazy.status").has_updates,
-              color = _util.ui.fg("Special"),
+              color = LazyVim.ui.fg("Special"),
               separator="",
             },
             {

@@ -1,5 +1,3 @@
-local Util = require("lazyvim.util")
-
 local M = {}
 
 function M.keymap(mode, lhs, rhs, opts)

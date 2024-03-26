@@ -1,6 +1,5 @@
-local _util       = require("lazyvim.util")
 local keymap      = vim.keymap.set
-local _floatterm  = _util.terminal.open
+local _floatterm  = LazyVim.terminal.open
 
 -- Glow Keymap
 -- TODO: disable ctrl_hjkl & fix quit by q

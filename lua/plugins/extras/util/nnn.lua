@@ -53,7 +53,7 @@ end
 -- nnn terminal keymap
 if vim.fn.executable("nnn") == 1 then
   vim.keymap.set("n", "<leader>;n", function()
-    require("lazyvim.util").terminal.open({ "nnn" }, { esc_esc = false, ctrl_hjkl = false })
+    LazyVim.terminal.open({ "nnn" }, { esc_esc = false, ctrl_hjkl = false })
   end, { desc = "!nnn" })
 end
 

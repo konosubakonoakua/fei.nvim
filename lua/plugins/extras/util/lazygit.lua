@@ -7,9 +7,7 @@ end
 
 -- stylua: ignore start
 local _opts   = { silent = true }
--- local _myutil = require("util")
-local _util   = require("lazyvim.util")
-local _floatterm = _util.terminal.open
+local _floatterm = LazyVim.terminal.open
 
 -- Function to check clipboard with retries
 --[[
@@ -46,7 +44,7 @@ function LazygitEdit(original_buffer)
   local rel_filepath = vim.fn.getreg("+")
 
   -- Combine with the current working directory to get the full path
-  local cwd = _util.root()
+  local cwd = LazyVim.root()
   local abs_filepath = cwd .. "/" .. rel_filepath
 
   -- vim.notify(tostring(rel_filepath), vim.log.levels.WARN)
@@ -70,7 +68,7 @@ end
 -- Function to start Lazygit in a floating terminal
 function StartLazygit()
   local current_buffer = vim.api.nvim_get_current_buf()
-  local float_term = _util.terminal.open({ "lazygit" }, { cwd = _util.root(), esc_esc = false, ctrl_hjkl = false })
+  local float_term = LazyVim.terminal.open({ "lazygit" }, { cwd = LazyVim.root(), esc_esc = false, ctrl_hjkl = false })
 
   vim.api.nvim_buf_set_keymap(
     float_term.buf,

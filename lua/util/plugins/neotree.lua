@@ -1,5 +1,4 @@
 local M = {}
-local Util = require("lazyvim.util")
 local events = require("neo-tree.events")
 -- region neo-tree event_handlers
 M.neotree_event_handlers = {
@@ -324,14 +323,14 @@ end
 local neotree_reveal = function (use_cwd)
   local bufnr = vim.fn.bufnr('%')
   local abs_file_path = vim.api.nvim_buf_get_name(bufnr)
-  abs_file_path = Util.is_win() and abs_file_path:gsub("/", "\\") or abs_file_path
+  abs_file_path = LazyVim.is_win() and abs_file_path:gsub("/", "\\") or abs_file_path
   local abs_dir_path = vim.fn.fnamemodify(abs_file_path, ":p:h")
-  abs_dir_path = Util.is_win() and abs_dir_path:gsub("/", "\\") or abs_dir_path
+  abs_dir_path = LazyVim.is_win() and abs_dir_path:gsub("/", "\\") or abs_dir_path
   local smart_path = nil
   if use_cwd then
     smart_path = vim.loop.cwd()
   else
-    smart_path = Util.root({
+    smart_path = LazyVim.root({
       { "lsp" },
       { ".git", "lua", ".root" },
       { "cwd" },
