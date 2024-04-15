@@ -290,8 +290,8 @@ keymap_force("n", "<leader>uc", LazyVim.telescope("colorscheme", { enable_previe
 
 -- region code
 keymap('n', '<leader>cB', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', { desc = "Search cbuf (Spectre)" })
-keymap("n", "<leader>cR", "<cmd>lua require('spectre').open({cwd=LazyVim.root()})<CR>", { desc = "Replace files (Spectre)" })
-keymap('v', '<leader>cR', '<esc><cmd>lua require("spectre").open_visual({cwd=LazyVim.root()})<CR>', { desc = "Search cword (Spectre)" })
+keymap('n', "<leader>cS", "<cmd>lua require('spectre').open({cwd=LazyVim.root()})<CR>", { desc = "Replace files (Spectre)" })
+keymap('v', '<leader>cS', '<esc><cmd>lua require("spectre").open_visual({cwd=LazyVim.root()})<CR>', { desc = "Search cword (Spectre)" })
 keymap('v', '<leader>cw', '<cmd>lua require("spectre").open_visual({select_word=true, cwd=LazyVim.root()})<CR>', { desc = "Search cword (Spectre)" })
 -- endregion
 
