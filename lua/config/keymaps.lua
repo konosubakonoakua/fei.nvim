@@ -35,8 +35,8 @@ end
 local keymap             = vim.keymap.set
 local keymap_force       = vim.keymap.set
 local keydel             = vim.keymap.del
-local cmd_concat         = require("util").cmd_concat
-local is_disabled_plugin = require("util").is_disabled_plugin
+-- local cmd_concat         = require("util").cmd_concat
+-- local is_disabled_plugin = require("util").is_disabled_plugin
 
 -- endregion local functions
 
@@ -332,22 +332,10 @@ keymap_force("n", "<leader>sU", "<cmd>Telescope tagstack<cr>",    { desc = "Tags
 -- endregion telescope
 
 -- region LSP Mappings.
-local opts = { buffer = bufnr, noremap = true, silent = true }
--- vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
--- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
--- vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
--- vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
--- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, {buffer = bufnr, noremap = true, silent = true, desc = "Add workspace"})
-vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, {buffer = bufnr, noremap = true, silent = true, desc = "Remove workspace"})
-vim.keymap.set('n', '<space>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, {buffer = bufnr, noremap = true, silent = true, desc = "List workspace"})
--- vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
--- vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
--- vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
--- vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
--- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
--- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
--- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+local bufnr = vim.api.nvim_get_current_buf
+vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, {buffer = bufnr(), noremap = true, silent = true, desc = "Add workspace"})
+vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, {buffer = bufnr(), noremap = true, silent = true, desc = "Remove workspace"})
+vim.keymap.set('n', '<space>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, {buffer = bufnr(), noremap = true, silent = true, desc = "List workspace"})
 -- endregion LSP Mappings.
 
 
@@ -380,11 +368,11 @@ if vim.fn.has("gui_running") == 1 then
 
     local opts = { noremap = true, silent = true }
     opts.desc = "GUI FONT +++"
-    vim.api.nvim_set_keymap.set({'n', 'i'}, "<C-+>", function() ResizeGuiFont(1)  end, opts)
+    keymap_force({'n', 'i'}, "<C-+>", function() ResizeGuiFont(1)  end, opts)
     opts.desc = "GUI FONT ---"
-    vim.api.nvim_set_keymap.set({'n', 'i'}, "<C-->", function() ResizeGuiFont(-1) end, opts)
+    keymap_force({'n', 'i'}, "<C-->", function() ResizeGuiFont(-1) end, opts)
     opts.desc = "GUI FONT Reset"
-    vim.api.nvim_set_keymap.set({'n', 'i'}, "<C-0>", function() ResetGuiFont() end, opts)
+    keymap_force({'n', 'i'}, "<C-0>", function() ResetGuiFont() end, opts)
   end
 end
 -- endregion neovide keymapping
