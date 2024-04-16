@@ -32,6 +32,8 @@ git clone https://github.com/konosubakonoakua/lazyvim.conf.git .
 
 ```bash
 pip install pynvim
+cargo install tree-sitter-cli
+
 if command -v curl >/dev/null 2>&1; then
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/konosubakonoakua/lazyvim.conf/main/scripts/install.sh)"
 else
