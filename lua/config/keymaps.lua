@@ -239,9 +239,9 @@ end, { desc = "Project Add Current" })
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
 keymap_force("n", "<leader>uC", function() LazyVim.toggle("conceallevel", false, {0, conceallevel}) end, { desc = "Toggle Conceal" })
 
-if vim.lsp.inlay_hint then
-  keymap_force("n", "<leader>uh", function() vim.lsp.inlay_hint(0, nil) end, { desc = "Toggle Inlay Hints" })
-end
+-- keymap_force("n", "<leader>uh", function() vim.lsp.inlay_hint(0, nil) end, { desc = "Toggle Inlay Hints" })
+keymap_force("n", "<leader>uh", function() LazyVim.toggle.inlay_hints(0, nil) end, { desc = "Toggle Inlay Hints" })
+
 local statuscolumn_orignal = vim.o.statuscolumn
 keymap("n", "<leader>uS", function()
   local current = vim.o.statuscolumn
