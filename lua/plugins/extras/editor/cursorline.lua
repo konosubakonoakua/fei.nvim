@@ -43,7 +43,7 @@ local function fallback_hl_from_mode(mode)
 end
 
 -- Link any missing mode highlight to its fallback highlight
-local function set_fallback_highlight_groups()
+function M.set_fallback_highlight_groups()
   local modes = {
     'Normal',
     'Insert',
@@ -120,24 +120,27 @@ function M.set_cursor_line_highlight(hl_name)
   api.nvim_set_hl(0, 'CursorLine', hl_new)
 end
 
-local function create_autocmds()
+function M.cb_cursorline_hl()
+  local mode = api.nvim_get_mode().mode
+  local mode_name = mode_name_from_mode(mode)
+  M.set_cursor_line_highlight(mode_name .. 'Mode')
+end
+
+function M.create_autocmds()
   local augroup = api.nvim_create_augroup('Modicator', {})
   api.nvim_create_autocmd('ModeChanged', {
-    callback = function()
-      local mode = api.nvim_get_mode().mode
-      local mode_name = mode_name_from_mode(mode)
-      M.set_cursor_line_highlight(mode_name .. 'Mode')
-    end,
+    callback = M.cb_cursorline_hl,
     group = augroup,
   })
   api.nvim_create_autocmd('Colorscheme', {
-    callback = set_fallback_highlight_groups,
+    callback = M.set_fallback_highlight_groups,
     group = augroup,
   })
 end
 
-set_fallback_highlight_groups()
-api.nvim_set_hl(0, 'CursorLineNr', { link = 'NormalMode' })
-create_autocmds()
+-- api.nvim_set_hl(0, 'CursorLineNr', { link = 'NormalMode' })
+M.set_fallback_highlight_groups()
+M.cb_cursorline_hl()
+M.create_autocmds()
 
 return {}
