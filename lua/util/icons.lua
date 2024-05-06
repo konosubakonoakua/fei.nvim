@@ -19,8 +19,8 @@ return {
     [''] = "󱇚",
     -- CTRL-V   Visual blockwise
     -- CTRL-Vs  Visual blockwise using |v_CTRL-O| in Select mode
-    -- s = "", -- Select by character
-    -- S = "", -- Select by line
+    s = "", -- Select by character, used in native snippets for neovim >= 0.10.0
+    -- S = "", -- Select by line, currentlly not used
     -- CTRL-S   Select blockwise
     i = "", -- Insert
     -- ic = "", -- Insert mode completion |compl-generic|
