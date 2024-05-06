@@ -75,4 +75,6 @@ vim.opt.ttimeoutlen = 30
 -- NOTE: we need put here to load first, otherwise pyright will be installed too
 -- Set to "basedpyright" to use basedpyright instead of pyright.
 -- Moved to user extras
--- vim.g.lazyvim_python_lsp = "basedpyright"
+vim.g.lazyvim_python_lsp = "basedpyright"
+vim.g.lazyvim_python_ruff = "ruff"
+
