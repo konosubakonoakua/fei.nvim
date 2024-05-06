@@ -1,0 +1,6 @@
+# ~/.local/state/nvim/lsp.log
+CompileFlags:
+  Remove: [
+    #### Failed to prepare a compiler instance: unknown target ABI 'lp64'
+    -mabi=lp64,
+  ]
