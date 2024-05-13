@@ -44,4 +44,12 @@ else
   -- ]]
 end
 
+if vim.fn.executable("tree-sitter") == 0 then
+  LazyVim.error("tree-sitter cli executable not found. you can download it from: https://github.com/tree-sitter/tree-sitter/releases")
+end
+
+if vim.fn.executable("gh") == 0 then
+  LazyVim.error("github cli executable not found. you can download it from: https://github.com/cli/cli/releases")
+end
+
 return M
