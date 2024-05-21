@@ -8,28 +8,7 @@ return {
     version = false,
   },
   {
-    "scottmckendry/cyberdream.nvim",
-    enabled = false,
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require("cyberdream").setup({
-        -- Recommended - see "Configuring" below for more config options
-        transparent = true,
-        italic_comments = true,
-        hide_fillchars = true,
-        borderless_telescope = true,
-      })
-    end,
-  },
-  {
     "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-  },
-  {
-    "projekt0n/github-nvim-theme",
-    enabled = false,
     lazy = false,
     priority = 1000,
   },
@@ -71,19 +50,6 @@ return {
           },
         },
       })
-    end,
-  },
-  {
-    "Mofiqul/adwaita.nvim",
-    enabled = false,
-    version = false,
-    lazy = false,
-    priority = 1000,
-    config = function()
-      vim.g.adwaita_darker = true
-      vim.g.adwaita_disable_cursorline = false
-      vim.g.adwaita_transparent = true
-      -- vim.cmd("colorscheme adwaita")
     end,
   },
   {
