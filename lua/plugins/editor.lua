@@ -12,28 +12,6 @@ local icons = require("util.icons").todo
 local events = require("neo-tree.events")
 
 return {
-  -- PERF: when using / to search, will aborting early if matched with flash
-  {
-    "s1n7ax/nvim-window-picker",
-    name = "window-picker",
-    version = "2.*",
-    config = function()
-      require("window-picker").setup({
-        filter_rules = {
-          include_current_win = false,
-          autoselect_one = true,
-          -- filter using buffer options
-          bo = {
-            -- if the file type is one of following, the window will be ignored
-            filetype = { "neo-tree", "neo-tree-popup", "notify" },
-            -- if the buffer type is one of following, the window will be ignored
-            buftype = { "terminal", "quickfix" },
-          },
-        },
-        hint = "floating-big-letter",
-      })
-    end,
-  },
 
   -- TODO: config neo-tree
   -- when neo-tree win lost focus,
@@ -45,72 +23,6 @@ return {
     -- "konosubakonoakua/neo-tree.nvim",
     -- branch = "main",
     cmd = "Neotree",
-    keys = {
-      -- region fix file following issue
-      {
-        "<leader>e",
-        require("util.plugins.neotree").neotree_reveal_root,
-        -- "<cmd>Neotree toggle show<cr>",
-        desc = "Explorer NeoTree (root dir)",
-      },
-      {
-        "<leader>E",
-        require("util.plugins.neotree").neotree_reveal_cwd,
-        -- "<cmd>Neotree toggle show<cr>",
-        desc = "Explorer NeoTree (cwd)",
-      },
-      -- endregion fix file following issue
-      {
-        "<leader>ge",
-        function()
-          require("neo-tree.command").execute({ source = "git_status", toggle = true })
-        end,
-        desc = "Git explorer",
-      },
-      {
-        "<leader>be",
-        function()
-          require("neo-tree.command").execute({ source = "buffers", toggle = true })
-        end,
-        desc = "Buffer explorer",
-      },
-      {
-        "<leader>ce", "<cmd>Neotree document_symbols<cr>", desc = "Neotree (Symbols)",
-      },
-      {
-        -- TODO: not working if already on the neotree window,
-        -- consider record the last file buffer which needs to be revealed in <leader>e
-        -- currently stop using auto-follow
-        "<leader>fe", function ()
-          -- TODO: quit if not on a realfile or use history
-          require('neo-tree.command').execute({
-            action = "show",
-            source = "filesystem",
-            position = "left",
-            -- reveal_file = reveal_file,
-            dir = LazyVim.root(),
-            -- reveal_force_cwd = true,
-            -- toggle = true,
-          })
-          -- FIXME: don't close opend folders
-          -- show_only_explicitly_opened() can be disabled
-          require("neo-tree.sources.filesystem.init").follow(nil, true)
-          -- -- FIXME: cannot focus on file
-          -- vim.cmd([[
-          --   Neotree reveal
-          -- ]])
-          require('neo-tree.command').execute({
-            action = "reveal",
-            source = "filesystem",
-            position = "left",
-            dir = LazyVim.root(),
-            -- toggle = true,
-          })
-        end,
-        mode = 'n',
-        desc="Open neo-tree at current file or working directory"
-      }
-    },
     deactivate = function()
       vim.cmd([[Neotree close]])
     end,
@@ -191,33 +103,13 @@ return {
   },
   --]]
 
-  -- here only using whichkey for reminding
-  -- using 'keymap.lua' or other files to register actual keys
-  {
-    "folke/which-key.nvim",
-    opts = {
-      plugins = { spelling = true },
-      defaults = {
-        mode = { "n", "v" },
-        ["gz"] = {},
-        ["<leader>l"] = { name = "placeholder" }, -- TODO: remap <leader>l
-        ["<leader>L"] = { name = "placeholder" }, -- TODO: remap <leader>L
-        ["<leader>;"] = { name = "+utils" },
-        ["<leader><leader>"] = { name = "+FzfLua" },
-        ["<leader>T"] = { name = "+Test" },
-        ["<leader>t"] = { name = "+Telescope" },
-      },
-    },
-  },
-
   -- Automatically highlights other instances of the word under your cursor.
   -- This works with LSP, Treesitter, and regexp matching to find the other
   -- instances.
   -- change some telescope options and a keymap to browse plugin files
   {
     "nvim-telescope/telescope.nvim",
-    version = false, -- telescope did only one release, so use HEAD for now
-    config = function(_, opts)
+    opts = function(_, opts)
       -- PERF: default is "smart", performance killer
       opts.defaults.path_display = { "absolute" }
       opts.defaults.layout_config = {
@@ -225,23 +117,7 @@ return {
         height = 999,
         -- vertical = { width = 1.0, height = 1.0 }
       }
-      -- stylua: ignore start
-      -- TODO: add keymap to delete selected buffers, maybe need a keymap to select all
-      opts.defaults.mappings = {
-        i = {
-          ["<C-j>"] = function(...) return require("telescope.actions").move_selection_next(...) end,
-          ["<C-k>"] = function(...) return require("telescope.actions").move_selection_previous(...) end,
-          ["<C-n>"] = function(...) return require("telescope.actions").move_selection_next(...) end,
-          ["<C-p>"] = function(...) return require("telescope.actions").move_selection_previous(...) end,
-          ["<A-p>"] = function(...) return require("telescope.actions.layout").toggle_preview(...) end,
-        },
-        n = {
-          ["<A-p>"] = function(...) return require("telescope.actions.layout").toggle_preview(...) end,
-        },
-      }
-      -- stylua: ignore end
-      local telescope = require("telescope")
-      telescope.setup(opts)
+      return opts
     end,
   },
 
@@ -323,15 +199,6 @@ return {
         -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
       },
     },
-  },
-
-  -- search/replace in multiple files
-  {
-    "nvim-pack/nvim-spectre",
-    version = false,
-    cmd = "Spectre",
-    opts = { open_cmd = "noswapfile vnew" },
-    -- stylua: ignore
   },
 
 }

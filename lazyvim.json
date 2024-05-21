@@ -41,7 +41,6 @@
     "plugins.extras.lsp.rust",
     "plugins.extras.lsp.zig",
     "plugins.extras.telescope.zoxide",
-    "plugins.extras.test.neotest",
     "plugins.extras.util.github",
     "plugins.extras.util.godbolt",
     "plugins.extras.util.lazygit",

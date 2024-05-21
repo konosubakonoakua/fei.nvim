@@ -10,31 +10,13 @@
 -- stylua: ignore start
 local term_border = "rounded"
 local _opts   = { silent = true }
-local _floatterm = LazyVim.terminal.open
-
-local _lazyterm = function()
-  LazyVim.terminal(nil, {
-    cwd = LazyVim.root(),
-    ctrl_hjkl = false,
-    size = { width = 0.95, height = 0.93 },
-    border = term_border,
-  })
-end
-
-local _lazyterm_cwd = function()
-  LazyVim.terminal(nil, {
-    cwd = tostring(vim.fn.expand("%:p:h")),
-    ctrl_hjkl = false,
-    -- size = { width = 1.0, height = 1.0 },
-    size = { width = 0.95, height = 0.93 },
-    -- border = term_border,
-    border = term_border,
-  })
-end
-
+local _floatterm = require("util")._floatterm
+local _lazyterm = require("util")._lazyterm
+local _lazyterm_cwd = require("util")._lazyterm_cwd
 local keymap             = vim.keymap.set
 local keymap_force       = vim.keymap.set
 local keydel             = vim.keymap.del
+
 -- local cmd_concat         = require("util").cmd_concat
 -- local is_disabled_plugin = require("util").is_disabled_plugin
 
@@ -207,32 +189,6 @@ if vim.fn.executable("btop") == 1 then
   end, { desc = "!Btop" })
 end
 
--- Dashboard
-keymap("n", "<leader>;;", function()
-  if LazyVim.has("dashboard-nvim") then
-    vim.cmd("Neotree close")
-    vim.cmd("Dashboard")
-  elseif LazyVim.has("alpha-nvim") then
-    vim.cmd("Neotree close")
-    vim.cmd("Alpha")
-  elseif LazyVim.has("mini.starter") then
-    local starter = require("mini.starter") -- TODO: need test mini.starter
-    pcall(starter.refresh)
-  end
-end, { desc = "Dashboard", silent = true })
-
-keymap("n", "<leader>;l", "<cmd>Lazy<cr>",    { desc = "Lazy.nvim" })
-keymap("n", "<leader>;m", "<cmd>Mason<cr>",   { desc = "Mason" })
-keymap("n", "<leader>;I", "<cmd>LspInfo<cr>", { desc = "LspInfo" })
-keymap("n", "<leader>;t", _lazyterm_cwd,      { desc = "Terminal (cwd)" })
-keymap("n", "<leader>;T", _lazyterm,          { desc = "Terminal (root dir)" })
-keymap("n", "<leader>;x", "<cmd>LazyExtras<cr>", { desc = "LazyExtras" })
-keymap("n", "<leader>;L", LazyVim.news.changelog,  { desc = "LazyVim Changelog" })
-keymap("n", "<leader>;P", function()
-  vim.notify("Added '" .. LazyVim.root() .. "' to project list.", vim.log.levels.WARN)
-  vim.cmd('AddProject')
-end, { desc = "Project Add Current" })
-
 -- endregion <leader>; group remappings
 
 -- region toggle options
@@ -296,55 +252,7 @@ keymap("n", "<leader>us", function() LazyVim.toggle("spell") end,      { desc = 
 keymap_force("n", "<leader>uc", LazyVim.telescope("colorscheme", { enable_preview = true }), {desc = "Colorscheme with preview"})
 -- endregion ui
 
--- region code
-keymap('n', '<leader>cB', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', { desc = "Search cbuf (Spectre)" })
-keymap('n', "<leader>cN", "<cmd>lua require('spectre').open({cwd=LazyVim.root()})<CR>", { desc = "Replace files (Spectre)" })
-keymap('v', '<leader>cN', '<esc><cmd>lua require("spectre").open_visual({cwd=LazyVim.root()})<CR>', { desc = "Search cword (Spectre)" })
-keymap('v', '<leader>cw', '<cmd>lua require("spectre").open_visual({select_word=true, cwd=LazyVim.root()})<CR>', { desc = "Search cword (Spectre)" })
--- endregion
 
--- region telescope
-if LazyVim.has("todo-comments.nvim") then
-  keymap("n", "<leader>xsf", "<cmd>TodoTelescope keywords=FIX,FIXME,BUG<CR>", { desc = "Show FIXME" })
-  keymap("n", "<leader>xst", "<cmd>TodoTelescope keywords=TODO<CR>", { desc = "Show TODO" })
-  keymap("n", "<leader>xsT", "<cmd>TodoTelescope keywords=TEST<CR>", { desc = "Show TEST" })
-  keymap("n", "<leader>xsi", "<cmd>TodoTelescope keywords=INFO<CR>", { desc = "Show INFO" })
-end
-
--- <leader>f
-keymap_force("n", "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "Fuzzy Search (Current)" })
-keymap_force("n", "<leader>fc", function() require('telescope.builtin').find_files({find_command={'fd', vim.fn.expand("<cword>")}}) end, { desc = "Telescope Find cfile" })
-keymap_force("n", "<leader>fC", LazyVim.telescope.config_files(), { desc = "Find Config File" })
-keymap_force("n", "<leader>fg", ":Telescope grep_string<cr>", {desc = "Telescope Grep String", noremap = true})
-keymap_force("n", "<leader>fG", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", {desc = "Live grep args", noremap = true})
-keymap_force("n", "<leader>fP", function() require("telescope.builtin").find_files( { cwd = require("lazy.core.config").options.root }) end, {desc = "Find Plugin File"})
-
--- <leader>s
-keymap_force("n", "<leader>sr", "<cmd>Telescope resume<cr>",   { desc = "Telescope Resume" })
-keymap_force("n", "<leader>s;", function () require("telescope.builtin").builtin({ include_extensions = (vim.v.count ~= 0) }) end,  { desc = "Telescope Builtins", noremap = true })
--- keymap_force("n", "<leader>sb", ":lua require('telescope.builtin').current_buffer_fuzzy_find({default_text = vim.fn.expand('<cword>')})<cr>", {desc = "find current buffer", noremap = true})
-keymap_force("n", "<leader>sb", ":lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>", {desc = "find current buffer", noremap = true})
-keymap_force("n", "<leader>sB", ":lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>", {desc = "Find opened files", noremap = true})
-keymap_force("n", "<leader>sM", "<cmd>Telescope man_pages sections=ALL<cr>", {desc = "Man Pages" })
-keymap_force("n", "<leader>sg", LazyVim.telescope("live_grep"),                                        { desc = "Grep (root dir)" })
-keymap_force("n", "<leader>sG", LazyVim.telescope("live_grep", { cwd = false }),                       { desc = "Grep (cwd)" })
-keymap_force("v", "<leader>sw", LazyVim.telescope("grep_string"),                                      { desc = "Selection (root dir)" })
-keymap_force("n", "<leader>sw", LazyVim.telescope("grep_string", { word_match = "-w" }),               { desc = "Word (root dir)" })
-keymap_force("v", "<leader>sW", LazyVim.telescope("grep_string", { cwd = false }),                     { desc = "Selection (cwd)" })
-keymap_force("n", "<leader>sW", LazyVim.telescope("grep_string", { cwd = false, word_match = "-w" }),  { desc = "Word (cwd)" })
-keymap_force("n", "<leader>sj", "<cmd>Telescope jumplist<cr>",    { desc = "Jumplist", noremap = true })
-keymap_force("n", "<leader>sl", "<cmd>Telescope loclist<cr>",     { desc = "Loclist", noremap = true })
-keymap_force("n", "<leader>se", "<cmd>Telescope treesitter<cr>",  { desc = "Treesitter", noremap = true })
-keymap_force("n", "<leader>su", "<cmd>Telescope tags<cr>",        { desc = "Tags", noremap = true })
-keymap_force("n", "<leader>sU", "<cmd>Telescope tagstack<cr>",    { desc = "Tagstack", noremap = true })
--- endregion telescope
-
--- region LSP Mappings.
-local bufnr = vim.api.nvim_get_current_buf
-vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, {buffer = bufnr(), noremap = true, silent = true, desc = "Add workspace"})
-vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, {buffer = bufnr(), noremap = true, silent = true, desc = "Remove workspace"})
-vim.keymap.set('n', '<space>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, {buffer = bufnr(), noremap = true, silent = true, desc = "List workspace"})
--- endregion LSP Mappings.
 
 
 -- region neovide keymapping

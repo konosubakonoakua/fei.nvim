@@ -26,4 +26,27 @@ function M.is_disabled_plugin(plugin)
   return vim.tbl_contains(vim.tbl_flatten(disabled), plugin)
 end
 
+
+M._floatterm = LazyVim.terminal.open
+
+M._lazyterm = function()
+  LazyVim.terminal(nil, {
+    cwd = LazyVim.root(),
+    ctrl_hjkl = false,
+    size = { width = 0.95, height = 0.93 },
+    border = term_border,
+  })
+end
+
+M._lazyterm_cwd = function()
+  LazyVim.terminal(nil, {
+    cwd = tostring(vim.fn.expand("%:p:h")),
+    ctrl_hjkl = false,
+    -- size = { width = 1.0, height = 1.0 },
+    size = { width = 0.95, height = 0.93 },
+    -- border = term_border,
+    border = term_border,
+  })
+end
+
 return M
