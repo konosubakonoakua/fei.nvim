@@ -215,4 +215,19 @@ return {
     end
   },
 
+  -- flash
+  {
+    "folke/flash.nvim",
+    ---@type Flash.Config
+    opts = {
+      modes = {
+        char = {
+          -- https://github.com/folke/flash.nvim/issues/310
+          enabled = false, -- BUG: not working with macro
+          multi_line = false,
+        },
+      },
+    },
+  },
+
 }
