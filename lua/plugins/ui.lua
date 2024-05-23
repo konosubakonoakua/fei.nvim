@@ -197,29 +197,38 @@ return {
             },
           },
           lualine_y = {
-            { "encoding", separator = "" },
+            {
+              function()
+                return icons.lualine.fileformat[vim.bo.ff] .. ' ' ..
+                  string.gsub(vim.opt.fileencoding:get(), '-', '')
+              end, separator = "" },
+            {
+              function ()
+                local icon = ' ' -- 󰡪
+                local line = vim.fn.line('.')
+                local col = vim.fn.virtcol('.')
+                return icon .. string.format('%d:%d', line, col)
+              end, separator = "", padding = { left = 0, right = 0 }
+            },
             {
               function ()
                 local cur = vim.fn.line('.')
                 local btm = vim.fn.line('$')
                 local top = 1
-                local icon = "󰟙 "
+                local prefix = ' 󰸻 '
+                local suffix = ''
                 if cur == top then
-                  return icon .. 'T:'
+                  return prefix .. 'TOP' .. suffix
                 elseif cur == btm then
-                  return icon .. 'B:'
+                  return prefix .. 'BTM' .. suffix
                 else
-                  return icon .. string.format('%d:', vim.fn.line('.') / vim.fn.line('$') * 100)
+                  return
+                    prefix ..
+                    string.format('%d', vim.fn.line('.') / vim.fn.line('$') * 100) ..
+                    suffix
                 end
               end,
               separator = "", padding = { left = 0, right = 0 }
-            },
-            {
-              function ()
-                local line = vim.fn.line('.')
-                local col = vim.fn.virtcol('.')
-                return string.format('%d:%d', line, col)
-              end, separator = "", padding = { left = 0, right = 0 }
             },
           },
           lualine_z = {

@@ -118,5 +118,11 @@ return {
       readonly = "󰍁",
       unnamed = "󰩃", -- 󱩡 󰻭
     },
+    fileformat = {
+      unix = "",
+      dos = "",
+      win = "",
+      mac = "",
+    },
   },
 }
