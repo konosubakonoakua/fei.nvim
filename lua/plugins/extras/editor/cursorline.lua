@@ -143,6 +143,4 @@ M.set_fallback_highlight_groups()
 M.cb_cursorline_hl()
 M.create_autocmds()
 
-return {
-  desc = "change cursorline color based on modes"
-}
+return {}
