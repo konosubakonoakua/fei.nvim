@@ -48,6 +48,7 @@
     "plugins.extras.lsp.rust",
     "plugins.extras.lsp.zig",
     "plugins.extras.telescope.zoxide",
+    "plugins.extras.util.git.mini-git",
     "plugins.extras.util.godbolt",
     "plugins.extras.util.nerdfont",
     "plugins.extras.util.nnn",
