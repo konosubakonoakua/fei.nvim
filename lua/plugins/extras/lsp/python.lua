@@ -1,36 +1,36 @@
 return {
   desc = "User config for python development, overwriting LazyVim python extras",
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, {
-          "ninja", "python", "rst", "toml",
-        })
-      end
-    end,
-  },
+  -- {
+  --   "nvim-treesitter/nvim-treesitter",
+  --   opts = function(_, opts)
+  --     if type(opts.ensure_installed) == "table" then
+  --       vim.list_extend(opts.ensure_installed, {
+  --         "ninja", "python", "rst", "toml",
+  --       })
+  --     end
+  --   end,
+  -- },
   {
     "microsoft/python-type-stubs",
     version = "*",
     enabled = true,
     cond = true, -- only keep the latest version, do not require loading
   },
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        pyright = {
-          enabled = false,
-          -- mason = false,
-        },
-        ruff_lsp = {
-          enabled = false,
-          -- mason = false,
-        },
-      },
-    },
-  },
+  -- {
+  --   "neovim/nvim-lspconfig",
+  --   opts = {
+  --     servers = {
+  --       pyright = {
+  --         enabled = false,
+  --         -- mason = false,
+  --       },
+  --       ruff_lsp = {
+  --         enabled = false,
+  --         -- mason = false,
+  --       },
+  --     },
+  --   },
+  -- },
   -- {
   --   "nvim-neotest/neotest",
   --   optional = true,
