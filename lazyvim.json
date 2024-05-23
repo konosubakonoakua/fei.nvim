@@ -35,7 +35,6 @@
     "plugins.extras.editor.cursorline",
     "plugins.extras.editor.dap",
     "plugins.extras.editor.folding",
-    "plugins.extras.editor.fzf",
     "plugins.extras.editor.ime",
     "plugins.extras.editor.indent",
     "plugins.extras.editor.markdown",
