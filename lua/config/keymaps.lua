@@ -119,6 +119,24 @@ keymap("n", "<leader>wj", "<C-W>s<C-W>k", { desc = "Split window above", remap =
 ]]
 -- endregion windows remappings
 
+
+-- region tabs remappings
+keymap("n", "<leader><tab>L", "<cmd>tablast<cr>", { desc = "Last Tab" })
+keymap("n", "<leader><tab>F", "<cmd>tabfirst<cr>", { desc = "First Tab" })
+
+keymap("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+keymap("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+keymap("n", "<leader><tab>l", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+keymap("n", "<leader><tab>h", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+keymap("n", "<leader><tab><tab>", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+
+keymap("n", "<leader><tab>n", "<cmd>tabnew<cr>", { desc = "New Tab" })
+keymap("n", "<leader><tab>c", "<cmd>tabclose<cr>", { desc = "Close Tab" })
+keymap("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
+keymap("n", "<leader><tab>;", "<cmd>tabclose<cr>", { desc = "Close Tab" })
+-- keymap("n", "<leader><tab><tab>", "<cmd>tabclose<cr>", { desc = "Close Tab" })
+-- endregion tabs remappings
+
 -- region plugin remappings
 
 -- search keywords in linux programmer's manual
