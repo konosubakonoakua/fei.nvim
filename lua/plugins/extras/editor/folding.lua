@@ -27,9 +27,10 @@ local keyremappings = {
 
 -- TODO: decide folding source for filetypes
 local ftMap = {
-  vim = { "indent" },
-  git = {},
+  vim = { "treesitter", "indent" },
+  git = { "treesitter", "indent" },
   python = { "indent" },
+  lua = { "lsp", "treesitter" },
 }
 
 local setVimFoldOptions = function()
