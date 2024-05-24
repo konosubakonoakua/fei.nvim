@@ -182,7 +182,8 @@ return {
       { mode = "n", "<leader>s;", function () require("telescope.builtin").builtin({ include_extensions = (vim.v.count ~= 0) }) end,   desc = "Telescope Builtins", noremap = true },
       { mode = "n", "<leader>sb", ":lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>", desc = "find current buffer", noremap = true },
       { mode = "n", "<leader>sB", ":lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>", desc = "Find opened files", noremap = true},
-      { mode = "n", "<leader>sM", "<cmd>Telescope man_pages sections=ALL<cr>", desc = "Man Pages" },
+      -- NOTE: need execute 'mandb' first, then we can find man files in user PATH
+      { mode = "n", "<leader>sM", "<cmd>Telescope man_pages sections=ALL<cr>", desc = "Man Pages (mandb to update)" },
       { mode = "n", "<leader>sg", LazyVim.telescope("live_grep"),                                         desc = "Grep (root dir)" },
       { mode = "n", "<leader>sG", LazyVim.telescope("live_grep", { cwd = false }),                        desc = "Grep (cwd)" },
       { mode = "v", "<leader>sw", LazyVim.telescope("grep_string"),                                       desc = "Selection (root dir)" },
