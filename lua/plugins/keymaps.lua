@@ -29,6 +29,7 @@ keymap("n", "<leader>;;", function()
   end
 end, { desc = "Dashboard", silent = true })
 
+--- <leader>; utils
 keymap("n", "<leader>;l", "<cmd>Lazy<cr>",    { desc = "Lazy.nvim" })
 keymap("n", "<leader>;m", "<cmd>Mason<cr>",   { desc = "Mason" })
 keymap("n", "<leader>;I", "<cmd>LspInfo<cr>", { desc = "LspInfo" })
@@ -56,34 +57,6 @@ if LazyVim.has("todo-comments.nvim") then
   keymap("n", "<leader>xsi", "<cmd>TodoTelescope keywords=INFO<CR>", { desc = "Show INFO" })
 end
 
--- <leader>f
-keymap_force("n", "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "Fuzzy Search (Current)" })
-keymap_force("n", "<leader>fc", function() require('telescope.builtin').find_files({find_command={'fd', vim.fn.expand("<cword>")}}) end, { desc = "Telescope Find cfile" })
-keymap_force("n", "<leader>fC", LazyVim.telescope.config_files(), { desc = "Find Config File" })
-keymap_force("n", "<leader>fg", ":Telescope grep_string<cr>", {desc = "Telescope Grep String", noremap = true})
-keymap_force("n", "<leader>fG", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", {desc = "Live grep args", noremap = true})
-keymap_force("n", "<leader>fP", function() require("telescope.builtin").find_files( { cwd = require("lazy.core.config").options.root }) end, {desc = "Find Plugin File"})
-
--- <leader>s
-keymap_force("n", "<leader>sr", "<cmd>Telescope resume<cr>",   { desc = "Telescope Resume" })
-keymap_force("n", "<leader>s;", function () require("telescope.builtin").builtin({ include_extensions = (vim.v.count ~= 0) }) end,  { desc = "Telescope Builtins", noremap = true })
--- keymap_force("n", "<leader>sb", ":lua require('telescope.builtin').current_buffer_fuzzy_find({default_text = vim.fn.expand('<cword>')})<cr>", {desc = "find current buffer", noremap = true})
-keymap_force("n", "<leader>sb", ":lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>", {desc = "find current buffer", noremap = true})
-keymap_force("n", "<leader>sB", ":lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>", {desc = "Find opened files", noremap = true})
-keymap_force("n", "<leader>sM", "<cmd>Telescope man_pages sections=ALL<cr>", {desc = "Man Pages" })
-keymap_force("n", "<leader>sg", LazyVim.telescope("live_grep"),                                        { desc = "Grep (root dir)" })
-keymap_force("n", "<leader>sG", LazyVim.telescope("live_grep", { cwd = false }),                       { desc = "Grep (cwd)" })
-keymap_force("v", "<leader>sw", LazyVim.telescope("grep_string"),                                      { desc = "Selection (root dir)" })
-keymap_force("n", "<leader>sw", LazyVim.telescope("grep_string", { word_match = "-w" }),               { desc = "Word (root dir)" })
-keymap_force("v", "<leader>sW", LazyVim.telescope("grep_string", { cwd = false }),                     { desc = "Selection (cwd)" })
-keymap_force("n", "<leader>sW", LazyVim.telescope("grep_string", { cwd = false, word_match = "-w" }),  { desc = "Word (cwd)" })
-keymap_force("n", "<leader>sj", "<cmd>Telescope jumplist<cr>",    { desc = "Jumplist", noremap = true })
-keymap_force("n", "<leader>sl", "<cmd>Telescope loclist<cr>",     { desc = "Loclist", noremap = true })
-keymap_force("n", "<leader>se", "<cmd>Telescope treesitter<cr>",  { desc = "Treesitter", noremap = true })
-keymap_force("n", "<leader>su", "<cmd>Telescope tags<cr>",        { desc = "Tags", noremap = true })
-keymap_force("n", "<leader>sU", "<cmd>Telescope tagstack<cr>",    { desc = "Tagstack", noremap = true })
--- endregion telescope
-
 -- region LSP Mappings.
 local bufnr = vim.api.nvim_get_current_buf
 vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, {buffer = bufnr(), noremap = true, silent = true, desc = "Add workspace"})
@@ -93,7 +66,7 @@ vim.keymap.set('n', '<space>wl', function() print(vim.inspect(vim.lsp.buf.list_w
 
 -- stylua: ignore start
 return {
-  -- telescope keymapping
+  -- telescope picker keymapping
   {
     "nvim-telescope/telescope.nvim",
     opts = function(_, opts)
@@ -120,7 +93,6 @@ return {
   {
     "nvim-neo-tree/neo-tree.nvim",
     keys = {
-      -- region fix file following issue
       {
         "<leader>e",
         require("util.plugins.neotree").neotree_reveal_root,
@@ -128,12 +100,11 @@ return {
         desc = "Explorer NeoTree (root dir)",
       },
       {
-        "<leader>E",
+        "<leader>E", -- NOTE: fix file following issue
         require("util.plugins.neotree").neotree_reveal_cwd,
         -- "<cmd>Neotree toggle show<cr>",
         desc = "Explorer NeoTree (cwd)",
       },
-      -- endregion fix file following issue
       {
         "<leader>ge",
         function()
@@ -196,11 +167,34 @@ return {
       { "<leader>sr", "<cmd>Telescope resume<cr>", desc = "Telescope Resume"},
     },
   },
+
+  -- telescope keymapping
   {
     "nvim-telescope/telescope.nvim",
     keys = {
-      -- NOTE: overwrite LazyVim default mapping for telescope resume
-      { "<leader>sR", function() require("spectre").open() end, desc = "Replace in Files (Spectre)" },
+      { mode = "n", "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy Search (Current)" },
+      { mode = "n", "<leader>fc", function() require('telescope.builtin').find_files({find_command={'fd', vim.fn.expand("<cword>")}}) end,  desc = "Telescope Find cfile" },
+      { mode = "n", "<leader>fC", LazyVim.telescope.config_files(),  desc = "Find Config File" },
+      { mode = "n", "<leader>fg", ":Telescope grep_string<cr>", desc = "Telescope Grep String", noremap = true },
+      { mode = "n", "<leader>fG", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", desc = "Live grep args", noremap = true },
+      { mode = "n", "<leader>fP", function() require("telescope.builtin").find_files( { cwd = require("lazy.core.config").options.root }) end, desc = "Find Plugin File"},
+      { mode = "n", "<leader>sr", "<cmd>Telescope resume<cr>",    desc = "Telescope Resume" },
+      { mode = "n", "<leader>s;", function () require("telescope.builtin").builtin({ include_extensions = (vim.v.count ~= 0) }) end,   desc = "Telescope Builtins", noremap = true },
+      { mode = "n", "<leader>sb", ":lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>", desc = "find current buffer", noremap = true },
+      { mode = "n", "<leader>sB", ":lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>", desc = "Find opened files", noremap = true},
+      { mode = "n", "<leader>sM", "<cmd>Telescope man_pages sections=ALL<cr>", desc = "Man Pages" },
+      { mode = "n", "<leader>sg", LazyVim.telescope("live_grep"),                                         desc = "Grep (root dir)" },
+      { mode = "n", "<leader>sG", LazyVim.telescope("live_grep", { cwd = false }),                        desc = "Grep (cwd)" },
+      { mode = "v", "<leader>sw", LazyVim.telescope("grep_string"),                                       desc = "Selection (root dir)" },
+      { mode = "n", "<leader>sw", LazyVim.telescope("grep_string", { word_match = "-w" }),                desc = "Word (root dir)" },
+      { mode = "v", "<leader>sW", LazyVim.telescope("grep_string", { cwd = false }),                      desc = "Selection (cwd)" },
+      { mode = "n", "<leader>sW", LazyVim.telescope("grep_string", { cwd = false, word_match = "-w" }),   desc = "Word (cwd)" },
+      { mode = "n", "<leader>sj", "<cmd>Telescope jumplist<cr>",     desc = "Jumplist", noremap = true },
+      { mode = "n", "<leader>sl", "<cmd>Telescope loclist<cr>",      desc = "Loclist", noremap = true },
+      { mode = "n", "<leader>se", "<cmd>Telescope treesitter<cr>",   desc = "Treesitter", noremap = true },
+      { mode = "n", "<leader>su", "<cmd>Telescope tags<cr>",         desc = "Tags", noremap = true },
+      { mode = "n", "<leader>sU", "<cmd>Telescope tagstack<cr>",     desc = "Tagstack", noremap = true },
+      { mode = "n", "<leader>sR", function() require("spectre").open() end, desc = "Replace in Files (Spectre)" }, -- NOTE: overwrite LazyVim default mapping for telescope resume
     },
   },
 
