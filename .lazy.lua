@@ -8,13 +8,24 @@ File .lazy.lua:
 
 This extra should be the last plugin spec added to lazy.nvim
 
+```lua
+return {
+  -- lazyvim pre-defined extras
+  -- { import = "lazyvim.plugins.extras.xxx" },
+  -- user extras
+  -- { import = "plugins.extras.xxx" },
+}
+```
+
 See:
   :h 'exrc'
   :h :trust
 --]]
+
+
 return {
-
-  -- user extras
-  -- { import = "plugins.extras.xxx" },
-
+  { import = "lazyvim.plugins.extras.dap.core" },
+  { import = "lazyvim.plugins.extras.dap.nlua" },
+  { import = "plugins.extras.editor.dap" },
+  { import = "plugins.extras.lsp.fennel" },
 }
