@@ -64,6 +64,7 @@ return {
     require("nnn").setup(cfg)
     vim.api.nvim_set_hl(0, "NnnBorder", { bg = "NONE" })
     -- stylua: ignore
-    vim.keymap.set("n", "<leader><leader>n", ":NnnPicker<cr>", { desc = "NnnPicker", noremap = true })
+    -- BUG: nnn not working
+    -- vim.keymap.set("n", "<leader><leader>n", ":NnnPicker<cr>", { desc = "NnnPicker", noremap = true })
   end,
 }
