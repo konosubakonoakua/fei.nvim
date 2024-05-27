@@ -1,3 +1,8 @@
+if vim.fn.has("pythonx") == 0 then
+  LazyVim.error("Python not found, IME won't be loaded. Please run `:checkhealth provider.python`.")
+  return {}
+end
+
 if jit.os == "Windows" then
   vim.cmd([[
     py import win32api, win32gui
@@ -22,8 +27,8 @@ if jit.os == "Windows" then
   vim.api.nvim_create_autocmd({"VimLeave", "InsertEnter"}, {
     pattern = "*", callback = function(ev) ime_switch("zh") end,
   })
-
 else -- unix, macos
+  -- TODO: add linux ime
 end
 
 return {}
