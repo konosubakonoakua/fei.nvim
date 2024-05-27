@@ -318,7 +318,7 @@ keydel("n", "<leader>L")
 -- endregion <leader>l/<leader>L
 
 -- NOTE: donot trigger autocmd when executing macro
--- https://www.reddit.com/r/neovim/comments/tsol2n/comment/i2ugipm/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+-- https://www.reddit.com/r/neovim/comments/tsol2n/comment/i2ugipm
 vim.cmd([[
   xnoremap @ :<C-U>execute "noautocmd '<,'>norm! " . v:count1 . "@" . getcharstr()<cr>
   nnoremap @ <cmd>execute "noautocmd norm! " . v:count1 . "@" . getcharstr()<cr>
