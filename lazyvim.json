@@ -37,6 +37,7 @@
     "plugins.extras.util.git.mini-git",
     "plugins.extras.util.git.neogit",
     "plugins.extras.util.godbolt",
+    "plugins.extras.util.log",
     "plugins.extras.util.nerdfont",
     "plugins.extras.util.vscode",
     "plugins.extras.util.wakatime"
