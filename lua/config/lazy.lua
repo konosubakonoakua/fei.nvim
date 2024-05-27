@@ -1,6 +1,6 @@
 -- bootstrap for lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
   -- stylua: ignore
   vim.fn.system({
     "git", "clone", "--filter=blob:none", "--branch=stable",
@@ -13,7 +13,6 @@ local spec = {
   -- add LazyVim and import its plugins
   { "LazyVim/LazyVim", import = "lazyvim.plugins" },
   { import = "plugins" },
-  { import = 'lazyvim.plugins.extras.lazyrc' },
 }
 
 require("lazy").setup({
@@ -55,9 +54,9 @@ require("lazy").setup({
       -- disable some rtp plugins
       disabled_plugins = {
         "gzip",
-        -- "matchit",
-        -- "matchparen",
-        -- "netrwPlugin",
+        "matchit",
+        "matchparen",
+        "netrwPlugin",
         "tarPlugin",
         "tohtml",
         "tutor",
