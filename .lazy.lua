@@ -24,8 +24,40 @@ See:
 
 
 return {
+  --
+  -- enable all extras for testing
+  --
+
+  -- debugger
   { import = "lazyvim.plugins.extras.dap.core" },
-  { import = "lazyvim.plugins.extras.dap.nlua" },
   { import = "plugins.extras.editor.dap" },
+
+  -- lua
+  { import = "lazyvim.plugins.extras.dap.nlua" },
+
+  -- fennel
   { import = "plugins.extras.lsp.fennel" },
+
+  -- c/cpp
+  { import = "lazyvim.plugins.extras.lang.clangd" },
+  { import = "lazyvim.plugins.extras.lang.cmake" },
+
+  -- epics
+  { import = "plugins.extras.lsp.epics" },
+
+  -- python
+  { import = "lazyvim.plugins.extras.lang.python" },
+  { import = "lazyvim.plugins.extras.lang.python-semshi" },
+  { import = "plugins.extras.lsp.python" },
+
+  -- rust
+  { import = "lazyvim.plugins.extras.lang.rust" },
+  { import = "plugins.extras.lsp.rust" },
+
+  -- zig
+  { import = "plugins.extras.lsp.zig" },
+
+  -- latex
+  { import = "lazyvim.plugins.extras.lang.tex" },
+
 }
