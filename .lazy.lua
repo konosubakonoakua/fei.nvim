@@ -41,6 +41,7 @@ return {
   -- c/cpp
   { import = "lazyvim.plugins.extras.lang.clangd" },
   { import = "lazyvim.plugins.extras.lang.cmake" },
+  { import = "plugins.extras.util.godbolt" }, -- online compiler
 
   -- epics
   { import = "plugins.extras.lsp.epics" },
