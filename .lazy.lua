@@ -36,29 +36,32 @@ return {
   { import = "lazyvim.plugins.extras.dap.nlua" },
 
   -- fennel
-  { import = "plugins.extras.lsp.fennel" },
+  { import = "plugins.extras.lang.fennel" },
 
   -- c/cpp
   { import = "lazyvim.plugins.extras.lang.clangd" },
   { import = "lazyvim.plugins.extras.lang.cmake" },
-  { import = "plugins.extras.util.godbolt" }, -- online compiler
+  { import = "plugins.extras.coding.godbolt" }, -- online compiler
 
   -- epics
-  { import = "plugins.extras.lsp.epics" },
+  { import = "plugins.extras.lang.epics" },
 
   -- python
   { import = "lazyvim.plugins.extras.lang.python" },
   { import = "lazyvim.plugins.extras.lang.python-semshi" },
-  { import = "plugins.extras.lsp.python" },
+  { import = "plugins.extras.lang.python" },
 
   -- rust
   { import = "lazyvim.plugins.extras.lang.rust" },
-  { import = "plugins.extras.lsp.rust" },
+  { import = "plugins.extras.lang.rust" },
 
   -- zig
-  { import = "plugins.extras.lsp.zig" },
+  { import = "plugins.extras.lang.zig" },
 
   -- latex
   { import = "lazyvim.plugins.extras.lang.tex" },
+
+  -- xmake
+  { import = "plugins.extras.build._xmake" },
 
 }
