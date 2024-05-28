@@ -32,7 +32,17 @@ jobs:
         run: |
           ./scripts/install.sh
           export PLATFORM_GITHUB_ACTION=1
-          nvim --headless "+Lazy! update" +qa
+          echo "################################"
+          pwd
+          ls -all
+          echo "################################"
+          nvim -u NONE --headless "+e .lazy.lua" "+trust" "+qa"
+          nvim -u NONE --headless "+e .nvim.lua" "+trust" "+qa"
+          echo "################################"
+          nvim --headless "+Lazy! update" "+qa"
+          echo "################################"
+          pwd
+          echo "################################"
           cp -pv "${HOME}/.config/nvim/lazy-lock.json" .
       - uses: stefanzweifel/git-auto-commit-action@v5
         if: ${{ steps.check_lockfile.outputs.files_exists == 'true' && env.NEW_COMMIT_COUNT > 0 }}
