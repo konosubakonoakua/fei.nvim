@@ -6,7 +6,7 @@ return {
     init = function()
       vim.b.godbolt_exec = 0
 
-      require("util").keymap("n", "<leader>;e", function()
+      LazyVim.safe_keymap_set("n", "<leader>;e", function()
         if vim.b.godbolt_exec then
           vim.b.godbolt_exec = 0
           vim.notify("godbolt execute output disabled", vim.log.levels.WARN)

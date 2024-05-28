@@ -13,7 +13,7 @@ if jit.os == "Windows" then
   }
 end
 
-local keymap = require("util").keymap
+local keymap = LazyVim.safe_keymap_set
 local keymap_force = vim.keymap.set
 local register_keymaps = function()
     -- stylua: ignore start

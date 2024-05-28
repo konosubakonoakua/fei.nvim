@@ -8,17 +8,25 @@
 --- This file is automatically loaded by lazyvim.config.init
 
 -- stylua: ignore start
-local term_border = "rounded"
 local _opts   = { silent = true }
-local _floatterm = require("util")._floatterm
-local _lazyterm = require("util")._lazyterm
-local _lazyterm_cwd = require("util")._lazyterm_cwd
+
+local status, Utils = pcall(require, "util")
+if not status then
+  -- BUG: loop require in CI environment
+  -- Error detected while processing /home/runner/.config/nvim/init.lua:
+  -- Error loading util
+  -- Error loading util
+  LazyVim.error("Error loading util in config/keymaps")
+  return {}
+end
+
+local _floatterm    = Utils.custom_floatterm
+local _lazyterm     = Utils.custom_lazyterm
+local _lazyterm_cwd = Utils.custom_lazyterm_cwd
+
 local keymap             = vim.keymap.set
 local keymap_force       = vim.keymap.set
 local keydel             = vim.keymap.del
-
--- local cmd_concat         = require("util").cmd_concat
--- local is_disabled_plugin = require("util").is_disabled_plugin
 
 -- endregion local functions
 
@@ -216,7 +224,7 @@ keymap_force("n", "<leader>uC", function() LazyVim.toggle("conceallevel", false,
 if vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint then
   keymap_force("n", "<leader>uh", function()
     LazyVim.toggle.inlay_hints()
-    if vim.lsp.inlay_hint.is_enabled() then
+    if vim.lsp.inlay_hint.is_enabled({}) then
       LazyVim.info("Enabled inlay hints", {title = "Inlay hints"})
     else
       LazyVim.warn("Disabled inlay hints", {title = "Inlay hints"})

@@ -6,14 +6,23 @@
 -- plugin’s name. See also opts. To use the default
 -- implementation without opts set config to true.
 
-local term_border = "rounded"
-local _opts   = { silent = true }
 local keymap             = vim.keymap.set
-local keymap_force       = vim.keymap.set
-local keydel             = vim.keymap.del
-local _floatterm = require("util")._floatterm
-local _lazyterm = require("util")._lazyterm
-local _lazyterm_cwd = require("util")._lazyterm_cwd
+-- local keymap_force       = vim.keymap.set
+-- local keydel             = vim.keymap.del
+
+local status, Utils = pcall(require, "util")
+if not status then
+  -- BUG: loop require in CI environment
+  -- Error detected while processing /home/runner/.config/nvim/init.lua:
+  -- Error loading util
+  -- Error loading util
+  LazyVim.error("Error loading util in plugins/keymaps")
+  return {}
+end
+
+local _floatterm    = Utils.custom_floatterm
+local _lazyterm     = Utils.custom_lazyterm
+local _lazyterm_cwd = Utils.custom_lazyterm_cwd
 
 -- Dashboard
 keymap("n", "<leader>;;", function()
@@ -271,7 +280,6 @@ return {
         })
         vim.api.nvim_input(col .. 'l')
       end, { desc = "line jump" }}
-      
     },
   },
 

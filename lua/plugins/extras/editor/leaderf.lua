@@ -1,5 +1,3 @@
--- local keymap = require("util").keymap
-
 -- TODO: solving searching slowly
 -- lvim.builtin.telescope.defaults.path_display = { shorten = 5 }
 
