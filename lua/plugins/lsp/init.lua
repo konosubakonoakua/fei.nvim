@@ -1,5 +1,12 @@
 return {
   {
+    "williamboman/mason-lspconfig.nvim",
+    opts = {
+      ensure_installed = {},
+      automatic_installation = false,
+    },
+  },
+  {
     "neovim/nvim-lspconfig",
     opts = function(_, opts)
       opts.inlay_hints.enabled = true
