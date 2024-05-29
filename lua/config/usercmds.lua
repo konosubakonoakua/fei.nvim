@@ -30,16 +30,4 @@ vim.api.nvim_create_user_command('LogOpen', function ()
 end, {desc = "Open Neovim log"})
 -- endregion log
 
-
--- region mason
-vim.api.nvim_create_user_command('MasonInstallRequired', function ()
-  local cmd = require'lspconfig'.util.available_servers()
-  if not cmd or #cmd == 0 then return end
-  local mappings = require'mason-lspconfig'.get_mappings().lspconfig_to_mason
-  cmd = vim.tbl_map(function(v) return mappings[v] end, cmd)
-  cmd = "MasonInstall " .. vim.iter(cmd):join(" ")
-  vim.cmd(cmd)
-end, {desc = "MasonInstall all lspconfig required servers"})
--- endregion log
-
 return {}
