@@ -3,12 +3,7 @@ return {
     -- TODO: keymapping for 'octo.nvim'
     -- "konosubakonoakua/octo.nvim",
     'pwntester/octo.nvim',
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-      -- OR 'ibhagwan/fzf-lua',
-      "nvim-tree/nvim-web-devicons",
-    },
+    event = "VeryLazy",
     config = function()
       require("octo").setup({
         mappings_disable_default = false,
