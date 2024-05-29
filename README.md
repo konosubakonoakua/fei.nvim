@@ -12,6 +12,7 @@
 > - [DOTFILES](https://github.com/konosubakonoakua/.dotfiles/blob/main/README.md)
 > - [Programming in lua](https://www.lua.org/manual/5.4/manual.html)
 > - [neovim lua guide](https://neovim.io/doc/user/lua-guide.html)
+> - [nvim-lua-guide-zh](https://github.com/glepnir/nvim-lua-guide-zh/blob/main/README.md)
 
 ## Installing
 
