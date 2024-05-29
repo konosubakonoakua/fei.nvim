@@ -1,8 +1,8 @@
 -- region lazyrc
+-- TODO: generate lazyrc according to project type
 vim.api.nvim_create_user_command('LazyrcGenerate', function ()
   local uv = vim.uv or vim.loop
-
-  local lazyrc = vim.fn.stdpath("config") .. "/.lazy.lua"
+  local lazyrc = vim.fn.stdpath("config") .. "/misc/.lazy.lua"
   local target = vim.fn.getcwd()
   if not target then
     LazyVim.error("Cannot read cwd", { title = "Generate .lazy.lua" })
