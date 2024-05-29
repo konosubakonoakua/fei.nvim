@@ -103,6 +103,13 @@ return {
     "nvim-neo-tree/neo-tree.nvim",
     keys = {
       {
+        "<Leader>fB",
+        function()
+          require("neo-tree.command").execute({ toggle = true, dir = vim.fn.expand("%:p:h") })
+        end,
+        desc = "Explorer NeoTree (Buffer Dir)"
+      },
+      {
         "<leader>e",
         require("util.plugins.neotree").neotree_reveal_root,
         -- "<cmd>Neotree toggle show<cr>",
