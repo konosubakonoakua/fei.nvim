@@ -109,22 +109,22 @@ keymap({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = t
 -- region windows remappings
 -- TODO: find better keyremapping for windows
 --
---[[
-keymap("n", "<leader>wn", "<C-W>n", { desc = "New windows", remap = true })
-keymap("n", "<leader>wd", "<C-W>c", { desc = "Delete window", remap = true })
+-- keymap("n", "<leader>wn", "<C-W>n", { desc = "New windows", remap = true })
+-- keymap("n", "<leader>wd", "<C-W>c", { desc = "Delete window", remap = true })
 keymap("n", "<leader>wo", "<C-W>o", { desc = "Delete all other windows", remap = true })
-keymap("n", "<leader>ww", "<C-W>p", { desc = "Goto other window", remap = true })
-keymap("n", "<leader>wr", "<C-W>r", { desc = "Rotate window (hor)", remap = true })
-keymap("n", "<leader>wR", "<C-W>R", { desc = "Rotate window (ver)", remap = true })
-keymap("n", "<leader>wz", "<C-W>=", { desc = "Restore window size", remap = true })
-keymap("n", "<leader>wv", "<C-W>|", { desc = "Maximum window (ver)", remap = true })
-keymap("n", "<leader>wf", "<C-W>|", { desc = "Maximum window (hor)", remap = true })
-keymap("n", "<leader>wk", "<C-W>s", { desc = "Split window below", remap = true })
-keymap("n", "<leader>wl", "<C-W>v", { desc = "Split window right", remap = true })
-keymap("n", "<leader>wh", "<C-W>v<C-W>h", { desc = "Split window left", remap = true })
-keymap("n", "<leader>wF", "<C-W>|<C-W>_", { desc = "Delete window (hor & ver)", remap = true })
-keymap("n", "<leader>wj", "<C-W>s<C-W>k", { desc = "Split window above", remap = true })
-]]
+keymap("n", "<leader>ws", "<C-W>s", { desc = "Split window below", remap = true })
+keymap("n", "<leader>wv", "<C-W>v", { desc = "Split window right", remap = true })
+-- keymap("n", "<leader>ww", "<C-W>p", { desc = "Goto other window", remap = true })
+-- keymap("n", "<leader>wr", "<C-W>r", { desc = "Rotate window (hor)", remap = true })
+-- keymap("n", "<leader>wR", "<C-W>R", { desc = "Rotate window (ver)", remap = true })
+-- keymap("n", "<leader>wz", "<C-W>=", { desc = "Restore window size", remap = true })
+-- keymap("n", "<leader>wv", "<C-W>|", { desc = "Maximum window (ver)", remap = true })
+-- keymap("n", "<leader>wf", "<C-W>|", { desc = "Maximum window (hor)", remap = true })
+-- keymap("n", "<leader>wk", "<C-W>s", { desc = "Split window below", remap = true })
+-- keymap("n", "<leader>wl", "<C-W>v", { desc = "Split window right", remap = true })
+-- keymap("n", "<leader>wh", "<C-W>v<C-W>h", { desc = "Split window left", remap = true })
+-- keymap("n", "<leader>wF", "<C-W>|<C-W>_", { desc = "Delete window (hor & ver)", remap = true })
+-- keymap("n", "<leader>wj", "<C-W>s<C-W>k", { desc = "Split window above", remap = true })
 -- endregion windows remappings
 
 
