@@ -1,5 +1,4 @@
 local map = vim.keymap.set
-local function fzf_lua(cmd) require("fzf-lua")[cmd]() end
 
 -- TODO: restore keymaps after quiting DAP-UI
 local M = {
@@ -22,12 +21,19 @@ M.keys = {
   -- { "<leader>dc", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", silent = true, desc = "set breakpoint with condition" },
   { "<leader>dP", "<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", silent = true, desc = "set breakpoint with log point message" },
   -- { "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<CR>", silent = true, desc = "toggle debugger REPL" },
-  { "<leader>d?", function() fzf_lua("dap_commands") end,       silent = true, desc = "DAP FZF builtin commands" },
-  { "<leader>db", function() fzf_lua("dap_breakpoints") end,    silent = true, desc = "DAP FZF breakpoint list" },
-  { "<leader>df", function() fzf_lua("dap_frames") end,         silent = true, desc = "DAP FZF frames" },
-  { "<leader>dv", function() fzf_lua("dap_variables") end,      silent = true, desc = "DAP FZF variables" },
-  { "<leader>dx", function() fzf_lua("dap_configurations") end, silent = true, desc = "DAP FZF configurations" },
 }
+
+if LazyVim.has("fzf-lua") == 1 then
+  local function fzf_lua(cmd) require("fzf-lua")[cmd]() end
+  M.fzf_keys = {
+    { "<leader>d?", function() fzf_lua("dap_commands") end,       silent = true, desc = "DAP FZF builtin commands" },
+    { "<leader>db", function() fzf_lua("dap_breakpoints") end,    silent = true, desc = "DAP FZF breakpoint list" },
+    { "<leader>df", function() fzf_lua("dap_frames") end,         silent = true, desc = "DAP FZF frames" },
+    { "<leader>dv", function() fzf_lua("dap_variables") end,      silent = true, desc = "DAP FZF variables" },
+    { "<leader>dx", function() fzf_lua("dap_configurations") end, silent = true, desc = "DAP FZF configurations" },
+  }
+  M.keys = vim.tbl_deep_extend("keep", M.keys, M.fzf_keys)
+end
 
 M.config = function()
   local Config = require("lazyvim.config")
