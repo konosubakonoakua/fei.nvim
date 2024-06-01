@@ -11,7 +11,6 @@
     "lazyvim.plugins.extras.editor.mini-files",
     "lazyvim.plugins.extras.editor.mini-move",
     "lazyvim.plugins.extras.editor.refactoring",
-    "lazyvim.plugins.extras.editor.trouble-v3",
     "lazyvim.plugins.extras.formatting.black",
     "lazyvim.plugins.extras.formatting.prettier",
     "lazyvim.plugins.extras.lang.clangd",
@@ -67,5 +66,5 @@
   "news": {
     "NEWS.md": "4964"
   },
-  "version": 5
+  "version": 6
 }
