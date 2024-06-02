@@ -54,6 +54,7 @@
     "plugins.extras.lang.epics",
     "plugins.extras.lang.fennel",
     "plugins.extras.lang.godot",
+    "plugins.extras.lang.just",
     "plugins.extras.lang.log",
     "plugins.extras.lang.markdown",
     "plugins.extras.lang.python",
