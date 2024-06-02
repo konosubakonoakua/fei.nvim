@@ -215,7 +215,6 @@ return {
     end
   },
 
-  -- flash
   {
     "folke/flash.nvim",
     ---@type Flash.Config
@@ -226,8 +225,21 @@ return {
           enabled = false, -- BUG: not working with macro
           multi_line = false,
         },
+        treesitter = {
+          label = {
+            rainbow = { enabled = true },
+          },
+        },
+        -- TODO: map keys for flash.nvim treesitter_search
+        treesitter_search = {
+          label = {
+            rainbow = { enabled = true },
+          },
+        },
       },
+      -- search = { mode = "fuzzy" },
     },
   },
+
 
 }
