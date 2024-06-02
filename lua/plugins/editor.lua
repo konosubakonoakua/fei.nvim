@@ -64,7 +64,7 @@ return {
         },
       },
       window = {
-        mappings = require("util.plugins.neotree").mappings
+        mappings = require("plugins.util.neotree").mappings
       },
       default_component_configs = {
         indent = {
@@ -88,7 +88,7 @@ return {
       })
       -- extend default handlers with user defined ones
       vim.list_extend(opts.event_handlers,
-        require("util.plugins.neotree").neotree_event_handlers)
+        require("plugins.util.neotree").neotree_event_handlers)
       -- endregion neo-tree event_handlers
       require("neo-tree").setup(opts)
       vim.api.nvim_create_autocmd("TermClose", {

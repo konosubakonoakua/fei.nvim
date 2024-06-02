@@ -111,13 +111,13 @@ return {
       },
       {
         "<leader>e",
-        require("util.plugins.neotree").neotree_reveal_root,
+        require("plugins.util.neotree").neotree_reveal_root,
         -- "<cmd>Neotree toggle show<cr>",
         desc = "Explorer NeoTree (root dir)",
       },
       {
         "<leader>E", -- NOTE: fix file following issue
-        require("util.plugins.neotree").neotree_reveal_cwd,
+        require("plugins.util.neotree").neotree_reveal_cwd,
         -- "<cmd>Neotree toggle show<cr>",
         desc = "Explorer NeoTree (cwd)",
       },
