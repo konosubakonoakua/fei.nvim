@@ -2,8 +2,6 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
-local plat = require("platform")
-
 if vim.g.neovide then
   -- disable lazyredraw
   vim.o.lazyredraw = false
@@ -30,13 +28,22 @@ vim.opt.exrc = true   -- allow local .nvim.lua .vimrc .exrc files
 vim.opt.secure = true -- disable shell and write commands in local .nvim.lua .vimrc .exrc files
 
 -- INFO: trailing 0x0A in return value of vim.fn.system, strip it
-if not plat.isPlatWindows() then
+if not vim.fn.has("win32") then
   vim.g.python3_host_prog = vim.fn.system("which python3"):match("^%s*(.-)%s*$")
 end
 
+-- setup shell
+local status, Platform = pcall(require, "platform")
+if not status then
+  -- BUG: loop require in CI environment
+  LazyVim.error("Error loading util in config/keymaps")
+else
+  Platform.setup_shell()
+end
+
 -- sqlite.lua
-if plat.isPlatWindows() then
-  vim.g.sqlite_clib_path = plat.libdeps.sqlite3
+if vim.fn.has("win32") then
+  vim.g.sqlite_clib_path = Platform.libdeps.sqlite3
 end
 
 vim.opt.pumblend = 0

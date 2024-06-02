@@ -24,17 +24,19 @@ function M.isPlatGithubAction()
 end
 
 -- INFO: always use powershell on windows
-if vim.fn.has("win32") == 1 then
-  LazyVim.terminal.setup("pwsh")
-else
-  --  FIXME: #2429 shell not exit normally, related to SHELL path
-  -- extract bash form /bin/bash
-  -- NOTE: CI bug: /home/runner/.config/nvim/lua/platform/init.lua:38: attempt to index a nil value
-  if not M.isPlatGithubAction() then
-    local shell = os.getenv("SHELL"):match("([^"..package.config:sub(1,1).."]+)$") or "bash"
-    LazyVim.terminal.setup(shell)
+function M.setup_shell()
+  if vim.fn.has("win32") == 1 then
+    LazyVim.terminal.setup("pwsh")
   else
-    LazyVim.terminal.setup("bash")
+    --  FIXME: #2429 shell not exit normally, related to SHELL path
+    -- extract bash form /bin/bash
+    -- NOTE: CI bug: /home/runner/.config/nvim/lua/platform/init.lua:38: attempt to index a nil value
+    if not M.isPlatGithubAction() then
+      local shell = os.getenv("SHELL"):match("([^"..package.config:sub(1,1).."]+)$") or "bash"
+      LazyVim.terminal.setup(shell)
+    else
+      LazyVim.terminal.setup("bash")
+    end
   end
 end
 
