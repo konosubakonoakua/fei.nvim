@@ -1,4 +1,6 @@
--- bootstrap lazy.nvim, LazyVim and your plugins
+if vim.env.VSCODE then
+  vim.g.vscode = true
+end
 
 _G.dump = function(...)
   require("util.debug").dump(...)
