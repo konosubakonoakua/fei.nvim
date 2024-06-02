@@ -24,7 +24,7 @@ if vim.g.neovide then
   -- vim.g.neovide_cursor_vfx_mode = "railgun"
 end
 
-vim.opt.exrc = true   -- allow local .nvim.lua .vimrc .exrc files
+vim.opt.exrc = true -- allow local .nvim.lua .vimrc .exrc files
 vim.opt.secure = true -- disable shell and write commands in local .nvim.lua .vimrc .exrc files
 
 -- INFO: trailing 0x0A in return value of vim.fn.system, strip it
@@ -46,7 +46,6 @@ if vim.fn.has("win32") then
   vim.g.sqlite_clib_path = Platform.libdeps.sqlite3
 end
 
-vim.opt.pumblend = 0
 -- NOTE: stop setting guicursor manually with noice.nvim,
 -- there's a chance that the guicursor disappears
 -- vim.opt.guicursor = "a:block"
@@ -60,13 +59,12 @@ vim.opt.iskeyword:append({ "?" })
 vim.g.autoformat = false
 
 -- Use faster grep alternatives if possible
-if vim.fn.executable('rg') == 1 then
-  vim.opt.grepprg =
-      [[rg --hidden --glob "!.git" --no-heading --smart-case --vimgrep --follow $*]]
-  vim.opt.grepformat = '%f:%l:%c:%m'
-elseif vim.fn.executable('ag') == 1 then
+if vim.fn.executable("rg") == 1 then
+  vim.opt.grepprg = [[rg --hidden --glob "!.git" --no-heading --smart-case --vimgrep --follow $*]]
+  vim.opt.grepformat = "%f:%l:%c:%m"
+elseif vim.fn.executable("ag") == 1 then
   vim.opt.grepprg = [[ag --nogroup --nocolor --vimgrep]]
-  vim.opt.grepformat = '%f:%l:%c:%m'
+  vim.opt.grepformat = "%f:%l:%c:%m"
 end
 
 -- alway use unix file format
@@ -77,7 +75,6 @@ vim.opt.ff = "unix"
 -- https://github.com/neovim/neovim/pull/8226
 vim.opt.ttimeoutlen = 30
 
-
 -- lsp
 -- NOTE: we need put here to load first, otherwise pyright will be installed too
 -- Set to "basedpyright" to use basedpyright instead of pyright.
@@ -85,3 +82,13 @@ vim.opt.ttimeoutlen = 30
 vim.g.lazyvim_python_lsp = "basedpyright"
 vim.g.lazyvim_python_ruff = "ruff"
 
+-- disable mouse
+vim.opt.mouse = ""
+
+-- backup
+vim.opt.backup = true
+vim.opt.backupdir = vim.fn.stdpath("state") .. "/backup"
+
+-- vim.opt.cmdheight = 0
+
+vim.opt.pumblend = 0 -- Popup blend
