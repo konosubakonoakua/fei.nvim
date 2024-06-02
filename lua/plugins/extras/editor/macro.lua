@@ -43,6 +43,7 @@ return {
   -- minimal config for lazy-loading with lazy.nvim
   {
     "chrisgrieser/nvim-recorder",
+    enabled = false,
     event = "VeryLazy",
     dependencies = "rcarriga/nvim-notify",
     keys = {
@@ -51,7 +52,7 @@ return {
       { "Q", desc = "󰑙" },
     },
     config = function()
-      vim.cmd[[set shm+=q]] -- hide the `recording ...` message
+      vim.cmd([[set shm+=q]]) -- hide the `recording ...` message
       require("recorder").setup({
         -- Named registers where macros are saved (single lowercase letters only).
         -- The first register is the default register used as macro-slot after
