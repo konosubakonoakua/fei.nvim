@@ -110,11 +110,20 @@ keymap({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = t
 -- region windows remappings
 -- TODO: find better keyremapping for windows
 --
+
+keymap("n", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to Left Window",  silent = true })
+keymap("n", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to Lower Window", silent = true })
+keymap("n", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to Upper Window", silent = true })
+keymap("n", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to Right Window", silent = true })
+keymap("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
+keymap("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
+keymap("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
+keymap("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
+keymap("n", "<leader>wo", "<cmd>wincmd o<cr>", { desc = "Delete all other windows", silent = true })
+keymap("n", "<leader>ws", "<cmd>wincmd s<cr>", { desc = "Split window below", silent = true })
+keymap("n", "<leader>wv", "<cmd>wincmd v<cr>", { desc = "Split window right", silent = true })
 -- keymap("n", "<leader>wn", "<C-W>n", { desc = "New windows", remap = true })
 -- keymap("n", "<leader>wd", "<C-W>c", { desc = "Delete window", remap = true })
-keymap("n", "<leader>wo", "<C-W>o", { desc = "Delete all other windows", remap = true })
-keymap("n", "<leader>ws", "<C-W>s", { desc = "Split window below", remap = true })
-keymap("n", "<leader>wv", "<C-W>v", { desc = "Split window right", remap = true })
 -- keymap("n", "<leader>ww", "<C-W>p", { desc = "Goto other window", remap = true })
 -- keymap("n", "<leader>wr", "<C-W>r", { desc = "Rotate window (hor)", remap = true })
 -- keymap("n", "<leader>wR", "<C-W>R", { desc = "Rotate window (ver)", remap = true })
