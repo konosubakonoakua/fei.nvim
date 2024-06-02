@@ -69,12 +69,15 @@ return {
     "nvim-lualine/lualine.nvim",
     version = false,
     event = "VeryLazy",
-    opts = function()
+    opts = function(_, opts)
       local icons = require("util.icons")
       local raw_colors = require("util.colors").raw_colors
       local mode_colors = require("util.colors").mode_colors
-
-      return {
+      local res, Util = pcall(require, "util")
+      lualine_z_record_component =
+        res == true and Util.lualine_setup_recording_status()
+        or function() return "" end
+      opts = {
         options = {
           theme = "auto",
           globalstatus = true,
@@ -233,16 +236,22 @@ return {
           },
           lualine_z = {
             {
-              function()
-                local status = require("NeoComposer.ui").status_recording()
-                return status == "" and os.date("%R") or status
-              end,
+              lualine_z_record_component,
               separator = "",
             },
+            -- {
+            --   function()
+            --     local status = require("NeoComposer.ui").status_recording()
+            --     return status == "" and os.date("%R") or status
+            --   end,
+            --   separator = "",
+            -- },
           },
         },
         extensions = { "neo-tree", "lazy" },
       }
+
+      return opts
     end,
   },
 
