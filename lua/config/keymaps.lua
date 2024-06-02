@@ -73,14 +73,6 @@ keymap("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 keymap("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 -- endregion line move
 
--- region visual mode remappings
---[[ Better paste
-  remap "p" in visual mode to delete the highlighted text
-  without overwriting your yanked/copied text,
-  and then paste the content from the unnamed register.
-]]
-keymap("v", "p", '"_dP', { desc = "paste" })
-
 -- region indent
 -- stay in visual mode when indent
 keymap("v", "<", "<gv", { desc = "visual indent <"})
