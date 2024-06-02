@@ -16,6 +16,15 @@ end
 
 return {
 
+  {
+    "akinsho/bufferline.nvim",
+    opts = {
+      options = {
+        separator_style = "thick",
+      },
+    },
+  },
+
   -- Better `vim.notify()`
   {
     "rcarriga/nvim-notify",
