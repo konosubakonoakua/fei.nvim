@@ -39,7 +39,6 @@ require("lazy").setup({
     colorscheme = { -- lazy.nvim ui theme with fallbacks
       "oxocarbon",
       "tokyonight",
-      "wildcharm",
     },
   },
   checker = { enabled = false }, -- automatically check for plugin updates
@@ -61,6 +60,24 @@ require("lazy").setup({
         "tohtml",
         "tutor",
         "zipPlugin",
+      },
+    },
+  },
+  ui = {
+    custom_keys = {
+      ["<localleader>d"] = {
+        function(plugin)
+          dump(plugin)
+        end,
+        desc = "Dump Plugin",
+      },
+      ["<localleader>t"] = {
+        function(plugin)
+          require("lazy.util").float_term(nil, {
+            cwd = plugin.dir,
+          })
+        end,
+        desc = "Open terminal in plugin dir",
       },
     },
   },
