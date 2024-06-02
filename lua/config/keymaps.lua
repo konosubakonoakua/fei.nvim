@@ -10,6 +10,15 @@
 -- stylua: ignore start
 local _opts   = { silent = true }
 
+-- make all keymaps silent by default
+local keymap_set = vim.keymap.set
+---@diagnostic disable-next-line: duplicate-set-field
+vim.keymap.set = function(mode, lhs, rhs, opts)
+  opts = opts or {}
+  opts.silent = opts.silent ~= false
+  return keymap_set(mode, lhs, rhs, opts)
+end
+
 local status, Utils = pcall(require, "util")
 if not status then
   -- BUG: loop require in CI environment
@@ -41,7 +50,7 @@ vim.keymap.set({ "x", "n", "s" }, "<leader>fw", "<cmd>w<cr><esc>", { desc = "Wri
 -- end, { desc = "Play Macro [reg]" })
 
 -- stay when using * to search
-keymap("n", "*", "*N", _opts)
+keymap("n", "*", "*N", { desc = "Search cword"})
 
 -- clear hilight search
 -- TODO: validate if this affects the `i<esc>j` sequence to moveline
@@ -70,12 +79,12 @@ keymap("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
   without overwriting your yanked/copied text,
   and then paste the content from the unnamed register.
 ]]
-keymap("v", "p", '"_dP', _opts)
+keymap("v", "p", '"_dP', { desc = "paste" })
 
 -- region indent
 -- stay in visual mode when indent
-keymap("v", "<", "<gv", _opts)
-keymap("v", ">", ">gv", _opts)
+keymap("v", "<", "<gv", { desc = "visual indent <"})
+keymap("v", ">", ">gv", { desc = "visual indent >"})
 
 -- change tabstop & shiftwidth
 -- method with count
