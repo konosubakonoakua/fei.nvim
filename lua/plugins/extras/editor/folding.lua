@@ -2,7 +2,7 @@
   -- "kevinhwang91/nvim-ufo"
 ]]
 
-local icons = require("util.icons").fold
+local icons = require("util.stuffs.icons").fold
 
 -- TODO: format tabwidth
 

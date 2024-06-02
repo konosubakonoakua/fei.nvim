@@ -48,7 +48,7 @@ return {
     version = false,
     optional = true,
     opts = function(_, opts)
-      local logos = require("util.logos")
+      local logos = require("util.stuffs.logos")
       local logo = logos[math.random(#logos)]
       logo = string.rep("\n", 8) .. logo .. "\n\n"
       local use_preview = math.random() < vim.g.dashboard_colorful_banner_chance
@@ -59,7 +59,7 @@ return {
 
       local preview = {
         command = "cat",
-        file_path = vim.fn.stdpath("config") .. "/lua/util/logo_neovim.cat",
+        file_path = vim.fn.stdpath("config") .. "/lua/util/stuffs/logo_neovim.cat",
         file_height = 10,
         file_width = 70,
       }
@@ -79,9 +79,9 @@ return {
     version = false,
     event = "VeryLazy",
     opts = function(_, opts)
-      local icons = require("util.icons")
-      local raw_colors = require("util.colors").raw_colors
-      local mode_colors = require("util.colors").mode_colors
+      local icons = require("util.stuffs.icons")
+      local raw_colors = require("util.stuffs.colors").raw_colors
+      local mode_colors = require("util.stuffs.colors").mode_colors
       local res, Util = pcall(require, "util")
       lualine_z_record_component =
         res == true and Util.lualine_setup_recording_status()

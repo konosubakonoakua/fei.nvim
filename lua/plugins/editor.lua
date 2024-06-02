@@ -8,7 +8,7 @@
 -- https://github.com/nvim-neo-tree/neo-tree.nvim/discussions/319
 --
 --
-local icons = require("util.icons").todo
+local icons = require("util.stuffs.icons").todo
 local events = require("neo-tree.events")
 
 return {

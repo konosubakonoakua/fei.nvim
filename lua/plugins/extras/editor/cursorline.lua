@@ -1,6 +1,6 @@
 -- TODO: make cursorline as plugin
 local api = vim.api
-local rgb_tweak = require("util.colors").rgb_tweak
+local rgb_tweak = require("util.stuffs.colors").rgb_tweak
 local tweak_ratio = 0.38
 local tweak_ratio_insert = 0.38 * 0.6
 

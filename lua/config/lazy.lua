@@ -27,7 +27,7 @@ require("lazy").setup({
       -- if you want to disable loading options, add `package.loaded["lazyvim.config.options"] = true` to the top of your init.lua
     },
     -- icons used by other plugins
-    icons = require("util.icons"),
+    icons = require("util.stuffs.icons"),
   },
   defaults = {
     lazy = false,
