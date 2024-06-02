@@ -24,22 +24,17 @@ function M.isPlatGithubAction()
 end
 
 -- INFO: always use powershell on windows
-if jit.os == "Windows" then
-  vim.cmd[[
-    let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
-    let &shellcmdflag = '-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues[''Out-File:Encoding'']=''utf8'';Remove-Alias -Force -ErrorAction SilentlyContinue tee;'
-    let &shellredir = '2>&1 | %%{ "$_" } | Out-File %s; exit $LastExitCode'
-    let &shellpipe  = '2>&1 | %%{ "$_" } | tee %s; exit $LastExitCode'
-    set shellquote= shellxquote=
-  ]]
+if vim.fn.has("win32") == 1 then
+  LazyVim.terminal.setup("pwsh")
 else
   --  FIXME: #2429 shell not exit normally, related to SHELL path
   -- extract bash form /bin/bash
   -- NOTE: CI bug: /home/runner/.config/nvim/lua/platform/init.lua:38: attempt to index a nil value
   if not M.isPlatGithubAction() then
-    vim.o.shell = os.getenv("SHELL"):match("([^"..package.config:sub(1,1).."]+)$") or "bash"
+    local shell = os.getenv("SHELL"):match("([^"..package.config:sub(1,1).."]+)$") or "bash"
+    LazyVim.terminal.setup(shell)
   else
-    vim.cmd [[ let &shell = "bash" ]]
+    LazyVim.terminal.setup("bash")
   end
 end
 
