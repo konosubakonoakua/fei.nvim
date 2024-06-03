@@ -228,7 +228,7 @@ fi
 # 	USE_SSH=0
 # fi
 
-info "This script will install konosubakonoakua/lazyvim.conf to:"
+info "This script will install konosubakonoakua/fei.nvim to:"
 echo "${DEST_DIR}"
 
 if [[ -d "${DEST_DIR}" ]]; then
@@ -253,12 +253,12 @@ fi
 info "Fetching in progress..."
 if [[ "${USE_SSH}" -eq "1" ]]; then
 	if check_nvim_version "${REQUIRED_NVIM_VERSION}"; then
-		execute "git" "clone" "-b" "main" "${CLONE_ATTR[@]}" "https://github.com/konosubakonoakua/lazyvim.conf" "${DEST_DIR}"
+		execute "git" "clone" "-b" "main" "${CLONE_ATTR[@]}" "https://github.com/konosubakonoakua/fei.nvim" "${DEST_DIR}"
 	elif check_nvim_version "${REQUIRED_NVIM_VERSION_LEGACY}"; then
 		warn "You have outdated Nvim installed (< ${REQUIRED_NVIM_VERSION})."
 		info "Automatically redirecting you to the latest compatible version..."
-		execute "git" "clone" "-b" "main" "${CLONE_ATTR[@]}" "https://github.com/konosubakonoakua/lazyvim.conf" "${DEST_DIR}"
-		# execute "git" "clone" "-b" "0.8" "${CLONE_ATTR[@]}" "https://github.com/konosubakonoakua/lazyvim.conf" "${DEST_DIR}"
+		execute "git" "clone" "-b" "main" "${CLONE_ATTR[@]}" "https://github.com/konosubakonoakua/fei.nvim" "${DEST_DIR}"
+		# execute "git" "clone" "-b" "0.8" "${CLONE_ATTR[@]}" "https://github.com/konosubakonoakua/fei.nvim" "${DEST_DIR}"
 	else
 		warn "You have outdated Nvim installed (< ${REQUIRED_NVIM_VERSION_LEGACY})."
 		abort "$(
@@ -270,12 +270,12 @@ EOABORT
 	fi
 else
 	if check_nvim_version "${REQUIRED_NVIM_VERSION}"; then
-		execute "git" "clone" "-b" "main" "${CLONE_ATTR[@]}" "https://github.com/konosubakonoakua/lazyvim.conf" "${DEST_DIR}"
+		execute "git" "clone" "-b" "main" "${CLONE_ATTR[@]}" "https://github.com/konosubakonoakua/fei.nvim" "${DEST_DIR}"
 	elif check_nvim_version "${REQUIRED_NVIM_VERSION_LEGACY}"; then
 		warn "You have outdated Nvim installed (< ${REQUIRED_NVIM_VERSION})."
 		info "Automatically redirecting you to the latest compatible version..."
-		execute "git" "clone" "-b" "main" "${CLONE_ATTR[@]}" "https://github.com/konosubakonoakua/lazyvim.conf" "${DEST_DIR}"
-		# execute "git" "clone" "-b" "0.8" "${CLONE_ATTR[@]}" "https://github.com/konosubakonoakua/lazyvim.conf" "${DEST_DIR}"
+		execute "git" "clone" "-b" "main" "${CLONE_ATTR[@]}" "https://github.com/konosubakonoakua/fei.nvim" "${DEST_DIR}"
+		# execute "git" "clone" "-b" "0.8" "${CLONE_ATTR[@]}" "https://github.com/konosubakonoakua/fei.nvim" "${DEST_DIR}"
 	else
 		warn "You have outdated Nvim installed (< ${REQUIRED_NVIM_VERSION_LEGACY})."
 		abort "$(
@@ -304,7 +304,7 @@ cat <<EOS
 
 Thank you for using this set of configuration!
 - Project Homepage:
-    ${tty_underline}https://github.com/konosubakonoakua/lazyvim.conf${tty_reset}
+    ${tty_underline}https://github.com/konosubakonoakua/fei.nvim${tty_reset}
 EOS
 
 if [[ -z "${NONINTERACTIVE-}" ]]; then

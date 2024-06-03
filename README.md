@@ -1,6 +1,6 @@
 # 💤 LazyVim
 
-[![update lockfile](https://github.com/konosubakonoakua/lazyvim.conf/actions/workflows/update_lock.yml/badge.svg)](https://github.com/konosubakonoakua/lazyvim.conf/actions/workflows/update_lock.yml)
+[![update lockfile](https://github.com/konosubakonoakua/fei.nvim/actions/workflows/update_lock.yml/badge.svg)](https://github.com/konosubakonoakua/fei.nvim/actions/workflows/update_lock.yml)
 
 > [!TIP]
 > 
@@ -24,7 +24,7 @@ scoop install neovim :: or just download from github releases, need to set sys p
 pip install pynvim pywin32 # pywin32 for windows platform
 mkdir %userprofile%\AppData\Local\nvim
 cd %userprofile%\AppData\Local\nvim
-git clone https://github.com/konosubakonoakua/lazyvim.conf.git .
+git clone https://github.com/konosubakonoakua/fei.nvim.git .
 ```
 </details>
 
@@ -36,9 +36,9 @@ pip install pynvim
 cargo install tree-sitter-cli
 
 if command -v curl >/dev/null 2>&1; then
-    bash -c "$(curl -fsSL https://raw.githubusercontent.com/konosubakonoakua/lazyvim.conf/main/scripts/install.sh)"
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/konosubakonoakua/fei.nvim/main/scripts/install.sh)"
 else
-    bash -c "$(wget -O- https://raw.githubusercontent.com/konosubakonoakua/lazyvim.conf/main/scripts/install.sh)"
+    bash -c "$(wget -O- https://raw.githubusercontent.com/konosubakonoakua/fei.nvim/main/scripts/install.sh)"
 fi
 ```
 </details>
