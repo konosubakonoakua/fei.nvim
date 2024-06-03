@@ -27,6 +27,7 @@
     "lazyvim.plugins.extras.lang.typescript",
     "lazyvim.plugins.extras.lang.vue",
     "lazyvim.plugins.extras.lang.yaml",
+    "lazyvim.plugins.extras.lsp.neoconf",
     "lazyvim.plugins.extras.lsp.none-ls",
     "lazyvim.plugins.extras.test.core",
     "lazyvim.plugins.extras.ui.treesitter-context",
@@ -67,7 +68,7 @@
     "plugins.extras.util.wakatime"
   ],
   "news": {
-    "NEWS.md": "4964"
+    "NEWS.md": "5204"
   },
   "version": 6
 }
