@@ -69,22 +69,11 @@ return {
     "linux-cultist/venv-selector.nvim",
     dependencies = { "mfussenegger/nvim-dap-python" },
     enabled = true,
+    optional = true,
+    branch = "regexp", -- Use this branch for the new version
     lazy = false,
+    ft = "python", -- Call config for python files and load the cached venv automatically
     cmd = "VenvSelect",
-    opts = function(_, opts)
-      -- FIXME: not working at all, dap-python only use custom func in enrich_config
-      if LazyVim.has("nvim-dap-python") then
-        opts.dap_enabled = true
-      end
-      return vim.tbl_deep_extend("force", opts, {
-        name = {
-          "venv",
-          ".venv",
-          "env",
-          ".env",
-        },
-      })
-    end,
     keys = {
       -- TODO: find an automatic way to set venv
       {
