@@ -49,6 +49,7 @@
     "plugins.extras.editor.splitjoin",
     "plugins.extras.editor.toggleterm",
     "plugins.extras.editor.window",
+    "plugins.extras.fuzzy.mini-pick",
     "plugins.extras.git.mini-git",
     "plugins.extras.git.neogit",
     "plugins.extras.git.octo",
