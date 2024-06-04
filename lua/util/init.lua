@@ -60,6 +60,7 @@ M.lualine_setup_recording_status = function()
         -- %#HLName# (:help 'statusline')
       else
         return " " .. os.date("%R")
+          and "" -- don't show time
       end
     end
 end
