@@ -172,6 +172,7 @@ local _lazyterm_singleton = function ()
   end
 end
 
+keymap("n", "<leader>fD", "<cmd>Dotfiles<cr>",  { desc = "Search dotfiles" })
 keymap("n", "<leader>fT", _lazyterm_cwd,  { desc = "Terminal (cwd)" })
 keymap("n", "<leader>ft", _lazyterm,      { desc = "Terminal (root dir)" })
 keymap("n", "<c-/>",      _lazyterm_singleton,      { desc = "Terminal (root dir)" })
