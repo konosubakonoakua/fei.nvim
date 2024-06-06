@@ -1,11 +1,13 @@
 return {
   desc = "Temporary plugins for trial",
+  { "sindrets/diffview.nvim", enabled = true, },
   {
     -- TODO: trial "nvimdev/indentmini.nvim"
     -- cons:
     --     no toggle, no color
     -- pros:
     --     maybe fast
+    -- BUG: if this file only contains this plug, extras will raise error
     "nvimdev/indentmini.nvim",
     enabled = false,
     config = function()
