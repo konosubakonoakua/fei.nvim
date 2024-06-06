@@ -62,6 +62,7 @@
     "plugins.extras.lang.python",
     "plugins.extras.lang.rust",
     "plugins.extras.lang.zig",
+    "plugins.extras.multiplexer.tmux",
     "plugins.extras.telescope.zoxide",
     "plugins.extras.trial.trials",
     "plugins.extras.util.nerdfont",
