@@ -1,14 +1,31 @@
 # A personal neovim config based on LazyVim💤
 
 [![update lockfile](https://github.com/konosubakonoakua/fei.nvim/actions/workflows/update_lock.yml/badge.svg)](https://github.com/konosubakonoakua/fei.nvim/actions/workflows/update_lock.yml)
+
+## Showcase
+<details>
+<summary><b>dashboard</b></summary>
+
+<img src="https://github.com/konosubakonoakua/.dotfiles/blob/main/screenshots/neovim.png" atl="dashboard" width="50%" >
+
+</details>
+<details>
+<summary><b>ikun logo</b></summary>
+
+<img src="https://github.com/konosubakonoakua/.dotfiles/blob/main/screenshots/ikun.png" alt="ikun" width="50%">
+
+</details>
+
 ## Installing
 
 <details>
 <summary><b>Install on Windows</b></summary>
 
 ```bat
-scoop install neovim :: or just download from github releases, need to set sys path for nvim.exe
-pip install pynvim pywin32 # pywin32 for windows platform
+scoop install neovim @REM or just download from github releases, need to set sys path for nvim.exe
+
+pip install pynvim pywin32 @REM pywin32 for windows platform
+
 mkdir %userprofile%\AppData\Local\nvim
 cd %userprofile%\AppData\Local\nvim
 git clone https://github.com/konosubakonoakua/fei.nvim.git .
