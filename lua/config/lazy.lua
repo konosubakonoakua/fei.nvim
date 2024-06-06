@@ -7,7 +7,8 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     "https://github.com/folke/lazy.nvim.git", lazypath,
   })
 end
-vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
+
+vim.opt.rtp:prepend(lazypath)
 
 local spec = {
   -- add LazyVim and import its plugins
