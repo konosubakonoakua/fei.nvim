@@ -1,19 +1,6 @@
-# 💤 LazyVim
+# A personal neovim config based on LazyVim💤
 
 [![update lockfile](https://github.com/konosubakonoakua/fei.nvim/actions/workflows/update_lock.yml/badge.svg)](https://github.com/konosubakonoakua/fei.nvim/actions/workflows/update_lock.yml)
-
-> [!TIP]
-> 
-> A personal [LazyVim](https://github.com/LazyVim/LazyVim) config.
-> 
-> - [TODO.md](./docs/TODO.md)
-> - [USAGE.md](./docs/USAGE.md)
-> - [I AM VIM MAN](https://github.com/konosubakonoakua/vimer/blob/main/README.md)
-> - [DOTFILES](https://github.com/konosubakonoakua/.dotfiles/blob/main/README.md)
-> - [Programming in lua](https://www.lua.org/manual/5.4/manual.html)
-> - [neovim lua guide](https://neovim.io/doc/user/lua-guide.html)
-> - [nvim-lua-guide-zh](https://github.com/glepnir/nvim-lua-guide-zh/blob/main/README.md)
-
 ## Installing
 
 <details>
@@ -42,3 +29,16 @@ else
 fi
 ```
 </details>
+
+## Reference
+> [!TIP]
+> - [TODO.md](./docs/TODO.md)
+> - [USAGE.md](./docs/USAGE.md)
+> - [I AM VIM MAN](https://github.com/konosubakonoakua/vimer/blob/main/README.md)
+> - [.dotfiles](https://github.com/konosubakonoakua/.dotfiles/blob/main/README.md)
+> - [programming in lua](https://www.lua.org/manual/5.4/manual.html)
+> - [neovim lua guide](https://neovim.io/doc/user/lua-guide.html)
+> - [nvim-lua-guide-zh](https://github.com/glepnir/nvim-lua-guide-zh/blob/main/README.md)
+> - [learnbyexample vim](https://learnbyexample.github.io/vim_reference/preface.html)
+> - [vim regex](https://www.vimregex.com/)
+
