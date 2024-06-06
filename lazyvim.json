@@ -63,6 +63,7 @@
     "plugins.extras.lang.rust",
     "plugins.extras.lang.zig",
     "plugins.extras.telescope.zoxide",
+    "plugins.extras.trial.trials",
     "plugins.extras.util.nerdfont",
     "plugins.extras.util.screenkey",
     "plugins.extras.util.vscode",
