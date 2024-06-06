@@ -30,4 +30,8 @@ vim.api.nvim_create_user_command('LogOpen', function ()
 end, {desc = "Open Neovim log"})
 -- endregion log
 
+vim.api.nvim_create_user_command('Dotfiles', function ()
+  vim.cmd[[:Telescope find_files search_dirs={"~/.dotfiles/","~/.config/.dotfiles/","~/.config/nvim"}]]
+end, {desc = "Search dotfiles"})
+
 return {}
