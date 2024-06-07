@@ -6,9 +6,10 @@
 local function trunc(trunc_width, trunc_len, hide_width, no_ellipsis)
   return function(str)
     local win_width = vim.fn.winwidth(0)
-    if hide_width and win_width < hide_width then return ''
+    if hide_width and win_width < hide_width then
+      return ""
     elseif trunc_width and trunc_len and win_width < trunc_width and #str > trunc_len then
-       return str:sub(1, trunc_len) .. (no_ellipsis and '' or '...')
+      return str:sub(1, trunc_len) .. (no_ellipsis and "" or "...")
     end
     return str
   end
@@ -80,188 +81,88 @@ return {
     event = "VeryLazy",
     opts = function(_, opts)
       local icons = require("util.stuffs.icons")
-      local raw_colors = require("util.stuffs.colors").raw_colors
-      local mode_colors = require("util.stuffs.colors").mode_colors
-      local res, Util = pcall(require, "util")
-      lualine_z_record_component =
-        res == true and Util.lualine_setup_recording_status()
-        or function() return "" end
-      opts = {
-        options = {
-          theme = "auto",
-          globalstatus = true,
-          disabled_filetypes = { statusline = { "dashboard", "alpha" } },
-          -- component_separators = '',
-          -- section_separators = '',
-        },
-        sections = {
-          -- lualine_a = { "mode" },
-          lualine_a = {
-            {
-              -- stylua: ignore
-              function()
-                local mode = vim.fn.mode()
-                mode_text = icons.mode[mode] or mode
-                return mode_text
-              end,
-              separator = {left = "", right = ""},
-              color = function(section)
-                local hlname = "lualine_c_inactive"
-                local hl = vim.api.nvim_get_hl(
-                  0, { name = hlname })
-                return {
-                  fg = mode_colors[vim.fn.mode()],
-                  bg = string.format("#%x", hl.bg or 0) or "#00000000",
-                  -- gui = "bold"
-                }
-              end,
-              padding = { left = 1, right = 1 }
-            },
-          },
-          lualine_b = {
-            {
-              'branch',
-              icon = {
-                icons.lualine.branch.branch_v1,
-                align='left',
-                -- TODO: change branch icon color according to repo status
-                -- color = {
-                --   fg = "lualine_b_branch_normal",
-                --   gui = "bold",
-                -- },
-              },
-              color = function(section)
-                local hlname = "lualine_c_inactive"
-                local hl = vim.api.nvim_get_hl(
-                  0, { name = hlname })
-                return {
-                  -- fg = mode_colors[vim.fn.mode()],
-                  fg = "#66ffffff",
-                  bg = string.format("#%x", hl.bg or 0) or "#00000000",
-                  gui = "bold"
-                }
-              end,
-            },
-          },
-          lualine_c = {
-            {
-              "diagnostics",
-              symbols = {
-                error = icons.diagnostics.Error,
-                warn = icons.diagnostics.Warn,
-                info = icons.diagnostics.Info,
-                hint = icons.diagnostics.Hint,
-              },
-              separator = "",
-            },
-            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-            { "filename", path = 4, symbols = {
-                modified = icons.lualine.filename.modified,
-                readonly = icons.lualine.filename.readonly,
-                unnamed = icons.lualine.filename.unnamed,
-              }, separator = "",
-              fmt = trunc(120, 50, 50, true),
-            },
-            -- stylua: ignore
-            { "aerial", sep = " ", sep_icon = "", depth = 5, dense = false, dense_sep = ".", colored = true, },
-            {
-              function() return require("nvim-navic").get_location() end,
-              cond = function() return package.loaded["nvim-navic"] and require("nvim-navic").is_available() end,
-              separator = "",
-            },
-          },
-          lualine_x = {
-            -- stylua: ignore
-            {
-              function() return require("noice").api.status.command.get() end,
-              cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
-              color = LazyVim.ui.fg("Statement"),
-              separator="",
-            },
-            -- stylua: ignore
-            {
-              function() return require("noice").api.status.mode.get() end,
-              cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
-              color = LazyVim.ui.fg("Constant"),
-              separator="",
-            },
-            -- stylua: ignore
-            {
-              function() return "  " .. require("dap").status() end,
-              cond = function () return package.loaded["dap"] and require("dap").status() ~= "" end,
-              color = LazyVim.ui.fg("Debug"),
-              separator="",
-            },
-            {
-              require("lazy.status").updates,
-              cond = require("lazy.status").has_updates,
-              color = LazyVim.ui.fg("Special"),
-              separator="",
-            },
-            {
-              "diff",
-              symbols = {
-                added = icons.git.added,
-                modified = icons.git.modified,
-                removed = icons.git.removed,
-              },
-              separator="",
-            },
-          },
-          lualine_y = {
-            {
-              function()
-                return icons.lualine.fileformat[vim.bo.ff] .. ' ' ..
-                  string.gsub(vim.opt.fileencoding:get(), '-', '')
-              end, separator = "" },
-            {
-              function ()
-                local icon = ' ' -- 󰡪
-                local line = vim.fn.line('.')
-                local col = vim.fn.virtcol('.')
-                return icon .. string.format('%d:%d', line, col)
-              end, separator = "", padding = { left = 0, right = 0 }
-            },
-            {
-              function ()
-                local cur = vim.fn.line('.')
-                local btm = vim.fn.line('$')
-                local top = 1
-                local prefix = ' 󰸻 '
-                local suffix = ''
-                if cur == top then
-                  return prefix .. 'TOP' .. suffix
-                elseif cur == btm then
-                  return prefix .. 'BTM' .. suffix
-                else
-                  return
-                    prefix ..
-                    string.format('%d', vim.fn.line('.') / vim.fn.line('$') * 100) ..
-                    suffix
-                end
-              end,
-              separator = "", padding = { left = 0, right = 0 }
-            },
-          },
-          lualine_z = {
-            {
-              lualine_z_record_component,
-              separator = "",
-            },
-            -- {
-            --   function()
-            --     local status = require("NeoComposer.ui").status_recording()
-            --     return status == "" and os.date("%R") or status
-            --   end,
-            --   separator = "",
-            -- },
-          },
-        },
-        extensions = { "neo-tree", "lazy" },
+
+      opts.options.component_separators = { left = "", right = "" }
+      opts.options.section_separators = { left = "", right = "" }
+      opts.options.disabled_filetypes = {
+        statusline = { "dashboard" },
+        winbar = {},
       }
+
+      -- NOTE: '#' operator only use indexed key table.
+      -- t[#t+1] won't work here
+      table.remove(opts.sections.lualine_a, 1) -- vim mode
+      table.insert(opts.sections.lualine_a, {
+        "mode",
+        fmt = function(str)
+          return str:sub(1, 1)
+        end,
+      })
+
+      -- TODO: customize lualine branch icon and color
+      -- MiniGit for obtaining status
+      table.remove(opts.sections.lualine_b, 1) -- branch
+      table.insert(opts.sections.lualine_b, {
+        "branch",
+        icon = { icons.lualine.branch.branch_v1, align = "left" },
+      })
+
+      table.remove(opts.sections.lualine_y, 2) -- location
+      table.remove(opts.sections.lualine_y, 1) -- progress
+      local lualine_y = {
+        {
+          function()
+            return icons.lualine.fileformat[vim.bo.ff] .. " " .. string.gsub(vim.opt.fileencoding:get(), "-", "")
+          end,
+          separator = "",
+        },
+        {
+          function()
+            local icon = " " -- 󰡪
+            local line = vim.fn.line(".")
+            local col = vim.fn.virtcol(".")
+            return icon .. string.format("%d:%d", line, col)
+          end,
+          separator = "",
+          padding = { left = 0, right = 0 },
+        },
+        {
+          function()
+            local cur = vim.fn.line(".")
+            local btm = vim.fn.line("$")
+            local top = 1
+            local prefix = " 󰸻 "
+            local suffix = ""
+            if cur == top then
+              return prefix .. "TOP" .. suffix
+            elseif cur == btm then
+              return prefix .. "BTM" .. suffix
+            else
+              return prefix .. string.format("%d", vim.fn.line(".") / vim.fn.line("$") * 100) .. suffix
+            end
+          end,
+          separator = "",
+          padding = { left = 0, right = 0 },
+        },
+      }
+      for _, x in pairs(lualine_y) do
+        table.insert(opts.sections.lualine_y, x)
+      end
+
+      table.remove(opts.sections.lualine_z, 1) -- recording & time
+      local res, Util = pcall(require, "util")
+      local lualine_z_record_component = res == true and Util.lualine_setup_recording_status() or function() return "" end
+      local lualine_z = {
+        {
+          lualine_z_record_component,
+          separator = "",
+        },
+      }
+      for _, x in pairs(lualine_z) do
+        table.insert(opts.sections.lualine_z, x)
+      end
 
       return opts
     end,
   },
-
 }
