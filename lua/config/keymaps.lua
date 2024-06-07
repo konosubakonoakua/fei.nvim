@@ -122,6 +122,8 @@ keymap("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Windo
 keymap("n", "<leader>wo", "<cmd>wincmd o<cr>", { desc = "Delete all other windows", silent = true })
 keymap("n", "<leader>ws", "<cmd>wincmd s<cr>", { desc = "Split window below", silent = true })
 keymap("n", "<leader>wv", "<cmd>wincmd v<cr>", { desc = "Split window right", silent = true })
+keymap("n", "<leader>wx", "<cmd>wincmd x<cr>", { desc = "Swap windows (stay)", silent = true })
+keymap("n", "<leader>wr", "<cmd>wincmd r<cr>", { desc = "Swap windows", silent = true })
 -- keymap("n", "<leader>wn", "<C-W>n", { desc = "New windows", remap = true })
 -- keymap("n", "<leader>wd", "<C-W>c", { desc = "Delete window", remap = true })
 -- keymap("n", "<leader>ww", "<C-W>p", { desc = "Goto other window", remap = true })
