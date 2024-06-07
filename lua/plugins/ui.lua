@@ -132,7 +132,7 @@ return {
             local btm = vim.fn.line("$")
             local top = 1
             local prefix = " 󰸻 "
-            local suffix = ""
+            local suffix = " "
             if cur == top then
               return prefix .. "TOP" .. suffix
             elseif cur == btm then
