@@ -66,6 +66,7 @@
     "plugins.extras.telescope.zoxide",
     "plugins.extras.trial.trials",
     "plugins.extras.util.nerdfont",
+    "plugins.extras.util.pomodoro",
     "plugins.extras.util.screenkey",
     "plugins.extras.util.vscode",
     "plugins.extras.util.wakatime"
