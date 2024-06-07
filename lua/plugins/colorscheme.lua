@@ -10,13 +10,18 @@ return {
   {
     "folke/tokyonight.nvim",
     lazy = false,
-    priority = 1000,
+    priority = 999,
+  },
+  {
+    "EdenEast/nightfox.nvim",
+    lazy = false,
+    priority = 998,
   },
   {
     "catppuccin/nvim",
     lazy = false,
     name = "catppuccin",
-    priority = 1000,
+    priority = 997,
     config = function()
       require("catppuccin").setup({
         color_overrides = {
