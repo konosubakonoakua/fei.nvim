@@ -230,9 +230,6 @@ end
 
 -- endregion <leader>; group remappings
 
--- region toggle options
-local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
-keymap_force("n", "<leader>uC", function() LazyVim.toggle("conceallevel", false, {0, conceallevel}) end, { desc = "Toggle Conceal" })
 
 if vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint then
   keymap_force("n", "<leader>uh", function()
@@ -286,12 +283,6 @@ keymap("n", "<leader>uR", function()
 
 keymap("n", "<leader>us", function() LazyVim.toggle("spell") end,      { desc = "Toggle Spelling" })
 -- endregion toggle options
-
--- region ui
-keymap_force("n", "<leader>uc", LazyVim.telescope("colorscheme", { enable_preview = true }), {desc = "Colorscheme with preview"})
--- endregion ui
-
-
 
 
 -- region neovide keymapping
