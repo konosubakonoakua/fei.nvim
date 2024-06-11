@@ -36,8 +36,8 @@ return {
       },
     },
     init = function()
-      require("telescope").load_extension("macros")
-      keymap_force("n", "<leader>fm", "<cmd>Telescope macros<cr>", { desc = "NeoComposer Macros", noremap = true })
+      LazyVim.has("telescope.nvim") and require("telescope").load_extension("macros")
+      LazyVim.has("telescope.nvim") and keymap_force("n", "<leader>fm", "<cmd>Telescope macros<cr>", { desc = "NeoComposer Macros", noremap = true })
     end,
   },
   -- minimal config for lazy-loading with lazy.nvim

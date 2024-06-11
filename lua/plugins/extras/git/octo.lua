@@ -23,7 +23,7 @@ return {
       vim.treesitter.language.register("markdown", "octo")
     end,
     opts = {
-      picker = "telescope",
+      picker = "telescope", -- default
       enable_builtin = true,
       default_to_projects_v2 = true,
       default_merge_method = "squash",
@@ -56,13 +56,8 @@ return {
   {
     "pwntester/octo.nvim",
     opts = function(_, opts)
-      if LazyVim.has("telescope.nvim") then
-        opts.picker = "telescope"
-      elseif LazyVim.has("fzf-lua") then
-        opts.picker = "fzf-lua"
-      else
-        LazyVim.error("`octo.nvim` requires `telescope.nvim` or `fzf-lua`")
-      end
+      opts.picker = require("util.picker")()
+      return opts
     end,
   },
 

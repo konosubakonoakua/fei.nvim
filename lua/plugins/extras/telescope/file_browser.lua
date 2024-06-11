@@ -1,6 +1,7 @@
 -- https://github.com/nvim-telescope/telescope-file-browser.nvim
 return {
   "nvim-telescope/telescope-file-browser.nvim",
+  enabled = LazyVim.has("telescope.nvim"),
   version = false,
   dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
   init = function()

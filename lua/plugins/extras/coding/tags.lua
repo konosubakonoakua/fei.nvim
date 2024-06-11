@@ -11,8 +11,7 @@ local _ctags = {
     lazy = false,
     dependencies = {
       -- "folke/which-key.nvim", -- optional [for whichkey hints]
-      -- "nvim-telescope/telescope.nvim", -- optional [for picker="telescope"]
-      -- "ibhagwan/fzf-lua", -- optional [for picker="fzf-lua"]
+      require("util.picker").spec(),
       -- "nvim-tree/nvim-web-devicons", -- optional [for devicons in telescope or fzf]
     },
     opts = {
@@ -27,7 +26,7 @@ local _ctags = {
         -- cscope executable
         exec = "cscope", -- "cscope" or "gtags-cscope"
         -- choose your fav picker
-        picker = "telescope", -- "telescope", "fzf-lua" or "quickfix"
+        picker = require("util.picker").name(), -- "telescope", "fzf-lua" or "quickfix"
         -- "true" does not open picker for single result, just JUMP
         skip_picker_for_single_result = false, -- "false" or "true"
         -- these args are directly passed to "cscope -f <db_file> <args>"

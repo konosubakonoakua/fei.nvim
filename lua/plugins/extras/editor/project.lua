@@ -15,7 +15,7 @@ return {
       }
       require("project_nvim").setup(opts)
         LazyVim.on_load("telescope.nvim", function()
-        require("telescope").load_extension("projects")
+          _ = LazyVim.has("telescope.nvim") and require("telescope").load_extension("projects")
       end)
     end,
     keys = {

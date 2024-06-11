@@ -49,7 +49,8 @@ return {
           -- cursorline = "guibg=Gray guifg=White", -- cursorline highlight
         -- },
       })
-      require("telescope").load_extension("bookmarks")
+      _ = require("util.picker").has_telescope()
+        and require("telescope").load_extension("bookmarks")
     end,
   },
 }

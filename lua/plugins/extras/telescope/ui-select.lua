@@ -1,6 +1,7 @@
 return {
   -- https://github.com/nvim-telescope/telescope-ui-select.nvim
   desc = "Set vim.ui.select to telescope",
+  enabled = LazyVim.has("telescope.nvim"),
   'nvim-telescope/telescope-ui-select.nvim',
   config = function ()
     require("telescope").setup ({

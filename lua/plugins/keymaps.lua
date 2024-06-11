@@ -52,14 +52,15 @@ keymap("n", "<leader>;P", function()
 end, { desc = "Project Add Current" })
 
 -- region code
-keymap('n', '<leader>cB', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', { desc = "Search cbuf (Spectre)" })
+keymap('n', '<leader>cB', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', { desc = "Replace buffer (Spectre)" })
 keymap('n', "<leader>cN", "<cmd>lua require('spectre').open({cwd=LazyVim.root()})<CR>", { desc = "Replace files (Spectre)" })
-keymap('v', '<leader>cN', '<esc><cmd>lua require("spectre").open_visual({cwd=LazyVim.root()})<CR>', { desc = "Search cword (Spectre)" })
-keymap('v', '<leader>cw', '<cmd>lua require("spectre").open_visual({select_word=true, cwd=LazyVim.root()})<CR>', { desc = "Search cword (Spectre)" })
+keymap('v', '<leader>cN', '<esc><cmd>lua require("spectre").open_visual({cwd=LazyVim.root()})<CR>', { desc = "Replace cword (Spectre)" })
+keymap('v', '<leader>cw', '<cmd>lua require("spectre").open_visual({select_word=true, cwd=LazyVim.root()})<CR>', { desc = "Replace cword (Spectre)" })
 -- endregion
 
 -- region telescope
-if LazyVim.has("todo-comments.nvim") then
+-- TODO: add fzf-lua mappings
+if LazyVim.has("todo-comments.nvim") and LazyVim.has("telescope.nvim") then
   keymap("n", "<leader>xsf", "<cmd>TodoTelescope keywords=FIX,FIXME,BUG<CR>", { desc = "Show FIXME" })
   keymap("n", "<leader>xst", "<cmd>TodoTelescope keywords=TODO<CR>", { desc = "Show TODO" })
   keymap("n", "<leader>xsT", "<cmd>TodoTelescope keywords=TEST<CR>", { desc = "Show TEST" })
@@ -180,7 +181,8 @@ return {
     -- stylua: ignore
     keys = {
       -- NOTE: overwrite LazyVim default mapping for spectre
-      { "<leader>sr", "<cmd>Telescope resume<cr>", desc = "Telescope Resume"},
+      -- { "<leader>sr", "<cmd>Telescope resume<cr>", desc = "Telescope Resume"},
+      { "<leader>sr", LazyVim.pick('resume'), desc = "Picker Resume"},
     },
   },
 
@@ -200,12 +202,12 @@ return {
       { mode = "n", "<leader>sB", ":lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>", desc = "Find opened files", noremap = true},
       -- NOTE: need execute 'mandb' first, then we can find man files in user PATH
       { mode = "n", "<leader>sM", "<cmd>Telescope man_pages sections=ALL<cr>", desc = "Man Pages (mandb to update)" },
-      { mode = "n", "<leader>sg", LazyVim.telescope("live_grep"),                                         desc = "Grep (root dir)" },
-      { mode = "n", "<leader>sG", LazyVim.telescope("live_grep", { cwd = false }),                        desc = "Grep (cwd)" },
-      { mode = "v", "<leader>sw", LazyVim.telescope("grep_string"),                                       desc = "Selection (root dir)" },
-      { mode = "n", "<leader>sw", LazyVim.telescope("grep_string", { word_match = "-w" }),                desc = "Word (root dir)" },
-      { mode = "v", "<leader>sW", LazyVim.telescope("grep_string", { cwd = false }),                      desc = "Selection (cwd)" },
-      { mode = "n", "<leader>sW", LazyVim.telescope("grep_string", { cwd = false, word_match = "-w" }),   desc = "Word (cwd)" },
+      -- { mode = "n", "<leader>sg", LazyVim.pick("live_grep"),                                         desc = "Grep (root dir)" },
+      -- { mode = "n", "<leader>sG", LazyVim.pick("live_grep", { cwd = false }),                        desc = "Grep (cwd)" },
+      -- { mode = "v", "<leader>sw", LazyVim.pick("grep_string"),                                       desc = "Selection (root dir)" },
+      -- { mode = "n", "<leader>sw", LazyVim.pick("grep_string", { word_match = "-w" }),                desc = "Word (root dir)" },
+      -- { mode = "v", "<leader>sW", LazyVim.pick("grep_string", { cwd = false }),                      desc = "Selection (cwd)" },
+      -- { mode = "n", "<leader>sW", LazyVim.pick("grep_string", { cwd = false, word_match = "-w" }),   desc = "Word (cwd)" },
       { mode = "n", "<leader>sj", "<cmd>Telescope jumplist<cr>",     desc = "Jumplist", noremap = true },
       { mode = "n", "<leader>sl", "<cmd>Telescope loclist<cr>",      desc = "Loclist", noremap = true },
       { mode = "n", "<leader>se", "<cmd>Telescope treesitter<cr>",   desc = "Treesitter", noremap = true },
@@ -332,6 +334,8 @@ return {
     keys = {
       { "<leader>un", function() require("notify").dismiss({ silent = true, pending = true }) end,
         desc = "Dismiss all Notifications", },
+      -- TODO: add fzflua for nvim-notify
+      -- https://github.com/ibhagwan/fzf-lua/wiki/Advanced
       { "<leader>uN", function() require("telescope").extensions.notify.notify() end,
         desc = "Dispaly all Notification histories", },
     },

@@ -1,5 +1,6 @@
 return {
   "jvgrootveld/telescope-zoxide",
+  enabled = LazyVim.has("telescope.nvim"),
   version = false,
   config = function(_, opts)
     local t = require("telescope")

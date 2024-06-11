@@ -33,7 +33,6 @@
     "lazyvim.plugins.extras.ui.treesitter-context",
     "lazyvim.plugins.extras.util.dot",
     "lazyvim.plugins.extras.util.mini-hipatterns",
-    "lazyvim.plugins.extras.util.project",
     "plugins.extras.build._xmake",
     "plugins.extras.coding.godbolt",
     "plugins.extras.coding.neorepl",
@@ -49,6 +48,7 @@
     "plugins.extras.editor.splitjoin",
     "plugins.extras.editor.toggleterm",
     "plugins.extras.editor.window",
+    "plugins.extras.fuzzy.fzf",
     "plugins.extras.fuzzy.mini-pick",
     "plugins.extras.git.mini-git",
     "plugins.extras.git.neogit",
@@ -63,16 +63,14 @@
     "plugins.extras.lang.rust",
     "plugins.extras.lang.zig",
     "plugins.extras.multiplexer.tmux",
-    "plugins.extras.telescope.zoxide",
     "plugins.extras.trial.trials",
-    "plugins.extras.util.nerdfont",
     "plugins.extras.util.pomodoro",
     "plugins.extras.util.screenkey",
     "plugins.extras.util.vscode",
     "plugins.extras.util.wakatime"
   ],
   "news": {
-    "NEWS.md": "5204"
+    "NEWS.md": "6077"
   },
   "version": 6
 }
