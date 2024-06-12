@@ -37,7 +37,9 @@ M.lualine_setup_recording_status = function()
     text_delay = "",
     text_play = "",
     text_rec = "",
-  } local function set_highlight(group, fg, bg)
+  }
+
+  local function set_highlight(group, fg, bg)
     vim.cmd(string.format("highlight %s guifg=%s guibg=%s", group, fg, bg))
   end
 
@@ -47,24 +49,22 @@ M.lualine_setup_recording_status = function()
   set_highlight("RecordingText", colors.text_rec, colors.text_bg)
 
   -- hide `recording reg` message
-  vim.cmd[[set shm+=q]]
+  vim.cmd([[set shm+=q]])
 
   return function()
-      local reg_exe = vim.fn.reg_executing()
-      local reg_rec = vim.fn.reg_recording()
-      if reg_exe ~= "" then
-        -- BUG: executing too fast, not displaying
-        return "%#PlayingSymbol#%*%#PlayingText# " .. reg_exe .. "%*"
-      elseif reg_rec ~= "" then
-        return "%#RecordingSymbol#󰨜" .. "%*" .. " " .. reg_rec .. "%*"
-        -- %#HLName# (:help 'statusline')
-      else
-        return " " .. os.date("%R")
-          and "" -- don't show time
-      end
+    local reg_exe = vim.fn.reg_executing()
+    local reg_rec = vim.fn.reg_recording()
+    if reg_exe ~= "" then
+      -- BUG: executing too fast, not displaying
+      return "%#PlayingSymbol#%*%#PlayingText# " .. reg_exe .. "%*"
+    elseif reg_rec ~= "" then
+      return "%#RecordingSymbol#󰨜" .. "%*" .. " " .. reg_rec .. "%*"
+      -- %#HLName# (:help 'statusline')
+    else
+      return " " .. os.date("%R") and "" -- don't show time
     end
+  end
 end
-
 
 function M.version()
   local v = vim.version()
@@ -76,7 +76,6 @@ function M.version()
     )
   end
 end
-
 
 function M.base64(data)
   data = tostring(data)
