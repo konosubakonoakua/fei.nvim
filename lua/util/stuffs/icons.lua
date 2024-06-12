@@ -125,4 +125,7 @@ return {
       mac = "",
     },
   },
+  emoji = {
+    tomato = "🍅",
+  },
 }
