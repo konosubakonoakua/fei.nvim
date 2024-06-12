@@ -29,7 +29,15 @@ vim.opt.secure = true -- disable shell and write commands in local .nvim.lua .vi
 
 -- INFO: trailing 0x0A in return value of vim.fn.system, strip it
 if not vim.fn.has("win32") then
-  vim.g.python3_host_prog = vim.fn.system("which python3"):match("^%s*(.-)%s*$")
+  vim.g.python3_host_prog = os.getenv("PYNVIM") or vim.fn.system("which python3"):match("^%s*(.-)%s*$") or 0
+else
+  vim.g.python3_host_prog = os.getenv("PYNVIM") or vim.fn.exepath("python.exe")
+end
+if vim.g.python3_host_prog == nil or vim.g.python3_host_prog == "" or vim.g.python3_host_prog == 0 then
+  LazyVim.error([[python3 not found, please set `$PYNVIM_WIN` to python3 executable
+      you also need to install pynvim:
+      python3 -m pip install pynvim
+    ]])
 end
 
 -- setup shell
