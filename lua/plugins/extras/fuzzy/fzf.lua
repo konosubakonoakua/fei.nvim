@@ -1,5 +1,6 @@
 return {
   { import = "lazyvim.plugins.extras.editor.fzf" },
+  { "junegunn/fzf", build = "./install --bin" },
   {
     "ibhagwan/fzf-lua",
     -- optional = true,
