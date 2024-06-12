@@ -40,14 +40,14 @@ return {
         "filesystem",
         "buffers",
         "git_status",
-        "document_symbols"
+        "document_symbols",
       },
       open_files_do_not_replace_types = {
         "terminal",
         "Trouble",
         "trouble",
         "qf",
-        "Outline"
+        "Outline",
       },
       filesystem = {
         bind_to_cwd = false,
@@ -64,7 +64,7 @@ return {
         },
       },
       window = {
-        mappings = require("plugins.util.neotree").mappings
+        mappings = require("plugins.util.neotree").mappings,
       },
       default_component_configs = {
         indent = {
@@ -87,8 +87,7 @@ return {
         { event = events.FILE_RENAMED, handler = on_move },
       })
       -- extend default handlers with user defined ones
-      vim.list_extend(opts.event_handlers,
-        require("plugins.util.neotree").neotree_event_handlers)
+      vim.list_extend(opts.event_handlers, require("plugins.util.neotree").neotree_event_handlers)
       -- endregion neo-tree event_handlers
       require("neo-tree").setup(opts)
       vim.api.nvim_create_autocmd("TermClose", {
@@ -204,15 +203,39 @@ return {
   -- noice
   {
     "folke/noice.nvim",
-    opts = function (_, opts)
+    opts = function(_, opts)
       opts.presets = {
         bottom_search = false,
         command_palette = true,
         long_message_to_split = true,
         inc_rename = true,
       }
+      opts.lsp = {
+        progress = {
+          enabled = true,
+          -- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
+          -- See the section on formatting for more details on how to customize.
+          --- @type NoiceFormat|string
+          format = "lsp_progress",
+          --- @type NoiceFormat|string
+          format_done = "lsp_progress_done",
+          throttle = 1000 / 100, -- frequency to update lsp progress message
+          view = "mini",
+        },
+      }
+      opts.views = {
+        mini = {
+          timeout = 300,
+          zindex = 20,
+          win_options = {
+            -- winbar = "",
+            -- foldenable = false,
+            winblend = 60,
+          },
+        },
+      }
       return opts
-    end
+    end,
   },
 
   {
@@ -240,6 +263,4 @@ return {
       -- search = { mode = "fuzzy" },
     },
   },
-
-
 }
