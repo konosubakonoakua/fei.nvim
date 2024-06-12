@@ -107,18 +107,49 @@ return {
         icon = { icons.lualine.branch.branch_v1, align = "left" },
       })
 
+
+      -- stylua: ignore
+      table.insert(
+        opts.sections.lualine_c, -- move diff to lualine_c
+        1, -- before lazyroot
+        table.remove(opts.sections.lualine_x, #opts.sections.lualine_x)
+      )
+      -- table.insert(opts.sections.lualine_c, 3, table.remove(opts.sections.lualine_c, 2))
+      table.insert(
+        opts.sections.lualine_c,
+        3,
+        vim.tbl_extend("force", table.remove(opts.sections.lualine_c, 3), {
+          symbols = {
+            error = icons.diagnostics.Error,
+            warn = icons.diagnostics.Warn,
+            info = icons.diagnostics.Info,
+            hint = icons.diagnostics.Hint,
+          },
+        })
+      )
+      table.remove(opts.sections.lualine_c, #opts.sections.lualine_c) -- remove lsp symbol
+      table.insert(opts.sections.lualine_c, { -- add encoding
+        function()
+          local enc = vim.opt.fileencoding:get()
+          return (enc ~= nil and ("[" .. enc .. "]")) or ""
+        end,
+        seperator = "",
+        padding = { left = 0, right = 0 },
+      })
+
+
+      -- BUG: noice lualine
+      -- remove all noice component since not working
+      for i = 1, #opts.sections.lualine_x, 1 do
+        table.remove(opts.sections.lualine_x, i)
+      end
+
       table.remove(opts.sections.lualine_y, 2) -- location
       table.remove(opts.sections.lualine_y, 1) -- progress
       local lualine_y = {
         {
           function()
-            return icons.lualine.fileformat[vim.bo.ff] .. " " .. string.gsub(vim.opt.fileencoding:get(), "-", "")
-          end,
-          separator = "",
-        },
-        {
-          function()
-            local icon = " " -- 󰡪
+            local icon = "  " -- 󰡪
             local line = vim.fn.line(".")
             local col = vim.fn.virtcol(".")
             return icon .. string.format("%d:%d", line, col)
@@ -132,7 +163,7 @@ return {
             local btm = vim.fn.line("$")
             local top = 1
             local prefix = " 󰸻 "
-            local suffix = " "
+            local suffix = ""
             if cur == top then
               return prefix .. "TOP" .. suffix
             elseif cur == btm then
@@ -144,6 +175,13 @@ return {
           separator = "",
           padding = { left = 0, right = 0 },
         },
+        { -- os
+          function()
+            return icons.lualine.fileformat[vim.bo.ff]
+          end,
+          separator = "",
+          -- padding = { left = 0, right = 0 },
+        },
       }
       for _, x in pairs(lualine_y) do
         table.insert(opts.sections.lualine_y, x)
@@ -151,7 +189,9 @@ return {
 
       table.remove(opts.sections.lualine_z, 1) -- recording & time
       local res, Util = pcall(require, "util")
-      local lualine_z_record_component = res == true and Util.lualine_setup_recording_status() or function() return "" end
+      -- stylua: ignore
+      local lualine_z_record_component =
+        res == true and Util.lualine_setup_recording_status() or function() return "" end
       local lualine_z = {
         {
           lualine_z_record_component,
