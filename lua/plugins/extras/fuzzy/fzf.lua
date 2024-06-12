@@ -5,6 +5,17 @@ return {
     -- optional = true,
     event = "VeryLazy",
     opts = function(_, opts)
+      local config = require("fzf-lua.config")
+      -- local actions = require("fzf-lua.actions")
+
+      -- Quickfix
+      -- stylua: ignore start
+      config.defaults.keymap.fzf    ["ctrl-o"]      = "jump"
+      config.defaults.keymap.builtin["<C-h>"]       = "toggle-help"
+      config.defaults.keymap.builtin["<C-l>"]       = "toggle-preview"
+      config.defaults.keymap.builtin["<C-space>"]   = "toggle-fullscreen"
+      -- stylua: ignore end
+
       table.insert(opts, 1, "default") -- use telescope profile
       opts.fzf_opts = { ["--layout"] = "reverse" } -- input box at TOP
       opts.winopts = {
@@ -13,7 +24,8 @@ return {
         -- border = "none", -- 'none', 'single', 'double', 'thicc' (+cc) or 'rounded' (default)
         preview = {
           scrollchars = { "┃", "" },
-          hidden = "nohidden",
+          -- hidden = "nohidden",
+          hidden = "hidden",
         },
       }
       opts.previewers = {
