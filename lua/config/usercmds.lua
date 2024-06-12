@@ -1,6 +1,6 @@
 -- region lazyrc
 -- TODO: generate lazyrc according to project type
-vim.api.nvim_create_user_command('LazyrcGenerate', function ()
+vim.api.nvim_create_user_command("LazyrcGenerate", function()
   local uv = vim.uv or vim.loop
   local lazyrc = vim.fn.stdpath("config") .. "/misc/.lazy.lua"
   local target = vim.fn.getcwd()
@@ -17,21 +17,25 @@ vim.api.nvim_create_user_command('LazyrcGenerate', function ()
   else
     LazyVim.error("Cannot copy `.lazy.lua` to " .. target, { title = "Generate .lazy.lua" })
   end
-end, {desc = "generate .lazy.lua (overwrite)"})
+end, { desc = "generate .lazy.lua (overwrite)" })
 -- endregion lazyrc
 
 -- region log
-vim.api.nvim_create_user_command('LogOpen', function ()
+vim.api.nvim_create_user_command("LogOpen", function()
   local uv = vim.uv or vim.loop
   local log = vim.fs.normalize(vim.fn.stdpath("log") .. "/log")
   local bufnr = vim.api.nvim_create_buf(true, false)
   vim.api.nvim_buf_set_name(bufnr, log)
   vim.api.nvim_buf_call(bufnr, vim.cmd.view)
-end, {desc = "Open Neovim log"})
+end, { desc = "Open Neovim log" })
 -- endregion log
 
-vim.api.nvim_create_user_command('Dotfiles', function ()
-  vim.cmd[[:Telescope find_files search_dirs={"~/.dotfiles/","~/.config/.dotfiles/","~/.config/nvim"}]]
-end, {desc = "Search dotfiles"})
+vim.api.nvim_create_user_command("Dotfiles", function()
+  if require("util.picker").has_fzflua() then
+    require("fzf-lua").files({ cmd = [[rg --files ~/.dotfiles/ ~/.config/.dotfiles/ ~/.config/nvim]] })
+  else
+    vim.cmd([[:Telescope find_files search_dirs={"~/.dotfiles/","~/.config/.dotfiles/","~/.config/nvim"}]])
+  end
+end, { desc = "Search dotfiles" })
 
 return {}
