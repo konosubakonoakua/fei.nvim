@@ -75,6 +75,9 @@ vim.keymap.set('n', '<space>wl', function() print(vim.inspect(vim.lsp.buf.list_w
 -- endregion LSP Mappings.
 
 -- stylua: ignore start
+-- region notepad
+vim.keymap.set("n", "<leader>;n", function() require("util.notepad").toggle() end, { desc = "Notepad" })
+-- endregion notepad
 return {
   -- telescope picker keymapping
   {
