@@ -1,3 +1,5 @@
+local emoji = require("util.stuffs.icons").emoji
+
 return {
   desc = "A simple, customizable pomodoro timer",
   "epwalsh/pomo.nvim",
@@ -9,9 +11,28 @@ return {
     "rcarriga/nvim-notify",
   },
   opts = {
-    -- See below for full list of options 👇
+    notifiers = {
+      {
+        name = "Default",
+        opts = {
+          sticky = false,
+          title_icon = emoji.tomato,
+          text_icon = "",
+        },
+      },
+
+      -- The "System" notifier sends a system notification when the timer is finished.
+      -- Available on MacOS natively and Linux via the `libnotify-bin` package.
+      -- Tracking: https://github.com/epwalsh/pomo.nvim/issues/3
+      -- { name = "System" },
+
+      -- You can also define custom notifiers by providing an "init" function instead of a name.
+      -- See "Defining custom notifiers" below for an example 👇
+      -- { init = function(timer) ... end }
+    },
   },
   config = function(_, opts)
+
     -- setup pomo
     require("pomo").setup(opts)
 
@@ -29,7 +50,7 @@ return {
           return ""
         end
 
-        return "󰄉 " .. tostring(timer)
+        return emoji.tomato .. " " .. tostring(timer)
       end,
     })
     require("lualine").setup({
@@ -39,9 +60,11 @@ return {
     })
 
     -- setup telescope
-    require("telescope").load_extension("pomodori")
-    vim.keymap.set("n", "<leader>xp", function()
-      require("telescope").extensions.pomodori.timers()
-    end, { desc = "Manage Pomodori Timers" })
+    if require("util.picker").has_telescope() then
+      require("telescope").load_extension("pomodori")
+      vim.keymap.set("n", "<leader>xp", function()
+        require("telescope").extensions.pomodori.timers()
+      end, { desc = "Manage Pomodori Timers" })
+    end
   end,
 }
