@@ -1,7 +1,7 @@
 -- TODO: solving searching slowly
 -- lvim.builtin.telescope.defaults.path_display = { shorten = 5 }
 
-if not vim.fn.has("python3") then
+if vim.fn.has("python3") == 0 then
   return {}
   --[[
       python3 -m pip install --user --upgrade pynvim
