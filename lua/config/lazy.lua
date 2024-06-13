@@ -39,7 +39,7 @@ require("lazy").setup({
     missing = true, -- install missing plugins on startup
     colorscheme = { -- lazy.nvim ui theme with fallbacks
       "oxocarbon",
-      "tokyonight",
+      "default",
     },
   },
   checker = { enabled = false }, -- automatically check for plugin updates
