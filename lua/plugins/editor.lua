@@ -9,98 +9,29 @@
 --
 --
 local icons = require("util.stuffs.icons").todo
-local events = require("neo-tree.events")
+local neotree_keymappings = require("plugins.util.neotree").mappings
 
 return {
 
   -- TODO: config neo-tree
   -- when neo-tree win lost focus,
   -- dont redraw on large folder with many opend dir
-  {
+  --
+  { -- "konosubakonoakua/neo-tree.nvim",
     "nvim-neo-tree/neo-tree.nvim",
-    -- branch = "v3.x",
-    branch = "main",
-    -- "konosubakonoakua/neo-tree.nvim",
-    -- branch = "main",
-    cmd = "Neotree",
-    deactivate = function()
-      vim.cmd([[Neotree close]])
-    end,
-    init = function()
-      if vim.fn.argc(-1) == 1 then
-        local stat = vim.loop.fs_stat(tostring(vim.fn.argv(0)))
-        if stat and stat.type == "directory" then
-          require("neo-tree")
-        end
-      end
-    end,
+    optional = true,
     opts = {
       use_popups_for_input = false,
-      sources = {
-        "filesystem",
-        "buffers",
-        "git_status",
-        "document_symbols",
-      },
-      open_files_do_not_replace_types = {
-        "terminal",
-        "Trouble",
-        "trouble",
-        "qf",
-        "Outline",
-      },
       filesystem = {
         bind_to_cwd = false,
-        follow_current_file = { enabled = true }, -- BUG: not working on windows
+        follow_current_file = { enabled = true },
         use_libuv_file_watcher = true,
-        find_command = "fd",
-        find_args = {
-          fd = {
-            "--exclude",
-            ".git",
-            "--exclude",
-            "node_modules",
-          },
-        },
       },
       window = {
-        mappings = require("plugins.util.neotree").mappings,
-      },
-      default_component_configs = {
-        indent = {
-          with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
-          expander_collapsed = "",
-          expander_expanded = "",
-          expander_highlight = "NeoTreeExpander",
-        },
+        mappings = neotree_keymappings,
       },
     },
-    config = function(_, opts)
-      local function on_move(data)
-        LazyVim.lsp.on_rename(data.source, data.destination)
-      end
-
-      -- region neo-tree event_handlers
-      opts.event_handlers = opts.event_handlers or {}
-      vim.list_extend(opts.event_handlers, {
-        { event = events.FILE_MOVED, handler = on_move },
-        { event = events.FILE_RENAMED, handler = on_move },
-      })
-      -- extend default handlers with user defined ones
-      vim.list_extend(opts.event_handlers, require("plugins.util.neotree").neotree_event_handlers)
-      -- endregion neo-tree event_handlers
-      require("neo-tree").setup(opts)
-      vim.api.nvim_create_autocmd("TermClose", {
-        pattern = "*lazygit",
-        callback = function()
-          if package.loaded["neo-tree.sources.git_status"] then
-            require("neo-tree.sources.git_status").refresh()
-          end
-        end,
-      })
-    end,
   },
-  --]]
 
   -- Automatically highlights other instances of the word under your cursor.
   -- This works with LSP, Treesitter, and regexp matching to find the other
