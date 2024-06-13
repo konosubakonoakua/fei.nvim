@@ -52,4 +52,11 @@ return {
   },
 
   {
+    "folke/edgy.nvim",
+    optional = true,
+    event = "VeryLazy",
+    opts = {
+      animate = { enabled = false },
+    },
+  },
 }
