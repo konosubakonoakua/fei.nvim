@@ -2,6 +2,9 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
+vim.o.background = math.random(3) == 2 and "light" or "dark"
+vim.print(vim.o.background)
+
 if vim.g.neovide then
   -- disable lazyredraw
   vim.o.lazyredraw = false
