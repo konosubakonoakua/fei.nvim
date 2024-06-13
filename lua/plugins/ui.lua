@@ -4,7 +4,7 @@ return {
     "akinsho/bufferline.nvim",
     opts = {
       options = {
-        separator_style = "thick",
+        separator_style = "slope",
         custom_areas = {
           -- left = require("plugins.util.bufferline_custom").custom_areas_diagnostic,
         },
@@ -122,7 +122,6 @@ return {
         seperator = "",
         padding = { left = 0, right = 0 },
       })
-
 
       -- BUG: noice lualine
       -- remove all noice component since not working
