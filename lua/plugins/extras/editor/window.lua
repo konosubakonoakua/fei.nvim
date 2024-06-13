@@ -121,6 +121,10 @@ return {
     event = "VeryLazy",
     opts = {
       animate = { enabled = false },
+      icons = { -- disable icons
+        closed = "",
+        open = "",
+      }
     },
   },
 }
