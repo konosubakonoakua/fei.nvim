@@ -38,7 +38,6 @@
     "plugins.extras.coding.neorepl",
     "plugins.extras.editor.bigfile",
     "plugins.extras.editor.bookmarks",
-    "plugins.extras.editor.cursorline",
     "plugins.extras.editor.dap",
     "plugins.extras.editor.folding",
     "plugins.extras.editor.ime",
