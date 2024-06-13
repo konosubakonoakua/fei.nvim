@@ -1,4 +1,4 @@
-return {
+local M = {
   -- TODO: tweak colorscheme
   {
     "konosubakonoakua/oxocarbon.nvim",
@@ -10,21 +10,18 @@ return {
   {
     "folke/tokyonight.nvim",
     lazy = false,
-    priority = 999,
-  },
-  {
-    "EdenEast/nightfox.nvim",
-    lazy = false,
-    priority = 998,
+    priority = 1000,
   },
   {
     "catppuccin/nvim",
     lazy = false,
     name = "catppuccin",
-    priority = 997,
+    priority = 1000,
+    config = true,
     config = function()
       require("catppuccin").setup({
         color_overrides = {
+          -- stylua: ignore
           mocha = {
             rosewater = "#efc9c2",
             flamingo  = "#ebb2b2",
@@ -64,3 +61,5 @@ return {
     },
   },
 }
+
+return M
