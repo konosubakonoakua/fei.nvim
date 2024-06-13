@@ -5,6 +5,9 @@ return {
     opts = {
       options = {
         separator_style = "thick",
+        custom_areas = {
+          -- left = require("plugins.util.bufferline_custom").custom_areas_diagnostic,
+        },
       },
     },
   },
