@@ -113,32 +113,18 @@ return {
         end,
         desc = "Explorer NeoTree (Buffer Dir)"
       },
-      {
-        "<leader>e",
-        require("plugins.util.neotree").neotree_reveal_root,
-        -- "<cmd>Neotree toggle show<cr>",
-        desc = "Explorer NeoTree (root dir)",
-      },
-      {
-        "<leader>E", -- NOTE: fix file following issue
-        require("plugins.util.neotree").neotree_reveal_cwd,
-        -- "<cmd>Neotree toggle show<cr>",
-        desc = "Explorer NeoTree (cwd)",
-      },
-      {
-        "<leader>ge",
-        function()
-          require("neo-tree.command").execute({ source = "git_status", toggle = true })
-        end,
-        desc = "Git explorer",
-      },
-      {
-        "<leader>be",
-        function()
-          require("neo-tree.command").execute({ source = "buffers", toggle = true })
-        end,
-        desc = "Buffer explorer",
-      },
+      -- {
+      --   "<leader>e",
+      --   require("plugins.util.neotree").neotree_reveal_root,
+      --   -- "<cmd>Neotree toggle show<cr>",
+      --   desc = "Explorer NeoTree (root dir)",
+      -- },
+      -- {
+      --   "<leader>E", -- NOTE: fix file following issue
+      --   require("plugins.util.neotree").neotree_reveal_cwd,
+      --   -- "<cmd>Neotree toggle show<cr>",
+      --   desc = "Explorer NeoTree (cwd)",
+      -- },
       {
         "<leader>ce", "<cmd>Neotree document_symbols<cr>", desc = "Neotree (Symbols)",
       },
