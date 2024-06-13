@@ -98,7 +98,7 @@ return {
         -- https://github.com/s1n7ax/nvim-window-picker/issues/67
         filter_func = function(windows, rules)
           local function predicate(wid)
-            cfg = vim.api.nvim_win_get_config(wid)
+            local cfg = vim.api.nvim_win_get_config(wid)
             if not cfg.focusable then
               return false
             end
