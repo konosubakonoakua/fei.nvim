@@ -424,7 +424,13 @@ return {
         desc = "Dismiss all Notifications", },
       -- TODO: add fzflua for nvim-notify
       -- https://github.com/ibhagwan/fzf-lua/wiki/Advanced
-      { "<leader>uN", function() require("telescope").extensions.notify.notify() end,
+      { "<leader>uN", function()
+        if require("util.picker").has_telescope() then
+          require("telescope").extensions.notify.notify()
+        else
+          LazyVim.error("notify.nvim not support fzf-lua")
+        end
+      end,
         desc = "Dispaly all Notification histories", },
     },
   },
