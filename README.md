@@ -58,4 +58,5 @@ fi
 > - [nvim-lua-guide-zh](https://github.com/glepnir/nvim-lua-guide-zh/blob/main/README.md)
 > - [learnbyexample vim](https://learnbyexample.github.io/vim_reference/preface.html)
 > - [vim regex](https://www.vimregex.com/)
+> - [LazyVim for Ambitious Developers](https://lazyvim-ambitious-devs.phillips.codes)
 
