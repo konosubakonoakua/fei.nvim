@@ -106,7 +106,7 @@ return {
   -- fzf-lua picker keymapping
   {
     "ibhagwan/fzf-lua",
-    optional = ture,
+    optional = true,
     event = "VeryLazy",
     opts = function(_, opts)
       local config = require("fzf-lua.config")

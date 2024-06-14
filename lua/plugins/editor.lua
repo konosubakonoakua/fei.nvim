@@ -30,7 +30,7 @@ return {
         use_libuv_file_watcher = true,
         window = {
           mappings = neotree_mappings_filesystem,
-        }
+        },
       },
       document_symbols = {
         follow_cursor = true,
@@ -62,7 +62,6 @@ return {
       return opts
     end,
   },
-
 
   { "junegunn/fzf", build = "./install --bin" },
 

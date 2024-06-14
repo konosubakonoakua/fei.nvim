@@ -34,7 +34,7 @@ return {
       --   -- Specify * to use this function as a fallback for any server
       --   ["*"] = function(server, opts)
       --     -- do not automatically configure lsp servers installed by mason
-      --     return false -- ture for bypassing or false for using default `lspconfig setup` in LazyVim
+      --     return false -- true for bypassing or false for using default `lspconfig setup` in LazyVim
       --   end,
       -- },
     },
