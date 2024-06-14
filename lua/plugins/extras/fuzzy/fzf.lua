@@ -26,8 +26,7 @@ return {
         -- border = "none", -- 'none', 'single', 'double', 'thicc' (+cc) or 'rounded' (default)
         preview = {
           scrollchars = { "┃", "" },
-          -- hidden = "nohidden",
-          hidden = "hidden",
+          hidden = "nohidden",
         },
       }
       opts.previewers = {
