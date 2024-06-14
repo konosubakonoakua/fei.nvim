@@ -60,17 +60,17 @@ keymap({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hl
 
 -- region line move
 -- Move Lines
-keymap("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
-keymap("n", "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
-keymap("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
-keymap("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
+keymap("n", "<A-j>", "<cmd>m .+1<cr>==<cr>", { desc = "Move down" })
+keymap("n", "<A-k>", "<cmd>m .-2<cr>==<cr>", { desc = "Move up" })
+keymap("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi<cr>", { desc = "Move down" })
+keymap("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi<cr>", { desc = "Move up" })
 -- FIXED: `i<esc>j` sequence triggers <A-j> in insert mode
 -- vim.opt.ttimeoutlen = 30
 -- https://github.com/neovim/neovim/issues/27344
 -- keydel({"i"}, "<A-j>")
 -- keydel({"i"}, "<A-k>")
-keymap("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
-keymap("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+keymap("v", "<A-j>", "<cmd>m '>+1<cr>gv=gv<cr>", { desc = "Move down" })
+keymap("v", "<A-k>", "<cmd>m '<-2<cr>gv=gv<cr>", { desc = "Move up" })
 -- endregion line move
 
 -- region indent
@@ -294,12 +294,12 @@ if vim.fn.has("gui_running") == 1 then
     vim.g.neovide_scale_factor_default = 1.2
     vim.g.neovide_transparency_default = 0.8
 
-    keymap_force({"n", "i"}, "<C-=>", ":lua vim.g.neovide_scale_factor = math.min(vim.g.neovide_scale_factor + 0.1,  vim.g.neovide_scale_factor_max)<CR>", { silent = true, desc = "Neovide Font +++" })
-    keymap_force({"n", "i"}, "<C-->", ":lua vim.g.neovide_scale_factor = math.max(vim.g.neovide_scale_factor - 0.1,  vim.g.neovide_scale_factor_min)<CR>", { silent = true, desc = "Neovide Font ---"})
-    keymap_force({"n", "i"}, "<C-+>", ":lua vim.g.neovide_transparency = math.min(vim.g.neovide_transparency + 0.025, 1.0)<CR>", { silent = true, desc = "Neovide Trans +++" })
-    keymap_force({"n", "i"}, "<C-_>", ":lua vim.g.neovide_transparency = math.max(vim.g.neovide_transparency - 0.025, 0.0)<CR>", { silent = true, desc = "Neovide Trans ---" })
-    keymap_force({"n", "i"}, "<C-0>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor_default<CR>", { silent = true , desc = "Neovide Font Reset"})
-    keymap_force({"n", "i"}, "<C-)>", ":lua vim.g.neovide_transparency = vim.g.neovide_transparency_default<CR>", { silent = true , desc = "Neovide Trans Reset"})
+    keymap_force({"n", "i"}, "<C-=>", "<cmd>lua vim.g.neovide_scale_factor = math.min(vim.g.neovide_scale_factor + 0.1,  vim.g.neovide_scale_factor_max)<CR>", { silent = true, desc = "Neovide Font +++" })
+    keymap_force({"n", "i"}, "<C-->", "<cmd>lua vim.g.neovide_scale_factor = math.max(vim.g.neovide_scale_factor - 0.1,  vim.g.neovide_scale_factor_min)<CR>", { silent = true, desc = "Neovide Font ---"})
+    keymap_force({"n", "i"}, "<C-+>", "<cmd>lua vim.g.neovide_transparency = math.min(vim.g.neovide_transparency + 0.025, 1.0)<CR>", { silent = true, desc = "Neovide Trans +++" })
+    keymap_force({"n", "i"}, "<C-_>", "<cmd>lua vim.g.neovide_transparency = math.max(vim.g.neovide_transparency - 0.025, 0.0)<CR>", { silent = true, desc = "Neovide Trans ---" })
+    keymap_force({"n", "i"}, "<C-0>", "<cmd>lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor_default<CR>", { silent = true , desc = "Neovide Font Reset"})
+    keymap_force({"n", "i"}, "<C-)>", "<cmd>lua vim.g.neovide_transparency = vim.g.neovide_transparency_default<CR>", { silent = true , desc = "Neovide Trans Reset"})
   else
     vim.g.gui_font_default_size = 16
     vim.g.gui_font_size = vim.g.gui_font_default_size

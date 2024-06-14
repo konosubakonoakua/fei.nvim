@@ -255,13 +255,13 @@ return {
       { mode = "n", "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy Search (Current)" },
       { mode = "n", "<leader>fc", function() require('telescope.builtin').find_files({find_command={'fd', vim.fn.expand("<cword>")}}) end,  desc = "Telescope Find cfile" },
       { mode = "n", "<leader>fC", LazyVim.pick.config_files(),  desc = "Find Config File" },
-      { mode = "n", "<leader>fg", ":Telescope grep_string<cr>", desc = "Telescope Grep String", noremap = true },
-      { mode = "n", "<leader>fG", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", desc = "Live grep args", noremap = true },
+      { mode = "n", "<leader>fg", "<cmd>Telescope grep_string<cr>", desc = "Telescope Grep String", noremap = true },
+      { mode = "n", "<leader>fG", "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", desc = "Live grep args", noremap = true },
       { mode = "n", "<leader>fP", function() require("telescope.builtin").find_files( { cwd = require("lazy.core.config").options.root }) end, desc = "Find Plugin File"},
       { mode = "n", "<leader>sr", "<cmd>Telescope resume<cr>",    desc = "Telescope Resume" },
       { mode = "n", "<leader>s;", function () require("telescope.builtin").builtin({ include_extensions = (vim.v.count ~= 0) }) end,   desc = "Telescope Builtins", noremap = true },
-      { mode = "n", "<leader>sb", ":lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>", desc = "find current buffer", noremap = true },
-      { mode = "n", "<leader>sB", ":lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>", desc = "Find opened files", noremap = true},
+      { mode = "n", "<leader>sb", "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>", desc = "find current buffer", noremap = true },
+      { mode = "n", "<leader>sB", "<cmd>lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>", desc = "Find opened files", noremap = true},
       -- NOTE: need execute 'mandb' first, then we can find man files in user PATH
       { mode = "n", "<leader>sM", "<cmd>Telescope man_pages sections=ALL<cr>", desc = "Man Pages (mandb to update)" },
       -- { mode = "n", "<leader>sg", LazyVim.pick("live_grep"),                                         desc = "Grep (root dir)" },
@@ -403,7 +403,7 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     keys = {
-      { "<leader>uI", ":IBLToggle<cr>", mode = "n", desc = "Toggle IndentLine" }
+      { "<leader>uI", "<cmd>IBLToggle<cr>", mode = "n", desc = "Toggle IndentLine" }
     },
   },
 

@@ -95,7 +95,7 @@ else
   -- OR
   vim.g.lazygit_config_file_path = {} -- table of custom config file paths
 
-  vim.keymap.set("n", "<leader>gt", ":LazyGit<CR>", { noremap = true, silent = true, desc="lazygit" })
+  vim.keymap.set("n", "<leader>gt", "<cmd>LazyGit<CR>", { noremap = true, silent = true, desc="lazygit" })
 
   return {
     {

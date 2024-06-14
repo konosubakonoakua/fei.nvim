@@ -68,8 +68,8 @@ return {
 
   -- stylua: ignore start
   local keymap_force = vim.keymap.set
-  keymap_force("n", "<leader>tf", ":Telescope file_browser<CR>", { desc = "Telescope file_browser", noremap = true })
-  keymap_force("n", "<leader>tc", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", { desc = "Telescope cwd file_browser", noremap = true })
+  keymap_force("n", "<leader>tf", "<cmd>Telescope file_browser<CR>", { desc = "Telescope file_browser", noremap = true })
+  keymap_force("n", "<leader>tc", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>", { desc = "Telescope cwd file_browser", noremap = true })
     -- stylua: ignore end
   end,
 }

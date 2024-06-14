@@ -21,10 +21,10 @@ return {
   end,
   -- stylua: ignore start
   keys = {
-    { "<leader>pl", ":Telescope pathogen live_grep<CR>",   silent = true },
-    { "<leader>pg", ":Telescope pathogen<CR>",             silent = true },
-    { "<leader>pf", ":Telescope pathogen find_files<CR>",  silent = true },
-    { "<leader>ps", ":Telescope pathogen grep_string<CR>", silent = true },
+    { "<leader>pl", "<cmd>Telescope pathogen live_grep<CR>",   silent = true },
+    { "<leader>pg", "<cmd>Telescope pathogen<CR>",             silent = true },
+    { "<leader>pf", "<cmd>Telescope pathogen find_files<CR>",  silent = true },
+    { "<leader>ps", "<cmd>Telescope pathogen grep_string<CR>", silent = true },
   },
   -- stylua: ignore end
 }

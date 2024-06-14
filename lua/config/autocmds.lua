@@ -69,6 +69,6 @@ vim.api.nvim_create_autocmd("cmdwinenter", {
     -- vim.keymap.set({"n"}, "<C-j>", "<C-w>j", { buffer = true, silent = true })
     -- NOTE: in cmdline-windows, use q to quit, <C-q> as recording
     vim.keymap.set("n", "<C-q>", "q", { buffer = true, silent = true, noremap = true })
-    vim.keymap.set("n", "q", ":q<cr>", { buffer = true, silent = true, noremap = true })
+    vim.keymap.set("n", "q", "<cmd>q<cr>", { buffer = true, silent = true, noremap = true })
   end,
 })
