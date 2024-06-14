@@ -6,7 +6,7 @@
 -- plugin’s name. See also opts. To use the default
 -- implementation without opts set config to true.
 
-local keymap             = vim.keymap.set
+local keymap = vim.keymap.set
 -- local keymap_force       = vim.keymap.set
 -- local keydel             = vim.keymap.del
 
@@ -20,8 +20,8 @@ if not status then
   return {}
 end
 
-local _floatterm    = Utils.custom_floatterm
-local _lazyterm     = Utils.custom_lazyterm
+local _floatterm = Utils.custom_floatterm
+local _lazyterm = Utils.custom_lazyterm
 local _lazyterm_cwd = Utils.custom_lazyterm_cwd
 
 -- Dashboard
@@ -39,23 +39,43 @@ keymap("n", "<leader>;;", function()
 end, { desc = "Dashboard", silent = true })
 
 --- <leader>; utils
-keymap("n", "<leader>;l", "<cmd>Lazy<cr>",    { desc = "Lazy.nvim" })
-keymap("n", "<leader>;m", "<cmd>Mason<cr>",   { desc = "Mason" })
+keymap("n", "<leader>;l", "<cmd>Lazy<cr>", { desc = "Lazy.nvim" })
+keymap("n", "<leader>;m", "<cmd>Mason<cr>", { desc = "Mason" })
 keymap("n", "<leader>;I", "<cmd>LspInfo<cr>", { desc = "LspInfo" })
-keymap("n", "<leader>;t", _lazyterm_cwd,      { desc = "Terminal (cwd)" })
-keymap("n", "<leader>;T", _lazyterm,          { desc = "Terminal (root dir)" })
+keymap("n", "<leader>;t", _lazyterm_cwd, { desc = "Terminal (cwd)" })
+keymap("n", "<leader>;T", _lazyterm, { desc = "Terminal (root dir)" })
 keymap("n", "<leader>;x", "<cmd>LazyExtras<cr>", { desc = "LazyExtras" })
-keymap("n", "<leader>;L", LazyVim.news.changelog,  { desc = "LazyVim Changelog" })
+keymap("n", "<leader>;L", LazyVim.news.changelog, { desc = "LazyVim Changelog" })
 keymap("n", "<leader>;P", function()
   vim.notify("Added '" .. LazyVim.root() .. "' to project list.", vim.log.levels.WARN)
-  vim.cmd('AddProject')
+  vim.cmd("AddProject")
 end, { desc = "Project Add Current" })
 
 -- region code
-keymap('n', '<leader>cB', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', { desc = "Replace buffer (Spectre)" })
-keymap('n', "<leader>cN", "<cmd>lua require('spectre').open({cwd=LazyVim.root()})<CR>", { desc = "Replace files (Spectre)" })
-keymap('v', '<leader>cN', '<esc><cmd>lua require("spectre").open_visual({cwd=LazyVim.root()})<CR>', { desc = "Replace cword (Spectre)" })
-keymap('v', '<leader>cw', '<cmd>lua require("spectre").open_visual({select_word=true, cwd=LazyVim.root()})<CR>', { desc = "Replace cword (Spectre)" })
+keymap(
+  "n",
+  "<leader>cB",
+  '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>',
+  { desc = "Replace buffer (Spectre)" }
+)
+keymap(
+  "n",
+  "<leader>cN",
+  "<cmd>lua require('spectre').open({cwd=LazyVim.root()})<CR>",
+  { desc = "Replace files (Spectre)" }
+)
+keymap(
+  "v",
+  "<leader>cN",
+  '<esc><cmd>lua require("spectre").open_visual({cwd=LazyVim.root()})<CR>',
+  { desc = "Replace cword (Spectre)" }
+)
+keymap(
+  "v",
+  "<leader>cw",
+  '<cmd>lua require("spectre").open_visual({select_word=true, cwd=LazyVim.root()})<CR>',
+  { desc = "Replace cword (Spectre)" }
+)
 -- endregion
 
 -- region telescope
@@ -69,9 +89,21 @@ end
 
 -- region LSP Mappings.
 local bufnr = vim.api.nvim_get_current_buf
-vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, {buffer = bufnr(), noremap = true, silent = true, desc = "Add workspace"})
-vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, {buffer = bufnr(), noremap = true, silent = true, desc = "Remove workspace"})
-vim.keymap.set('n', '<space>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, {buffer = bufnr(), noremap = true, silent = true, desc = "List workspace"})
+vim.keymap.set(
+  "n",
+  "<space>wa",
+  vim.lsp.buf.add_workspace_folder,
+  { buffer = bufnr(), noremap = true, silent = true, desc = "Add workspace" }
+)
+vim.keymap.set(
+  "n",
+  "<space>wr",
+  vim.lsp.buf.remove_workspace_folder,
+  { buffer = bufnr(), noremap = true, silent = true, desc = "Remove workspace" }
+)
+vim.keymap.set("n", "<space>wl", function()
+  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+end, { buffer = bufnr(), noremap = true, silent = true, desc = "List workspace" })
 -- endregion LSP Mappings.
 
 -- stylua: ignore start
@@ -386,7 +418,6 @@ return {
   -- notify keymapping
   {
     "rcarriga/nvim-notify",
-    -- stylua: ignore
     keys = {
       { "<leader>un", function() require("notify").dismiss({ silent = true, pending = true }) end,
         desc = "Dismiss all Notifications", },
