@@ -32,6 +32,9 @@ return {
           window = win,
         }
 
+        -- I use paste more, so put in to normal mode
+        vim.cmd('stopinsert')
+
         if vim.bo.ft == "neorepl" then
           -- vim.api.nvim_buf_set_keymap(0, "n", 'q', cmd_neorepl_quit, {desc = "Quit Neorepl"})
           vim.keymap.set("n", 'q', function ()
@@ -44,7 +47,7 @@ return {
 
         -- resize repl window and make it fixed height
         vim.cmd('resize 10 | setl winfixheight')
-      end)
+      end, { desc = "neorepl" })
     end
   }
 }
