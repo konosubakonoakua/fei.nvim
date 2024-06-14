@@ -129,3 +129,5 @@
 - [ ] FIXME: (highlight) `GitSigns` fallback hl groups not working sometimes using some colorschemes like oxo
   - tried to add GitSigns hls instead of using fallback on `oxocarbon` theme #a1931b1c397cdbdda30e563ba023b7bcb0380b2a
 - [x] FIXME: (neo-tree) follow current file failed on some certain names
+- [] FIXME: (neo-tree) `<leader>e` cannot toggle when using `fzf-lua`
+- [] FIXME: (neo-tree) cannot manipulate files when using `fzf-lua`, error raised by notify
