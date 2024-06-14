@@ -51,16 +51,25 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     optional = true,
-    opts = function(_, opts)
-      -- PERF: default is "smart", performance killer
-      opts.defaults.path_display = { "absolute" }
-      opts.defaults.layout_config = {
-        width = 999,
-        height = 999,
-        -- vertical = { width = 1.0, height = 1.0 }
-      }
-      return opts
-    end,
+    opts = {
+      defaults = {
+        layout_config = {
+          horizontal = {
+            height = 0.9,
+            preview_cutoff = 0,
+            prompt_position = "bottom",
+            width = 0.9,
+          },
+          vertical = {
+            height = 9999,
+            preview_cutoff = 0,
+            prompt_position = "top",
+            width = 9999,
+          },
+        },
+        layout_strategy = 'horizontal',
+      },
+    },
   },
 
   { "junegunn/fzf", build = "./install --bin" },
