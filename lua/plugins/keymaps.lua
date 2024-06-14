@@ -107,9 +107,6 @@ return {
   {
     "ibhagwan/fzf-lua",
     optional = ture,
-    dependencies = {
-      { "junegunn/fzf", build = "./install --bin" },
-    },
     event = "VeryLazy",
     opts = function(_, opts)
       local config = require("fzf-lua.config")

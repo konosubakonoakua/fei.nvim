@@ -63,6 +63,9 @@ return {
     end,
   },
 
+
+  { "junegunn/fzf", build = "./install --bin" },
+
   -- todo-comments
   -- TODO: ###
   -- FIX: ###
