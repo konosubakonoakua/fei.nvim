@@ -1,9 +1,10 @@
 return {
   { import = "lazyvim.plugins.extras.editor.fzf" },
+  { import = "lazyvim.plugins.extras.editor.telescope", enabled = false},
   { "junegunn/fzf", build = "./install --bin" },
   {
     "ibhagwan/fzf-lua",
-    -- optional = true,
+    optional = ture,
     event = "VeryLazy",
     opts = function(_, opts)
       local config = require("fzf-lua.config")
