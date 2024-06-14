@@ -6,13 +6,27 @@
 <details>
 <summary><b>dashboard</b></summary>
 
-<img src="https://github.com/konosubakonoakua/.dotfiles/blob/main/screenshots/neovim.png" atl="dashboard" width="50%" >
+<img src="https://github.com/konosubakonoakua/.dotfiles/blob/main/screenshots/neovim.png" atl="dashboard" width="100%" >
 
 </details>
 <details>
 <summary><b>ikun logo</b></summary>
 
-<img src="https://github.com/konosubakonoakua/.dotfiles/blob/main/screenshots/ikun.png" alt="ikun" width="50%">
+<img src="https://github.com/konosubakonoakua/.dotfiles/blob/main/screenshots/ikun.png" alt="ikun" width="100%">
+
+</details>
+
+<details>
+<summary><b>oxocarbon light</b></summary>
+
+<img src="https://github.com/konosubakonoakua/fei.nvim/assets/42881610/375d09fe-6297-423c-8524-d724d9d59427" alt="oxocarbon light" width="100%">
+
+</details>
+
+<details>
+<summary><b>oxocarbon dark</b></summary>
+
+<img src="https://github.com/konosubakonoakua/fei.nvim/assets/42881610/a9016fe3-c4ad-4436-b371-6734a8ec2551" alt="oxocarbon dark" width="100%">
 
 </details>
 
