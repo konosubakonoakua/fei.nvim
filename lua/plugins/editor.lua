@@ -9,7 +9,9 @@
 --
 --
 local icons = require("util.stuffs.icons").todo
-local neotree_keymappings = require("plugins.util.neotree").mappings
+local neotree_mappings_filesystem = require("plugins.util.neotree").filesystem_window_mappings
+local neotree_mappings_window = require("plugins.util.neotree").window_mappings
+local neotree_mappings_documnet_symbols = require("plugins.util.neotree").document_symbols_window_mappings
 
 return {
 
@@ -26,9 +28,18 @@ return {
         bind_to_cwd = false,
         follow_current_file = { enabled = true },
         use_libuv_file_watcher = true,
+        window = {
+          mappings = neotree_mappings_filesystem,
+        }
+      },
+      document_symbols = {
+        follow_cursor = true,
+        window = {
+          mappings = neotree_mappings_documnet_symbols,
+        },
       },
       window = {
-        mappings = neotree_keymappings,
+        mappings = neotree_mappings_window,
       },
     },
   },

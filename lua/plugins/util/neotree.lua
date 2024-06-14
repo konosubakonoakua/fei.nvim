@@ -11,17 +11,15 @@ M.neotree_event_handlers = {
       vim.cmd("stopinsert")
     end,
   },
-
 }
 -- endregion neo-tree event_handlers
 
 -- region emulating Vim's fold commands
-local renderer = require "neo-tree.ui.renderer"
+local renderer = require("neo-tree.ui.renderer")
 
 -- Expand a node and load filesystem info if needed.
 local function open_dir(state, dir_node)
-  local fs = require "neo-tree.sources.filesystem"
-  fs.toggle_directory(state, dir_node, nil, true, false)
+  local fs = require("neo-tree.sources.filesystem") fs.toggle_directory(state, dir_node, nil, true, false)
 end
 
 -- Expand a node and all its children, optionally stopping at max_depth.
@@ -227,7 +225,7 @@ end
 
 -- region execute bash on selected
 -- https://www.reddit.com/r/neovim/comments/13pixc0/how_to_get_whole_path_in_neotree_if_not_in_root/
-local neotree_execute_bash = function (state)
+local neotree_execute_bash = function(state)
   -- state.path # this points to the root dir of the tree
   local node = state.tree:get_node() -- node in focus when keybind is pressed
   local abs_path = node.path
@@ -243,38 +241,49 @@ end
 -- region Navigation with hjkl
 -- https://github.com/nvim-neo-tree/neo-tree.nvim/discussions/163
 local neotree_navi_h = function(state)
+  if not state and not state.tree then return end
   local node = state.tree:get_node()
+  if not node then return end
+
   -- goto parent folder when reach the current root
   if node:get_parent_id() == nil then
-    require'neo-tree.sources.filesystem.commands'.navigate_up(state)
+    require("neo-tree.sources.filesystem.commands").navigate_up(state)
   end
-  if node.type == 'directory' and node:is_expanded() then
-    require'neo-tree.sources.filesystem'.toggle_directory(state, node)
+  if node.type == "directory" and node:is_expanded() then
+    require("neo-tree.sources.filesystem").toggle_directory(state, node)
   else
-    require'neo-tree.ui.renderer'.focus_node(state, node:get_parent_id())
+    require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
   end
 end
 
 local neotree_navi_l = function(state)
+  if not state and not state.tree then return end
   local node = state.tree:get_node()
-  if node.type == 'directory' then
+  if not node then return end
+
+  -- vim.notify(vim.inspect(node.type))
+  if node.type == "directory" then
     if not node:is_expanded() then
-      require'neo-tree.sources.filesystem'.toggle_directory(state, node)
+      require("neo-tree.sources.filesystem").toggle_directory(state, node)
     elseif node:has_children() then
-      require'neo-tree.ui.renderer'.focus_node(state, node:get_child_ids()[1])
+      require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
+    end
+  elseif node.type == "symbol" then
+    if node:has_children() then
+      require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
     end
   end
 end
 -- endregion Navigation with hjkl
 
 -- region open file without losing focus
-local neotree_openfile_nojump = function (state)
+local neotree_openfile_nojump = function(state)
   local node = state.tree:get_node()
   if require("neo-tree.utils").is_expandable(node) then
     state.commands["toggle_node"](state)
   else
-    state.commands['open'](state)
-    vim.cmd('Neotree reveal')
+    state.commands["open"](state)
+    vim.cmd("Neotree reveal")
   end
 end
 -- endregion open file without losing focus
@@ -292,16 +301,15 @@ local neotree_toggle_follow_current_file = function()
     filesystem = {
       -- BUG: not working on windows
       follow_current_file = {
-        enabled = _G.neotree_follow_current_file_status
+        enabled = _G.neotree_follow_current_file_status,
       },
-    }
+    },
   })
 end
 -- endregion toggle follow current file
 
-
 -- region fix file following issue
-M.open_tree = function (args)
+M.open_tree = function(args)
   local manager = require("neo-tree.sources.manager")
   local reveal_file = manager.get_path_to_reveal()
 
@@ -320,15 +328,15 @@ M.open_tree = function (args)
   })
 end
 
-local neotree_reveal = function (use_cwd)
-  local bufnr = vim.fn.bufnr('%')
+local neotree_reveal = function(use_cwd)
+  local bufnr = vim.fn.bufnr("%")
   local abs_file_path = vim.api.nvim_buf_get_name(bufnr)
   abs_file_path = LazyVim.is_win() and abs_file_path:gsub("/", "\\") or abs_file_path
   local abs_dir_path = vim.fn.fnamemodify(abs_file_path, ":p:h")
   abs_dir_path = LazyVim.is_win() and abs_dir_path:gsub("/", "\\") or abs_dir_path
   local smart_path = nil
   if use_cwd then
-    smart_path = vim.loop.cwd()
+    smart_path = vim.uv.cwd()
   else
     smart_path = LazyVim.root({
       { "lsp" },
@@ -354,7 +362,6 @@ local neotree_reveal = function (use_cwd)
     -- vim.notify("abs_dir DOSE contain smartpath")
   end
 
-
   -- open_tree({
   --   dir = smart_path,
   --   source = "filesystem",
@@ -365,50 +372,39 @@ local neotree_reveal = function (use_cwd)
     -- reveal_force_cwd = true,
     -- reveal_file = abs_file_path,
     toggle = true,
-    dir = smart_path
+    dir = smart_path,
   })
-    -- vim.notify(
-    --   "\n" ..
-    --   -- "abs_file:" .. tostring(abs_file_path) .. "\n" ..
-    --   -- "abs_dir:" .. tostring(abs_dir_path) .. "\n" ..
-    --   -- "loc:" .. tostring(loc) .. "\n" ..
-    --   "smart:" .. tostring(smart_path) .. "\n" ..
-    --   "\n"
-    -- )
+  -- vim.notify(
+  --   "\n" ..
+  --   -- "abs_file:" .. tostring(abs_file_path) .. "\n" ..
+  --   -- "abs_dir:" .. tostring(abs_dir_path) .. "\n" ..
+  --   -- "loc:" .. tostring(loc) .. "\n" ..
+  --   "smart:" .. tostring(smart_path) .. "\n" ..
+  --   "\n"
+  -- )
 end
 
-M.neotree_reveal_cwd = function() neotree_reveal(true) end
-M.neotree_reveal_root = function() neotree_reveal(false) end
+M.neotree_reveal_cwd = function()
+  neotree_reveal(true)
+end
+M.neotree_reveal_root = function()
+  neotree_reveal(false)
+end
 -- region fix file following issue
 
-M.mappings = {
--- region open file without losing focus
-  ['<tab>'] = {
+-- region filesystem_window_mappings
+M.filesystem_window_mappings = {
+  ["<tab>"] = {
     neotree_openfile_nojump,
     desc = "open file (no jump)",
-    nowait = true
+    nowait = true,
   },
-  -- endregion open file without losing focus
-  ["<space>"] = "none",
-  ["/"] = "none",
   ["g/"] = "fuzzy_finder",
   ["gf"] = {
     neotree_toggle_follow_current_file,
     desc = "toggle folow current file",
     nowait = true,
   },
-  -- region Navigation with hjkl
-  ["h"] = {
-    neotree_navi_h,
-    desc = "navigate h",
-    nowait = true
-  },
-  ["l"] = {
-    neotree_navi_l,
-    desc = "navigate l",
-    nowait = true
-  },
-  -- endregion Navigation with hjkl
 
   -- ['e'] = function() vim.api.nvim_exec('Neotree focus filesystem left', true) end,
   -- ['b'] = function() vim.api.nvim_exec('Neotree focus buffers left', true) end,
@@ -419,22 +415,22 @@ M.mappings = {
   ["zo"] = {
     neotree_zo,
     desc = "folder expand",
-    nowait = true
+    nowait = true,
   },
   ["zO"] = {
     neotree_zO,
     desc = "folder expand recursively",
-    nowait = true
+    nowait = true,
   },
   ["zc"] = {
     neotree_zc,
     desc = "folder collapse",
-    nowait = true
+    nowait = true,
   },
   ["zC"] = {
     neotree_zC,
     desc = "folder collapse recursively",
-    nowait = true
+    nowait = true,
   },
   ["za"] = {
     neotree_za,
@@ -444,39 +440,79 @@ M.mappings = {
   ["zA"] = {
     neotree_zA,
     desc = "folder toggle folding with count recursively",
-    nowait = true
+    nowait = true,
   },
   ["zx"] = {
     neotree_zx,
     desc = "folder update folding by depth then reveal",
-    nowait = true
+    nowait = true,
   },
   ["zX"] = {
     neotree_zX,
     desc = "folder update folding by depth",
-    nowait = true
+    nowait = true,
   },
   ["zm"] = {
     neotree_zm,
     desc = "folder collapse with count",
-    nowait = true
+    nowait = true,
   },
   ["zM"] = {
     neotree_zM,
     desc = "folder collapse all",
-    nowait = true
+    nowait = true,
   },
   ["zr"] = {
     neotree_zr,
     desc = "folder expand with count",
-    nowait = true
+    nowait = true,
   },
   ["zR"] = {
     neotree_zR,
     desc = "folder expand all",
-    nowait = true
+    nowait = true,
   },
   -- endregion emulating Vim's fold commands
 }
+-- endregion filesystem_window_mappings
+
+-- region mappings_window
+M.window_mappings = {
+  ["<space>"] = "none",
+  ["/"] = "none",
+  ["s"] = "none",
+  ["<C-s>"] = "open_vsplit",
+  -- region Navigation with hjkl
+  ["h"] = {
+    neotree_navi_h,
+    desc = "navigate h",
+    nowait = true,
+  },
+  ["l"] = {
+    neotree_navi_l,
+    desc = "navigate l",
+    nowait = true,
+  },
+  -- endregion Navigation with hjkl
+}
+-- endregion mappings_window
+
+-- region symbol_window_mappings
+M.document_symbols_window_mappings = {
+  ["<cr>"] = "jump_to_symbol",
+  ["o"] = "jump_to_symbol",
+  ["A"] = "noop",
+  ["d"] = "noop",
+  ["y"] = "noop",
+  ["x"] = "noop",
+  ["p"] = "noop",
+  ["c"] = "noop",
+  ["m"] = "noop",
+  ["a"] = "noop",
+  ["/"] = "filter",
+  ["f"] = "filter_on_submit",
+  ["r"] = "rename",
+}
+-- endregion symbol_window_mappings
 
 return M
