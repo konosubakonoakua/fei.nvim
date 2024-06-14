@@ -1,7 +1,7 @@
 return {
-  desc = "nest all config files for neotree",
   {
     "nvim-neo-tree/neo-tree.nvim",
+    optional = true,
     dependencies = {
       -- Others dependencies
       "saifulapm/neotree-file-nesting-config", -- add plugin as dependency. no need any other config or setup call
