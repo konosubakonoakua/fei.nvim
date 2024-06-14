@@ -122,12 +122,12 @@ return {
         i = {
           ["<C-j>"] = function(...) return require("telescope.actions").move_selection_next(...) end,
           ["<C-k>"] = function(...) return require("telescope.actions").move_selection_previous(...) end,
-          ["<C-n>"] = function(...) return require("telescope.actions").move_selection_next(...) end,
-          ["<C-p>"] = function(...) return require("telescope.actions").move_selection_previous(...) end,
-          ["<A-p>"] = function(...) return require("telescope.actions.layout").toggle_preview(...) end,
+          -- ["<C-n>"] = function(...) return require("telescope.actions").move_selection_next(...) end,
+          -- ["<C-p>"] = function(...) return require("telescope.actions").move_selection_previous(...) end,
+          ["<C-p>"] = function(...) return require("telescope.actions.layout").toggle_preview(...) end,
         },
         n = {
-          ["<A-p>"] = function(...) return require("telescope.actions.layout").toggle_preview(...) end,
+          ["<C-p>"] = function(...) return require("telescope.actions.layout").toggle_preview(...) end,
         },
       }
       return opts
