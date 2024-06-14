@@ -139,8 +139,10 @@ function M.create_autocmds()
 end
 
 -- api.nvim_set_hl(0, 'CursorLineNr', { link = 'NormalMode' })
-M.set_fallback_highlight_groups()
-M.cb_cursorline_hl()
-M.create_autocmds()
+function M.setup()
+  M.set_fallback_highlight_groups()
+  M.cb_cursorline_hl()
+  M.create_autocmds()
+end
 
-return {}
+return M
