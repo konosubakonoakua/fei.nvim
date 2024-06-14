@@ -82,6 +82,7 @@ return {
   -- telescope picker keymapping
   {
     "nvim-telescope/telescope.nvim",
+    optional = true,
     opts = function(_, opts)
       -- stylua: ignore start
       -- TODO: add keymap to delete selected buffers, maybe need a keymap to select all
@@ -178,10 +179,11 @@ return {
   -- telescope keymapping
   {
     "nvim-telescope/telescope.nvim",
+    optional = true,
     keys = {
       { mode = "n", "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy Search (Current)" },
       { mode = "n", "<leader>fc", function() require('telescope.builtin').find_files({find_command={'fd', vim.fn.expand("<cword>")}}) end,  desc = "Telescope Find cfile" },
-      { mode = "n", "<leader>fC", LazyVim.telescope.config_files(),  desc = "Find Config File" },
+      { mode = "n", "<leader>fC", LazyVim.pick.config_files(),  desc = "Find Config File" },
       { mode = "n", "<leader>fg", ":Telescope grep_string<cr>", desc = "Telescope Grep String", noremap = true },
       { mode = "n", "<leader>fG", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", desc = "Live grep args", noremap = true },
       { mode = "n", "<leader>fP", function() require("telescope.builtin").find_files( { cwd = require("lazy.core.config").options.root }) end, desc = "Find Plugin File"},
