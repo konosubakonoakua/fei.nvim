@@ -47,6 +47,7 @@
     "plugins.extras.editor.quickfix",
     "plugins.extras.editor.splitjoin",
     "plugins.extras.editor.toggleterm",
+    "plugins.extras.editor.vimmode",
     "plugins.extras.editor.window",
     "plugins.extras.fuzzy.fzf",
     "plugins.extras.git.mini-git",
