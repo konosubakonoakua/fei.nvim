@@ -1,0 +1,18 @@
+# ~/.local/state/nvim/lsp.log
+CompileFlags:
+  Remove: [
+    ############################################
+    #### linux-rpi 64bit
+    ## Failed to prepare a compiler instance: unknown target ABI 'lp64'
+    -mabi=lp64,
+    ############################################
+
+    ############################################
+    #### x86-64
+    -fconserve-stack,
+    -fno-allow-store-data-races,
+    -mindirect-branch-register,
+    -mindirect-branch=thunk-extern,
+    -mpreferred-stack-boundary=3,
+    ############################################
+  ]
