@@ -133,5 +133,20 @@ function M.trunc(trunc_width, trunc_len, hide_width, no_ellipsis)
   end
 end
 
+function M.filespec()
+  local files = {} ---@type table<string, string>
+  for _, plugin in pairs(require("lazy.core.config").plugins) do
+    repeat
+      if plugin._.module then
+        local info = vim.loader.find(plugin._.module)[1]
+        if info then
+          files[info.modpath] = info.modpath
+        end
+      end
+      plugin = plugin._.super
+    until not plugin
+  end
+  return vim.tbl_values(files)
+end
 
 return M

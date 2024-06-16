@@ -24,8 +24,6 @@ local _floatterm = Utils.custom_floatterm
 local _lazyterm = Utils.custom_lazyterm
 local _lazyterm_cwd = Utils.custom_lazyterm_cwd
 
--- stylua: ignore start
-
 -- Dashboard
 keymap("n", "<leader>;;", function()
   if LazyVim.has("dashboard-nvim") then
@@ -54,10 +52,20 @@ keymap("n", "<leader>;P", function()
 end, { desc = "Project Add Current" })
 
 -- region code
-keymap( "n", "<leader>cB", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', { desc = "Replace buffer (Spectre)" })
-keymap( "n", "<leader>cN", "<cmd>lua require('spectre').open({cwd=LazyVim.root()})<CR>", { desc = "Replace files (Spectre)" })
-keymap( "v", "<leader>cN", '<esc><cmd>lua require("spectre").open_visual({cwd=LazyVim.root()})<CR>', { desc = "Replace cword (Spectre)" })
-keymap( "v", "<leader>cw", '<cmd>lua require("spectre").open_visual({select_word=true, cwd=LazyVim.root()})<CR>', { desc = "Replace cword (Spectre)" })
+-- stylua: ignore start
+keymap( "n", "<leader>cb", '<cmd>lua require("spectre").open_file_search()<CR>',
+  { desc = "Replace buffer (Spectre)" })
+
+keymap( "n", "<leader>cn", "<cmd>lua require('spectre').open({cwd=LazyVim.root()})<CR>",
+  { desc = "Replace files root (Spectre)" })
+
+keymap( "v", "<leader>cb", '<esc><cmd>lua require("spectre").open_visual())<CR>',
+  { desc = "Replace visual buffer (Spectre)" })
+
+keymap( "v", "<leader>cn", '<esc><cmd>lua require("spectre").open_visual({cwd=LazyVim.root()})<CR>',
+  { desc = "Replace visual root (Spectre)" })
+
+-- stylua: ignore end
 -- endregion
 
 -- region telescope
@@ -71,13 +79,19 @@ end
 
 -- region LSP Mappings.
 local bufnr = vim.api.nvim_get_current_buf
-vim.keymap.set( "n", "<space>wa", vim.lsp.buf.add_workspace_folder, { buffer = bufnr(), noremap = true, silent = true, desc = "Add workspace" })
-vim.keymap.set( "n", "<space>wr", vim.lsp.buf.remove_workspace_folder, { buffer = bufnr(), noremap = true, silent = true, desc = "Remove workspace" })
-vim.keymap.set("n", "<space>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, { buffer = bufnr(), noremap = true, silent = true, desc = "List workspace" })
+vim.keymap.set( "n", "<space>wa", vim.lsp.buf.add_workspace_folder,
+  { buffer = bufnr(), noremap = true, silent = true, desc = "Add workspace" })
+
+vim.keymap.set( "n", "<space>wr", vim.lsp.buf.remove_workspace_folder,
+  { buffer = bufnr(), noremap = true, silent = true, desc = "Remove workspace" })
+
+vim.keymap.set("n", "<space>wl", function()
+  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+end, { buffer = bufnr(), noremap = true, silent = true, desc = "List workspace" })
 -- endregion LSP Mappings.
 
 -- region notepad
-vim.keymap.set("n", "<leader>;n", function() require("util.notepad").toggle() end, { desc = "Notepad" })
+vim.keymap.set("n", "<leader>;n", require("util.notepad").toggle, { desc = "Notepad" })
 -- endregion notepad
 
 -- stylua: ignore end
@@ -157,37 +171,23 @@ return {
       }
       return opts
     end,
+    -- stylua: ignore
     keys = {
-      -- find
       { "<leader>fg", LazyVim.pick("git_files", { root = true }), desc = "Find Git-Files (root)" },
       { "<leader>fP", LazyVim.pick("files", { cwd = vim.fn.stdpath("data") .. "/lazy" }), desc = "Find Plugin File" },
       { "<leader>fR", LazyVim.pick("oldfiles", { cwd = vim.uv.cwd() }), desc = "Recent (cwd)" },
       { "<leader>fr", LazyVim.pick("oldfiles", { root = true }), desc = "Recent (root)" },
-      {
-        "<leader>fl",
-        function()
-          local files = {} ---@type table<string, string>
-          for _, plugin in pairs(require("lazy.core.config").plugins) do
-            repeat
-              if plugin._.module then
-                local info = vim.loader.find(plugin._.module)[1]
-                if info then
-                  files[info.modpath] = info.modpath
-                end
-              end
-              plugin = plugin._.super
-            until not plugin
-          end
-          local filespec = table.concat(vim.tbl_values(files), " ")
-          require("fzf-lua").live_grep({ filespec = "-- " .. filespec, search = "/" })
-        end,
-        desc = "Find Lazy Plugin Spec",
-      },
       -- git
       { "<leader>gc", LazyVim.pick("git_commits", { root = true }), desc = "Git Commits (FzfLua)" },
       { "<leader>gs", LazyVim.pick("git_status", { root = true }), desc = "Git Status (FzfLua)" },
       -- search
       { "<leader><leader>", LazyVim.pick("builtin"), desc = "Picker Builtin" },
+      { "<leader>sL", function()
+          local filespec = table.concat(require("util").filespec(), " ")
+          require("fzf-lua").live_grep({ filespec = "-- " .. filespec, search = "/" })
+        end,
+        desc = "Find Lazy Plugin Spec",
+      },
       { "<leader>sM", LazyVim.pick("man_pages"), desc = "Man pages" },
       -- { "<leader>sR", nil, desc = nil }, -- deleted
     },
@@ -249,23 +249,10 @@ return {
       { mode = "n", "<leader>su", "<cmd>Telescope tags<cr>",         desc = "Tags", noremap = true },
       { mode = "n", "<leader>sU", "<cmd>Telescope tagstack<cr>",     desc = "Tagstack", noremap = true },
       { mode = "n", "<leader>sR", function() require("spectre").open() end, desc = "Replace in Files (Spectre)" }, -- NOTE: overwrite LazyVim default mapping for telescope resume
-      { mode = "n", "<leader>fl", function()
-          local files = {} ---@type table<string, string>
-          for _, plugin in pairs(require("lazy.core.config").plugins) do
-            repeat
-              if plugin._.module then
-                local info = vim.loader.find(plugin._.module)[1]
-                if info then
-                  files[info.modpath] = info.modpath
-                end
-              end
-              plugin = plugin._.super
-            until not plugin
-          end
-          require("telescope.builtin").live_grep({
-            default_text = "/",
-            search_dirs = vim.tbl_values(files),
-          })
+      { mode = "n", "<leader>sL", function()
+          local filespec = require("util").filespec()
+          vim.print(vim.inspect(filespec))
+          require("telescope.builtin").live_grep({ default_text = "", search_dirs = vim.tbl_values(filespec), })
         end,
         desc = "Find Lazy Plugin Spec",
       },
@@ -363,7 +350,11 @@ return {
   {
     "rcarriga/nvim-notify",
     keys = {
-      { "<leader>un", function() require("notify").dismiss({ silent = true, pending = true }) end,
+      {
+        "<leader>un",
+        function()
+          require("notify").dismiss({ silent = true, pending = true })
+        end,
         desc = "Dismiss all Notifications",
       },
       -- TODO: add fzflua for nvim-notify
