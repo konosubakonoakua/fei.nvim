@@ -88,22 +88,37 @@ return {
     "nvim-telescope/telescope.nvim",
     optional = true,
     opts = function(_, opts)
-      -- stylua: ignore start
       -- TODO: add keymap to delete selected buffers, maybe need a keymap to select all
-      opts.defaults.mappings = {
-        i = {
-          ["<C-j>"] = function(...) return require("telescope.actions").move_selection_next(...) end,
-          ["<C-k>"] = function(...) return require("telescope.actions").move_selection_previous(...) end,
-          -- ["<C-n>"] = function(...) return require("telescope.actions").move_selection_next(...) end,
-          -- ["<C-p>"] = function(...) return require("telescope.actions").move_selection_previous(...) end,
-          ["<C-p>"] = function(...) return require("telescope.actions.layout").toggle_preview(...) end,
+      opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
+        -- stylua: ignore
+        mappings = {
+          i = {
+            ["<C-j>"] = function(...) return require("telescope.actions").move_selection_next(...) end,
+            ["<C-k>"] = function(...) return require("telescope.actions").move_selection_previous(...) end,
+            ["<C-n>"] = function(...) return require("telescope.actions").remove_selection(...) end,
+            ["<C-p>"] = function(...) return require("telescope.actions.layout").toggle_preview(...) end,
+          },
+          n = {
+            ["<C-p>"] = function(...) return require("telescope.actions.layout").toggle_preview(...) end,
+          },
         },
-        n = {
-          ["<C-p>"] = function(...) return require("telescope.actions.layout").toggle_preview(...) end,
+      })
+
+      opts.pickers = vim.tbl_deep_extend("force", opts.pickers or {}, {
+        -- stylua: ignore
+        buffers = {
+          mappings = {
+            i = {
+              ["<C-y>"] = function(...) return require("telescope.actions").delete_buffer(...) end,
+            },
+            n = {
+              ["x"] = function(...) return require("telescope.actions").delete_buffer(...) end,
+            },
+          },
         },
-      }
+      })
+
       return opts
-      -- stylua: ignore end
     end,
   },
 
@@ -251,6 +266,7 @@ return {
   },
 
   -- telescope keymapping
+  -- stylua: ignore
   {
     "nvim-telescope/telescope.nvim",
     optional = true,
