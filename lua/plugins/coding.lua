@@ -1,4 +1,4 @@
-local icon_kinds = require("lazyvim.config").icons.kinds
+local icon_kinds = LazyVim.config.icons.kinds
 
 return {
   -- nvim-cmp icon customize

@@ -36,10 +36,9 @@ if LazyVim.has("fzf-lua") == 1 then
 end
 
 M.config = function()
-  local Config = require("lazyvim.config")
   vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
 
-  for name, sign in pairs(Config.icons.dap) do
+  for name, sign in pairs(LazyVim.config.icons.dap) do
     sign = type(sign) == "table" and sign or { sign }
     vim.fn.sign_define(
       "Dap" .. name,
