@@ -24,6 +24,8 @@ local _floatterm = Utils.custom_floatterm
 local _lazyterm = Utils.custom_lazyterm
 local _lazyterm_cwd = Utils.custom_lazyterm_cwd
 
+-- stylua: ignore start
+
 -- Dashboard
 keymap("n", "<leader>;;", function()
   if LazyVim.has("dashboard-nvim") then
@@ -52,30 +54,10 @@ keymap("n", "<leader>;P", function()
 end, { desc = "Project Add Current" })
 
 -- region code
-keymap(
-  "n",
-  "<leader>cB",
-  '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>',
-  { desc = "Replace buffer (Spectre)" }
-)
-keymap(
-  "n",
-  "<leader>cN",
-  "<cmd>lua require('spectre').open({cwd=LazyVim.root()})<CR>",
-  { desc = "Replace files (Spectre)" }
-)
-keymap(
-  "v",
-  "<leader>cN",
-  '<esc><cmd>lua require("spectre").open_visual({cwd=LazyVim.root()})<CR>',
-  { desc = "Replace cword (Spectre)" }
-)
-keymap(
-  "v",
-  "<leader>cw",
-  '<cmd>lua require("spectre").open_visual({select_word=true, cwd=LazyVim.root()})<CR>',
-  { desc = "Replace cword (Spectre)" }
-)
+keymap( "n", "<leader>cB", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', { desc = "Replace buffer (Spectre)" })
+keymap( "n", "<leader>cN", "<cmd>lua require('spectre').open({cwd=LazyVim.root()})<CR>", { desc = "Replace files (Spectre)" })
+keymap( "v", "<leader>cN", '<esc><cmd>lua require("spectre").open_visual({cwd=LazyVim.root()})<CR>', { desc = "Replace cword (Spectre)" })
+keymap( "v", "<leader>cw", '<cmd>lua require("spectre").open_visual({select_word=true, cwd=LazyVim.root()})<CR>', { desc = "Replace cword (Spectre)" })
 -- endregion
 
 -- region telescope
@@ -89,27 +71,17 @@ end
 
 -- region LSP Mappings.
 local bufnr = vim.api.nvim_get_current_buf
-vim.keymap.set(
-  "n",
-  "<space>wa",
-  vim.lsp.buf.add_workspace_folder,
-  { buffer = bufnr(), noremap = true, silent = true, desc = "Add workspace" }
-)
-vim.keymap.set(
-  "n",
-  "<space>wr",
-  vim.lsp.buf.remove_workspace_folder,
-  { buffer = bufnr(), noremap = true, silent = true, desc = "Remove workspace" }
-)
-vim.keymap.set("n", "<space>wl", function()
-  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-end, { buffer = bufnr(), noremap = true, silent = true, desc = "List workspace" })
+vim.keymap.set( "n", "<space>wa", vim.lsp.buf.add_workspace_folder, { buffer = bufnr(), noremap = true, silent = true, desc = "Add workspace" })
+vim.keymap.set( "n", "<space>wr", vim.lsp.buf.remove_workspace_folder, { buffer = bufnr(), noremap = true, silent = true, desc = "Remove workspace" })
+vim.keymap.set("n", "<space>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, { buffer = bufnr(), noremap = true, silent = true, desc = "List workspace" })
 -- endregion LSP Mappings.
 
--- stylua: ignore start
 -- region notepad
 vim.keymap.set("n", "<leader>;n", function() require("util.notepad").toggle() end, { desc = "Notepad" })
 -- endregion notepad
+
+-- stylua: ignore end
+
 return {
   -- telescope picker keymapping
   {
@@ -158,7 +130,7 @@ return {
         fullscreen = false,
         -- border = "none", -- 'none', 'single', 'double', 'thicc' (+cc) or 'rounded' (default)
         preview = {
-          scrollchars    = {'█', '' },
+          scrollchars = { "█", "" },
           hidden = "nohidden",
           layout = "vertical", -- horizontal|vertical|flex
         },
@@ -399,20 +371,22 @@ return {
     },
   },
 
-
   -- noice keymapping
   {
     "folke/noice.nvim",
+    -- stylua: ignore
     keys = {
-      { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
+      { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline", },
       { "<leader>snl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
       { "<leader>snh", function() require("noice").cmd("history") end, desc = "Noice History" },
       { "<leader>sna", function() require("noice").cmd("all") end, desc = "Noice All" },
       { "<leader>snd", function() require("noice").cmd("dismiss") end, desc = "Dismiss All" },
       -- { "<leader>snt", function() require("noice").cmd("pick") end, desc = "Noice Picker (Telescope/FzfLua)" },
       { "<leader>snp", function() require("noice").cmd("pick") end, desc = "Noice Picker (Telescope/FzfLua)" },
-      { "<c-f>", function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end, silent = true, expr = true, desc = "Scroll forward", mode = {"i", "n", "s"} },
-      { "<c-b>", function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true, expr = true, desc = "Scroll backward", mode = {"i", "n", "s"}},
+      { "<c-f>", function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end,
+        silent = true, expr = true, desc = "Scroll forward", mode = { "i", "n", "s" }, },
+      { "<c-b>", function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end,
+        silent = true, expr = true, desc = "Scroll backward", mode = { "i", "n", "s" }, },
     },
   },
 
@@ -421,26 +395,29 @@ return {
     "rcarriga/nvim-notify",
     keys = {
       { "<leader>un", function() require("notify").dismiss({ silent = true, pending = true }) end,
-        desc = "Dismiss all Notifications", },
+        desc = "Dismiss all Notifications",
+      },
       -- TODO: add fzflua for nvim-notify
       -- https://github.com/ibhagwan/fzf-lua/wiki/Advanced
-      { "<leader>uN", function()
-        if require("util.picker").has_telescope() then
-          require("telescope").extensions.notify.notify()
-        else
-          LazyVim.error("notify.nvim not support fzf-lua")
-        end
-      end,
-        desc = "Dispaly all Notification histories", },
+      {
+        "<leader>uN",
+        function()
+          if require("util.picker").has_telescope() then
+            require("telescope").extensions.notify.notify()
+          else
+            LazyVim.error("notify.nvim not support fzf-lua")
+          end
+        end,
+        desc = "Dispaly all Notification histories",
+      },
     },
   },
-
 
   -- indent-blankline keymapping
   {
     "lukas-reineke/indent-blankline.nvim",
     keys = {
-      { "<leader>uI", "<cmd>IBLToggle<cr>", mode = "n", desc = "Toggle IndentLine" }
+      { "<leader>uI", "<cmd>IBLToggle<cr>", mode = "n", desc = "Toggle IndentLine" },
     },
   },
 
@@ -454,7 +431,7 @@ return {
         ["gz"] = {},
         ["<leader>;"] = { name = "+utils" },
       },
-    }
+    },
   },
 }
 
