@@ -156,11 +156,11 @@ return {
       opts.fzf_opts = { ["--layout"] = "reverse" } -- input box at TOP
       opts.winopts = {
         fullscreen = false,
-        layout = "flex", -- horizontal|vertical|flex
         -- border = "none", -- 'none', 'single', 'double', 'thicc' (+cc) or 'rounded' (default)
         preview = {
-          scrollchars = { "┃", "" },
+          scrollchars    = {'█', '' },
           hidden = "nohidden",
+          layout = "vertical", -- horizontal|vertical|flex
         },
       }
       opts.previewers = {
