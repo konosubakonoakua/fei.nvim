@@ -515,4 +515,55 @@ M.document_symbols_window_mappings = {
 }
 -- endregion symbol_window_mappings
 
+M.neotree_spec = {
+  "nvim-neo-tree/neo-tree.nvim",
+  keys = {
+    -- {
+    --   "<leader>e",
+    --   require("plugins.util.neotree").neotree_reveal_root,
+    --   -- "<cmd>Neotree toggle show<cr>",
+    --   desc = "Explorer NeoTree (root dir)",
+    -- },
+    -- {
+    --   "<leader>E", -- NOTE: fix file following issue
+    --   require("plugins.util.neotree").neotree_reveal_cwd,
+    --   -- "<cmd>Neotree toggle show<cr>",
+    --   desc = "Explorer NeoTree (cwd)",
+    -- },
+    -- {
+    --   -- TODO: not working if already on the neotree window,
+    --   -- consider record the last file buffer which needs to be revealed in <leader>e
+    --   -- currently stop using auto-follow
+    --   "<leader>fe", function ()
+    --     -- TODO: quit if not on a realfile or use history
+    --     require('neo-tree.command').execute({
+    --       action = "show",
+    --       source = "filesystem",
+    --       position = "left",
+    --       -- reveal_file = reveal_file,
+    --       dir = LazyVim.root(),
+    --       -- reveal_force_cwd = true,
+    --       -- toggle = true,
+    --     })
+    --     -- FIXME: don't close opend folders
+    --     -- show_only_explicitly_opened() can be disabled
+    --     require("neo-tree.sources.filesystem.init").follow(nil, true)
+    --     -- -- FIXME: cannot focus on file
+    --     -- vim.cmd([[
+    --     --   Neotree reveal
+    --     -- ]])
+    --     require('neo-tree.command').execute({
+    --       action = "reveal",
+    --       source = "filesystem",
+    --       position = "left",
+    --       dir = LazyVim.root(),
+    --       -- toggle = true,
+    --     })
+    --   end,
+    --   mode = 'n',
+    --   desc="Open neo-tree at current file or working directory"
+    -- },
+  },
+}
+
 return M
