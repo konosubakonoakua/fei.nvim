@@ -56,7 +56,6 @@
     "plugins.extras.lang.log",
     "plugins.extras.lang.markdown",
     "plugins.extras.lang.python",
-    "plugins.extras.lang.rust",
     "plugins.extras.lang.zig",
     "plugins.extras.multiplexer.tmux",
     "plugins.extras.terminal.termim",
