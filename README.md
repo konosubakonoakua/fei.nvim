@@ -59,6 +59,14 @@ else
     bash -c "$(wget -O- https://raw.githubusercontent.com/konosubakonoakua/fei.nvim/main/scripts/install.sh)"
 fi
 ```
+
+or just try it.
+
+```shell
+git clone https://github.com/konosubakonoakua/fei.nvim.git ~/.config/fei.nvim
+alias fvim='NVIM_APPNAME="fei.nvim" nvim' # will save plugins at ~/.local/share/fei.nvim
+```
+
 </details>
 
 ## Reference
