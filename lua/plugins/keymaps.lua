@@ -200,11 +200,26 @@ return {
     "nvim-neo-tree/neo-tree.nvim",
     keys = {
       {
-        "<Leader>fB", function() require("neo-tree.command").execute({ toggle = true, dir = vim.fn.expand("%:p:h") }) end,
+        "<Leader>fB",
+        function()
+          require("neo-tree.command").execute({
+            toggle = true,
+            dir = vim.fn.expand("%:p:h"),
+          })
+        end,
         desc = "Explorer NeoTree (Buffer Dir)",
       },
+      { "<leader>ce", "<cmd>Neotree document_symbols<cr>", desc = "Neotree (Symbols)", },
       {
-        "<leader>ce", "<cmd>Neotree document_symbols<cr>", desc = "Neotree (Symbols)",
+        "<leader>ge",
+        function()
+          require("neo-tree.command").execute({
+            toggle = true,
+            dir = LazyVim.root(),
+            source = "git_status",
+          })
+        end,
+        desc = "Git Explorer",
       },
     },
   },
@@ -228,12 +243,14 @@ return {
       { mode = "n", "<leader><leader>", "", desc = "" },
       { mode = "n", "<leader><leader>f", "<cmd>FZF!<cr>", desc = "FZF" },
       { mode = "n", "<leader><leader>b", function () require("telescope.builtin").builtin({ include_extensions = (vim.v.count ~= 0) }) end,   desc = "Telescope Builtins", noremap = true },
-      { mode = "n", "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy Search (Current)" },
+      { mode = "n", "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy current" },
       { mode = "n", "<leader>fc", function() require('telescope.builtin').find_files({find_command={'fd', vim.fn.expand("<cword>")}}) end,  desc = "Telescope Find cfile" },
       { mode = "n", "<leader>fC", LazyVim.pick.config_files(),  desc = "Find Config File" },
       { mode = "n", "<leader>fg", "<cmd>Telescope grep_string<cr>", desc = "Telescope Grep String", noremap = true },
       { mode = "n", "<leader>fG", "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", desc = "Live grep args", noremap = true },
       { mode = "n", "<leader>fP", function() require("telescope.builtin").find_files( { cwd = require("lazy.core.config").options.root }) end, desc = "Find Plugin File"},
+      { mode = "n", "<leader>gc", LazyVim.pick("git_commits", { root = true }), desc = "Commits" },
+      { mode = "n", "<leader>gs", LazyVim.pick("git_status", { root = true }), desc = "Status" },
       { mode = "n", "<leader>sr", "<cmd>Telescope resume<cr>",    desc = "Telescope Resume" },
       { mode = "n", "<leader>sb", "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>", desc = "find current buffer", noremap = true },
       { mode = "n", "<leader>sB", "<cmd>lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>", desc = "Find opened files", noremap = true},
