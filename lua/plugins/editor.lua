@@ -23,6 +23,30 @@ return {
     "nvim-neo-tree/neo-tree.nvim",
     optional = true,
     opts = {
+      sources = {
+        "filesystem",
+        "buffers",
+        "git_status",
+        "document_symbols",
+      },
+      source_selector = {
+        winbar = true,
+        statusline = false,
+        sources = {
+          {
+            source = "filesystem",
+            display_name = " 󰉓 Files "
+          },
+          {
+            source = "document_symbols",
+            display_name = " 󰌆 Symbols "
+          },
+          {
+            source = "git_status",
+            display_name = " 󰊢 Git "
+          },
+        },
+      },
       use_popups_for_input = false,
       filesystem = {
         bind_to_cwd = false,
