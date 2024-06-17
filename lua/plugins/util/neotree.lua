@@ -247,10 +247,14 @@ local neotree_navi_h = function(state)
 
   -- goto parent folder when reach the current root
   if node:get_parent_id() == nil then
-    require("neo-tree.sources.filesystem.commands").navigate_up(state)
+    local navigate_up = require("neo-tree.sources.filesystem.commands").navigate_up
+    pcall(navigate_up, state) -- suppress error when reach the root that is nil
   end
+
   if node.type == "directory" and node:is_expanded() then
     require("neo-tree.sources.filesystem").toggle_directory(state, node)
+  elseif node.type == "symbol" and node:is_expanded() then
+    require("neo-tree.sources.common.commands").close_all_subnodes(state)
   else
     require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
   end
