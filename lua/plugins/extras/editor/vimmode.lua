@@ -1,16 +1,15 @@
-return({
+return {
   {
-    "mawkler/modicator.nvim",
+    "konosubakonoakua/modicator.nvim",
+    enabled = true,
     opts = {
-      -- Warn if any required option is missing. May emit false positives if some
-      -- other plugin modifies them, which in that case you can just ignore
       show_warnings = false,
+      cursor_line_nr_background = true,
       highlights = {
-        -- Default options for bold/italic
         defaults = {
           bold = true,
           italic = false,
-        },
+        }
       },
       integration = {
         lualine = {
@@ -21,6 +20,28 @@ return({
           highlight = 'bg',
         },
       },
-    }
+    },
   },
-})
+  {
+    "mvllow/modes.nvim",
+    enabled = false,
+    opts = {
+      line_opacity = 0.15,
+      set_cursor = true,
+      set_cursorline = true,
+      set_number = false,
+      ignore_filetypes = {
+        'NvimTree',
+        'TelescopePrompt',
+      }
+    },
+
+    config = function (_, opts)
+      vim.api.nvim_set_hl(0, "ModesCopy", { default = true, link = "lualine_a_normal" })
+      vim.api.nvim_set_hl(0, "ModesDelete", { default = true, link = "lualine_a_replace" })
+      vim.api.nvim_set_hl(0, "ModesInsert", { default = true, link = "lualine_a_insert" })
+      vim.api.nvim_set_hl(0, "ModesVisual", { default = true, link = "lualine_a_visual" })
+      require("modes").setup(opts)
+    end,
+  }
+}
