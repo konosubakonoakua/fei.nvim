@@ -133,3 +133,4 @@
   - fixed, another keymap is double defined in user config
 - [] FIXME: (neo-tree) cannot manipulate files when using `fzf-lua`, error raised by notify
   - seems something with `nui`
+- [] FIXME: disabled plugins, some of them even should not have spec loaded, with `enabled=false`
