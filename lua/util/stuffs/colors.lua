@@ -269,6 +269,19 @@ function M.get_hl(name)
   return hl
 end
 
+function M.get_hl_raw(name)
+  local ok, hl = pcall( vim.api.nvim_get_hl, 0,
+    {
+      name = name,
+      link = false, -- false to follow link
+    }
+  )
+  if not ok then
+    return nil
+  end
+  return hl
+end
+
 function M.hex2rgb(hex)
   hex = hex:gsub("#", "")
   return tonumber("0x" .. hex:sub(1, 2)), tonumber("0x" .. hex:sub(3, 4)), tonumber("0x" .. hex:sub(5, 6))
