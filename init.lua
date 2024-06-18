@@ -2,11 +2,17 @@ if vim.env.VSCODE then
   vim.g.vscode = true
 end
 
+_G.fei = {
+  debug_on = false,
+  trace_on = false,
+}
+
 _G.dump = function(...)
-  require("util.debug").dump(...)
+  if _G.fei.debug_on then require("util.debug").dump(...) end
 end
+
 _G.trace = function(...)
-  require("util.debug").bt(...)
+  if _G.fei.debug_on then require("util.debug").bt(...) end
 end
 
 require("config.lazy")
