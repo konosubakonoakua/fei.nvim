@@ -38,7 +38,7 @@ if (vim.g.python3_host_prog == nil)
   or (vim.g.python3_host_prog == "")
   or (vim.g.python3_host_prog == 0) then
   LazyVim.error([[
-  python3 not found, please set `$PYNVIM_WIN` to python3 executable
+  python3 not found, please set `$PYNVIM` to python3 executable
     you also need to install pynvim:
     python3 -m pip install pynvim
   ]])
