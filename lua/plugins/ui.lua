@@ -134,7 +134,7 @@ return {
       local lualine_y = {
         {
           function()
-            local icon = "  " -- 󰡪
+            local icon = " 󰡪 "
             local line = vim.fn.line(".")
             local col = vim.fn.virtcol(".")
             return icon .. string.format("%d:%d", line, col)
