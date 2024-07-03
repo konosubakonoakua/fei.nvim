@@ -21,7 +21,6 @@
   "epics.nvim": { "branch": "main", "commit": "f70e1ba94f1c6bfd19f372c0b8d7b07695486ea9" },
   "flash.nvim": { "branch": "main", "commit": "43f67935d388fbb540f8b40e8cbfd80de54f978a" },
   "friendly-snippets": { "branch": "main", "commit": "682157939e57bd6a2c86277dfd4d6fbfce63dbac" },
-  "fzf": { "branch": "master", "commit": "cfc149e99448c68f0d298fd8f99808cd2c36788e" },
   "glow.nvim": { "branch": "main", "commit": "238070a686c1da3bccccf1079700eb4b5e19aea4" },
   "godbolt.nvim": { "branch": "main", "commit": "7837820ca36530aaa81900d05c40dea2444f4c87" },
   "guess-indent.nvim": { "branch": "main", "commit": "6c75506e71836f34fe5c5efa322dfce3e0494e7b" },
