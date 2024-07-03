@@ -39,6 +39,15 @@ local keydel             = vim.keymap.del
 
 -- endregion local functions
 
+if vim.g.neovide then
+  vim.keymap.set(
+      {'n', 'v', 's', 'x', 'o', 'i', 'l', 'c', 't'},
+      '<C-S-v>',
+      function() vim.api.nvim_paste(vim.fn.getreg('+'), true, -1) end,
+      { noremap = true, silent = true }
+  )
+end
+
 vim.keymap.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Write file" })
 vim.keymap.set({ "x", "n", "s" }, "<leader>fw", "<cmd>w<cr><esc>", { desc = "Write file" })
 
