@@ -107,5 +107,5 @@ vim.opt.pumblend = 0 -- Popup blend
 
 -- add fallback fileencodings
 vim.opt.fileencodings = "utf-8,ucs-bom,gb18030,gbk,gb2312,cp936"
-vim.opt.termencoding = "utf-8"
+-- vim.opt.termencoding = "utf-8" -- removed
 vim.opt.encoding = "utf-8"
