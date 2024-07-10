@@ -24,7 +24,7 @@ local _floatterm = Utils.custom_floatterm
 local _lazyterm = Utils.custom_lazyterm
 local _lazyterm_cwd = Utils.custom_lazyterm_cwd
 
--- Dashboard
+--- <leader>; utils
 keymap("n", "<leader>;;", function()
   if LazyVim.has("dashboard-nvim") then
     vim.cmd("Neotree close")
@@ -37,8 +37,8 @@ keymap("n", "<leader>;;", function()
     pcall(starter.refresh)
   end
 end, { desc = "Dashboard", silent = true })
-
---- <leader>; utils
+keymap("n", "<leader>;c", "<cmd>lcd %:p:h<cr>", { desc = ":lcd %:p:h" })
+keymap("n", "<leader>;C", "<cmd>cd %:p:h<cr>", { desc = ":cd %:p:h" })
 keymap("n", "<leader>;l", "<cmd>Lazy<cr>", { desc = "Lazy.nvim" })
 keymap("n", "<leader>;m", "<cmd>Mason<cr>", { desc = "Mason" })
 keymap("n", "<leader>;I", "<cmd>LspInfo<cr>", { desc = "LspInfo" })
