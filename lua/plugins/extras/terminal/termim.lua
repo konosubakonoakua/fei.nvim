@@ -1,7 +1,7 @@
 return {
   {
     "2KAbhishek/termim.nvim",
-    version = "*",
+    version = false,
     lazy = true,
     cmd = { "Fterm", "FTerm", "Sterm", "STerm", "Vterm", "VTerm" },
     keys = {
