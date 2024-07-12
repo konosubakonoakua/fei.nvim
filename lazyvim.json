@@ -56,6 +56,7 @@
     "plugins.extras.lang.log",
     "plugins.extras.lang.markdown",
     "plugins.extras.lang.python",
+    "plugins.extras.lang.verilog",
     "plugins.extras.lang.zig",
     "plugins.extras.multiplexer.tmux",
     "plugins.extras.telescope.zoxide",
