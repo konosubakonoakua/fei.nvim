@@ -405,10 +405,8 @@ return {
     "folke/which-key.nvim",
     opts = {
       plugins = { spelling = true },
-      defaults = {
-        mode = { "n", "v" },
-        ["gz"] = {},
-        ["<leader>;"] = { name = "+utils" },
+      spec = {
+        { "<leader>;", group = "utils", mode = { "n", "v" } },
       },
     },
   },

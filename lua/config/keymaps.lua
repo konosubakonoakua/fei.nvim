@@ -1,3 +1,4 @@
+-- NOTE:
 -- map `<C-Fx>` is equal to map `<Fy>` where y = x + 24.
 -- map `<S-Fx>` is equal to map `<Fy>` where y = x + 12.
 
