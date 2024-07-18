@@ -240,58 +240,29 @@ end
 
 -- endregion <leader>; group remappings
 
-
-if vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint then
-  keymap_force("n", "<leader>uh", function()
-    LazyVim.toggle.inlay_hints()
-    if vim.lsp.inlay_hint.is_enabled({}) then
-      LazyVim.info("Enabled inlay hints", {title = "Inlay hints"})
+-- region toggle options
+local cmp_enabled = true
+LazyVim.toggle.map("<leader>ua", LazyVim.toggle.wrap({
+  name = "Auto Completion",
+  get = function()
+    return cmp_enabled
+  end,
+  set = function(state)
+    -- NOTE: logic flipped, wired
+    if state then
+      cmp_enabled = true
     else
-      LazyVim.warn("Disabled inlay hints", {title = "Inlay hints"})
+      cmp_enabled = false
     end
-  end, { desc = "Toggle Inlay Hints" })
-end
+    require("cmp").setup.buffer({ enabled = cmp_enabled })
+    -- LazyVim.info("state: " .. vim.inspect(state))
+    -- LazyVim.info("cmd_enabled: " .. vim.inspect(cmp_enabled))
+  end,
+}))
+-- NOTE:　enable lazyredraw to speed up macro execution
+LazyVim.toggle.map("<leader>uR", LazyVim.toggle("lazyredraw", { name = "Lazyredraw" }))
+LazyVim.toggle.map("<leader>uS", LazyVim.toggle("statuscolumn", { name = "Statuscolumn", values = {"", vim.o.statuscolumn} }))
 
-local statuscolumn_orignal = vim.o.statuscolumn
-keymap("n", "<leader>uS", function()
-  local current = vim.o.statuscolumn
-  if current ~= "" then
-    statuscolumn_orignal = current
-  end
-  LazyVim.toggle("statuscolumn", false, { "", statuscolumn_orignal})
-end, { desc = "Toggle Statuscolumn" })
-keymap("n", "<leader>us", function() LazyVim.toggle("spell") end,      { desc = "Toggle Spelling" })
-keymap("n", "<leader>uw", function() LazyVim.toggle("wrap") end,       { desc = "Toggle Word Wrap" })
-keymap("n", "<leader>ul", function() LazyVim.toggle.number() end,      { desc = "Toggle Line Numbers" })
-keymap("n", "<leader>ud", function() LazyVim.toggle.diagnostics() end, { desc = "Toggle Diagnostics" })
-keymap("n", "<leader>uf", function() LazyVim.format.toggle() end,      { desc = "Toggle format on Save" })
-
-_G.cmp_enabled = true
-keymap("n", "<leader>ua", function()
-    _G.cmp_enabled = not _G.cmp_enabled
-    require("cmp").setup.buffer({ enabled = _G.cmp_enabled })
-    if _G.cmp_enabled then
-      vim.notify("Enabled: auto completion", vim.log.levels.WARN);
-    else
-      vim.notify("Disabled: auto completion", vim.log.levels.WARN);
-    end
-  end, { desc = "Toggle auto completion (buffer)" })
-
--- enable lazyredraw to speed up macro execution
-_G.lazyredraw_enabled = true
-keymap("n", "<leader>uR", function()
-    _G.lazyredraw_enabled = not _G.lazyredraw_enabled
-
-    if _G.lazyredraw_enabled then
-      vim.cmd("set lazyredraw")
-      vim.notify("Enabled: lazyredraw", vim.log.levels.WARN);
-    else
-      vim.cmd("set nolazyredraw")
-      vim.notify("Disabled: lazyredraw", vim.log.levels.INFO);
-    end
-  end, { desc = "Toggle lazyredraw" })
-
-keymap("n", "<leader>us", function() LazyVim.toggle("spell") end,      { desc = "Toggle Spelling" })
 -- endregion toggle options
 
 
