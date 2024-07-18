@@ -7,7 +7,7 @@ return {
       { "\\\\", function () require("telescope").extensions.bookmarks.bookmarks() end, mode = { "n" }, desc = "Telescope Bookmarks", },
     },
     branch = "main",
-    dependencies = { "nvim-web-devicons" },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       require("bookmarks").setup({
         storage_dir = "", -- Default path: vim.fn.stdpath("data").."/bookmarks,  if not the default directory, should be absolute path",
