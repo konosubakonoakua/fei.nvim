@@ -51,7 +51,9 @@ return {
       filesystem = {
         bind_to_cwd = false,
         follow_current_file = { enabled = true },
-        use_libuv_file_watcher = true,
+        -- NOTE: https://github.com/nvim-neo-tree/neo-tree.nvim/issues/914
+        -- don't use this on windows
+        use_libuv_file_watcher = jit.os ~= "Windows",
         window = {
           mappings = neotree_mappings_filesystem,
         },
