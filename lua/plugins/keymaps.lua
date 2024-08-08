@@ -67,17 +67,8 @@ keymap( "v", "<leader>cn", '<esc><cmd>lua require("spectre").open_visual({cwd=La
 
 -- stylua: ignore end
 -- endregion
-
--- region telescope
--- TODO: add fzf-lua mappings
-if LazyVim.has("todo-comments.nvim") and LazyVim.has("telescope.nvim") then
-  keymap("n", "<leader>xsf", "<cmd>TodoTelescope keywords=FIX,FIXME,BUG<CR>", { desc = "Show FIXME" })
-  keymap("n", "<leader>xst", "<cmd>TodoTelescope keywords=TODO<CR>", { desc = "Show TODO" })
-  keymap("n", "<leader>xsT", "<cmd>TodoTelescope keywords=TEST<CR>", { desc = "Show TEST" })
-  keymap("n", "<leader>xsi", "<cmd>TodoTelescope keywords=INFO<CR>", { desc = "Show INFO" })
-end
-
 -- region LSP Mappings.
+-- stylua: ignore start
 local bufnr = vim.api.nvim_get_current_buf
 vim.keymap.set( "n", "<space>wa", vim.lsp.buf.add_workspace_folder,
   { buffer = bufnr(), noremap = true, silent = true, desc = "Add workspace" })
@@ -88,13 +79,13 @@ vim.keymap.set( "n", "<space>wr", vim.lsp.buf.remove_workspace_folder,
 vim.keymap.set("n", "<space>wl", function()
   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 end, { buffer = bufnr(), noremap = true, silent = true, desc = "List workspace" })
+-- stylua: ignore end
 -- endregion LSP Mappings.
 
 -- region notepad
+-- stylua: ignore
 vim.keymap.set("n", "<leader>;n", require("util.notepad").toggle, { desc = "Notepad" })
 -- endregion notepad
-
--- stylua: ignore end
 
 return {
   -- telescope picker keymapping
@@ -409,6 +400,18 @@ return {
         { "<leader>;", group = "utils", mode = { "n", "v" } },
       },
     },
+  },
+
+  -- todo-comments keymapping
+  {
+    "folke/todo-comments.nvim",
+    optional = true,
+    keys = LazyVim.has("telescope.nvim") and {
+      { "<leader>xsf", "<cmd>TodoTelescope keywords=FIX,FIXME,BUG<CR>", mode = "n", desc = "Show FIXME" },
+      { "<leader>xst", "<cmd>TodoTelescope keywords=TODO<CR>", mode = "n", desc = "Show TODO" },
+      { "<leader>xsT", "<cmd>TodoTelescope keywords=TEST<CR>", mode = "n", desc = "Show TEST" },
+      { "<leader>xsi", "<cmd>TodoTelescope keywords=INFO<CR>", mode = "n", desc = "Show INFO" },
+    } or {},
   },
 }
 
