@@ -51,22 +51,6 @@ keymap("n", "<leader>;P", function()
   vim.cmd("AddProject")
 end, { desc = "Project Add Current" })
 
--- region code
--- stylua: ignore start
-keymap( "n", "<leader>cb", '<cmd>lua require("spectre").open_file_search()<CR>',
-  { desc = "Replace buffer (Spectre)" })
-
-keymap( "n", "<leader>cn", "<cmd>lua require('spectre').open({cwd=LazyVim.root()})<CR>",
-  { desc = "Replace files root (Spectre)" })
-
-keymap( "v", "<leader>cb", '<esc><cmd>lua require("spectre").open_visual())<CR>',
-  { desc = "Replace visual buffer (Spectre)" })
-
-keymap( "v", "<leader>cn", '<esc><cmd>lua require("spectre").open_visual({cwd=LazyVim.root()})<CR>',
-  { desc = "Replace visual root (Spectre)" })
-
--- stylua: ignore end
--- endregion
 -- region LSP Mappings.
 -- stylua: ignore start
 local bufnr = vim.api.nvim_get_current_buf
@@ -218,11 +202,47 @@ return {
   -- search/replace in multiple files
   {
     "nvim-pack/nvim-spectre",
+    optional = true,
     -- stylua: ignore
     keys = {
       -- NOTE: overwrite LazyVim default mapping for spectre
-      { "<leader>sr", LazyVim.pick('resume'), desc = "Picker Resume"},
+      { "<leader>sr", LazyVim.pick('resume'),                                                   mode = "n", desc = "Picker Resume"},
+      { "<leader>cb", '<cmd>lua require("spectre").open_file_search()<CR>',                     mode = "n", desc = "Replace buffer (Spectre)"},
+      { "<leader>cn", "<cmd>lua require('spectre').open({cwd=LazyVim.root()})<CR>",             mode = "n", desc = "Replace files root (Spectre)"},
+      { "<leader>cb", '<esc><cmd>lua require("spectre").open_visual())<CR>',                    mode = "v", desc = "Replace visual buffer (Spectre)"},
+      { "<leader>cn", '<esc><cmd>lua require("spectre").open_visual({cwd=LazyVim.root()})<CR>', mode = "v", desc = "Replace visual root (Spectre)"},
     },
+  },
+
+  -- grug-far, instead of spectre
+  {
+    "MagicDuck/grug-far.nvim",
+    optional = true,
+    -- stylua: ignore
+    keys = {
+      {
+        "<leader>sR",
+        function()
+          local grug = require("grug-far")
+          local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+          grug.grug_far({
+            transient = true,
+            prefills = {
+              filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+            },
+          })
+        end,
+        mode = { "n", "v" },
+        desc = "Search and Replace",
+      },
+      { "<leader>sr", LazyVim.pick('resume'), mode = "n", desc = "Picker Resume" },
+    },
+    opts = function(_, opts)
+      require("which-key").add({
+        { "<leader>sR", icon = { icon = require("util.stuffs.icons").mode.R, color = "red" } },
+      })
+      return opts
+    end,
   },
 
   -- telescope keymapping
@@ -398,6 +418,7 @@ return {
       plugins = { spelling = true },
       spec = {
         { "<leader>;", group = "utils", mode = { "n", "v" } },
+        { "<leader>q", group = "quit/session/qf" },
       },
     },
   },
