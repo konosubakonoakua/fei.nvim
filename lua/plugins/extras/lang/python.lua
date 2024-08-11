@@ -18,16 +18,25 @@ return {
   },
   -- {
   --   "neovim/nvim-lspconfig",
+  --   optional = true,
   --   opts = {
   --     servers = {
-  --       pyright = {
-  --         enabled = false,
-  --         -- mason = false,
-  --       },
-  --       ruff_lsp = {
-  --         enabled = false,
-  --         -- mason = false,
-  --       },
+  --       -- basedpyright = {
+  --       --   enabled = false,
+  --       --   mason = false,
+  --       -- },
+  --       -- pyright = {
+  --       --   enabled = false,
+  --       --   mason = false,
+  --       -- },
+  --       -- ruff = {
+  --       --   enabled = false,
+  --       --   mason = false,
+  --       -- },
+  --       -- ruff_lsp = {
+  --       --   enabled = false,
+  --       --   mason = false,
+  --       -- },
   --     },
   --   },
   -- },
@@ -92,6 +101,14 @@ return {
         "<cmd>lua require('venv-selector').deactivate_venv()<cr>",
         desc = "Deactivate venv",
       },
+    },
+  },
+
+  {
+    "folke/trouble.nvim",
+    optional = true,
+    opts = {
+      max_items = 9999,
     },
   },
 }
