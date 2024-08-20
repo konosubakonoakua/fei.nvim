@@ -72,3 +72,8 @@ vim.api.nvim_create_autocmd("cmdwinenter", {
     vim.keymap.set("n", "q", "<cmd>q<cr>", { buffer = true, silent = true, noremap = true })
   end,
 })
+--
+-- vim.cmd[[
+-- autocmd CmdWinEnter * lua require('cmp').setup({enabled = false})
+-- autocmd CmdWinLeave * lua require('cmp').setup({enabled = true})
+-- ]]
