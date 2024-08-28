@@ -77,3 +77,11 @@ vim.api.nvim_create_autocmd("cmdwinenter", {
 -- autocmd CmdWinEnter * lua require('cmp').setup({enabled = false})
 -- autocmd CmdWinLeave * lua require('cmp').setup({enabled = true})
 -- ]]
+
+-- Set commentstring for igor pro
+vim.api.nvim_create_autocmd({ "BufRead", "BufNew" }, {
+  pattern = { "*.ipf", },
+  callback = function()
+    vim.o.commentstring = "// %s"
+  end,
+})
