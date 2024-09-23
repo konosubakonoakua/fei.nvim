@@ -34,6 +34,8 @@ return {
 
     t.setup(opts)
     t.load_extension("zoxide")
-    vim.keymap.set("n", "<leader>sz", function() t.extensions.zoxide.list({ cmd = { "pwsh", "-nop", "-c", "zoxide query -ls" } }) end, { desc = "zoxide" })
+    vim.keymap.set("n", "<leader>sz", function() t.extensions.zoxide.list({
+      cmd = jit.os == "Windows" and { "pwsh", "-nop", "-c", "zoxide query -ls" } or nil,
+    }) end, { desc = "zoxide" })
   end,
 }
