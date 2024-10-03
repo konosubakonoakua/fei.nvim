@@ -24,7 +24,7 @@
 	set nocompatible
 
 " Disable the vim bell
-	set visualbell
+	set novisualbell
 
 " Disable auto commenting in a new line
 	autocmd Filetype * setlocal formatoptions-=c formatoptions-=r  formatoptions-=o
@@ -436,7 +436,7 @@ endfunction
 
 " Quitting and saving a file using CTRL+S
 	"map <C-q> :wq<CR>
-	map <leader>qq :wq<cr>
+	map <leader>qq :q<cr>
 
 
 " Surround word with a wanted character
