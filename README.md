@@ -64,7 +64,10 @@ or just try it.
 
 ```shell
 git clone https://github.com/konosubakonoakua/fei.nvim.git ~/.config/fei.nvim
+tee -a ~/.bashrc << EOF
 alias fvim='NVIM_APPNAME="fei.nvim" nvim' # will save plugins at ~/.local/share/fei.nvim
+EOF
+source ~/.bashrc
 ```
 
 or just use a minimal config.
@@ -73,7 +76,7 @@ or just use a minimal config.
 mkdir -p ~/.config/nvim
 git clone https://github.com/konosubakonoakua/fei.nvim.git ~/.config/fei.nvim
 ln -s ~/.config/fei.nvim/misc/minimal/init.vim ~/.vimrc
-ln -s ~/.config/fei.nvim/misc/minimal/init.vim ~/.config/nvim/.vimrc
+ln -s ~/.config/fei.nvim/misc/minimal/init.vim ~/.config/nvim/init.vim
 ```
 
 </details>
