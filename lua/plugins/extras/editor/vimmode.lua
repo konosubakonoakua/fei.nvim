@@ -1,15 +1,15 @@
 return {
   {
-    "konosubakonoakua/modicator.nvim",
+    "mawkler/modicator.nvim",
     enabled = true,
     opts = {
       show_warnings = false,
-      cursor_line_nr_background = true,
       highlights = {
         defaults = {
           bold = true,
           italic = false,
-        }
+        },
+        use_cursorline_background = true,
       },
       integration = {
         lualine = {
