@@ -74,6 +74,7 @@ return {
       -- end,
     },
   },
+
   {
     "linux-cultist/venv-selector.nvim",
     dependencies = { "mfussenegger/nvim-dap-python" },
@@ -83,22 +84,30 @@ return {
     lazy = false,
     ft = "python", -- Call config for python files and load the cached venv automatically
     cmd = "VenvSelect",
+    config = function()
+      _home_dir = vim.env.HOME
+      _home_dir_venvs_command = jit.os == "Windows"
+          and "fd 'Scripts//python.exe$' " .. _home_dir .. "/venvs --full-path -IH -a"
+        or "fd 'python$' ~/venvs --full-path -IH -a"
+      require("venv-selector").setup({
+        settings = {
+          options = {
+            debug = true,
+          },
+          search = {
+            home_dir_venvs = {
+              command = _home_dir_venvs_command,
+            },
+          },
+        },
+      })
+    end,
     keys = {
       -- TODO: find an automatic way to set venv
-      {
-        "<leader>cv",
-        function()
-          vim.cmd("VenvSelect")
-          local venv_path = require("venv-selector").get_active_path()
-          if LazyVim.has("nvim-dap-python") then
-            require("dap-python").setup(venv_path)
-          end
-        end,
-        desc = "Select venv",
-      },
+      { "<leader>cv", "<cmd>VenvSelect<cr>", desc = "Select venv" },
       {
         "<leader>cV",
-        "<cmd>lua require('venv-selector').deactivate_venv()<cr>",
+        "<cmd>lua require('venv-selector').deactivate()<cr>",
         desc = "Deactivate venv",
       },
     },
