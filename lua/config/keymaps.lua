@@ -332,6 +332,28 @@ keymap('n', '<leader>b.', function()
   end, { desc = "Delete all empty buffer", noremap = true, silent = true })
 -- endregion <leader>b
 
+-- region <leader>c
+local function insert_set_command()
+    local commentstring = vim.bo.commentstring or "# %s"
+
+    local tab_width = vim.fn.input("Enter tab width (2/4/8): ")
+
+    if tab_width ~= "2" and tab_width ~= "4" and tab_width ~= "8" then
+        print("Invalid tab width. Please enter 2, 4, or 8.")
+        return
+    end
+
+    local command = string.format("vim :set ts=%s sw=%s sts=%s et :", tab_width, tab_width, tab_width)
+
+    local commented_command = string.format(commentstring, command)
+
+    vim.api.nvim_buf_set_lines(0, -1, -1, false, { commented_command })
+end
+
+vim.api.nvim_create_user_command("InsertSetCommand", insert_set_command, {})
+keymap("n", "<leader>c/", ":InsertSetCommand<CR>")
+-- endregion <leader>c
+
 -- stylua: ignore end
 
 -- vim:sw=2:ts=2:
