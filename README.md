@@ -36,13 +36,36 @@
 <summary><b>Install on Windows</b></summary>
 
 ```bat
-scoop install neovim @REM or just download from github releases, need to set sys path for nvim.exe
+scoop install neovim
+scoop install neovide
+scoop install wakatime-cli
+scoop install lazygit
+scoop install gh
+scoop install fzf
+scoop install zoxide
+scoop install tree-sitter
+scoop install glow
+scoop install nodejs-lts
+scoop install fd
+scoop install zig
+scoop install ripgrep
 
-pip install pynvim pywin32 @REM pywin32 for windows platform
+npm config set registry https://registry.npmmirror.com
 
-mkdir %userprofile%\AppData\Local\nvim
-cd %userprofile%\AppData\Local\nvim
+pip install pynvim pywin32
+
+$nvimDir = "$env:USERPROFILE\AppData\Local\nvim"
+New-Item -ItemType Directory -Force -Path $nvimDir
+Set-Location $nvimDir
 git clone https://github.com/konosubakonoakua/fei.nvim.git .
+git config --local user.name konosubakonoakua
+git config --local user.email "ailike_meow@qq.com"
+
+$url = "https://raw.githubusercontent.com/konosubakonoakua/.dotfiles/main/lazygit/config.yml"
+$outputPath = "$env:USERPROFILE\AppData\Local\lazygit\config.yml"
+Invoke-WebRequest -Uri $url -OutFile $outputPath
+Write-Output "downloaded to $outputPath"
+
 ```
 </details>
 
