@@ -24,8 +24,6 @@ local status, Utils = pcall(require, "util")
 if not status then
   -- BUG: loop require in CI environment
   -- Error detected while processing /home/runner/.config/nvim/init.lua:
-  -- Error loading util
-  -- Error loading util
   LazyVim.error("Error loading util in config/keymaps")
   return {}
 end
@@ -241,27 +239,30 @@ end
 -- endregion <leader>; group remappings
 
 -- region toggle options
-local cmp_enabled = true
-LazyVim.toggle.map("<leader>ua", LazyVim.toggle.wrap({
-  name = "Auto Completion",
-  get = function()
-    return cmp_enabled
-  end,
-  set = function(state)
-    -- NOTE: logic flipped, wired
-    if state then
-      cmp_enabled = true
-    else
-      cmp_enabled = false
-    end
-    require("cmp").setup.buffer({ enabled = cmp_enabled })
-    -- LazyVim.info("state: " .. vim.inspect(state))
-    -- LazyVim.info("cmd_enabled: " .. vim.inspect(cmp_enabled))
-  end,
-}))
+-- BUG: lazyvim toggle is replaced with snacks toggle
+--
+-- local cmp_enabled = true
+-- Snacks.toggle.wrap({
+--   name = "Auto Completion",
+--   get = function()
+--     return cmp_enabled
+--   end,
+--   set = function(state)
+--     -- NOTE: logic flipped, wired
+--     if state then
+--       cmp_enabled = true
+--     else
+--       cmp_enabled = false
+--     end
+--     require("cmp").setup.buffer({ enabled = cmp_enabled })
+--     -- LazyVim.info("state: " .. vim.inspect(state))
+--     -- LazyVim.info("cmd_enabled: " .. vim.inspect(cmp_enabled))
+--   end,
+-- }):map("<leader>ua")
 -- NOTE:　enable lazyredraw to speed up macro execution
-LazyVim.toggle.map("<leader>uR", LazyVim.toggle("lazyredraw", { name = "Lazyredraw" }))
-LazyVim.toggle.map("<leader>uS", LazyVim.toggle("statuscolumn", { name = "Statuscolumn", values = {"", vim.o.statuscolumn} }))
+
+-- Snacks.toggle("lazyredraw", { name = "Lazyredraw" }):map("<leader>uR")
+-- Snacks.toggle("statuscolumn", { name = "Statuscolumn", values = {"", vim.o.statuscolumn} }):map("<leader>uS")
 
 -- endregion toggle options
 

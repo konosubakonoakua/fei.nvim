@@ -5,10 +5,12 @@ M.cmd_concat = function(command)
   return table.concat({ "<Cmd>", command, "<CR>" })
 end
 
-M.custom_floatterm = LazyVim.terminal.open
+M.custom_floatterm = function ()
+  return Snacks.terminal.open
+end
 
 M.custom_lazyterm = function()
-  LazyVim.terminal(nil, {
+  Snacks.terminal(nil, {
     cwd = LazyVim.root(),
     ctrl_hjkl = false,
     size = { width = 0.95, height = 0.93 },
@@ -17,7 +19,7 @@ M.custom_lazyterm = function()
 end
 
 M.custom_lazyterm_cwd = function()
-  LazyVim.terminal(nil, {
+  Snacks.terminal(nil, {
     cwd = tostring(vim.fn.expand("%:p:h")),
     ctrl_hjkl = false,
     -- size = { width = 1.0, height = 1.0 },

@@ -1,3 +1,6 @@
+-- vim.opt.verbosefile = os.getenv("LOCALAPPDATA") .. "\\nvim-data\\log"
+-- vim.opt.verbose = 15
+
 if vim.env.VSCODE then
   vim.g.vscode = true
 end
@@ -26,6 +29,8 @@ if should_profile then
 end
 
 local function toggle_profile()
+  if not should_profile then return end
+
   local prof = require("profile")
   if prof.is_recording() then
     prof.stop()

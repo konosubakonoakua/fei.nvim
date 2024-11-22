@@ -7,7 +7,7 @@ end
 
 -- stylua: ignore start
 local _opts   = { silent = true }
-local _floatterm = LazyVim.terminal.open
+local _floatterm = Snacks.terminal.open
 
 -- Function to check clipboard with retries
 --[[
@@ -68,7 +68,7 @@ end
 -- Function to start Lazygit in a floating terminal
 function StartLazygit()
   local current_buffer = vim.api.nvim_get_current_buf()
-  local float_term = LazyVim.terminal.open({ "lazygit" }, { cwd = LazyVim.root(), esc_esc = false, ctrl_hjkl = false })
+  local float_term = Snacks.terminal.open({ "lazygit" }, { cwd = LazyVim.root(), esc_esc = false, ctrl_hjkl = false })
 
   vim.api.nvim_buf_set_keymap(
     float_term.buf,
