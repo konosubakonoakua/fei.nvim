@@ -26,7 +26,11 @@ local _lazyterm_cwd = Utils.custom_lazyterm_cwd
 
 --- <leader>; utils
 keymap("n", "<leader>;;", function()
-  if LazyVim.has("dashboard-nvim") then
+  if LazyVim.has("snacks.nvim") then
+    vim.cmd("Neotree close")
+    -- TODO: dashboard open not fullscreen
+    Snacks.dashboard.open()
+  elseif LazyVim.has("dashboard-nvim") then
     vim.cmd("Neotree close")
     vim.cmd("Dashboard")
   elseif LazyVim.has("alpha-nvim") then
