@@ -90,6 +90,7 @@ return {
               "edgy",
               "noice",
               "NvimSeparator", -- "s1n7ax/nvim-window-picker"
+              "snacks_terminal",
             },
             buftype = { "terminal", "quickfix" },
           },

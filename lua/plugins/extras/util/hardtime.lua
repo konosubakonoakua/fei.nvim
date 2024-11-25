@@ -32,6 +32,7 @@ return {
         "neo-tree",
         "aerial",
         "lspsagaoutline",
+        "snacks_terminal"
       },
     },
     event = "VeryLazy",

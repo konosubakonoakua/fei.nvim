@@ -278,7 +278,8 @@ return {
             "TelescopePrompt",
             "TelescopeResults",
             "terminal",
-            "undotree"
+            "undotree",
+            "snacks_terminal"
           },
         },
       }
