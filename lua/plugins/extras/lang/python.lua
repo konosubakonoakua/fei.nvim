@@ -87,8 +87,8 @@ return {
     config = function()
       _home_dir = vim.env.HOME
       _home_dir_venvs_command = jit.os == "Windows"
-          and "fd 'Scripts//python.exe$' " .. _home_dir .. "/venvs --full-path -IH -a"
-        or "fd 'python$' ~/venvs --full-path -IH -a"
+          and "fd 'Scripts//python.exe$' " .. _home_dir .. "/.virtualenvs --full-path -IH -a"
+        or "fd 'python$' ~/.virtualenvs --full-path -IH -a"
       require("venv-selector").setup({
         settings = {
           options = {
