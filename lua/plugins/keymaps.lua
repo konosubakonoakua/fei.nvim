@@ -70,11 +70,6 @@ end, { buffer = bufnr(), noremap = true, silent = true, desc = "List workspace" 
 -- stylua: ignore end
 -- endregion LSP Mappings.
 
--- region notepad
--- stylua: ignore
-vim.keymap.set("n", "<leader>;n", require("util.notepad").toggle, { desc = "Notepad" })
--- endregion notepad
-
 return {
   -- telescope picker keymapping
   {
