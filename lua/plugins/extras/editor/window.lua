@@ -1,25 +1,4 @@
 return {
-  {
-    "folke/zen-mode.nvim",
-    enabled = true,
-    version = false,
-    lazy = true,
-    cmd = { "ZenMode" },
-    opts = {
-      window = {
-        width = 1.0, -- width will be 85% of the editor width
-      },
-    },
-    config = true,
-    -- stylua: ignore start
-    keys = {
-      -- add <leader>uz to enter zen mode
-      { "<leader>uz", "<cmd>ZenMode<cr>", desc = "Zen Mode", },
-      { "<C-w>u", "<cmd>ZenMode<cr>", desc = "Zen Mode", },
-    },
-    -- stylua: ignore end
-  },
-
   -- https://github.com/nvim-zh/colorful-winsep.nvim
   {
     -- "konosubakonoakua/colorful-winsep.nvim",

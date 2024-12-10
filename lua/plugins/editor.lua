@@ -8,7 +8,7 @@
 -- https://github.com/nvim-neo-tree/neo-tree.nvim/discussions/319
 --
 --
-local icons = require("util.stuffs.icons").todo
+local icons = require("util.icons").todo
 local neotree_mappings_filesystem = require("plugins.util.neotree").filesystem_window_mappings
 local neotree_mappings_window = require("plugins.util.neotree").window_mappings
 local neotree_mappings_documnet_symbols = require("plugins.util.neotree").document_symbols_window_mappings

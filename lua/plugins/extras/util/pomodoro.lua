@@ -1,4 +1,4 @@
-local emoji = require("util.stuffs.icons").emoji
+local emoji = require("util.icons").emoji
 
 return {
   desc = "A simple, customizable pomodoro timer",

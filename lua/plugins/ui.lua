@@ -1,4 +1,4 @@
-local logos = require("util.stuffs.logos")
+local logos = require("util.logos")
 local logo = logos[math.random(#logos)]
 print(logo)
 
@@ -10,7 +10,6 @@ return {
       options = {
         separator_style = "slope",
         custom_areas = {
-          -- left = require("plugins.util.bufferline_custom").custom_areas_diagnostic,
         },
       },
     },
@@ -39,10 +38,11 @@ return {
     version = false,
     optional = true,
     opts = function(_, opts)
-      local logos = require("util.stuffs.logos")
+      local logos = require("util.logos")
       local logo = logos[math.random(#logos)]
       logo = string.rep("\n", 8) .. logo .. "\n\n"
-      local use_preview = math.random() < vim.g.dashboard_colorful_banner_chance
+      -- local use_preview = math.random() < vim.g.dashboard_colorful_banner_chance
+      local use_preview = false
 
       if require("platform").isPlatWindows() then
         use_preview = false
@@ -50,7 +50,7 @@ return {
 
       local preview = {
         command = "cat",
-        file_path = vim.fn.stdpath("config") .. "/lua/util/stuffs/logo_neovim.cat",
+        file_path = vim.fn.stdpath("config") .. "/lua/util/logo_neovim.cat",
         file_height = 10,
         file_width = 70,
       }
@@ -102,34 +102,6 @@ return {
         }
       }
     },
-    keys = {
-    },
-    init = function()
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "VeryLazy",
-        callback = function()
-          -- Setup some globals for debugging (lazy-loaded)
-          _G.dd = function(...)
-            Snacks.debug.inspect(...)
-          end
-          _G.bt = function()
-            Snacks.debug.backtrace()
-          end
-          vim.print = _G.dd -- Override print to use snacks for `:=` command
-
-          -- Create some toggle mappings
-          Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
-          Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
-          Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
-          Snacks.toggle.diagnostics():map("<leader>ud")
-          Snacks.toggle.line_number():map("<leader>ul")
-          Snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>uc")
-          Snacks.toggle.treesitter():map("<leader>uT")
-          Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
-          Snacks.toggle.inlay_hints():map("<leader>uh")
-        end,
-      })
-    end,
   },
 
   -- lualine
@@ -138,7 +110,7 @@ return {
     version = false,
     event = "VeryLazy",
     opts = function(_, opts)
-      local icons = require("util.stuffs.icons")
+      local icons = require("util.icons")
 
       opts.options.component_separators = { left = "", right = "" }
       opts.options.section_separators = { left = "", right = "" }

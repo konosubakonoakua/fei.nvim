@@ -282,7 +282,7 @@ return {
     },
     opts = function(_, opts)
       require("which-key").add({
-        { "<leader>sR", icon = { icon = require("util.stuffs.icons").mode.R, color = "red" } },
+        { "<leader>sR", icon = { icon = require("util.icons").mode.R, color = "red" } },
       })
       return opts
     end,
