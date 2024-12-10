@@ -69,6 +69,10 @@ return {
     optional = true,
     priority = 1000,
     lazy = false,
+    keys = {
+      { "<leader>wu",  function() Snacks.zen() end, desc = "Toggle Zen Mode" },
+      { "<leader>wU",  function() Snacks.zen.zoom() end, desc = "Toggle Zoom" },
+    },
     ---@type snacks.Config
     opts = {
       bigfile = { enabled = true },
@@ -82,11 +86,14 @@ return {
           { section = "startup" },
         },
       },
+      indent = { enabled = true },
+      input = { enabled = true },
       notifier = {
         enabled = true,
         timeout = 3000,
       },
       quickfile = { enabled = true },
+      scroll = { enabled = false },
       statuscolumn = { enabled = true },
       words = { enabled = true },
       styles = {
