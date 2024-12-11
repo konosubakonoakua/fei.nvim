@@ -406,6 +406,8 @@ return {
   -- indent-blankline keymapping
   {
     "lukas-reineke/indent-blankline.nvim",
+    enabled = false, -- disabled, use snacks instead.
+    optional = true,
     keys = {
       { "<leader>uI", "<cmd>IBLToggle<cr>", mode = "n", desc = "Toggle IndentLine" },
     },
