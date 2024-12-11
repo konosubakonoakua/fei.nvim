@@ -1,7 +1,7 @@
 return {
   {
     "nvim-telescope/telescope-live-grep-args.nvim",
-  enabled = LazyVim.has("telescope.nvim"),
+    enabled = LazyVim.has("telescope.nvim"),
     dependencies = { "nvim-telescope/telescope.nvim" },
     init = function()
       local lga_actions = require("telescope-live-grep-args.actions")
