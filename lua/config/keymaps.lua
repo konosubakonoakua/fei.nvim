@@ -170,36 +170,36 @@ keymap("n", "<leader><tab>;", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 -- search keywords in linux programmer's manual
 keymap("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
 
--- floating terminal (using esc_esc to enter normal mode)
-local _lazyterm_singleton = function ()
-  -- vim.notify(vim.inspect(vim.v.count))
-  -- NOTE: avoid to open another terminal after enter normal mode using <esc><esc>
-  -- but still can use a count prefix which not equal to 0 to create a new terminal
-  if vim.v.count == 0 and (vim.bo.ft == "lazyterm" or vim.bo.ft == "toggleterm") then
-    vim.cmd("close")
-  else
-    _lazyterm()
-  end
-end
+-- -- floating terminal (using esc_esc to enter normal mode)
+-- local _lazyterm_singleton = function ()
+--   -- vim.notify(vim.inspect(vim.v.count))
+--   -- NOTE: avoid to open another terminal after enter normal mode using <esc><esc>
+--   -- but still can use a count prefix which not equal to 0 to create a new terminal
+--   if vim.v.count == 0 and (vim.bo.ft == "lazyterm" or vim.bo.ft == "toggleterm") then
+--     vim.cmd("close")
+--   else
+--     _lazyterm()
+--   end
+-- end
 
 keymap("n", "<leader>fD", "<cmd>Dotfiles<cr>",  { desc = "Search dotfiles" })
 keymap("n", "<leader>fT", _lazyterm_cwd,  { desc = "Terminal (cwd)" })
 keymap("n", "<leader>ft", _lazyterm,      { desc = "Terminal (root dir)" })
-keymap("n", "<c-/>",      _lazyterm_singleton,      { desc = "Terminal (root dir)" })
--- NOTE: most terminals don't correctly map C-/, and sometimes you need to use C-_ for that key instead.
-keymap("n", "<c-_>",      _lazyterm_singleton,      { desc = "which_key_ignore" })
+-- keymap("n", "<c-/>",      _lazyterm_singleton,      { desc = "Terminal (root dir)" })
+-- -- NOTE: most terminals don't correctly map C-/, and sometimes you need to use C-_ for that key instead.
+-- keymap("n", "<c-_>",      _lazyterm_singleton,      { desc = "which_key_ignore" })
 
 -- Terminal Mappings
 -- TODO: mapping double esc causing fzf-lua quiting slowly using esc
 --
 -- keymap("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
-keymap("t", "<C-h>", "", { desc = "disabled" })
-keymap("t", "<C-j>", "", { desc = "disabled" })
-keymap("t", "<C-k>", "", { desc = "disabled" })
-keymap("t", "<C-l>", "", { desc = "disabled" })
-keymap("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
-keymap("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
-keymap("t", "<C-L>", "<c-\\><c-n>A", { desc = "Clear Terminal" }) -- when <C-l> used for windows
+-- keymap("t", "<C-h>", "", { desc = "disabled" })
+-- keymap("t", "<C-j>", "", { desc = "disabled" })
+-- keymap("t", "<C-k>", "", { desc = "disabled" })
+-- keymap("t", "<C-l>", "", { desc = "disabled" })
+-- keymap("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
+-- keymap("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
+-- keymap("t", "<C-L>", "<c-\\><c-n>A", { desc = "Clear Terminal" }) -- when <C-l> used for windows
 
 -- Windows -- TODO: consider unregister windows shortcut
 --
