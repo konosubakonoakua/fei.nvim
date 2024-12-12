@@ -1,7 +1,3 @@
-local logos = require("util.logos")
-local logo = logos[math.random(#logos)]
-print(logo)
-
 return {
 
   {
@@ -38,8 +34,7 @@ return {
     version = false,
     optional = true,
     opts = function(_, opts)
-      local logos = require("util.logos")
-      local logo = logos[math.random(#logos)]
+      local logo = require('util').logorandom()
       logo = string.rep("\n", 8) .. logo .. "\n\n"
       -- local use_preview = math.random() < vim.g.dashboard_colorful_banner_chance
       local use_preview = false
@@ -80,7 +75,9 @@ return {
       },
       bigfile = { enabled = true },
       dashboard = {
-        preset = { header = logo },
+        preset = {
+          header = require('util').logorandom(),
+        },
         sections = {
           { section = "header" },
           { icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },

@@ -151,4 +151,11 @@ function M.filespec()
   return vim.tbl_values(files)
 end
 
+function M.logorandom()
+  math.randomseed(os.time())
+  local logos = require("util.logos")
+  local logo = logos[math.random(#logos)]
+  return logo
+end
+
 return M
