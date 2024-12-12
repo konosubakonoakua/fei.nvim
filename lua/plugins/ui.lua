@@ -107,6 +107,16 @@ return {
       quickfile = { enabled = true },
       scroll = { enabled = false },
       statuscolumn = { enabled = true },
+      terminal = {
+        win = {
+          keys = {
+            nav_h = false,
+            nav_j = false,
+            nav_k = false,
+            nav_l = false,
+          },
+        },
+      },
       words = { enabled = true },
       styles = {
         notification = {
