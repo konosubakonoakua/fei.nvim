@@ -94,6 +94,9 @@ vim.opt.ttimeoutlen = 30
 vim.g.lazyvim_python_lsp = "basedpyright"
 vim.g.lazyvim_python_ruff = "ruff"
 
+-- ai.cmp
+vim.g.ai_cmp = false
+
 -- disable mouse
 vim.opt.mouse = ""
 
