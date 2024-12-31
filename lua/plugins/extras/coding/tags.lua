@@ -194,6 +194,7 @@ local _gentags = {
   },
   {
     'hrsh7th/nvim-cmp',
+    optional = true,
     requires = {
       {
         -- https://github.com/quangnguyen30192/cmp-nvim-tags#troubleshooting

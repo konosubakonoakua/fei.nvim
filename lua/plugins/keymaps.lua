@@ -291,6 +291,7 @@ return {
   -- nvim-cmp keymapping
   {
     "hrsh7th/nvim-cmp",
+    optional = true,
     opts = function(_, opts)
       local cmp = require("cmp")
       opts.completion.completeopt = "menu,menuone,noinsert"
