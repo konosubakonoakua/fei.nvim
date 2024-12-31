@@ -49,6 +49,7 @@
     "plugins.extras.editor.vimmode",
     "plugins.extras.editor.window",
     "plugins.extras.file.oil",
+    "plugins.extras.fzf.zoxide",
     "plugins.extras.git.mini-git",
     "plugins.extras.git.octo",
     "plugins.extras.lang.epics",
