@@ -1,5 +1,11 @@
 local M = {}
-local events = require("neo-tree.events")
+
+-- 如果 neo-tree.events 存在，继续使用 events
+local status, events = pcall(require, "neo-tree.events")
+if not status then
+    return M
+end
+
 -- region neo-tree event_handlers
 M.neotree_event_handlers = {
 
