@@ -32,7 +32,6 @@ return {
     optional = true,
     opts = {
       fuzzy = {
-        use_typo_resistance = true,
         use_frecency = true,
         use_proximity = true,
         sorts = { "score", "sort_text" },
