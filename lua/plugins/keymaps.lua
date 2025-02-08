@@ -27,14 +27,14 @@ local _lazyterm_cwd = Utils.custom_lazyterm_cwd
 --- <leader>; utils
 keymap("n", "<leader>;;", function()
   if LazyVim.has("snacks.nvim") then
-    vim.cmd("Neotree close")
+    pcall(vim.cmd, "Neotree close")
     -- TODO: dashboard open not fullscreen
     Snacks.dashboard.open()
   elseif LazyVim.has("dashboard-nvim") then
-    vim.cmd("Neotree close")
+    pcall(vim.cmd, "Neotree close")
     vim.cmd("Dashboard")
   elseif LazyVim.has("alpha-nvim") then
-    vim.cmd("Neotree close")
+    pcall(vim.cmd, "Neotree close")
     vim.cmd("Alpha")
   elseif LazyVim.has("mini.starter") then
     local starter = require("mini.starter") -- TODO: need test mini.starter
