@@ -172,6 +172,7 @@ return {
   -- stylua: ignore
   {
     "nvim-neo-tree/neo-tree.nvim",
+    optional = true,
     keys = {
       {
         "<Leader>fB",
