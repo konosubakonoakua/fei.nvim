@@ -236,6 +236,13 @@ if vim.fn.executable("btop") == 1 then
   end, { desc = "!Btop" })
 end
 
+-- path copy
+vim.keymap.set('n', '<leader>;p', function()
+    local file_path = vim.fn.expand('%:p')
+    vim.fn.setreg('+', file_path)
+    vim.notify('Path copied: ' .. file_path)
+end, { noremap = true, silent = true })
+
 -- endregion <leader>; group remappings
 
 -- region toggle options
