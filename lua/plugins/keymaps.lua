@@ -263,27 +263,27 @@ return {
     "MagicDuck/grug-far.nvim",
     optional = true,
     -- stylua: ignore
-    keys = {
-      {
-        "<leader>sR",
-        function()
-          local grug = require("grug-far")
-          local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
-          grug.open({
-            transient = true,
-            prefills = {
-              filesFilter = ext and ext ~= "" and "*." .. ext or nil,
-            },
-          })
-        end,
-        mode = { "n", "v" },
-        desc = "Search and Replace",
-      },
-      { "<leader>sr", LazyVim.pick('resume'), mode = "n", desc = "Picker Resume" },
-    },
+    -- keys = {
+    --   {
+    --     "<leader>sR",
+    --     function()
+    --       local grug = require("grug-far")
+    --       local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+    --       grug.open({
+    --         transient = true,
+    --         prefills = {
+    --           filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+    --         },
+    --       })
+    --     end,
+    --     mode = { "n", "v" },
+    --     desc = "Search and Replace",
+    --   },
+    --   { "<leader>sr", LazyVim.pick('resume'), mode = "n", desc = "Picker Resume" },
+    -- },
     opts = function(_, opts)
       require("which-key").add({
-        { "<leader>sR", icon = { icon = require("util.icons").mode.R, color = "red" } },
+        { "<leader>sr", icon = { icon = require("util.icons").mode.R, color = "red" } },
       })
       return opts
     end,
