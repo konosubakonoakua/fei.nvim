@@ -93,6 +93,7 @@ vim.opt.ttimeoutlen = 30
 -- Moved to user extras
 vim.g.lazyvim_python_lsp = "basedpyright"
 vim.g.lazyvim_python_ruff = "ruff"
+vim.lsp.set_log_level("off")
 
 -- ai.cmp
 vim.g.ai_cmp = false
