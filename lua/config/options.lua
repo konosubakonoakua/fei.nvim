@@ -80,7 +80,8 @@ elseif vim.fn.executable("ag") == 1 then
 end
 
 -- alway use unix file format
-vim.opt.ff = "unix"
+vim.opt.fileformat = "unix"
+vim.opt.fileformats = "unix,dos"
 
 -- INFO: Press <Esc>key too fast (under ttimeoutlen) will trigger <Alt-key>
 -- https://github.com/neovim/neovim/issues/8213
