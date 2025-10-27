@@ -2,7 +2,7 @@ return {
   -- { import = "lazyvim.plugins.extras.util.octo" },
 
   {
-    "echasnovski/mini.diff",
+    "nvim-mini/mini.diff",
     keys = function ()
       return {
         {

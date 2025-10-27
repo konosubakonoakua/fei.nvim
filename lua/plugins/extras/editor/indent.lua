@@ -21,13 +21,13 @@ return {
   },
 
   {
-    'echasnovski/mini.align',
+    'nvim-mini/mini.align',
     version = false,
     enabled = true,
   },
 
   {
-    'echasnovski/mini.trailspace',
+    'nvim-mini/mini.trailspace',
     version = false,
     enabled = true,
   },

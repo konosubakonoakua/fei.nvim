@@ -80,7 +80,6 @@ return {
     dependencies = { "mfussenegger/nvim-dap-python" },
     enabled = true,
     optional = true,
-    branch = "regexp", -- Use this branch for the new version
     lazy = false,
     ft = "python", -- Call config for python files and load the cached venv automatically
     cmd = "VenvSelect",
