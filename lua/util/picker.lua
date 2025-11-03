@@ -4,21 +4,44 @@ local M = setmetatable({}, {
   end,
 })
 
-M.name = function ()
-  return (LazyVim.has("telescope.nvim") and "telescope")
-    or (LazyVim.has("fzf-lua") and "fzf-lua")
-    or (LazyVim.error("requires `telescope.nvim` or `fzf-lua`") and nil)
+M.name = function()
+  if LazyVim.has_extra("editor.snacks_picker") then
+    return "snacks_picker"
+  elseif LazyVim.has_extra("editor.telescope") then
+    return "telescope"
+  elseif LazyVim.has_extra("editor.fzf") then
+    return "fzf-lua"
+  else
+    LazyVim.error("No picker available. Requires `editor.telescope`, `editor.fzf` or `editor.snacks_picker`")
+    return nil
+  end
 end
 
-
-M.spec = function ()
-  return (LazyVim.has("telescope.nvim") and "nvim-telescope/telescope.nvim")
-    or (LazyVim.has("fzf-lua") and "ibhagwan/fzf-lua")
-    or (LazyVim.error("requires `telescope.nvim` or `fzf-lua`") and nil)
+M.spec = function()
+  if LazyVim.has_extra("editor.snacks_picker") then
+    return "folke/snacks.nvim"
+  elseif LazyVim.has_extra("editor.telescope") then
+    return "nvim-telescope/telescope.nvim"
+  elseif LazyVim.has_extra("editor.fzf") then
+    return "ibhagwan/fzf-lua"
+  else
+    LazyVim.error(
+      "No picker available. Requires `folke/snacks.nvim`, `nvim-telescope/telescope.nvim` or `ibhagwan/fzf-lua`"
+    )
+    return nil
+  end
 end
 
+M.has_telescope = function()
+  return LazyVim.has_extra("editor.telescope")
+end
 
-M.has_telescope = function () return LazyVim.has("telescope.nvim") end
-M.has_fzflua = function () return LazyVim.has("fzf-lua") end
+M.has_fzflua = function()
+  return LazyVim.has_extra("editor.fzf")
+end
+
+M.has_snacks = function()
+  return LazyVim.has_extra("editor.snacks_picker")
+end
 
 return M
