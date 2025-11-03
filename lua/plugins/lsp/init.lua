@@ -1,5 +1,37 @@
 return {
   {
+    "nvim-treesitter/nvim-treesitter",
+    ---@alias lazyvim.TSFeat { enable?: boolean, disable?: string[] }
+    ---@class lazyvim.TSConfig: TSConfig
+    opts = {
+      -- LazyVim config for treesitter
+      indent = { enable = true }, ---@type lazyvim.TSFeat
+      highlight = { enable = true }, ---@type lazyvim.TSFeat
+      folds = { enable = true }, ---@type lazyvim.TSFeat
+      ensure_installed = {
+        "bash",
+        "html",
+        "c",
+        "diff",
+        "json",
+        "lua",
+        "luadoc",
+        "luap",
+        "markdown",
+        "markdown_inline",
+        "printf",
+        "python",
+        "query",
+        "regex",
+        "toml",
+        "vim",
+        "vimdoc",
+        "xml",
+        "yaml",
+      },
+    },
+  },
+  {
     "mason-org/mason-lspconfig.nvim",
     opts = {
       ensure_installed = {},
