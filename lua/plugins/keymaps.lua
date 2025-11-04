@@ -250,74 +250,12 @@ return {
     -- stylua: ignore
     keys = {
       -- NOTE: overwrite LazyVim default mapping for spectre
-      { "<leader>sr", LazyVim.pick('resume'),                                                   mode = "n", desc = "Picker Resume"},
+      -- { "<leader>sr", LazyVim.pick('resume'),                                                   mode = "n", desc = "Picker Resume"},
       { "<leader>cb", '<cmd>lua require("spectre").open_file_search()<CR>',                     mode = "n", desc = "Replace buffer (Spectre)"},
       { "<leader>cn", "<cmd>lua require('spectre').open({cwd=LazyVim.root()})<CR>",             mode = "n", desc = "Replace files root (Spectre)"},
       { "<leader>cb", '<esc><cmd>lua require("spectre").open_visual())<CR>',                    mode = "v", desc = "Replace visual buffer (Spectre)"},
       { "<leader>cn", '<esc><cmd>lua require("spectre").open_visual({cwd=LazyVim.root()})<CR>', mode = "v", desc = "Replace visual root (Spectre)"},
     },
-  },
-
-  -- grug-far, instead of spectre
-  {
-    "MagicDuck/grug-far.nvim",
-    optional = true,
-    -- stylua: ignore
-    -- keys = {
-    --   {
-    --     "<leader>sR",
-    --     function()
-    --       local grug = require("grug-far")
-    --       local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
-    --       grug.open({
-    --         transient = true,
-    --         prefills = {
-    --           filesFilter = ext and ext ~= "" and "*." .. ext or nil,
-    --         },
-    --       })
-    --     end,
-    --     mode = { "n", "v" },
-    --     desc = "Search and Replace",
-    --   },
-    --   { "<leader>sr", LazyVim.pick('resume'), mode = "n", desc = "Picker Resume" },
-    -- },
-    opts = function(_, opts)
-      require("which-key").add({
-        { "<leader>sr", icon = { icon = require("util.icons").mode.R, color = "red" } },
-      })
-      return opts
-    end,
-  },
-
-  -- nvim-cmp keymapping
-  {
-    "hrsh7th/nvim-cmp",
-    optional = true,
-    opts = function(_, opts)
-      local cmp = require("cmp")
-      opts.completion.completeopt = "menu,menuone,noinsert"
-      opts.mapping = vim.tbl_deep_extend("force", opts.mapping, {
-        ["<UP>"] = cmp.mapping.scroll_docs(-4),
-        ["<DOWN>"] = cmp.mapping.scroll_docs(4),
-        ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-        ---- INFO: I need something else instead of `<C-e>` to abort cmp.
-        ["<C-Space>"] = cmp.mapping({
-          i = function()
-            if cmp.visible() then -- pop-up menu is visible
-              -- cmp.select_next_item()
-              cmp.abort()
-              cmp.close()
-            else
-              cmp.complete() -- open the pop-up menu
-            end
-          end,
-        }),
-      })
-      return opts
-    end,
   },
 
   -- test.core neotest keymapping
@@ -440,8 +378,12 @@ return {
       { "<leader>gS", function() Snacks.picker.git_stash() end, desc = "Git Stash" },
       { "<leader>gd", function() Snacks.picker.git_diff() end, desc = "Git Diff (Hunks)" },
       { "<leader>gf", function() Snacks.picker.git_log_file() end, desc = "Git Log File" },
-      -- { "<leader>g/", function() Snacks.picker.grep({ dirs={ LazyVim.root() } }) end, desc = "Git Grep" },
       { "<leader>g/", function() Snacks.picker.git_grep() end, desc = "Git Grep" },
+      -- gh
+      { "<leader>gi", function() Snacks.picker.gh_issue() end, desc = "GitHub Issues (open)" },
+      { "<leader>gI", function() Snacks.picker.gh_issue({ state = "all" }) end, desc = "GitHub Issues (all)" },
+      { "<leader>gp", function() Snacks.picker.gh_pr() end, desc = "GitHub Pull Requests (open)" },
+      { "<leader>gP", function() Snacks.picker.gh_pr({ state = "all" }) end, desc = "GitHub Pull Requests (all)" },
       -- Grep
       { "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
       { "<leader>sB", function() Snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
@@ -466,7 +408,7 @@ return {
       { "<leader>sM", function() Snacks.picker.man() end, desc = "Man Pages" },
       { "<leader>sp", function() Snacks.picker.lazy() end, desc = "Search for Plugin Spec" },
       { "<leader>sq", function() Snacks.picker.qflist() end, desc = "Quickfix List" },
-      -- { "<leader>sR", function() Snacks.picker.resume() end, desc = "Resume" },
+      { "<leader>sR", function() Snacks.picker.resume() end, desc = "Resume" },
       { "<leader>su", function() Snacks.picker.undo() end, desc = "Undo History" },
       { "<leader>uC", function() Snacks.picker.colorschemes() end, desc = "Colorschemes" },
       -- LSP
@@ -475,6 +417,8 @@ return {
       { "gr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
       { "gI", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
       { "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
+      { "gai", function() Snacks.picker.lsp_incoming_calls() end, desc = "C[a]lls Incoming" },
+      { "gao", function() Snacks.picker.lsp_outgoing_calls() end, desc = "C[a]lls Outgoing" },
       { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
       { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
       -- Other
@@ -489,13 +433,13 @@ return {
       { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse", mode = { "n", "v" } },
       { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
       { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
-      { "<leader>uN", function() Snacks.notifier.show_history() end, desc = "Notification History" },
-      -- { "<c-/>",      function() Snacks.terminal() end, desc = "Toggle Terminal" },
-      -- { "<c-_>",      function() Snacks.terminal() end, desc = "which_key_ignore" },
+      -- { "<leader>uN", function() Snacks.notifier.show_history() end, desc = "Notification History" },
+      { "<c-/>",      function() Snacks.terminal() end, desc = "Toggle Terminal" },
+      { "<c-_>",      function() Snacks.terminal() end, desc = "which_key_ignore" },
       { "]]",         function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
       { "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
       {
-        "<leader>;N",
+        "<leader>N",
         desc = "Neovim News",
         function()
           Snacks.win({
