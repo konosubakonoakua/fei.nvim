@@ -35,15 +35,15 @@ return {
         sources = {
           {
             source = "filesystem",
-            display_name = " 󰉓 Files "
+            display_name = " 󰉓 Files ",
           },
           {
             source = "document_symbols",
-            display_name = " 󰌆 Symbols "
+            display_name = " 󰌆 Symbols ",
           },
           {
             source = "git_status",
-            display_name = " 󰊢 Git "
+            display_name = " 󰊢 Git ",
           },
         },
       },
@@ -93,7 +93,7 @@ return {
             width = 9999,
           },
         },
-        layout_strategy = 'horizontal',
+        layout_strategy = "horizontal",
       },
     },
   },
@@ -260,5 +260,10 @@ return {
       },
       -- search = { mode = "fuzzy" },
     },
+  },
+
+  {
+    "gbprod/yanky.nvim",
+    event = { "LazyFile", "VimEnter" },
   },
 }

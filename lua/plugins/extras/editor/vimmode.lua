@@ -2,6 +2,8 @@ return {
   {
     "mawkler/modicator.nvim",
     enabled = true,
+    lazy = true,
+    event = {"VimEnter", "InsertEnter"},
     opts = {
       show_warnings = false,
       highlights = {

@@ -24,7 +24,6 @@ function setup()
       end
     end
 
-    -- vim.keymap.set({'n'}, "<leader><leader><leader>", function() ime_switch("en") end, {})
     vim.api.nvim_create_autocmd({ "VimEnter", "InsertLeave" }, {
       pattern = "*",
       callback = function(ev)
@@ -43,7 +42,8 @@ function setup()
   end
 end
 
-setup()
+-- delay 100ms
+vim.defer_fn(setup, 100)
 
 -- avoid load multiple times
 setup = function () end
