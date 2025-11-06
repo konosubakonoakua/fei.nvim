@@ -315,9 +315,6 @@ return {
     },
   },
 
-  -- notify keymapping
-  { "rcarriga/nvim-notify", },
-
   -- indent-blankline keymapping
   {
     "lukas-reineke/indent-blankline.nvim",

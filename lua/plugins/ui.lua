@@ -11,23 +11,6 @@ return {
     },
   },
 
-  -- Better `vim.notify()`
-  {
-    "rcarriga/nvim-notify",
-    opts = function(_, opts)
-      opts.render = "default" or "default" or "minimal" or "simple" or "compact" or "wrapped-compact"
-      opts.stages = "slide"
-      opts.timeout = 800 -- TODO: adjust notify timeout
-      opts.max_height = function()
-        return math.floor(vim.o.lines * 0.75)
-      end
-      opts.max_width = function()
-        return math.floor(vim.o.columns * 0.75)
-      end
-      opts.background_colour = "#000000"
-    end,
-  },
-
   -- dashboard
   {
     "nvimdev/dashboard-nvim",
