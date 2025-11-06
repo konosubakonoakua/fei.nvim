@@ -309,7 +309,7 @@ install_neovim() {
 
 check_dependencies() {
 	echo "Checking system dependencies..." | tee -a "$LOG_FILE"
-	local dependencies=("xsel" "ffmpeg" "7zip" "poppler-utils" "imagemagick")
+	local dependencies=("python3-venv" "xsel" "ffmpeg" "7zip" "poppler-utils" "imagemagick")
 
 	# Check if system is Debian-based
 	local is_debian_based=false
