@@ -39,6 +39,7 @@
     "plugins.extras.editor.vimmode",
     "plugins.extras.editor.window",
     "plugins.extras.file.oil",
+    "plugins.extras.file.yazi",
     "plugins.extras.git.mini-git",
     "plugins.extras.lang.just",
     "plugins.extras.lang.log",
