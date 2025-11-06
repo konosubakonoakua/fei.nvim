@@ -320,7 +320,18 @@ check_dependencies() {
 
 	# Check basic dependencies
 	for dep in "${dependencies[@]}"; do
-		if ! command -v "$dep" &>/dev/null; then
+		local is_installed=false
+
+		if [ "$is_debian_based" = true ] && command -v dpkg &>/dev/null; then
+			if dpkg -l | grep -q "^ii  $dep "; then
+				is_installed=true
+			fi
+		else
+			  is_installed=false
+			fi
+		fi
+
+		if [ "$is_installed" = false ]; then
 			echo "$dep not found" | tee -a "$LOG_FILE"
 
 			if [ "$is_debian_based" = true ] && command -v apt &>/dev/null; then
