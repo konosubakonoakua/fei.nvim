@@ -224,27 +224,27 @@ install_from_github() {
 install_fzf() {
 	echo "Installing fzf..." | tee -a "$LOG_FILE"
 	git_with_proxy clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-	~/.fzf/install --no-update-rc
+	~/.fzf/install
 }
 
 install_fnm() {
 	echo "Installing fnm..." | tee -a "$LOG_FILE"
 
 	# Download fnm
-	curl -fsSL https://fnm.vercel.app/install -o "$INSTALL_DIR/fnm-install.sh"
-	chmod +x "$INSTALL_DIR/fnm-install.sh"
+	curl -fsSL https://fnm.vercel.app/install -o "/tmp/fnm-install.sh"
+	chmod +x "/tmp/fnm-install.sh"
 
 	# Run installation with custom directory
-	FNM_DIR="$FNM_DIR" "$INSTALL_DIR/fnm-install.sh" --skip-shell >>"$LOG_FILE" 2>&1
+	"/tmp/fnm-install.sh" --install-dir "$INSTALL_DIR" --skip-shell >>"$LOG_FILE" 2>&1
 
 	# Add to PATH if not present
 	if ! grep -q "FNM_PATH=" "$HOME/.bashrc"; then
 		cat <<EOF >>"$HOME/.bashrc"
 
 # fnm
-export FNM_PATH="$FNM_DIR"
+export FNM_PATH="$INSTALL_DIR"
 export PATH="\$FNM_PATH:\$PATH"
-eval "\$(fnm env --use-on-cd)"
+eval "\$(fnm env --use-on-cd --shell bash)"
 EOF
 	fi
 
@@ -327,8 +327,7 @@ check_dependencies() {
 				is_installed=true
 			fi
 		else
-			  is_installed=false
-			fi
+			is_installed=false
 		fi
 
 		if [ "$is_installed" = false ]; then
