@@ -7,6 +7,14 @@
 : ${PROXY_URL:=""}
 : ${AUTO_CONFIRM:=0} # Default to manual confirmation
 
+# Version configuration dictionary - specify versions for specific tools here
+declare -A TOOL_VERSIONS=(
+	["tree-sitter"]="v0.25.10" # Specify tree-sitter version
+	# Other tools can be specified here, if not specified, use latest
+	# ["zellij"]="v0.40.0"
+	# ["gh"]="v2.47.0"
+)
+
 show_help() {
 	cat <<EOF
 Usage: $0 [OPTIONS]
@@ -20,6 +28,7 @@ Options:
   -t, --temp DIR    Set custom temporary directory (default: ~/Downloads/tools-install)
   -l, --log FILE    Set custom log file path
   -y, --yes         Automatically confirm all installations
+  -v, --version TOOL:VERSION  Specify version for a tool (e.g., -v tree-sitter:v0.25.10)
 
 Environment Variables:
   INSTALL_DIR       Custom installation directory (same as -d option)
@@ -27,13 +36,17 @@ Environment Variables:
   LOG_FILE          Custom log file path (same as -l option)
   PROXY_URL         Proxy address (same as -p option)
   AUTO_CONFIRM      Auto-confirm installations (same as -y option)
+  TOOL_VERSIONS     Tool version specifications (same as -v option)
 
 Examples:
   # Basic installation with confirmations
   $0
 
-  # Automatic installation without confirmations
-  $0 --yes
+  # Install specific version of tree-sitter
+  $0 --version tree-sitter:v0.25.10
+
+  # Install multiple tools with specific versions
+  $0 --version tree-sitter:v0.25.10 --version zellij:v0.40.0 --yes
 
   # With proxy and auto-confirm
   $0 --proxy http://192.168.138.254:7897 --yes
@@ -66,6 +79,17 @@ parse_args() {
 		-y | --yes)
 			AUTO_CONFIRM=1
 			shift
+			;;
+		-v | --version)
+			IFS=':' read -r tool_name version <<<"$2"
+			if [[ -n "$tool_name" && -n "$version" ]]; then
+				TOOL_VERSIONS["$tool_name"]="$version"
+				echo "Set $tool_name version to $version" | tee -a "$LOG_FILE"
+			else
+				echo "Error: Invalid version format: $2. Use TOOL:VERSION format." | tee -a "$LOG_FILE"
+				exit 1
+			fi
+			shift 2
 			;;
 		*)
 			echo "Error: Unknown option $1"
@@ -159,22 +183,47 @@ install_from_github() {
 	local binary_name="$3"
 	local target_name="${4:-$binary_name}"
 
-	echo "Installing $target_name..." | tee -a "$LOG_FILE"
+	# Get tool name (extract last part from repo)
+	local tool_name="${repo##*/}"
+
+	# Check if specific version is specified
+	local version="${TOOL_VERSIONS[$target_name]:-${TOOL_VERSIONS[$tool_name]:-latest}}"
+
+	echo "Installing $target_name (version: $version)..." | tee -a "$LOG_FILE"
 	local tool_dir="$TEMP_DIR/$target_name"
 	mkdir -p "$tool_dir"
 	cd "$tool_dir" || exit 1
 
+	# Build API URL
+	local api_url
+	if [ "$version" = "latest" ]; then
+		api_url="https://api.github.com/repos/$repo/releases/latest"
+	else
+		api_url="https://api.github.com/repos/$repo/releases/tags/$version"
+	fi
+
 	# Get download URL (exclude .sha256 files)
-	local api_url="https://api.github.com/repos/$repo/releases/latest"
 	local download_url
 	download_url=$(curl ${PROXY_URL:+-x $PROXY_URL} -s "$api_url" |
 		grep -Po '"browser_download_url": "\K[^"]*' |
-		grep "$pattern" | grep -v "\.sha256")
+		grep "$pattern" | grep -v "\.sha256" | head -1)
+
+	# If specified version not found, try using latest
+	if [ -z "$download_url" ] && [ "$version" != "latest" ]; then
+		echo "Version $version not found for $target_name, trying latest..." | tee -a "$LOG_FILE"
+		api_url="https://api.github.com/repos/$repo/releases/latest"
+		download_url=$(curl ${PROXY_URL:+-x $PROXY_URL} -s "$api_url" |
+			grep -Po '"browser_download_url": "\K[^"]*' |
+			grep "$pattern" | grep -v "\.sha256" | head -1)
+		version="latest"
+	fi
 
 	[ -z "$download_url" ] && {
 		echo "Failed to get download URL for $target_name from $api_url" | tee -a "$LOG_FILE"
 		exit 1
 	}
+
+	echo "Downloading $target_name $version from: $download_url" | tee -a "$LOG_FILE"
 
 	# Download package
 	local package_file="${download_url##*/}"
@@ -211,10 +260,15 @@ install_from_github() {
 
 	# Find and copy binary (with more flexible search)
 	local binary_path=$(find "$tool_dir" -type f \( -name "$binary_name" -o -name "$binary_name.exe" \) | head -1)
+	if [ -z "$binary_path" ]; then
+		# If exact match not found, try more flexible search
+		binary_path=$(find "$tool_dir" -type f -executable | head -1)
+	fi
+
 	if [ -n "$binary_path" ]; then
 		chmod +x "$binary_path"
 		cp -f "$binary_path" "$INSTALL_DIR/$target_name"
-		echo "Successfully installed $target_name as $INSTALL_DIR/$target_name" | tee -a "$LOG_FILE"
+		echo "Successfully installed $target_name $version as $INSTALL_DIR/$target_name" | tee -a "$LOG_FILE"
 	else
 		echo "Binary $binary_name not found in package (looking for: $binary_name, wanted as: $target_name)" | tee -a "$LOG_FILE"
 		exit 1
@@ -230,12 +284,23 @@ install_fzf() {
 install_fnm() {
 	echo "Installing fnm..." | tee -a "$LOG_FILE"
 
-	# Download fnm
-	curl -fsSL https://fnm.vercel.app/install -o "/tmp/fnm-install.sh"
-	chmod +x "/tmp/fnm-install.sh"
+	# Check if specific version is specified
+	local version="${TOOL_VERSIONS[fnm]:-latest}"
 
-	# Run installation with custom directory
-	"/tmp/fnm-install.sh" --install-dir "$INSTALL_DIR" --skip-shell >>"$LOG_FILE" 2>&1
+	if [ "$version" != "latest" ]; then
+		echo "Installing fnm version: $version" | tee -a "$LOG_FILE"
+		download_with_proxy "https://github.com/Schniz/fnm/releases/download/$version/fnm-linux.zip" "/tmp/fnm-$version.zip"
+		unzip -o "/tmp/fnm-$version.zip" -d "/tmp/fnm-$version"
+		chmod +x "/tmp/fnm-$version/fnm"
+		cp -f "/tmp/fnm-$version/fnm" "$INSTALL_DIR/fnm"
+	else
+		# Download fnm (latest)
+		curl -fsSL https://fnm.vercel.app/install -o "/tmp/fnm-install.sh"
+		chmod +x "/tmp/fnm-install.sh"
+
+		# Run installation with custom directory
+		"/tmp/fnm-install.sh" --install-dir "$INSTALL_DIR" --skip-shell >>"$LOG_FILE" 2>&1
+	fi
 
 	# Add to PATH if not present
 	if ! grep -q "FNM_PATH=" "$HOME/.bashrc"; then
@@ -309,7 +374,7 @@ install_neovim() {
 
 check_dependencies() {
 	echo "Checking system dependencies..." | tee -a "$LOG_FILE"
-	local dependencies=("python3-venv" "xsel" "ffmpeg" "7zip" "poppler-utils" "imagemagick")
+	local dependencies=("build-essential" "git" "curl" "wget" "python3-venv" "xsel" "ffmpeg" "7zip" "poppler-utils" "imagemagick")
 
 	# Check if system is Debian-based
 	local is_debian_based=false
@@ -368,6 +433,18 @@ check_dependencies() {
 		echo "Error: libc version $current_libc_version is lower than required $min_libc_version" | tee -a "$LOG_FILE"
 		echo "Please upgrade your system or use a different installation method" | tee -a "$LOG_FILE"
 		exit 1
+	fi
+}
+
+install_uv() {
+	echo "Installing astral-sh/uv..." | tee -a "$LOG_FILE"
+
+	# Check if uv is already installed
+	if command -v uv &>/dev/null; then
+		echo "uv is already installed" | tee -a "$LOG_FILE"
+	else
+		echo "Install uv via online installer..." | tee -a "$LOG_FILE"
+		curl -LsSf https://astral.sh/uv/install.sh | sh
 	fi
 }
 
@@ -586,6 +663,8 @@ main() {
 		["starship/starship"]="starship-x86_64-unknown-linux-musl.tar.gz starship starship"
 		["jesseduffield/lazygit"]="linux_x86_64.tar.gz lazygit lazygit"
 		["wakatime/wakatime-cli"]="wakatime-cli-linux-amd64.zip wakatime-cli-linux-amd64 wakatime-cli"
+		# ["astral-sh/uv"]="uv-x86_64-unknown-linux-gnu.tar.gz uv uv"
+		# ["astral-sh/uv"]="uv-x86_64-unknown-linux-gnu.tar.gz uvx uvx"
 	)
 
 	for repo in "${!github_tools[@]}"; do
@@ -604,7 +683,11 @@ main() {
 		install_jq
 	fi
 
-	if command -v nvim &>/dev/null; then
+	if confirm_install "uv/uvx"; then
+		install_uv
+	fi
+
+	if command -v /opt/nvim-linux-x86_64/bin/nvim &>/dev/null; then
 		if confirm_install "neovim configuration"; then
 			install_neovim_config
 		fi
