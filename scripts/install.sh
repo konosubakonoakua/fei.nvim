@@ -9,6 +9,7 @@
 
 # Version configuration dictionary - specify versions for specific tools here
 declare -A TOOL_VERSIONS=(
+	["zig"]="0.15.2" # Specify zig version
 	["tree-sitter"]="v0.25.10" # Specify tree-sitter version
 	# Other tools can be specified here, if not specified, use latest
 	# ["zellij"]="v0.40.0"
@@ -360,15 +361,150 @@ install_fonts() {
 
 install_neovim() {
 	echo "Installing neovim..." | tee -a "$LOG_FILE"
-	download_with_proxy \
-		https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz \
-		"$TEMP_DIR/nvim.tar.gz"
+
+	# Check if specific version is specified
+	local version="${TOOL_VERSIONS[neovim]:-latest}"
+
+	# Build download URL based on version
+	local nvim_url
+	if [ "$version" = "latest" ]; then
+		nvim_url="https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
+	else
+		nvim_url="https://github.com/neovim/neovim/releases/download/$version/nvim-linux-x86_64.tar.gz"
+	fi
+
+	echo "Downloading neovim $version from: $nvim_url" | tee -a "$LOG_FILE"
+
+	download_with_proxy "$nvim_url" "$TEMP_DIR/nvim.tar.gz"
 
 	sudo rm -rf /opt/nvim-linux-x86_64
 	sudo tar -C /opt -xzf "$TEMP_DIR/nvim.tar.gz"
 
 	if ! grep -q "/opt/nvim-linux-x86_64/bin" "$HOME/.bashrc"; then
 		echo 'export PATH="$PATH:/opt/nvim-linux-x86_64/bin"' >>"$HOME/.bashrc"
+	fi
+
+	echo "Successfully installed neovim $version" | tee -a "$LOG_FILE"
+}
+
+install_zig() {
+	echo "Installing Zig to /opt/..." | tee -a "$LOG_FILE"
+
+	# Check if specific version is specified
+	local version="${TOOL_VERSIONS[zig]:-latest}"
+
+	# For latest version, we need to get the actual version number
+	if [ "$version" = "latest" ]; then
+		# Get the latest stable version from ziglang.org
+		local latest_version=$(curl -s https://ziglang.org/download/index.json | grep -oP '"version": "\K[^"]*' | head -1)
+		version="${latest_version:0.15.2}" # Fallback to 0.15.2 if cannot determine
+		echo "Using latest Zig version: $version" | tee -a "$LOG_FILE"
+	fi
+
+	# Create temporary directory
+	local zig_dir="$TEMP_DIR/zig"
+	mkdir -p "$zig_dir"
+	cd "$zig_dir" || exit 1
+
+	# Detect system architecture
+	local arch
+	case "$(uname -m)" in
+	x86_64) arch="x86_64" ;;
+	aarch64) arch="aarch64" ;;
+	armv7l) arch="arm" ;;
+	*) arch="x86_64" ;; # Default to x86_64
+	esac
+
+	# Build download URL for Linux
+	local download_url="https://ziglang.org/download/$version/zig-linux-$arch-$version.tar.xz"
+
+	# For newer versions, the filename pattern changed
+	if ! curl -I "$download_url" 2>/dev/null | grep -q "200 OK"; then
+		# Try the new filename pattern
+		download_url="https://ziglang.org/download/$version/zig-$arch-linux-$version.tar.xz"
+	fi
+
+	echo "Downloading Zig $version from: $download_url" | tee -a "$LOG_FILE"
+
+	# Download package
+	local package_file="${download_url##*/}"
+	download_with_proxy "$download_url" "$package_file"
+
+	# Extract package (Zig releases are .tar.xz files)
+	echo "Extracting Zig package..." | tee -a "$LOG_FILE"
+	if ! tar -xJf "$package_file"; then
+		echo "Failed to extract $package_file" | tee -a "$LOG_FILE"
+		# Try with gzip if xz fails
+		if ! tar -xzf "$package_file"; then
+			echo "Failed to extract with both xz and gzip" | tee -a "$LOG_FILE"
+			exit 1
+		fi
+	fi
+
+	# Find the extracted zig directory (pattern varies by version)
+	local zig_extracted_dir=$(find "$zig_dir" -maxdepth 1 -type d -name "zig-*" | head -1)
+
+	if [ -z "$zig_extracted_dir" ]; then
+		echo "Failed to find extracted Zig directory" | tee -a "$LOG_FILE"
+		exit 1
+	fi
+
+	# Create /opt/zig directory with proper permissions
+	local zig_install_dir="/opt/zig/$version"
+	echo "Installing Zig to: $zig_install_dir" | tee -a "$LOG_FILE"
+
+	# Check if we have permission to write to /opt
+	if [ ! -w "/opt" ]; then
+		echo "Need sudo permission to install to /opt/zig/" | tee -a "$LOG_FILE"
+		sudo mkdir -p "/opt/zig"
+		sudo chown "$(whoami):$(whoami)" "/opt/zig" || {
+			echo "Failed to change ownership of /opt/zig" | tee -a "$LOG_FILE"
+			exit 1
+		}
+	else
+		mkdir -p "/opt/zig"
+	fi
+
+	# Copy the entire zig directory to /opt/zig/version
+	cp -r "$zig_extracted_dir" "$zig_install_dir"
+
+	# Create version symlink
+	local zig_current_dir="/opt/zig/current"
+	if [ -L "$zig_current_dir" ]; then
+		rm "$zig_current_dir"
+	fi
+	ln -sf "$zig_install_dir" "$zig_current_dir"
+
+	# Create symlink in install directory for backward compatibility
+	local zig_binary="$zig_install_dir/zig"
+	if [ -f "$zig_binary" ]; then
+		chmod +x "$zig_binary"
+		# Also create symlink in user's bin directory for easy access
+		ln -sf "$zig_binary" "$INSTALL_DIR/zig"
+
+		echo "Successfully installed Zig $version to $zig_install_dir" | tee -a "$LOG_FILE"
+		echo "Current version symlink: $zig_current_dir" | tee -a "$LOG_FILE"
+
+		# Add Zig to PATH if not present
+		if ! grep -q "ZIG_HOME=" "$HOME/.bashrc"; then
+			cat <<EOF >>"$HOME/.bashrc"
+
+# Zig
+export ZIG_HOME="/opt/zig/current"
+export PATH="\$ZIG_HOME:\$PATH"
+EOF
+			echo "Added Zig to PATH in .bashrc" | tee -a "$LOG_FILE"
+		fi
+
+		# Verify installation
+		if command -v zig &>/dev/null || [ -f "$zig_binary" ]; then
+			echo "Zig verification: $($zig_binary version)" | tee -a "$LOG_FILE"
+		else
+			echo "Warning: zig command not found in PATH, you may need to reload your shell" | tee -a "$LOG_FILE"
+		fi
+	else
+		echo "Zig binary not found in package" | tee -a "$LOG_FILE"
+		exit 1
 	fi
 }
 
@@ -685,6 +821,10 @@ main() {
 
 	if confirm_install "uv/uvx"; then
 		install_uv
+	fi
+
+	if confirm_install "zig"; then
+		install_zig
 	fi
 
 	if command -v /opt/nvim-linux-x86_64/bin/nvim &>/dev/null; then
