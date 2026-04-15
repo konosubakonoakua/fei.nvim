@@ -14,7 +14,7 @@ end
 vim.api.nvim_create_autocmd({ "BufRead", "BufNew" }, {
   pattern = { ".env", "*.md", "*.MD" },
   callback = function()
-    vim.diagnostic.disable(0)
+    vim.diagnostic.enable(false)
   end,
 })
 
