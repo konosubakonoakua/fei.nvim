@@ -2,6 +2,9 @@
 " The Minimalist Vimrc for Embedded Development
 " ==============================================================================
 
+set encoding=utf-8
+scriptencoding utf-8
+
 " --- Disable Terminal Flow Control for Ctrl+S ---
 " Only run this once during startup to prevent screen blackouts on config reload
 if !exists('g:flow_control_disabled') && filereadable('/dev/tty')
