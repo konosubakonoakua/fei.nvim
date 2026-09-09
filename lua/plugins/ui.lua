@@ -190,7 +190,7 @@ return {
           local enc = vim.opt.fileencoding:get()
           return (enc ~= nil and ("[" .. enc .. "]")) or ""
         end,
-        seperator = "",
+        separator = "",
         padding = { left = 0, right = 0 },
       })
 
