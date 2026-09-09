@@ -27,7 +27,6 @@
     "lazyvim.plugins.extras.ui.treesitter-context",
     "lazyvim.plugins.extras.util.dot",
     "lazyvim.plugins.extras.util.mini-hipatterns",
-    "plugins.extras.coding.neorepl",
     "plugins.extras.editor.colorizer",
     "plugins.extras.editor.folding",
     "plugins.extras.editor.ime",
@@ -38,11 +37,7 @@
     "plugins.extras.editor.window",
     "plugins.extras.file.oil",
     "plugins.extras.file.yazi",
-    "plugins.extras.lang.just",
-    "plugins.extras.lang.log",
-    "plugins.extras.lang.python",
-    "plugins.extras.lang.verilog",
-    "plugins.extras.util.wakatime"
+    "plugins.extras.lang.python"
   ],
   "install_version": 7,
   "news": {
