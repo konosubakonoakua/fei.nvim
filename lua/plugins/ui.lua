@@ -11,37 +11,6 @@ return {
     },
   },
 
-  -- dashboard
-  {
-    "nvimdev/dashboard-nvim",
-    version = false,
-    optional = true,
-    opts = function(_, opts)
-      local logo = require('util').logorandom()
-      logo = string.rep("\n", 8) .. logo .. "\n\n"
-      -- local use_preview = math.random() < vim.g.dashboard_colorful_banner_chance
-      local use_preview = false
-
-      if require("platform").isPlatWindows() then
-        use_preview = false
-      end
-
-      local preview = {
-        command = "cat",
-        file_path = vim.fn.stdpath("config") .. "/lua/util/logo_neovim.cat",
-        file_height = 10,
-        file_width = 70,
-      }
-
-      if not use_preview then
-        preview = {}
-      end
-      opts.disable_move = not use_preview
-      opts.preview = preview
-      opts.config.header = vim.split(logo, "\n")
-    end,
-  },
-
   {
     "folke/snacks.nvim",
     optional = true,
