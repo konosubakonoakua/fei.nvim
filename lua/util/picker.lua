@@ -5,43 +5,23 @@ local M = setmetatable({}, {
 })
 
 M.name = function()
-  if LazyVim.has_extra("editor.snacks_picker") then
-    return "snacks_picker"
-  elseif LazyVim.has_extra("editor.telescope") then
-    return "telescope"
-  elseif LazyVim.has_extra("editor.fzf") then
-    return "fzf-lua"
-  else
-    LazyVim.error("No picker available. Requires `editor.telescope`, `editor.fzf` or `editor.snacks_picker`")
-    return nil
-  end
+  return "quickfix"
 end
 
 M.spec = function()
-  if LazyVim.has_extra("editor.snacks_picker") then
-    return "folke/snacks.nvim"
-  elseif LazyVim.has_extra("editor.telescope") then
-    return "nvim-telescope/telescope.nvim"
-  elseif LazyVim.has_extra("editor.fzf") then
-    return "ibhagwan/fzf-lua"
-  else
-    LazyVim.error(
-      "No picker available. Requires `folke/snacks.nvim`, `nvim-telescope/telescope.nvim` or `ibhagwan/fzf-lua`"
-    )
-    return nil
-  end
+  return "folke/snacks.nvim"
 end
 
 M.has_telescope = function()
-  return LazyVim.has_extra("editor.telescope")
+  return false
 end
 
 M.has_fzflua = function()
-  return LazyVim.has_extra("editor.fzf")
+  return false
 end
 
 M.has_snacks = function()
-  return LazyVim.has_extra("editor.snacks_picker")
+  return true
 end
 
 return M

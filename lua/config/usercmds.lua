@@ -31,11 +31,13 @@ end, { desc = "Open Neovim log" })
 -- endregion log
 
 vim.api.nvim_create_user_command("Dotfiles", function()
-  if require("util.picker").has_fzflua() then
-    require("fzf-lua").files({ cmd = [[rg --files ~/.dotfiles/ ~/.config/.dotfiles/ ~/.config/nvim]] })
-  else
-    vim.cmd([[:Telescope find_files search_dirs={"~/.dotfiles/","~/.config/.dotfiles/","~/.config/nvim"}]])
-  end
+  Snacks.picker.files({
+    dirs = {
+      vim.fn.expand("~/.dotfiles"),
+      vim.fn.expand("~/.config/.dotfiles"),
+      vim.fn.stdpath("config"),
+    },
+  })
 end, { desc = "Search dotfiles" })
 
 return {}
