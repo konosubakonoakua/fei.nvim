@@ -11,7 +11,6 @@ local _ctags = {
     lazy = false,
     dependencies = {
       -- "folke/which-key.nvim", -- optional [for whichkey hints]
-      require("util.picker").spec(),
       -- "nvim-tree/nvim-web-devicons", -- optional [for devicons in telescope or fzf]
     },
     opts = {
@@ -26,7 +25,7 @@ local _ctags = {
         -- cscope executable
         exec = "cscope", -- "cscope" or "gtags-cscope"
         -- choose your fav picker
-        picker = require("util.picker").name(), -- "telescope", "fzf-lua" or "quickfix"
+        picker = "quickfix", -- "telescope", "fzf-lua" or "quickfix"
         -- "true" does not open picker for single result, just JUMP
         skip_picker_for_single_result = false, -- "false" or "true"
         -- these args are directly passed to "cscope -f <db_file> <args>"
@@ -195,7 +194,7 @@ local _gentags = {
   {
     'hrsh7th/nvim-cmp',
     optional = true,
-    requires = {
+    dependencies = {
       {
         -- https://github.com/quangnguyen30192/cmp-nvim-tags#troubleshooting
         'quangnguyen30192/cmp-nvim-tags',
@@ -205,8 +204,8 @@ local _gentags = {
         }
       }
     },
-    config = function ()
-      require'cmp'.setup {
+    config = function()
+      require("cmp").setup {
       sources = {
         {
           name = 'tags',
@@ -233,4 +232,9 @@ local _gentags = {
   },
 }
 
-return _gentags or _ctags or _gtags
+-- Pick which tag backend to enable. In Lua `a or b or c` returns the first
+-- truthy value, and a table is always truthy, so the old
+-- `return _gentags or _ctags or _gtags` always returned `_gentags`.
+local group = "ctags" ---@type "ctags" | "gtags" | "gentags"
+local groups = { ctags = _ctags, gtags = _gtags, gentags = _gentags }
+return groups[group] or {}

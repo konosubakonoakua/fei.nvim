@@ -1,11 +1,10 @@
 return {
   {
-    'brenoprata10/nvim-highlight-colors',
+    "brenoprata10/nvim-highlight-colors",
     enabled = true,
-    config = function ()
+    config = function()
       vim.opt.termguicolors = true
       require("nvim-highlight-colors").setup({})
-    end
+    end,
   },
-
 }

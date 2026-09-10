@@ -14,10 +14,7 @@ return {
     "ii14/neorepl.nvim",
     lazy = true,
     -- event = "WinEnter",
-    init = function ()
-      vim.api.nvim_create_user_command('NeoreplQuit', function ()
-      end, {desc = "Neorepl Quit"})
-
+    init = function()
       -- NOTE: q to close REPL instance in norm mode
       vim.keymap.set('n', 'g:', function()
         -- get current buffer and window
@@ -37,7 +34,7 @@ return {
 
         if vim.bo.ft == "neorepl" then
           -- vim.api.nvim_buf_set_keymap(0, "n", 'q', cmd_neorepl_quit, {desc = "Quit Neorepl"})
-          vim.keymap.set("n", 'q', function ()
+          vim.keymap.set("n", 'q', function()
             local repl_bufnr = vim.api.nvim_get_current_buf()
             vim.cmd('stopinsert')
             require('neorepl.bufs')[repl_bufnr] = nil
