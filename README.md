@@ -106,7 +106,6 @@ ln -s ~/.config/fei.nvim/misc/minimal/init.vim ~/.config/nvim/init.vim
 
 ## Reference
 > [!TIP]
-> - [TODO.md](./docs/TODO.md)
 > - [USAGE.md](./docs/USAGE.md)
 > - [I AM VIM MAN](https://github.com/konosubakonoakua/vimer/blob/main/README.md)
 > - [.dotfiles](https://github.com/konosubakonoakua/.dotfiles/blob/main/README.md)
