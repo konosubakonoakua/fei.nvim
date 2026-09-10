@@ -33,7 +33,9 @@ local _lazyterm     = Utils.custom_lazyterm
 local _lazyterm_cwd = Utils.custom_lazyterm_cwd
 
 local keymap             = vim.keymap.set
-local keymap_force       = vim.keymap.set
+-- NOTE: use the raw `vim.keymap.set` captured before it was patched above,
+-- so `keymap_force` really bypasses the forced `silent = true` default.
+local keymap_force       = keymap_set
 local keydel             = vim.keymap.del
 
 -- endregion local functions
@@ -293,11 +295,19 @@ if vim.fn.has("gui_running") == 1 then
   else
     vim.g.gui_font_default_size = 16
     vim.g.gui_font_size = vim.g.gui_font_default_size
-    -- vim.g.gui_font_face = "Fira Code Retina"
+    vim.g.gui_font_face = vim.g.gui_font_face or "Lilex Nerd Font"
 
-    RefreshGuiFont = function() vim.opt.guifont = string.format("%s:h%s",vim.g.gui_font_face, vim.g.gui_font_size) end
-    ResizeGuiFont = function(delta) vim.g.gui_font_size = vim.g.gui_font_size + delta; RefreshGuiFont() end
-    ResetGuiFont = function () vim.g.gui_font_size = vim.g.gui_font_default_size; RefreshGuiFont() end
+    local function RefreshGuiFont()
+      vim.opt.guifont = string.format("%s:h%s", vim.g.gui_font_face, vim.g.gui_font_size)
+    end
+    local function ResizeGuiFont(delta)
+      vim.g.gui_font_size = vim.g.gui_font_size + delta
+      RefreshGuiFont()
+    end
+    local function ResetGuiFont()
+      vim.g.gui_font_size = vim.g.gui_font_default_size
+      RefreshGuiFont()
+    end
 
     -- -- Call function on startup to set default value
     -- ResetGuiFont()
