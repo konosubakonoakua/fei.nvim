@@ -11,19 +11,23 @@ local function augroup(name)
 end
 
 -- Disable diagnostics in certain files
+-- NOTE: the buffer must be scoped explicitly, otherwise this disables
+-- diagnostics globally for every buffer in the session.
 vim.api.nvim_create_autocmd({ "BufRead", "BufNew" }, {
+  group = augroup("disable_diagnostics"),
   pattern = { ".env", "*.md", "*.MD" },
   callback = function()
-    vim.diagnostic.enable(false)
+    vim.diagnostic.enable(false, { bufnr = 0 })
   end,
 })
 
 -- Disable tree-sitter for files over 1MB in size
 vim.api.nvim_create_autocmd("BufRead", {
+  group = augroup("large_file_treesitter"),
   pattern = "*",
   callback = function()
-    local size = vim.fn.getfsize(vim.fn.expand("%:p"))
-    if size > 500000 then
+    local name = vim.api.nvim_buf_get_name(0)
+    if name ~= "" and vim.fn.getfsize(name) > 500000 then
       vim.treesitter.stop()
     end
   end,
@@ -31,6 +35,7 @@ vim.api.nvim_create_autocmd("BufRead", {
 
 -- Fix conceallevel for json & help files
 vim.api.nvim_create_autocmd({ "FileType" }, {
+  group = augroup("json_conceal"),
   pattern = { "json", "jsonc" },
   callback = function()
     vim.wo.spell = false
@@ -61,6 +66,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 -- command history
 -- command-line window
 vim.api.nvim_create_autocmd("cmdwinenter", {
+  group = augroup("cmdwin"),
   callback = function()
     vim.keymap.set({"n", "i"}, "<C-y>", "<cr>q:", { buffer = true, silent = true })
     vim.keymap.set({"n", "i"}, "<F5>", "<cr>q:", { buffer = true, silent = true })
@@ -80,6 +86,7 @@ vim.api.nvim_create_autocmd("cmdwinenter", {
 
 -- Set commentstring for igor pro
 vim.api.nvim_create_autocmd({ "BufRead", "BufNew" }, {
+  group = augroup("ipf_commentstring"),
   pattern = { "*.ipf", },
   callback = function()
     vim.o.commentstring = "// %s"
