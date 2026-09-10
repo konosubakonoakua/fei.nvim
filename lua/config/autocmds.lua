@@ -6,8 +6,12 @@ pcall(require, "config/usercmds")
 --   https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
 
+-- NOTE: prefix the groups with `user_`, NOT `lazyvim_`. LazyVim creates its own
+-- groups as `lazyvim_<name>` with `clear = true`, so an identically named group
+-- here silently wipes LazyVim's (e.g. our old `lazyvim_json_conceal` clobbered
+-- LazyVim's json/jsonc/json5 conceal handling).
 local function augroup(name)
-  return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
+  return vim.api.nvim_create_augroup("user_" .. name, { clear = true })
 end
 
 -- Disable diagnostics in certain files
