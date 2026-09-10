@@ -33,15 +33,15 @@ return {
     ft = "python", -- Call config for python files and load the cached venv automatically
     cmd = "VenvSelect",
     config = function()
-      _home_dir = vim.env.HOME
-      _home_dir_venvs_command1 = jit.os == "Windows"
-          and "fd 'Scripts//python.exe$' " .. _home_dir .. "/.virtualenvs --full-path -IH -a"
+      local home_dir = vim.env.HOME
+      local home_dir_venvs_command1 = jit.os == "Windows"
+          and "fd 'Scripts//python.exe$' " .. home_dir .. "/.virtualenvs --full-path -IH -a"
         or "fd 'python$' ~/.virtualenvs --full-path -IH -a"
-      _home_dir_venvs_command2 = jit.os == "Windows"
-          and "fd 'Scripts//python.exe$' " .. _home_dir .. "/.venvs --full-path -IH -a"
+      local home_dir_venvs_command2 = jit.os == "Windows"
+          and "fd 'Scripts//python.exe$' " .. home_dir .. "/.venvs --full-path -IH -a"
         or "fd 'python$' ~/.venvs --full-path -IH -a"
-      _home_dir_venvs_command3 = jit.os == "Windows"
-          and "fd 'Scripts//python.exe$' " .. _home_dir .. "/venvs --full-path -IH -a"
+      local home_dir_venvs_command3 = jit.os == "Windows"
+          and "fd 'Scripts//python.exe$' " .. home_dir .. "/venvs --full-path -IH -a"
         or "fd 'python$' ~/venvs --full-path -IH -a"
       require("venv-selector").setup({
         settings = {
@@ -50,13 +50,13 @@ return {
           },
           search = {
             home_dir_venvs1 = {
-              command = _home_dir_venvs_command1,
+              command = home_dir_venvs_command1,
             },
             home_dir_venvs2 = {
-              command = _home_dir_venvs_command2,
+              command = home_dir_venvs_command2,
             },
             home_dir_venvs3 = {
-              command = _home_dir_venvs_command3,
+              command = home_dir_venvs_command3,
             },
           },
         },

@@ -3,7 +3,7 @@ if vim.fn.has("pythonx") == 0 then
   return {}
 end
 
-function setup()
+local function setup()
   if jit.os == "Windows" then
     vim.cmd([[
     py import win32api, win32gui
@@ -44,8 +44,5 @@ end
 
 -- delay 100ms
 vim.defer_fn(setup, 100)
-
--- avoid load multiple times
-setup = function () end
 
 return {}
