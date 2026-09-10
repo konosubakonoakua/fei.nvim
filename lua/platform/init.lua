@@ -1,5 +1,5 @@
 local depspath = vim.fn.stdpath("data") .. "/../nvim-deps"
-if not vim.loop.fs_stat(depspath) then
+if not (vim.uv or vim.loop).fs_stat(depspath) then
   vim.fn.mkdir(depspath, "p")
 end
 
@@ -30,7 +30,7 @@ function M.setup_shell()
     -- extract bash form /bin/bash
     -- NOTE: CI bug: /home/runner/.config/nvim/lua/platform/init.lua:38: attempt to index a nil value
     if not M.isPlatGithubAction() then
-      local shell = os.getenv("SHELL"):match("([^" .. package.config:sub(1, 1) .. "]+)$") or "bash"
+      local shell = (os.getenv("SHELL") or ""):match("([^" .. package.config:sub(1, 1) .. "]+)$") or "bash"
       LazyVim.terminal.setup(shell)
     else
       LazyVim.terminal.setup("bash")
