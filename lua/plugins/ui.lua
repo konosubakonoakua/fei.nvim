@@ -21,7 +21,10 @@ return {
       animate = {
         duration = 0,
       },
-      bigfile = { enabled = true },
+      -- big files: switch to `filetype = bigfile` (>500KB), which stops
+      -- treesitter and disables a few heavy features (replaces the old
+      -- standalone BufRead autocmd)
+      bigfile = { enabled = true, size = 500 * 1024 },
       dashboard = {
         preset = {
           header = require('util').logorandom(),
