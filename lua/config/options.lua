@@ -53,11 +53,6 @@ else
   Platform.setup_shell()
 end
 
--- sqlite.lua
-if vim.fn.has("win32") == 1 then
-  vim.g.sqlite_clib_path = Platform.libdeps.sqlite3
-end
-
 -- NOTE: stop setting guicursor manually with noice.nvim,
 -- there's a chance that the guicursor disappears
 -- vim.opt.guicursor = "a:block"

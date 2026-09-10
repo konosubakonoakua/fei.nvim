@@ -9,9 +9,7 @@ end
 
 local M = {
   os = jit.os,
-  libdeps = {
-    sqlite3 = depspath .. "/" .. "sqlite3" .. libsuffix(),
-  },
+  libdeps = {},
 }
 
 function M.isPlatWindows()
