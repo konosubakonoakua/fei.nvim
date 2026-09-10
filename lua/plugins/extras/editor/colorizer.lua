@@ -1,17 +1,11 @@
 return {
   {
-    -- https://github.com/norcalli/nvim-colorizer.lua.git
-    'norcalli/nvim-colorizer.lua',
+    'brenoprata10/nvim-highlight-colors',
     enabled = true,
     config = function ()
-      require("colorizer").setup()
+      vim.opt.termguicolors = true
+      require("nvim-highlight-colors").setup({})
     end
   },
 
-  -- minty
-  { "nvchad/volt", lazy = true },
-  {
-    "nvchad/minty",
-    cmd = { "Shades", "Huefy" },
-  },
 }
