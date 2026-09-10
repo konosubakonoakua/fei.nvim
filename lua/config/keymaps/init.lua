@@ -6,8 +6,9 @@
 --   windows.lua  window navigation / resizing / management
 --   tabs.lua     tab pages
 --   terminal.lua terminals & dotfile search
---   leader.lua   <leader>; utilities + LSP workspace maps (config/leader.lua)
---   gui.lua      GUI (Neovide) font & transparency maps (config/gui.lua)
+--   utils.lua    <leader>; utilities
+--   lsp.lua      LSP workspace maps
+--   gui.lua      GUI (Neovide) font & transparency maps
 
 -- NOTE: <C-Fx> == <Fy> (y = x + 24);  <S-Fx> == <Fy> (y = x + 12).
 
@@ -96,7 +97,8 @@ end
 require("config.keymaps.windows")
 require("config.keymaps.tabs")
 require("config.keymaps.terminal")
-require("config.leader").setup()
-require("config.gui").setup()
+require("config.keymaps.utils")
+require("config.keymaps.lsp")
+require("config.keymaps.gui")
 
 -- vim:sw=2:ts=2:
