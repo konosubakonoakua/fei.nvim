@@ -28,14 +28,10 @@ if not status then
   return {}
 end
 
-local _floatterm    = Utils.custom_floatterm
 local _lazyterm     = Utils.custom_lazyterm
 local _lazyterm_cwd = Utils.custom_lazyterm_cwd
 
 local keymap             = vim.keymap.set
--- NOTE: use the raw `vim.keymap.set` captured before it was patched above,
--- so `keymap_force` really bypasses the forced `silent = true` default.
-local keymap_force       = keymap_set
 local keydel             = vim.keymap.del
 
 -- endregion local functions
@@ -216,36 +212,8 @@ keymap("n", "<leader>ft", _lazyterm,      { desc = "Terminal (root dir)" })
 -- endregion plugin remappings
 
 -- region <leader>; group remappings
-
--- -- ptpython
--- if vim.fn.executable("ptpython") == 1 then
---   -- TODO: consider adding python env selection
---   vim.keymap.set("n", "<leader>;p", function()
---     _floatterm(
---       { "ptpython", "--vi" },
---       { esc_esc = false, ctrl_hjkl = false, border = "rounded",
---         env = {
---           ['some_env_vars'] = "" -- NOTE: env parameter placeholder
---         }
---       }
---     )
---   end, { desc = "!ptpython" })
--- end
-
--- system monitor
-if vim.fn.executable("btop") == 1 then
-  vim.keymap.set("n", "<leader>;b", function()
-    _floatterm({ "btop" }, { esc_esc = false, ctrl_hjkl = false, border = "rounded" })
-  end, { desc = "!Btop" })
-end
-
--- path copy
-vim.keymap.set('n', '<leader>;p', function()
-    local file_path = vim.fn.expand('%:p')
-    vim.fn.setreg('+', file_path)
-    vim.notify('Path copied: ' .. file_path)
-end, { noremap = true, silent = true })
-
+-- system monitor / path copy / LSP workspace maps moved to config/leader.lua
+require("config.leader").setup()
 -- endregion <leader>; group remappings
 
 -- region toggle options
@@ -278,49 +246,7 @@ end, { noremap = true, silent = true })
 
 
 -- region neovide keymapping
-if vim.fn.has("gui_running") == 1 then
-  vim.notify("neovim running on GUI")
-  if vim.g.neovide == true then
-    vim.g.neovide_scale_factor_max = 4.0
-    vim.g.neovide_scale_factor_min = 0.1
-    vim.g.neovide_scale_factor_default = 1.2
-    vim.g.neovide_transparency_default = 0.8
-
-    keymap_force({"n", "i"}, "<C-=>", ":lua vim.g.neovide_scale_factor = math.min(vim.g.neovide_scale_factor + 0.1,  vim.g.neovide_scale_factor_max)<CR>", { silent = true, desc = "Neovide Font +++" })
-    keymap_force({"n", "i"}, "<C-->", ":lua vim.g.neovide_scale_factor = math.max(vim.g.neovide_scale_factor - 0.1,  vim.g.neovide_scale_factor_min)<CR>", { silent = true, desc = "Neovide Font ---"})
-    keymap_force({"n", "i"}, "<C-+>", ":lua vim.g.neovide_transparency = math.min(vim.g.neovide_transparency + 0.025, 1.0)<CR>", { silent = true, desc = "Neovide Trans +++" })
-    keymap_force({"n", "i"}, "<C-_>", ":lua vim.g.neovide_transparency = math.max(vim.g.neovide_transparency - 0.025, 0.0)<CR>", { silent = true, desc = "Neovide Trans ---" })
-    keymap_force({"n", "i"}, "<C-0>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor_default<CR>", { silent = true , desc = "Neovide Font Reset"})
-    keymap_force({"n", "i"}, "<C-)>", ":lua vim.g.neovide_transparency = vim.g.neovide_transparency_default<CR>", { silent = true , desc = "Neovide Trans Reset"})
-  else
-    vim.g.gui_font_default_size = 16
-    vim.g.gui_font_size = vim.g.gui_font_default_size
-    vim.g.gui_font_face = vim.g.gui_font_face or "Lilex Nerd Font"
-
-    local function RefreshGuiFont()
-      vim.opt.guifont = string.format("%s:h%s", vim.g.gui_font_face, vim.g.gui_font_size)
-    end
-    local function ResizeGuiFont(delta)
-      vim.g.gui_font_size = vim.g.gui_font_size + delta
-      RefreshGuiFont()
-    end
-    local function ResetGuiFont()
-      vim.g.gui_font_size = vim.g.gui_font_default_size
-      RefreshGuiFont()
-    end
-
-    -- -- Call function on startup to set default value
-    -- ResetGuiFont()
-
-    local opts = { noremap = true, silent = true }
-    opts.desc = "GUI FONT +++"
-    keymap_force({'n', 'i'}, "<C-+>", function() ResizeGuiFont(1)  end, opts)
-    opts.desc = "GUI FONT ---"
-    keymap_force({'n', 'i'}, "<C-->", function() ResizeGuiFont(-1) end, opts)
-    opts.desc = "GUI FONT Reset"
-    keymap_force({'n', 'i'}, "<C-0>", function() ResetGuiFont() end, opts)
-  end
-end
+require("config.gui").setup()
 -- endregion neovide keymapping
 
 -- region <leader>l/<leader>L
