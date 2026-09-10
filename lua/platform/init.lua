@@ -12,11 +12,11 @@ local M = {
   libdeps = {},
 }
 
-function M.isPlatWindows()
+function M.is_windows()
   return jit.os == "Windows"
 end
 
-function M.isPlatGithubAction()
+function M.is_github_action()
   -- export env in bash: export PLATFORM_GITHUB_ACTION=1
   return os.getenv("PLATFORM_GITHUB_ACTION") == "1"
 end
@@ -29,7 +29,7 @@ function M.setup_shell()
     --  FIXME: #2429 shell not exit normally, related to SHELL path
     -- extract bash form /bin/bash
     -- NOTE: CI bug: /home/runner/.config/nvim/lua/platform/init.lua:38: attempt to index a nil value
-    if not M.isPlatGithubAction() then
+    if not M.is_github_action() then
       local shell = (os.getenv("SHELL") or ""):match("([^" .. package.config:sub(1, 1) .. "]+)$") or "bash"
       LazyVim.terminal.setup(shell)
     else
@@ -38,7 +38,7 @@ function M.setup_shell()
   end
 end
 
-if not M.isPlatGithubAction() then
+if not M.is_github_action() then
   vim.defer_fn(function()
     if vim.fn.executable("tree-sitter") == 0 then
       LazyVim.error(
