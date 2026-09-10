@@ -107,6 +107,7 @@ return {
     event = "VeryLazy",
     opts = function(_, opts)
       local icons = require("util.icons")
+      local ok, Statusline = pcall(require, "util.statusline")
 
       opts.options.component_separators = { left = "", right = "" }
       opts.options.section_separators = { left = "", right = "" }
@@ -115,117 +116,77 @@ return {
         winbar = {},
       }
 
-      -- NOTE: '#' operator only use indexed key table.
-      -- t[#t+1] won't work here
-      table.remove(opts.sections.lualine_a, 1) -- vim mode
-      table.insert(opts.sections.lualine_a, {
-        "mode",
-        fmt = function(str)
-          return str:sub(1, 1)
-        end,
-      })
+      -- LazyVim's default lualine_x layout is:
+      --   [ profiler, <noice command/mode...>, dap, lazy-updates, diff ]
+      -- Reuse the components we keep instead of mutating the tables by index
+      -- (the old version relied on hard-coded positions and silently dropped
+      -- the file path / only removed half the noice entries).
+      local x = opts.sections.lualine_x
+      local profiler = x[1]
+      local dap = x[#x - 2]
+      local lazy_updates = x[#x - 1]
+      local git_diff = x[#x]
 
-      -- TODO: customize lualine branch icon and color
-      -- MiniGit for obtaining status
-      table.remove(opts.sections.lualine_b, 1) -- branch
-      table.insert(opts.sections.lualine_b, {
-        "branch",
-        icon = { icons.lualine.branch.branch_v1, align = "left" },
-      })
-
-
-      -- stylua: ignore
-      table.insert(
-        opts.sections.lualine_c, -- move diff to lualine_c
-        1, -- before lazyroot
-        table.remove(opts.sections.lualine_x, #opts.sections.lualine_x)
-      )
-      -- table.insert(opts.sections.lualine_c, 3, table.remove(opts.sections.lualine_c, 2))
-      table.insert(
-        opts.sections.lualine_c,
-        3,
-        vim.tbl_extend("force", table.remove(opts.sections.lualine_c, 3), {
+      opts.sections.lualine_a = {
+        { "mode", fmt = function(str) return str:sub(1, 1) end },
+      }
+      opts.sections.lualine_b = {
+        { "branch", icon = { icons.lualine.branch.branch_v1, align = "left" } },
+      }
+      opts.sections.lualine_c = {
+        git_diff,
+        LazyVim.lualine.root_dir(),
+        {
+          "diagnostics",
           symbols = {
             error = icons.diagnostics.Error,
             warn = icons.diagnostics.Warn,
             info = icons.diagnostics.Info,
             hint = icons.diagnostics.Hint,
           },
-        })
-      )
-      table.remove(opts.sections.lualine_c, #opts.sections.lualine_c) -- remove lsp symbol
-      table.insert(opts.sections.lualine_c, { -- add encoding
-        function()
-          local enc = vim.opt.fileencoding:get()
-          return (enc ~= nil and ("[" .. enc .. "]")) or ""
-        end,
-        separator = "",
-        padding = { left = 0, right = 0 },
-      })
-
-      -- BUG: noice lualine
-      -- remove all noice component since not working
-      for i = 1, #opts.sections.lualine_x, 1 do
-        table.remove(opts.sections.lualine_x, i)
-      end
-
-      table.remove(opts.sections.lualine_y, 2) -- location
-      table.remove(opts.sections.lualine_y, 1) -- progress
-      local lualine_y = {
-        {
+        },
+        { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+        { LazyVim.lualine.pretty_path() },
+        { -- file encoding
           function()
-            local icon = " 󰡪 "
-            local line = vim.fn.line(".")
-            local col = vim.fn.virtcol(".")
-            return icon .. string.format("%d:%d", line, col)
+            local enc = vim.opt.fileencoding:get()
+            return (enc ~= nil and ("[" .. enc .. "]")) or ""
           end,
           separator = "",
           padding = { left = 0, right = 0 },
         },
-        {
+      }
+
+      -- Right cluster: keep profiler / debugger / pending updates, drop noice.
+      opts.sections.lualine_x = { profiler, dap, lazy_updates }
+
+      opts.sections.lualine_y = {
+        { -- cursor position
+          function() return " 󰡪 " .. string.format("%d:%d", vim.fn.line("."), vim.fn.virtcol(".")) end,
+          separator = "",
+          padding = { left = 0, right = 0 },
+        },
+        { -- scroll position
           function()
-            local cur = vim.fn.line(".")
-            local btm = vim.fn.line("$")
-            local top = 1
-            local prefix = " 󰸻 "
-            local suffix = ""
+            local cur, top, bottom = vim.fn.line("."), 1, vim.fn.line("$")
             if cur == top then
-              return prefix .. "TOP" .. suffix
-            elseif cur == btm then
-              return prefix .. "BTM" .. suffix
-            else
-              return prefix .. string.format("%d", vim.fn.line(".") / vim.fn.line("$") * 100) .. suffix
+              return " 󰸻 TOP"
+            elseif cur == bottom then
+              return " 󰸻 BTM"
             end
+            return " 󰸻 " .. string.format("%d", cur / bottom * 100)
           end,
           separator = "",
           padding = { left = 0, right = 0 },
         },
-        { -- os
-          function()
-            return icons.lualine.fileformat[vim.bo.ff]
-          end,
-          separator = "",
-          -- padding = { left = 0, right = 0 },
-        },
-      }
-      for _, x in pairs(lualine_y) do
-        table.insert(opts.sections.lualine_y, x)
-      end
-
-      table.remove(opts.sections.lualine_z, 1) -- recording & time
-      local res, Util = pcall(require, "util")
-      -- stylua: ignore
-      local lualine_z_record_component =
-        res == true and Util.lualine_setup_recording_status() or function() return "" end
-      local lualine_z = {
-        {
-          lualine_z_record_component,
+        { -- file format
+          function() return icons.lualine.fileformat[vim.bo.ff] end,
           separator = "",
         },
       }
-      for _, x in pairs(lualine_z) do
-        table.insert(opts.sections.lualine_z, x)
-      end
+      opts.sections.lualine_z = {
+        { ok and Statusline.recording_status() or function() return "" end, separator = "" },
+      }
 
       return opts
     end,

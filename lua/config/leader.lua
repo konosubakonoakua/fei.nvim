@@ -6,15 +6,11 @@
 local M = {}
 
 function M.setup()
-  local status, Utils = pcall(require, "util")
-  if not status then
-    LazyVim.error("Error loading util in config/leader")
+  local ok, Term = pcall(require, "util.term")
+  if not ok then
+    LazyVim.error("Error loading util.term in config/leader")
     return
   end
-
-  local _floatterm = Utils.custom_floatterm
-  local _lazyterm = Utils.custom_lazyterm
-  local _lazyterm_cwd = Utils.custom_lazyterm_cwd
 
   local keymap = vim.keymap.set
 
@@ -40,8 +36,8 @@ function M.setup()
   keymap("n", "<leader>;l", "<cmd>Lazy<cr>", { desc = "Lazy.nvim" })
   keymap("n", "<leader>;m", "<cmd>Mason<cr>", { desc = "Mason" })
   keymap("n", "<leader>;I", "<cmd>LspInfo<cr>", { desc = "LspInfo" })
-  keymap("n", "<leader>;t", _lazyterm_cwd, { desc = "Terminal (cwd)" })
-  keymap("n", "<leader>;T", _lazyterm, { desc = "Terminal (root dir)" })
+  keymap("n", "<leader>;t", Term.term_cwd, { desc = "Terminal (cwd)" })
+  keymap("n", "<leader>;T", Term.term_root, { desc = "Terminal (root dir)" })
   keymap("n", "<leader>;x", "<cmd>LazyExtras<cr>", { desc = "LazyExtras" })
   keymap("n", "<leader>;L", LazyVim.news.changelog, { desc = "LazyVim Changelog" })
   keymap("n", "<leader>;P", function()
@@ -52,7 +48,7 @@ function M.setup()
   -- system monitor
   if vim.fn.executable("btop") == 1 then
     keymap("n", "<leader>;b", function()
-      _floatterm({ "btop" }, { esc_esc = false, ctrl_hjkl = false, border = "rounded" })
+      Term.floatterm({ "btop" }, { esc_esc = false, ctrl_hjkl = false, border = "rounded" })
     end, { desc = "!Btop" })
   end
 

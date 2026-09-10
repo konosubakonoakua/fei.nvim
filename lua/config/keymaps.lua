@@ -9,30 +9,26 @@
 --- This file is automatically loaded by lazyvim.config.init
 
 -- stylua: ignore start
-local _opts   = { silent = true }
 
 -- make all keymaps silent by default
-local keymap_set = vim.keymap.set
+local raw_keymap = vim.keymap.set
 ---@diagnostic disable-next-line: duplicate-set-field
 vim.keymap.set = function(mode, lhs, rhs, opts)
   opts = opts or {}
   opts.silent = opts.silent ~= false
-  return keymap_set(mode, lhs, rhs, opts)
+  return raw_keymap(mode, lhs, rhs, opts)
 end
 
-local status, Utils = pcall(require, "util")
-if not status then
+local ok, Term = pcall(require, "util.term")
+if not ok then
   -- BUG: loop require in CI environment
   -- Error detected while processing /home/runner/.config/nvim/init.lua:
-  LazyVim.error("Error loading util in config/keymaps")
+  LazyVim.error("Error loading util.term in config/keymaps")
   return {}
 end
 
-local _lazyterm     = Utils.custom_lazyterm
-local _lazyterm_cwd = Utils.custom_lazyterm_cwd
-
-local keymap             = vim.keymap.set
-local keydel             = vim.keymap.del
+local keymap = vim.keymap.set
+local keydel = vim.keymap.del
 
 -- endregion local functions
 
@@ -182,8 +178,8 @@ keymap("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
 -- end
 
 keymap("n", "<leader>fD", "<cmd>Dotfiles<cr>",  { desc = "Search dotfiles" })
-keymap("n", "<leader>fT", _lazyterm_cwd,  { desc = "Terminal (cwd)" })
-keymap("n", "<leader>ft", _lazyterm,      { desc = "Terminal (root dir)" })
+keymap("n", "<leader>fT", Term.term_cwd,  { desc = "Terminal (cwd)" })
+keymap("n", "<leader>ft", Term.term_root, { desc = "Terminal (root dir)" })
 -- keymap("n", "<c-/>",      _lazyterm_singleton,      { desc = "Terminal (root dir)" })
 -- -- NOTE: most terminals don't correctly map C-/, and sometimes you need to use C-_ for that key instead.
 -- keymap("n", "<c-_>",      _lazyterm_singleton,      { desc = "which_key_ignore" })
