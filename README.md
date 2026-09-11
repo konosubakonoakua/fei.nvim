@@ -124,9 +124,26 @@ ln -s ~/.config/fei.nvim/misc/vim/init.vim ~/.vimrc
 
 </details>
 
+## Configuration layout
+
+```text
+lua/config/keymaps/   all user keymaps, one concern per file
+lua/plugins/extras/   opt-in extras, enabled via :LazyExtras (lazyvim.json)
+after/ftplugin/       filetype-scoped buffer options
+misc/                 plain-Vim vimrc, clangd examples, repro config
+scripts/              installers (full bootstrap vs config-only)
+```
+
+See [docs/STRUCTURE.md](./docs/STRUCTURE.md) ([中文](./docs/STRUCTURE.zh.md))
+for the full layout and conventions, and
+[docs/USAGE.md](./docs/USAGE.md) ([中文](./docs/USAGE.zh.md)) for keymaps and
+cookbooks.
+
 ## Reference
 > [!TIP]
-> - [USAGE.md](./docs/USAGE.md)
+> - [STRUCTURE.md](./docs/STRUCTURE.md) ([中文](./docs/STRUCTURE.zh.md)) - layout & conventions
+> - [USAGE.md](./docs/USAGE.md) ([中文](./docs/USAGE.zh.md)) - keymaps & cookbook
+> - [lua-guide 中文笔记](./docs/lua-guide.zh.md)
 > - [I AM VIM MAN](https://github.com/konosubakonoakua/vimer/blob/main/README.md)
 > - [.dotfiles](https://github.com/konosubakonoakua/.dotfiles/blob/main/README.md)
 > - [programming in lua](https://www.lua.org/manual/5.4/manual.html)
