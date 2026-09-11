@@ -9,10 +9,11 @@ pcall(require, "config/usercmds")
 -- `lazyvim_<name>` with `clear = true`, so an identically named group here would
 -- silently wipe LazyVim's.
 --
--- Filetype option tweaks are intentionally not repeated here:
+-- Filetype option tweaks live elsewhere:
 --   * json/jsonc/json5 conceallevel is handled by LazyVim.
 --   * large files are handled by snacks.bigfile (it switches the buffer to
 --     `filetype = bigfile`, which stops treesitter & friends).
+--   * `.ipf` commentstring is in after/ftplugin/ipf.lua (ft set by config/filetypes.lua).
 local function augroup(name)
   return vim.api.nvim_create_augroup("user_" .. name, { clear = true })
 end
@@ -36,15 +37,5 @@ vim.api.nvim_create_autocmd("CmdWinEnter", {
     vim.keymap.set({ "n", "i" }, "<F5>", "<cr>q:", { buffer = true, silent = true })
     vim.keymap.set("n", "<C-q>", "q", { buffer = true, silent = true, noremap = true })
     vim.keymap.set("n", "q", "<cmd>q<cr>", { buffer = true, silent = true, noremap = true })
-  end,
-})
-
--- Set commentstring for igor pro.
--- `.ipf` has no filetype detection, so this cannot live in after/ftplugin.
-vim.api.nvim_create_autocmd({ "BufRead", "BufNew" }, {
-  group = augroup("ipf_commentstring"),
-  pattern = { "*.ipf" },
-  callback = function()
-    vim.bo.commentstring = "// %s"
   end,
 })
