@@ -1,7 +1,8 @@
 name: update lockfile
 on:
-  # Scheduled update (each day)
-  schedule: [{ cron: "30 01 * * *" }]
+  # Weekly update (Mondays). Replaces the old "only after a commit" gate and the
+  # direct auto-commit: updates now land as a PR so they can be reviewed.
+  schedule: [{ cron: "30 01 * * 1" }]
   workflow_dispatch:
 
 jobs:
@@ -10,45 +11,38 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Required to count the commits
-      - uses: andstor/file-existence-action@v2
-        id: check_lockfile
-        with:
-          files: "lazy-lock.json"
-      - name: Run count-new-commits
-        run: |
-          echo "NEW_COMMIT_COUNT=$(git log --oneline --since '24 hours ago' --perl-regexp --author='^((?!github-actions).*)$' | wc -l)" >> "$GITHUB_ENV"
+          fetch-depth: 0
+
       - uses: rhysd/action-setup-vim@v1
-        if: ${{ steps.check_lockfile.outputs.files_exists == 'true' && env.NEW_COMMIT_COUNT > 0 }}
         with:
-          version: v0.10.0
+          version: stable
           neovim: true
-      - name: Run lockfile-autoupdate
-        if: ${{ steps.check_lockfile.outputs.files_exists == 'true' && env.NEW_COMMIT_COUNT > 0 }}
+
+      # Point the default config dir at the checked-out copy so that
+      # `Lazy! update` writes lazy-lock.json straight into the workspace.
+      # NOTE: do NOT run scripts/install.sh here - it installs the whole
+      # toolchain (fonts, node, ...) which a lockfile update does not need.
+      - name: Use the checked-out config
+        run: |
+          mkdir -p "$HOME/.config"
+          ln -sfn "$GITHUB_WORKSPACE" "$HOME/.config/nvim"
+
+      - name: Update lazy-lock.json
         timeout-minutes: 10
         run: |
-          ./scripts/install.sh
-          export PLATFORM_GITHUB_ACTION=1
-          echo "################################"
-          pwd
-          ls -all
-          echo "################################"
-          nvim -u NONE --headless "+e .lazy.lua" "+trust" "+qa"
-          nvim -u NONE --headless "+e .nvim.lua" "+trust" "+qa"
-          echo "################################"
           nvim --headless "+Lazy! update" "+qa"
-          echo "################################"
-          pwd
-          echo "################################"
-          cp -pv "${HOME}/.config/nvim/lazy-lock.json" .
-      - uses: stefanzweifel/git-auto-commit-action@v5
-        if: ${{ steps.check_lockfile.outputs.files_exists == 'true' && env.NEW_COMMIT_COUNT > 0 }}
+          cat lazy-lock.json
+
+      - uses: peter-evans/create-pull-request@v6
         with:
-          commit_message: "chore: update lazy-lock"
-          commit_user_name: "github-actions[bot]"
-          commit_user_email: "41898282+github-actions[bot]@users.noreply.github.com"
-          commit_author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
-          file_pattern: "lazy-lock.json"
+          add-paths: lazy-lock.json
+          commit-message: "chore: update lazy-lock"
+          title: "chore: update lazy-lock"
+          body: |
+            Automated weekly `Lazy! update`.
+          branch: chore/lazy-lock-update
+          delete-branch: true
