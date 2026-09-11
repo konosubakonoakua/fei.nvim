@@ -60,8 +60,13 @@ $dependencies = @(
     "wakatime-cli", "yazi", "zig", "zoxide"
 )
 
+# scoop list prints a table; take the first column (app name) so we can do an
+# exact match. A plain `Select-String $dep` is a substring match, which makes
+# e.g. `grep` look installed when only `ugrep` is.
+$installedApps = @((scoop list) | ForEach-Object { ($_ -split '\s+')[0] } | Where-Object { $_ -and $_ -ne "Name" })
+
 foreach ($dep in $dependencies) {
-    if (scoop list | Select-String $dep) {
+    if ($installedApps -contains $dep) {
         Write-Host "$dep already installed" -ForegroundColor Green
     } else {
         try {
@@ -131,8 +136,13 @@ $fvimFunction = @"
 
 # fvim function for fei.nvim configuration
 function fvim {
+    `$prev = `$env:NVIM_APPNAME
     `$env:NVIM_APPNAME = "fei.nvim"
-    nvim @args
+    try {
+        nvim @args
+    } finally {
+        `$env:NVIM_APPNAME = `$prev
+    }
 }
 "@
 
@@ -166,7 +176,7 @@ Write-Host "  fvim                    - Start Neovim with fei.nvim configuration
 Write-Host "  nvim                    - Start Neovim with default configuration" -ForegroundColor White
 Write-Host "`nConfiguration location:" -ForegroundColor Cyan
 Write-Host "  Config dir: $feiNvimDir" -ForegroundColor Cyan
-Write-Host "  Data dir: ~/AppData/Local/fei.nvim" -ForegroundColor Cyan
+Write-Host "  Data dir: $env:LOCALAPPDATA\fei.nvim-data" -ForegroundColor Cyan
 
 # Optional: Start Neovim with fei.nvim configuration
 $startNeovim = Read-Host "`nDo you want to start Neovim with fei.nvim configuration now? (y/n)"
