@@ -8,6 +8,7 @@
 --   terminal.lua terminals & dotfile search
 --   utils.lua    <leader>; utilities
 --   lsp.lua      LSP workspace maps
+--   cmdwin.lua   command-line window maps (installed via CmdWinEnter)
 --   gui.lua      GUI (Neovide) font & transparency maps
 
 -- NOTE: <C-Fx> == <Fy> (y = x + 24);  <S-Fx> == <Fy> (y = x + 12).
