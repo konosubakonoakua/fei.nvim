@@ -3,18 +3,9 @@ if not (vim.uv or vim.loop).fs_stat(depspath) then
   vim.fn.mkdir(depspath, "p")
 end
 
-local function libsuffix()
-  return jit.os == "Windows" and ".dll" or ".so"
-end
-
 local M = {
   os = jit.os,
-  libdeps = {},
 }
-
-function M.is_windows()
-  return jit.os == "Windows"
-end
 
 function M.is_github_action()
   -- export env in bash: export PLATFORM_GITHUB_ACTION=1
