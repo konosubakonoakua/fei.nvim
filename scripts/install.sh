@@ -175,12 +175,9 @@ install_neovim() {
 
 install_neovim_config() {
 	echo "Installing Neovim configuration..." | tee -a "$LOG_FILE"
-	if [[ ! -d "$NVIM_CONFIG_DIR" ]]; then
-		git_with_proxy clone https://github.com/konosubakonoakua/fei.nvim.git "$NVIM_CONFIG_DIR"
-	else
-		(cd "$NVIM_CONFIG_DIR" && git_with_proxy pull)
-	fi
-	append_once 'alias fvim='"'"'NVIM_APPNAME="fei.nvim" nvim'"'"'' "$HOME/.bashrc"
+	local script_dir
+	script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+	"$script_dir/install-config.sh" --dir "$NVIM_CONFIG_DIR" | tee -a "$LOG_FILE"
 }
 
 install_uv() {
