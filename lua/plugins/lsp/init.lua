@@ -1,43 +1,11 @@
 return {
-  {
-    "nvim-treesitter/nvim-treesitter",
-    ---@alias lazyvim.TSFeat { enable?: boolean, disable?: string[] }
-    ---@class lazyvim.TSConfig: TSConfig
-    opts = {
-      -- LazyVim config for treesitter
-      indent = { enable = true }, ---@type lazyvim.TSFeat
-      highlight = { enable = true }, ---@type lazyvim.TSFeat
-      folds = { enable = true }, ---@type lazyvim.TSFeat
-      ensure_installed = {
-        "bash",
-        "html",
-        "c",
-        "diff",
-        "json",
-        "lua",
-        "luadoc",
-        "luap",
-        "markdown",
-        "markdown_inline",
-        "printf",
-        "python",
-        "query",
-        "regex",
-        "toml",
-        "vim",
-        "vimdoc",
-        "xml",
-        "yaml",
-      },
-    },
-  },
-  {
-    "mason-org/mason-lspconfig.nvim",
-    opts = {
-      ensure_installed = {},
-      automatic_installation = true,
-    },
-  },
+  -- NOTE: no nvim-treesitter spec here on purpose. LazyVim's default
+  -- `ensure_installed` already covers our parsers (its `opts_extend` merges
+  -- instead of replacing), and indent/highlight/folds default to enabled.
+  --
+  -- NOTE: no mason-lspconfig spec either: LazyVim computes `ensure_installed`
+  -- from the configured servers and calls `setup()` itself, and
+  -- `automatic_installation` no longer exists in mason-lspconfig v2.
   {
     "neovim/nvim-lspconfig",
     opts = {
