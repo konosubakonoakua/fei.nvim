@@ -35,6 +35,19 @@
 <details>
 <summary><b>Install on Windows</b></summary>
 
+The bundled installer sets up scoop + dependencies, clones this config into
+`%LOCALAPPDATA%\fei.nvim` and adds an `fvim` launcher, so it can coexist with an
+existing `%LOCALAPPDATA%\nvim` config:
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+iwr -useb https://raw.githubusercontent.com/konosubakonoakua/fei.nvim/main/scripts/install.ps1 | iex
+```
+
+Manual alternative (clones straight into `%LOCALAPPDATA%\nvim`, **replacing** the
+default config - don't mix this with the `fei.nvim` / `fvim` route above, the
+config/data dirs differ):
+
 ```bat
 scoop install neovim
 scoop install neovide
@@ -83,6 +96,12 @@ else
 fi
 ```
 
+Only want the Neovim config (no tools / fonts)? Use the config-only installer:
+
+```shell
+./scripts/install-config.sh
+```
+
 or just try it.
 
 ```shell
@@ -93,13 +112,14 @@ EOF
 source ~/.bashrc
 ```
 
-or just use a minimal config.
+or use the plain-Vim config - pure vimscript, no plugins, for Vim on
+resource-limited / embedded boards:
 
 ```shell
-mkdir -p ~/.config/nvim
 git clone https://github.com/konosubakonoakua/fei.nvim.git ~/.config/fei.nvim
-ln -s ~/.config/fei.nvim/misc/minimal/init.vim ~/.vimrc
-ln -s ~/.config/fei.nvim/misc/minimal/init.vim ~/.config/nvim/init.vim
+ln -s ~/.config/fei.nvim/misc/vim/init.vim ~/.vimrc
+# optional: also use it as your Neovim config
+# ln -s ~/.config/fei.nvim/misc/vim/init.vim ~/.config/nvim/init.vim
 ```
 
 </details>
