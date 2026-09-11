@@ -4,6 +4,7 @@
 local M = {
   "mfussenegger/nvim-dap",
   optional = true,
+  desc = "DAP keymaps (F4-F12), signs and virtual text",
   keys = {
     { "<F4>", "<cmd>lua require'dap'.terminate()<CR>", silent = true, desc = "Terminate" },
     { "<F5>", "<cmd>lua require'dap'.continue()<CR>", silent = true, desc = "DAP launch or continue" },

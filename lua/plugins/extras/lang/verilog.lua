@@ -11,6 +11,7 @@ if vim.fn.has("nvim-0.11.0") == 0 then
 end
 
 return {
+  desc = "Verilog: treesitter parser, verible LSP and formatter",
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)

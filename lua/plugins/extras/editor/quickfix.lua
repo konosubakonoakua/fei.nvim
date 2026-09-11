@@ -1,5 +1,6 @@
 -- TODO: adjust preview size (100k for now)
 return {
+  desc = "Quickfix upgrades: nvim-bqf preview and quicker.nvim",
   -- vim.cmd([[
   --     hi BqfPreviewBorder guifg=#3e8e2d ctermfg=71
   --     hi BqfPreviewTitle guifg=#3e8e2d ctermfg=71

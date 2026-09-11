@@ -237,4 +237,6 @@ local _gentags = {
 -- `return _gentags or _ctags or _gtags` always returned `_gentags`.
 local group = "ctags" ---@type "ctags" | "gtags" | "gentags"
 local groups = { ctags = _ctags, gtags = _gtags, gentags = _gentags }
-return groups[group] or {}
+local ret = groups[group] or {}
+ret.desc = "tag backends: ctags / gtags / gentags (cscope_maps + gutentags)"
+return ret

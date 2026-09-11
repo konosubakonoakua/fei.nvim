@@ -1,4 +1,5 @@
 return {
+  desc = "Zig: zls LSP, codelldb debugging and neotest-zig",
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)

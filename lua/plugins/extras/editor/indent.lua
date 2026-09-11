@@ -1,4 +1,5 @@
 return {
+  desc = "Guess indentation, mini.align and mini.trailspace",
   {
     'nmac427/guess-indent.nvim',
     lazy = true,
